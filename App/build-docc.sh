@@ -16,6 +16,9 @@ xcrun docc process-archive transform-for-static-hosting \
     --hosting-base-path "seller"
 
 # Fixes index file
+echo "👨🏻‍🔧 Fixing index file..."
+pwd
+ls -la
 echo '<script>window.location.href += "/documentation/alleseller"</script>' > .docs/index.html
 
 
