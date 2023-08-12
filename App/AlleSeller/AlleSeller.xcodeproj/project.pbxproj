@@ -44,6 +44,7 @@
 		64078B422A87B72D00877322 /* AlleSellerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AlleSellerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		64078B462A87B72D00877322 /* AlleSellerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlleSellerUITests.swift; sourceTree = "<group>"; };
 		64078B482A87B72D00877322 /* AlleSellerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlleSellerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		64078B552A87B7C300877322 /* Seller */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Seller; path = ../Seller; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +75,7 @@
 		64078B1F2A87B72A00877322 = {
 			isa = PBXGroup;
 			children = (
+				64078B552A87B7C300877322 /* Seller */,
 				64078B2A2A87B72B00877322 /* AlleSeller */,
 				64078B3B2A87B72D00877322 /* AlleSellerTests */,
 				64078B452A87B72D00877322 /* AlleSellerUITests */,
