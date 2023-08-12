@@ -15,6 +15,7 @@ jobs:
                   fetch-depth: 0
 
             - name: Run Build Docs
+              run: pwd && ls -la
               run: ./App/build_docs.sh
 
             - name: Setup Pages
