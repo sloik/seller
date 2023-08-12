@@ -5,7 +5,7 @@
 
 # App Scheme
 xcrun xcodebuild docbuild \
-    -project "$PWD/AlleSeller/AlleSeller.xcodeproj" \
+    -project "$PWD/App/AlleSeller/AlleSeller.xcodeproj" \
     -scheme AlleSeller \
     -destination 'generic/platform=iOS Simulator' \
     -derivedDataPath "$PWD/.derivedData/alleseller"
