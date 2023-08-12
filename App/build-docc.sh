@@ -19,7 +19,7 @@ xcrun docc process-archive transform-for-static-hosting \
 echo "👨🏻‍🔧 Fixing index file..."
 pwd
 ls -la
-echo '<script>window.location.href += "/documentation/alleseller"</script>' > .docs/index.html
+echo '<script>window.location.href += "/documentation/alleseller"</script>' > .derivedData/.docs/index.html
 
 
 
