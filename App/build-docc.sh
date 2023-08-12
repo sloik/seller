@@ -12,14 +12,14 @@ xcrun xcodebuild docbuild \
 
 xcrun docc process-archive transform-for-static-hosting \
     "$PWD/.derivedData/alleseller/Build/Products/Debug-iphonesimulator/AlleSeller.doccarchive" \
-    --output-path ".docs" \
+    --output-path "$PWD/.derivedData/alleseller/.docs" \
     --hosting-base-path "seller"
 
 # Fixes index file
 echo "👨🏻‍🔧 Fixing index file..."
 pwd
 ls -la .derivedData/alleseller
-echo '<script>window.location.href += "/documentation/alleseller"</script>' > .derivedData/alleseller/.docs/index.html
+echo '<script>window.location.href += "/documentation/alleseller"</script>' > "$PWD/.derivedData/alleseller/.docs/index.html"
 
 
 
