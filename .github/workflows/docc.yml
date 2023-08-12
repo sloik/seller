@@ -14,8 +14,8 @@ jobs:
               with:
                   fetch-depth: 0
 
-            # - name: Run Build Docs
-            #   run: pwd && ls -la
+            - name: LS working...
+              run: pwd && ls -la
 
             - name: Run Build Docs
               run: ./App/build-docc.sh
