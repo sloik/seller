@@ -18,7 +18,7 @@ jobs:
             #   run: pwd && ls -la
 
             - name: Run Build Docs
-              run: ./App/build-docs.sh
+              run: ./App/build-docc.sh
 
             - name: Setup Pages
               id: pages
