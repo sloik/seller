@@ -1,9 +1,3 @@
-//
-//  ContentView.swift
-//  AlleSeller
-//
-//  Created by Edward Maliniak on 12/08/2023.
-//
 
 import SwiftUI
 
