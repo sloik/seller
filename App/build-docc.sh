@@ -11,7 +11,7 @@ xcrun xcodebuild docbuild \
     -derivedDataPath "$PWD/.derivedData/alleseller"
 
 xcrun docc process-archive transform-for-static-hosting \
-    "$PWD/.derivedData/Build/Products/Debug-iphonesimulator/AlleSeller.doccarchive" \
+    "$PWD/.derivedData/alleseller/Build/Products/Debug-iphonesimulator/AlleSeller.doccarchive" \
     --output-path ".docs" \
     --hosting-base-path "seller"
 
