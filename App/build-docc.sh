@@ -20,7 +20,7 @@ echo "👨🏻‍🔧 Fixing index file..."
 pwd
 ls -la
 ls -la .derivedData
-echo '<script>window.location.href += "/documentation/alleseller"</script>' > .derivedData/.docs/index.html
+echo '<script>window.location.href += "/documentation/alleseller"</script>' > .derivedData/alleseller/.docs/index.html
 
 
 
