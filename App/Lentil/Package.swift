@@ -47,6 +47,7 @@ let package = Package(
             dependencies: [
                 "AliasWonderland",
                 "SecretsStore",
+                "OptionalAPI",
             ]
         ),
 
