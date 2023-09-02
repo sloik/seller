@@ -3,21 +3,18 @@ import Foundation
 /// Namespace for keys that define secrets that the app can access to.
 public enum Keys {
 
-    /// Keys related to hejto developer portal.
+    /// Keys related to Allegro App Setting developer portal.
     public enum DeveloperPortal {
-        // Client id in the developer portal
+        /// Client id in the developer portal
         case clientId
 
-        // App secret in the developer portal
-        case clientSecret
-
-        // Redirect uri in the developer portal
+        /// Redirect uri in the developer portal
         case oauthRedirectUri
 
-        // Authentication url that should be used in OAuth
+        /// Authentication url that should be used in OAuth
         case authenticationString
 
-        // Scheme used for callback from OAuth
+        /// Scheme used for callback from OAuth
         case callbackScheme
     }
 }
