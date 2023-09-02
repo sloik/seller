@@ -14,6 +14,7 @@
 		64078B3D2A87B72D00877322 /* AlleSellerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64078B3C2A87B72D00877322 /* AlleSellerTests.swift */; };
 		64078B472A87B72D00877322 /* AlleSellerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64078B462A87B72D00877322 /* AlleSellerUITests.swift */; };
 		64078B492A87B72D00877322 /* AlleSellerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64078B482A87B72D00877322 /* AlleSellerUITestsLaunchTests.swift */; };
+		64A4C5F12AA33AFF00D78A17 /* Seller in Frameworks */ = {isa = PBXBuildFile; productRef = 64A4C5F02AA33AFF00D78A17 /* Seller */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		64078B462A87B72D00877322 /* AlleSellerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlleSellerUITests.swift; sourceTree = "<group>"; };
 		64078B482A87B72D00877322 /* AlleSellerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlleSellerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		64078B552A87B7C300877322 /* Seller */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Seller; path = ../Seller; sourceTree = "<group>"; };
+		645D65812AA33D9F0087728A /* Lentil */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Lentil; path = ../Lentil; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64A4C5F12AA33AFF00D78A17 /* Seller in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,11 +78,13 @@
 		64078B1F2A87B72A00877322 = {
 			isa = PBXGroup;
 			children = (
+				645D65812AA33D9F0087728A /* Lentil */,
 				64078B552A87B7C300877322 /* Seller */,
 				64078B2A2A87B72B00877322 /* AlleSeller */,
 				64078B3B2A87B72D00877322 /* AlleSellerTests */,
 				64078B452A87B72D00877322 /* AlleSellerUITests */,
 				64078B292A87B72B00877322 /* Products */,
+				64A4C5EF2AA33AFF00D78A17 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -129,6 +134,13 @@
 			path = AlleSellerUITests;
 			sourceTree = "<group>";
 		};
+		64A4C5EF2AA33AFF00D78A17 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -145,6 +157,9 @@
 			dependencies = (
 			);
 			name = AlleSeller;
+			packageProductDependencies = (
+				64A4C5F02AA33AFF00D78A17 /* Seller */,
+			);
 			productName = AlleSeller;
 			productReference = 64078B282A87B72B00877322 /* AlleSeller.app */;
 			productType = "com.apple.product-type.application";
@@ -439,6 +454,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = lekko.techno.alleseller.AlleSeller;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -468,6 +486,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = lekko.techno.alleseller.AlleSeller;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -586,6 +607,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		64A4C5F02AA33AFF00D78A17 /* Seller */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Seller;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 64078B202A87B72A00877322 /* Project object */;
 }

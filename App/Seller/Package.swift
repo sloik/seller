@@ -6,18 +6,25 @@ import PackageDescription
 let package = Package(
     name: "Seller",
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "Seller",
-            targets: ["Seller"]),
+            type: .dynamic,
+            targets: ["Seller"]
+        ),
+    ],
+    dependencies: [
+        .package(path: "../Lentil"),
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "Seller"),
+            name: "Seller",
+            dependencies: [
+                "Lentil", // Login functionality
+            ]
+        ),
         .testTarget(
             name: "SellerTests",
-            dependencies: ["Seller"]),
+            dependencies: ["Seller"]
+        ),
     ]
 )
