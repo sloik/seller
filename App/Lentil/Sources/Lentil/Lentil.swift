@@ -22,7 +22,7 @@ public extension LentilUseCases {
 
 // MARK: - Implementation details
 
-private func takeOffLentil() {
+public func takeOffLentil() {
     Lentil = .prod
 }
 
