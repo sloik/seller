@@ -5,6 +5,11 @@ import PackageDescription
 
 let package = Package(
     name: "Lentil",
+    platforms: [
+        .iOS(.v17),
+        .macOS(.v14),
+        .tvOS(.v17),
+    ],
     products: [
         .library(
             name: "Lentil",
@@ -12,10 +17,49 @@ let package = Package(
             targets: ["Lentil"]
         ),
     ],
+    dependencies: [
+        .package(path: "../SecretsStore"),
+
+        .package(
+            url: "https://github.com/sloik/AliasWonderland.git",
+            from: "3.5.11"
+        ),
+
+        .package(
+            url: "https://github.com/sloik/OptionalAPI.git",
+            from: "5.0.3"
+        ),
+    ],
+    
     targets: [
         .target(
-            name: "Lentil"
+            name: "Lentil",
+            dependencies: [
+                "Cumin",
+                "Yuca",
+                "AliasWonderland",
+            ]
         ),
+
+        // Models, DTOs etc.
+        .target(
+            name: "Cumin",
+            dependencies: [
+                "AliasWonderland",
+                "SecretsStore",
+            ]
+        ),
+
+        // UI
+        .target(
+            name: "Yuca",
+            dependencies: [
+                "AliasWonderland",
+                "OptionalAPI",
+                "Cumin",
+            ]
+        ),
+
         .testTarget(
             name: "LentilTests",
             dependencies: ["Lentil"]
