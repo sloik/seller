@@ -7,6 +7,8 @@ import SecretsStore
 // 3rd party
 import AliasWonderland
 
+package var Cumin: CuminUseCases!
+
 package final class CuminUseCases {
 
     package private(set) var auth: CuminUseCases.Auth
@@ -22,5 +24,17 @@ package final class CuminUseCases {
 }
 
 package extension CuminUseCases {
+    static var prod: CuminUseCases {
+        .init(
+            auth: .prod,
+            secrets: ProductionSecretsStore()
+        )
+    }
 
+    static var mock: CuminUseCases {
+        .init(
+            auth: .mock,
+            secrets: MockSecureStore()
+        )
+    }
 }

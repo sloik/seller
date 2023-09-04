@@ -8,6 +8,9 @@ public enum Keys {
         /// Client id in the developer portal
         case clientId
 
+        // App secret in the developer portal
+        case clientSecret
+
         /// Redirect uri in the developer portal
         case oauthRedirectUri
 

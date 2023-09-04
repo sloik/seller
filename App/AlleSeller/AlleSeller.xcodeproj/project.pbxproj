@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		64078B2C2A87B72B00877322 /* AlleSellerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64078B2B2A87B72B00877322 /* AlleSellerApp.swift */; };
-		64078B2E2A87B72B00877322 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64078B2D2A87B72B00877322 /* ContentView.swift */; };
 		64078B302A87B72D00877322 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64078B2F2A87B72D00877322 /* Assets.xcassets */; };
 		64078B332A87B72D00877322 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64078B322A87B72D00877322 /* Preview Assets.xcassets */; };
 		64078B3D2A87B72D00877322 /* AlleSellerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64078B3C2A87B72D00877322 /* AlleSellerTests.swift */; };
 		64078B472A87B72D00877322 /* AlleSellerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64078B462A87B72D00877322 /* AlleSellerUITests.swift */; };
 		64078B492A87B72D00877322 /* AlleSellerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64078B482A87B72D00877322 /* AlleSellerUITestsLaunchTests.swift */; };
-		64A4C5F12AA33AFF00D78A17 /* Seller in Frameworks */ = {isa = PBXBuildFile; productRef = 64A4C5F02AA33AFF00D78A17 /* Seller */; };
+		647505A92AA62C0600946955 /* Seller in Frameworks */ = {isa = PBXBuildFile; productRef = 647505A82AA62C0600946955 /* Seller */; };
+		647505AA2AA62C0600946955 /* Seller in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 647505A82AA62C0600946955 /* Seller */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,10 +34,23 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		647505AB2AA62C0600946955 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				647505AA2AA62C0600946955 /* Seller in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		64078B282A87B72B00877322 /* AlleSeller.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlleSeller.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64078B2B2A87B72B00877322 /* AlleSellerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlleSellerApp.swift; sourceTree = "<group>"; };
-		64078B2D2A87B72B00877322 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		64078B2F2A87B72D00877322 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		64078B322A87B72D00877322 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		64078B382A87B72D00877322 /* AlleSellerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AlleSellerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -47,6 +60,7 @@
 		64078B482A87B72D00877322 /* AlleSellerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlleSellerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		64078B552A87B7C300877322 /* Seller */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Seller; path = ../Seller; sourceTree = "<group>"; };
 		645D65812AA33D9F0087728A /* Lentil */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Lentil; path = ../Lentil; sourceTree = "<group>"; };
+		6469863C2AA659F6008D8916 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		646EA1A32AA34F72008745B2 /* SecretsStore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SecretsStore; path = ../SecretsStore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -55,7 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				64A4C5F12AA33AFF00D78A17 /* Seller in Frameworks */,
+				647505A92AA62C0600946955 /* Seller in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,8 +117,8 @@
 		64078B2A2A87B72B00877322 /* AlleSeller */ = {
 			isa = PBXGroup;
 			children = (
+				6469863C2AA659F6008D8916 /* Info.plist */,
 				64078B2B2A87B72B00877322 /* AlleSellerApp.swift */,
-				64078B2D2A87B72B00877322 /* ContentView.swift */,
 				64078B2F2A87B72D00877322 /* Assets.xcassets */,
 				64078B312A87B72D00877322 /* Preview Content */,
 			);
@@ -153,6 +167,7 @@
 				64078B242A87B72A00877322 /* Sources */,
 				64078B252A87B72A00877322 /* Frameworks */,
 				64078B262A87B72A00877322 /* Resources */,
+				647505AB2AA62C0600946955 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -160,7 +175,7 @@
 			);
 			name = AlleSeller;
 			packageProductDependencies = (
-				64A4C5F02AA33AFF00D78A17 /* Seller */,
+				647505A82AA62C0600946955 /* Seller */,
 			);
 			productName = AlleSeller;
 			productReference = 64078B282A87B72B00877322 /* AlleSeller.app */;
@@ -278,7 +293,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				64078B2E2A87B72B00877322 /* ContentView.swift in Sources */,
 				64078B2C2A87B72B00877322 /* AlleSellerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -447,6 +461,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"AlleSeller/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AlleSeller/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -479,6 +494,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"AlleSeller/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AlleSeller/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -615,7 +631,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		64A4C5F02AA33AFF00D78A17 /* Seller */ = {
+		647505A82AA62C0600946955 /* Seller */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Seller;
 		};

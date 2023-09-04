@@ -18,6 +18,8 @@ package struct AuthenticationView: View {
 
     @State private var navPath = NavigationPath()
 
+    package init() {}
+
     package var body: some View {
 
         NavigationStack(path: $navPath) {
@@ -61,7 +63,7 @@ package struct AuthenticationView: View {
             .navigationDestination(for: String.self) { _ in
                // NextView()
             }
-            .navigationTitle("Login to hejto.pl")
+            .navigationTitle("Login...")
         }
     }
 }

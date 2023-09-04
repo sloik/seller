@@ -8,7 +8,11 @@ import Cumin
 // 3rd party
 import AliasWonderland
 
-var Yuca: YucaUseCases!
+package var Yuca: YucaUseCases!
+
+package func takeOffYuca(cumin: CuminUseCases) {
+    Yuca = YucaUseCases(cumin: cumin)
+}
 
 package struct YucaUseCases {
 
@@ -18,5 +22,15 @@ package struct YucaUseCases {
         cumin: CuminUseCases
     ) {
         self.cumin = cumin
+    }
+}
+
+package extension YucaUseCases {
+    static var prod: YucaUseCases {
+        .init(cumin: .prod)
+    }
+
+    static var mock: YucaUseCases {
+        .prod
     }
 }
