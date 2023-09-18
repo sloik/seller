@@ -6,36 +6,43 @@ import Foundation
 // 3rd party
 import AliasWonderland
 import OptionalAPI
+import SweetURL
 
-//{
-//    "token_type": "Bearer",
-//    "expires_in": 86400,
-//    "access_token": "{access_token}"
-//}
+
 public struct Token: Codable, Equatable, Hashable {
 
     public enum TokenType: String, Codable {
-        case bearer = "Bearer"
+        case bearer = "bearer"
     }
 
-    public let tokenType: TokenType
-    public let expiresIn: Int
     public let accessToken: String
+    public let tokenType: TokenType
+    public let refreshToken: String
+    public let expiresIn: Int
+    public let scope: String
+    public let allegroApi: Bool
+    public let iss: String
+    public let jti: String
 
     enum CodingKeys: String, CodingKey {
         case tokenType = "token_type"
         case expiresIn = "expires_in"
         case accessToken = "access_token"
+        case refreshToken = "refresh_token"
+        case scope = "scope"
+        case allegroApi = "allegro_api"
+        case iss = "iss"
+        case jti = "jti"
     }
 }
 
 extension Token {
     static var mock: Self {
-        .init(tokenType: .bearer, expiresIn: 3600, accessToken: "fake-access-token")
+        .init(accessToken: "fake-access-token", tokenType: .bearer, refreshToken: "fake-refresh-token", expiresIn: 3600, scope: "fake scope", allegroApi: true, iss: "https://allegro.pl", jti: "0ebbd602-d343-42b8-a514-f2cb9a2b8956")
     }
 }
 
-struct API {
+final class API {
     var _getTokenCode: AsyncThrowsClosure<String,Token>
 
     init(
@@ -56,6 +63,7 @@ extension API {
     enum E: Error {
         case notHttpResponse
         case expectedHttp200(code: Int)
+        case unableToCreateRequest
     }
 }
 
@@ -84,41 +92,39 @@ extension API {
 
         static func getToken(code: String) async throws -> Token {
 
-            struct AuthRequestBody: Codable {
-
-                enum GrantType: String, Codable {
-                    case authorizationCode = "authorization_code"
-                    case refreshToken = "refresh_token"
-                }
-
-                let clientId: String
-                let clientSecret: String
-                let grantType: GrantType
-                let redirectUri: String
-                let code: String
-
-                private enum CodingKeys: String, CodingKey {
-                    case clientId = "client_id"
-                    case clientSecret = "client_secret"
-                    case grantType = "grant_type"
-                    case redirectUri = "redirect_uri"
-                    case code
-                }
-            }
-
             let authURL = URL(string: "https://allegro.pl/auth/oauth/token")!
 
-            var request = URLRequest(url: authURL)
-            request.httpMethod = "POST"
+            var components = URLComponents(url: authURL, resolvingAgainstBaseURL: true)
 
-            let body = AuthRequestBody(
-                clientId: Cumin.secrets.value(for: .clientId),
-                clientSecret: Cumin.secrets.value(for: .clientSecret),
-                grantType: .authorizationCode,
-                redirectUri: Cumin.secrets.value(for: .oauthRedirectUri),
-                code: code
-            )
-            request.httpBody = try JSONEncoder().encode(body)
+            guard
+                let redirectURI = Cumin.secrets.value(for: .oauthRedirectUri).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            else {
+                throw E.unableToCreateRequest
+            }
+
+            components?.queryItems = [
+                .init(name: "grant_type", value: "authorization_code"),
+                .init(name: "code", value: code),
+                .init(
+                    name: "redirect_uri",
+                    value: redirectURI
+                ),
+            ]
+
+            guard
+                let tokenURL = components?.url,
+                let encodedCredentials = "\(Cumin.secrets.value(for: .clientId)):\(Cumin.secrets.value(for: .clientSecret))" .data(using: .utf8)?
+                    .base64EncodedString()
+            else {
+                throw E.unableToCreateRequest
+            }
+
+            let request = tokenURL
+                .asRequest(method: .get)
+                .set(
+                    header: .authorization,
+                    value: "Basic \(encodedCredentials)"
+                )
 
             let (data, response) = try await URLSession.shared.data(for: request)
 

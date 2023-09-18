@@ -70,13 +70,15 @@ extension CuminUseCases.Auth {
                 .first(where: { $0.name == "code" })?
                 .value
             // Get the token from API
-                .tryAsyncMap { (authCode: String) -> String? in
+                .tryAsyncMap { (authCode: String) -> Token? in
                     // Make an API call to get the token
-                        .none
+                    try await Cumin.api.getToken(code: authCode)
+
                 }
-                .whenSome {
+                .whenSome { token in
                     // TODO:
                     // Store the token somewhere
+                    print(token as Any)
                 }
         }
     }

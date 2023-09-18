@@ -13,13 +13,16 @@ package final class CuminUseCases {
 
     package private(set) var auth: CuminUseCases.Auth
     package private(set) var secrets: SecretsStoreType
+    private(set) var api: API
 
-    package init(
+    init(
         auth: CuminUseCases.Auth,
-        secrets: SecretsStoreType
+        secrets: SecretsStoreType,
+        api: API
     ) {
         self.auth = auth
         self.secrets = secrets
+        self.api = api
     }
 }
 
@@ -27,14 +30,16 @@ package extension CuminUseCases {
     static var prod: CuminUseCases {
         .init(
             auth: .prod,
-            secrets: ProductionSecretsStore()
+            secrets: ProductionSecretsStore(),
+            api: .prod
         )
     }
 
     static var mock: CuminUseCases {
         .init(
             auth: .mock,
-            secrets: MockSecureStore()
+            secrets: MockSecureStore(),
+            api: .mock
         )
     }
 }
