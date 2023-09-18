@@ -3,10 +3,19 @@
     {
       "identity" : "aliaswonderland",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/sloik/AliasWonderland",
+      "location" : "https://github.com/sloik/AliasWonderland.git",
       "state" : {
         "revision" : "a98ad1e32da510a3bb0fd0e80a1c29430aedcd6b",
         "version" : "3.5.11"
+      }
+    },
+    {
+      "identity" : "funckeypath",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sloik/FuncKeyPath.git",
+      "state" : {
+        "revision" : "e4e6fe23f132a8859df7e6579fb0f59b262a13e8",
+        "version" : "1.0.0"
       }
     },
     {
@@ -16,6 +25,24 @@
       "state" : {
         "revision" : "ad56eb50244cb8ecd9c851e1d6b3d770bef26923",
         "version" : "5.0.3"
+      }
+    },
+    {
+      "identity" : "sweetbool",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sloik/SweetBool.git",
+      "state" : {
+        "revision" : "4930157f54a37d555699455f8ece46c6ad8f6eb5",
+        "version" : "1.1.2"
+      }
+    },
+    {
+      "identity" : "sweeturl",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sloik/SweetURL.git",
+      "state" : {
+        "revision" : "d9c9bfd014c196df1469cfb02650c697c7f607f4",
+        "version" : "0.0.6"
       }
     }
   ],

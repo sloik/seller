@@ -29,6 +29,17 @@ let package = Package(
             url: "https://github.com/sloik/OptionalAPI.git",
             from: "5.0.3"
         ),
+
+        .package(
+            url: "https://github.com/sloik/SweetBool.git",
+            from: "1.1.2"
+        ),
+
+        .package(
+            url: "https://github.com/sloik/SweetURL.git",
+            from: "0.0.6"
+        ),
+
     ],
     
     targets: [
@@ -48,6 +59,8 @@ let package = Package(
                 "AliasWonderland",
                 "SecretsStore",
                 "OptionalAPI",
+                "SweetBool",
+                "SweetURL"
             ]
         ),
 
