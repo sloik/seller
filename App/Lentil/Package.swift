@@ -60,7 +60,7 @@ let package = Package(
                 "SecretsStore",
                 "OptionalAPI",
                 "SweetBool",
-                "SweetURL"
+                "SweetURL",
             ]
         ),
 
@@ -76,7 +76,9 @@ let package = Package(
 
         .testTarget(
             name: "LentilTests",
-            dependencies: ["Lentil"]
+            dependencies: [
+                "Lentil",
+            ]
         ),
     ]
 )

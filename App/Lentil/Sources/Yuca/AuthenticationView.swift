@@ -9,6 +9,7 @@ import WebKit
 // 3rd party
 import AliasWonderland
 import OptionalAPI
+import SweetBool
 
 package struct AuthenticationView: View {
 
