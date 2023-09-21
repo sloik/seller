@@ -1,5 +1,6 @@
 // system
 import Foundation
+import OSLog
 
 // local
 
@@ -42,6 +43,8 @@ extension Token {
     }
 }
 
+private let logger = Logger(subsystem: "API", category: "API")
+
 final class API {
     var _getTokenCode: AsyncThrowsClosure<String,Token>
 
@@ -55,7 +58,14 @@ final class API {
 extension API {
 
     func getToken(code: String) async throws -> Token {
-        try await _getTokenCode(code)
+        logger.info("Getting token from code: \(code, privacy: .private)")
+
+        do {
+            return try await _getTokenCode(code)
+        } catch {
+            logger.error("Failed to get token from code: \(code, privacy: .private) with error: \(error.localizedDescription)")
+            throw error
+        }
     }
 }
 

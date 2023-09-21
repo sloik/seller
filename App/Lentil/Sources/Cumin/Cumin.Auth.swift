@@ -1,11 +1,14 @@
 // system
 import Foundation
+import OSLog
 
 // local
 
 // 3rd party
 import AliasWonderland
 import OptionalAPI
+
+private let logger = Logger(subsystem: "CuminUseCases", category: "Auth")
 
 package extension CuminUseCases {
 
@@ -31,7 +34,14 @@ package extension CuminUseCases.Auth {
     }
 
     func parseResultAndGetUserToken(from url: URL) async throws {
-        try await _parseResultAndGetUserToken(url)
+        logger.info("Parsing result and getting user token from URL: \(url, privacy: .private)")
+
+        do {
+            try await _parseResultAndGetUserToken(url)
+        } catch {
+            logger.error("Failed to parse result and get user token from URL: \(url, privacy: .private) with error: \(error.localizedDescription)")
+            throw error
+        }
     }
 }
 
