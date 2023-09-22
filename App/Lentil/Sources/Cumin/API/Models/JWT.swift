@@ -12,6 +12,7 @@ import OptionalAPI
 import SweetURL
 import Zippy
 
+/// Json Web Token
 struct JWT {
     let header: Header
     let payload: Payload
@@ -20,6 +21,7 @@ struct JWT {
 
 extension JWT {
 
+    /// Creates `JWT` from raw strings.
     init?(
         header: String,
         payload: String,
