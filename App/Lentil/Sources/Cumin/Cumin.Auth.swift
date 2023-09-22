@@ -93,6 +93,7 @@ extension CuminUseCases.Auth {
                     try token?.accessToken.asJWT?.header
                     print(token as Any)
                 }
+
         }
     }
 }
