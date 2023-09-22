@@ -20,6 +20,8 @@ let package = Package(
     dependencies: [
         .package(path: "../SecretsStore"),
 
+        .package(path: "../Utilities"),
+
         .package(
             url: "https://github.com/sloik/AliasWonderland.git",
             from: "3.5.11"
@@ -37,6 +39,11 @@ let package = Package(
 
         .package(
             url: "https://github.com/sloik/SweetURL.git",
+            from: "0.0.6"
+        ),
+
+        .package(
+            url: "https://github.com/sloik/Zippy.git",
             from: "0.0.6"
         ),
 
@@ -61,6 +68,8 @@ let package = Package(
                 "OptionalAPI",
                 "SweetBool",
                 "SweetURL",
+                "Utilities",
+                "Zippy",
             ]
         ),
 

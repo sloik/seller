@@ -84,10 +84,13 @@ extension CuminUseCases.Auth {
                     // Make an API call to get the token
                     try await Cumin.api.getToken(code: authCode)
 
+
                 }
                 .whenSome { token in
                     // TODO:
                     // Store the token somewhere
+
+                    try? token?.accessToken.asJWT?.header
                     print(token as Any)
                 }
         }

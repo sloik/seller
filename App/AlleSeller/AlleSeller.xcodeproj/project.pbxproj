@@ -62,6 +62,7 @@
 		645D65812AA33D9F0087728A /* Lentil */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Lentil; path = ../Lentil; sourceTree = "<group>"; };
 		6469863C2AA659F6008D8916 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		646EA1A32AA34F72008745B2 /* SecretsStore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SecretsStore; path = ../SecretsStore; sourceTree = "<group>"; };
+		647FB0202ABE1CB300BF3053 /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Utilities; path = ../Utilities; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,14 +94,15 @@
 		64078B1F2A87B72A00877322 = {
 			isa = PBXGroup;
 			children = (
-				646EA1A32AA34F72008745B2 /* SecretsStore */,
 				645D65812AA33D9F0087728A /* Lentil */,
+				646EA1A32AA34F72008745B2 /* SecretsStore */,
 				64078B552A87B7C300877322 /* Seller */,
+				647FB0202ABE1CB300BF3053 /* Utilities */,
 				64078B2A2A87B72B00877322 /* AlleSeller */,
 				64078B3B2A87B72D00877322 /* AlleSellerTests */,
 				64078B452A87B72D00877322 /* AlleSellerUITests */,
-				64078B292A87B72B00877322 /* Products */,
 				64A4C5EF2AA33AFF00D78A17 /* Frameworks */,
+				64078B292A87B72B00877322 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
