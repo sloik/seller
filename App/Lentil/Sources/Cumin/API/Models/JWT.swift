@@ -28,7 +28,11 @@ extension JWT {
         signature: String
     ) {
         guard
-            let (header, payload, signature) = zip( Header(string: header), Payload(string: payload), Signature() )
+            let (header, payload, signature) = zip(
+                Header(string: header),
+                Payload(string: payload),
+                Signature(signature: signature)
+            )
         else {
             return nil
         }
@@ -76,6 +80,7 @@ extension JWT {
 extension JWT {
     struct Signature {
 
+        let signature: String
     }
 }
 
