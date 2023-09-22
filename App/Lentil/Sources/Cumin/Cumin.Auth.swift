@@ -86,11 +86,11 @@ extension CuminUseCases.Auth {
 
 
                 }
-                .whenSome { token in
+                .tryWhenSome { token in
                     // TODO:
                     // Store the token somewhere
 
-                    try? token?.accessToken.asJWT?.header
+                    try token?.accessToken.asJWT?.header
                     print(token as Any)
                 }
         }
