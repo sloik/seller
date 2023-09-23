@@ -20,6 +20,7 @@ package struct AuthenticationView: View {
     @State var showedError: Error? = nil
 
     @State private var navPath = NavigationPath()
+    @State private var isMainViewPresented = false
 
     package init() {}
 
@@ -41,17 +42,19 @@ package struct AuthenticationView: View {
                         Task {
                             do {
                                 try await Yuca.cumin.auth.parseResultAndGetUserToken(from: url)
+                                self.isMainViewPresented = true
                             }
                             catch {
                                 self.showedError = error
                                 self.showError = true
+                                self.isMainViewPresented = false
                             }
-                            
                         }
                     }
                     else {
                         self.showedError = E.missingURL
                         self.showError = true
+                        self.isMainViewPresented = false
                     }
                 }
             }
@@ -62,8 +65,8 @@ package struct AuthenticationView: View {
                     dismissButton: .default(Text("OK"))
                 )
             }
-            .navigationDestination(for: String.self) { _ in
-               // NextView()
+            .navigationDestination(isPresented: $isMainViewPresented) {
+                MainView()
             }
             .navigationTitle("Login...")
         }
