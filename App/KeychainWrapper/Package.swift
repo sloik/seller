@@ -5,6 +5,11 @@ import PackageDescription
 
 let package = Package(
     name: "KeychainWrapper",
+    platforms: [
+        .iOS(.v17),
+        .macOS(.v14),
+        .tvOS(.v17),
+    ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
@@ -13,11 +18,21 @@ let package = Package(
             targets: ["KeychainWrapper"]
         ),
     ],
+    dependencies: [
+        .package(
+            url: "https://github.com/sloik/OptionalAPI.git",
+            from: "5.1.0"
+        ),
+    ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "KeychainWrapper"),
+            name: "KeychainWrapper",
+            dependencies: [
+                "OptionalAPI",
+            ]
+        ),
         .testTarget(
             name: "KeychainWrapperTests",
             dependencies: ["KeychainWrapper"]),
