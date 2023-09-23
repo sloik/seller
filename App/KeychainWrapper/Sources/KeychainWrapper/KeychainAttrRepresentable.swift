@@ -1,7 +1,7 @@
 
 import Foundation
 
-protocol KeychainAttrRepresentable {
+public protocol KeychainAttrRepresentable {
     var keychainAttrValue: CFString { get }
 }
 

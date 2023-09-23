@@ -48,7 +48,7 @@ public final class KeychainWrapper {
 }
 
 // MARK: - Setters
-extension KeychainWrapper {
+public extension KeychainWrapper {
 
     func set(
         _ value: Data,
@@ -100,7 +100,7 @@ extension KeychainWrapper {
 }
 
 // MARK: - Getters
-extension KeychainWrapper {
+public extension KeychainWrapper {
 
     /// Get the keys of all keychain entries matching 
     /// the current ServiceName and AccessGroup if one is set.
