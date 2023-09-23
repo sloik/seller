@@ -63,6 +63,7 @@
 		6469863C2AA659F6008D8916 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		646EA1A32AA34F72008745B2 /* SecretsStore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SecretsStore; path = ../SecretsStore; sourceTree = "<group>"; };
 		647FB0202ABE1CB300BF3053 /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Utilities; path = ../Utilities; sourceTree = "<group>"; };
+		648B0B5C2ABF58CD00FD8C52 /* KeychainWrapper */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = KeychainWrapper; path = ../KeychainWrapper; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +95,7 @@
 		64078B1F2A87B72A00877322 = {
 			isa = PBXGroup;
 			children = (
+				648B0B5C2ABF58CD00FD8C52 /* KeychainWrapper */,
 				645D65812AA33D9F0087728A /* Lentil */,
 				646EA1A32AA34F72008745B2 /* SecretsStore */,
 				64078B552A87B7C300877322 /* Seller */,
