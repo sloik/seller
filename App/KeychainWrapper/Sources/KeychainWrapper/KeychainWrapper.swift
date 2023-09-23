@@ -104,7 +104,7 @@ private extension KeychainWrapper {
             query[SecAttrSynchronizable] = kCFBooleanTrue
         }
 
-        // Uses binary representation of the key as the `kSecAttrGeneric` and `kSecAttrAccount`
+        // Uses binary representation of the key for the `kSecAttrGeneric` and `kSecAttrAccount`
         // In theory this should make it a bit harder to find the keychain entry for a given key.
         if let encodedIdentifier = key.data(using: .utf8) {
             query[SecAttrGeneric] = encodedIdentifier
