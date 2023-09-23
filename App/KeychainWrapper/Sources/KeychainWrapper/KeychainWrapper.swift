@@ -1,5 +1,12 @@
+
+// System
 import Security
 import Foundation
+
+// Local
+
+// 3rd Party
+import OptionalAPI
 
 //
 // Maps constants from Security.framework to Swift-friendly names.
@@ -41,6 +48,56 @@ public final class KeychainWrapper {
 }
 
 // MARK: - Setters
+extension KeychainWrapper {
+
+    func set(
+        _ value: Data,
+        key: String,
+        accessibility: KeychainAttrRepresentable? = nil,
+        synchronizable: Bool = false
+    ) -> Bool {
+        var query = queryDictionary(for: key, accessibility: accessibility, synchronizable: synchronizable)
+
+        // passes value to query
+        query[SecValueData] = value
+
+        // Item must have accessibility set so default is used when none is specified.
+        query[SecAttrAccessible] = accessibility
+                                    .or( KeychainWrapper.ItemAccessibility.whenUnlocked )
+                                    .keychainAttrValue
+
+        // Add item to keychain.
+        let status = SecItemAdd(query as CFDictionary, nil)
+
+        // Item might be a new entry or a duplicate.
+        // If it's a new entry then just return `true` signalling that the item was added.
+        // If the value already exists in the keychain update existing value.
+        // Otherwise return `false`.
+        if status == errSecSuccess {
+            return true
+        } else if status == errSecDuplicateItem {
+            return update(value, key: key, accessibility: accessibility, synchronizable: synchronizable)
+        } else {
+            return false
+        }
+    }
+
+    private func update(
+        _ value: Data,
+        key: String,
+        accessibility: KeychainAttrRepresentable? = nil,
+        synchronizable: Bool = false
+    ) -> Bool {
+        let query = queryDictionary(for: key, accessibility: accessibility, synchronizable: synchronizable)
+
+        let updateDictionary = [SecValueData: value]
+
+        // Update existing item in the keychain.
+        let status = SecItemUpdate(query as CFDictionary, updateDictionary as CFDictionary)
+
+        return status == errSecSuccess
+    }
+}
 
 // MARK: - Getters
 extension KeychainWrapper {
@@ -72,6 +129,26 @@ extension KeychainWrapper {
             }
 
         return Set(keys)
+    }
+
+    func data(
+        for key: String,
+        accessibility: KeychainAttrRepresentable? = nil,
+        synchronizable: Bool = false
+    ) -> Data? {
+        var query = queryDictionary(for: key, accessibility: accessibility, synchronizable: synchronizable)
+
+        // We want the data
+        query[SecReturnData] = kCFBooleanTrue
+
+        // Only one item
+        query[SecMatchLimit] = kSecMatchLimitOne
+
+        // Run query
+        var result: AnyObject?
+        let status = SecItemCopyMatching(query as CFDictionary, &result)
+
+        return status == errSecSuccess ? result as? Data : nil
     }
 }
 
