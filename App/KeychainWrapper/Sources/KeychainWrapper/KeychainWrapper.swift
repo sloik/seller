@@ -2,6 +2,7 @@
 // System
 import Security
 import Foundation
+import OSLog
 
 // Local
 
@@ -24,10 +25,12 @@ private let SecAttrAccessGroup: String! = kSecAttrAccessGroup as String
 private let SecReturnAttributes: String = kSecReturnAttributes as String
 private let SecAttrSynchronizable: String = kSecAttrSynchronizable as String
 
+private let logger = Logger(subsystem: "KeychainWrapper", category: "KeychainWrapper")
+
 public final class KeychainWrapper {
 
-    private static let defaultServiceName: String = {
-        return Bundle.main.bundleIdentifier ?? "AlleSellerKeychainWrapper"
+    public static let defaultServiceName: String = {
+        return Bundle.main.bundleIdentifier ?? "AlleSellerKeychainWrapperServiceName"
     }()
 
     /// ServiceName is used for the kSecAttrService property to uniquely
@@ -41,7 +44,10 @@ public final class KeychainWrapper {
     /// applications.
     private (set) public var accessGroup: String?
 
-    public init(serviceName: String, accessGroup: String? = nil) {
+    public init(
+        serviceName: String = KeychainWrapper.defaultServiceName,
+        accessGroup: String? = nil
+    ) {
         self.serviceName = serviceName
         self.accessGroup = accessGroup
     }
@@ -50,6 +56,7 @@ public final class KeychainWrapper {
 // MARK: - Setters
 public extension KeychainWrapper {
 
+    @discardableResult
     func set(
         _ value: Data,
         key: String,
@@ -78,6 +85,8 @@ public extension KeychainWrapper {
         } else if status == errSecDuplicateItem {
             return update(value, key: key, accessibility: accessibility, synchronizable: synchronizable)
         } else {
+            let errorMessage = errorMessage(statusCode: status)
+            logger.debug("Status code: <\(status)> message: <\(errorMessage)> for key: <\(key)>")
             return false
         }
     }
@@ -189,5 +198,12 @@ private extension KeychainWrapper {
         }
 
         return query
+    }
+
+    /// Returns a string explaining the meaning of a security result code.
+    func errorMessage(statusCode: OSStatus) -> String {
+        SecCopyErrorMessageString(statusCode, nil)
+            .cast( String.self )
+            .or( "Unknown Error" )
     }
 }
