@@ -15,6 +15,7 @@
 		648B3F6E2AC3574600941A25 /* KeychainWrapperDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648B3F6D2AC3574600941A25 /* KeychainWrapperDemoUITests.swift */; };
 		648B3F702AC3574600941A25 /* KeychainWrapperDemoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648B3F6F2AC3574600941A25 /* KeychainWrapperDemoUITestsLaunchTests.swift */; };
 		648B3F7E2AC357B200941A25 /* KeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 648B3F7D2AC357B200941A25 /* KeychainWrapper */; };
+		648B3F7F2AC35D9C00941A25 /* KeychainWrapper in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 648B3F7D2AC357B200941A25 /* KeychainWrapper */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +34,20 @@
 			remoteInfo = KeychainWrapperDemo;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		648B3F802AC35D9C00941A25 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				648B3F7F2AC35D9C00941A25 /* KeychainWrapper in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		648B3F4F2AC3574500941A25 /* KeychainWrapperDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeychainWrapperDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -139,6 +154,7 @@
 				648B3F4B2AC3574500941A25 /* Sources */,
 				648B3F4C2AC3574500941A25 /* Frameworks */,
 				648B3F4D2AC3574500941A25 /* Resources */,
+				648B3F802AC35D9C00941A25 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -430,6 +446,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"KeychainWrapperDemo/Preview Content\"";
+				DEVELOPMENT_TEAM = Q79FTA4VEX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -458,6 +475,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"KeychainWrapperDemo/Preview Content\"";
+				DEVELOPMENT_TEAM = Q79FTA4VEX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
