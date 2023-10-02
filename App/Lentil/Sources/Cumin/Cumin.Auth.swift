@@ -69,7 +69,10 @@ extension CuminUseCases.Auth {
     enum Prod {
 
         static func currentToken() -> String? {
-            .none
+            try? Cumin.secureStore
+                .data(.token)
+                .decode( Token.self )
+                .map( \.accessToken )
         }
 
         static func parseResultAndGetUserToken(_ url: URL) async throws {
