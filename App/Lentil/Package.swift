@@ -22,14 +22,16 @@ let package = Package(
 
         .package(path: "../Utilities"),
 
+        .package(path: "../KeychainWrapper"),
+
         .package(
             url: "https://github.com/sloik/AliasWonderland.git",
-            from: "3.5.11"
+            from: "3.6.0"
         ),
 
         .package(
             url: "https://github.com/sloik/OptionalAPI.git",
-            from: "5.1.0"
+            from: "5.1.1"
         ),
 
         .package(
@@ -70,6 +72,7 @@ let package = Package(
                 "SweetURL",
                 "Utilities",
                 "Zippy",
+                "KeychainWrapper",
             ]
         ),
 
