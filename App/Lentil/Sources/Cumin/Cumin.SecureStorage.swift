@@ -20,12 +20,19 @@ package extension CuminUseCases {
             case token, refreshToken
         }
 
+        package enum E: Error {
+            case unableToSaveData(key: Key)
+        }
+
         var _saveDataFor: ThrowsConsumer2I<Data,Key>
+        var _dataForKey: ThrowsClosure<Key, Data?>
 
         init(
-            saveDataFor: @escaping Consumer2I<Data,Key>
+            saveDataFor: @escaping ThrowsConsumer2I<Data,Key>,
+            dataForKey: @escaping ThrowsClosure<Key, Data?>
         ) {
             self._saveDataFor = saveDataFor
+            self._dataForKey = dataForKey
         }
     }
 }
@@ -40,7 +47,10 @@ package extension CuminUseCases.SecureStore {
         try _saveDataFor(data, key)
     }
 
-
+    func data(_ key: Key) throws -> Data? {
+        logger.info("Getting value for key: [\(key.rawValue)]")
+        return try _dataForKey(key)
+    }
 }
 
 // MARK: - Factory
@@ -49,7 +59,8 @@ package extension CuminUseCases.SecureStore {
 
     static var prod: Self {
         .init(
-            saveDataFor: CuminUseCases.SecureStore.Prod.save(data:for:)
+            saveDataFor: CuminUseCases.SecureStore.Prod.save(data:for:), 
+            dataForKey: CuminUseCases.SecureStore.Prod.data(key:)
         )
     }
 
@@ -64,10 +75,19 @@ package extension CuminUseCases.SecureStore {
 extension CuminUseCases.SecureStore {
 
     enum Prod {
-        static func save(data: Data, for key: Key) {
+        static func save(data: Data, for key: Key) throws {
+            let wrapper = KeychainWrapper()
+            guard
+                wrapper.set(data, key: key.rawValue)
+            else {
+                throw E.unableToSaveData(key: key)
+            }
+        }
+
+        static func data(key: Key) throws -> Data? {
             let wrapper = KeychainWrapper()
 
-            wrapper["key"] = data
+            return wrapper[key.rawValue]
         }
     }
 }

@@ -69,7 +69,10 @@ extension CuminUseCases.Auth {
     enum Prod {
 
         static func currentToken() -> String? {
-            .none
+            try? Cumin.secureStore
+                .data(.token)
+                .decode( Token.self )
+                .map( \.accessToken )
         }
 
         static func parseResultAndGetUserToken(_ url: URL) async throws {
@@ -79,21 +82,14 @@ extension CuminUseCases.Auth {
                 .queryItems?
                 .first(where: { $0.name == "code" })?
                 .value
-            // Get the token from API
-                .tryAsyncMap { (authCode: String) -> Token? in
-                    // Make an API call to get the token
-                    try await Cumin.api.getToken(code: authCode)
-
-
+                .tryAsyncMap( Cumin.api.getToken(code:) )
+                .tryAsyncFlatMap { (token: Token?) in
+                    try token
+                        .encode()
+                        .tryWhenSome { tokenData in
+                            try Cumin.secureStore.save(data: tokenData, for: .token)
+                        }
                 }
-                .tryWhenSome { token in
-                    // TODO:
-                    // Store the token somewhere
-
-                    try token?.accessToken.asJWT?.header
-                    print(token as Any)
-                }
-
         }
     }
 }
