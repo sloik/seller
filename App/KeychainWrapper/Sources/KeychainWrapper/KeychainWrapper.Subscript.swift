@@ -10,6 +10,8 @@ public extension KeychainWrapper {
             if let newValue {
                 self.set(newValue, key: key)
             }
+            // TODO: - Implement setting none
+            // https://github.com/sloik/seller/issues/22
         }
     }
 }
