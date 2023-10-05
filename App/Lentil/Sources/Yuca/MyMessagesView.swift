@@ -1,6 +1,50 @@
 // system
 import SwiftUI
 
+// Internal
+
+// 3rd
+import OptionalAPI
+
+
+protocol SizingFrameType {
+
+    static var instance: SizingFrameType { get }
+
+    var size: CGSize { get }
+}
+
+#if os(macOS)
+import AppKit
+public typealias PlatformScreen = NSScreen
+
+extension NSScreen: SizingFrameType {
+
+    static var instance: SizingFrameType {
+        NSScreen.main!
+    }
+
+    public var size: CGSize {
+        frame.size
+    }
+}
+
+#else
+import UIKit
+public typealias PlatformScreen = UIScreen
+
+extension UIScreen: SizingFrameType {
+    static var instance: SizingFrameType {
+        UIScreen.main
+    }
+    
+    public var size: CGSize {
+        bounds.size
+    }
+}
+
+#endif
+
 struct MessagesView: View {
     var body: some View {
         VStack(spacing: 0) {
@@ -86,10 +130,11 @@ struct MessagePreview: View {
                         Divider()
                             .frame(height: 1)
                     }
-                    .frame(width: UIScreen.main.bounds.width - circleLeftPadding - circleWidth - circleRightPadding)
+                    .frame(width: PlatformScreen.instance.size.width - circleLeftPadding - circleWidth - circleRightPadding)
                 }
             }
-            .frame(width: UIScreen.main.bounds.width, height: 76)
+            .frame(width: PlatformScreen.instance.size.width, height: 76)
         }
     }
 }
+
