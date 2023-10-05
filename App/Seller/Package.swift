@@ -19,12 +19,14 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../Lentil"),
+        .package(path: "../Utilities"),
     ],
     targets: [
         .target(
             name: "Seller",
             dependencies: [
-                "Lentil", // Login functionality
+                "Lentil",       // Login functionality
+                "Utilities",    // Utilities
             ]
         ),
         .testTarget(
