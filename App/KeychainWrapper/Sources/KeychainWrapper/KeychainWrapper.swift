@@ -24,6 +24,7 @@ private let SecAttrAccount: String! = kSecAttrAccount as String
 private let SecAttrAccessGroup: String! = kSecAttrAccessGroup as String
 private let SecReturnAttributes: String = kSecReturnAttributes as String
 private let SecAttrSynchronizable: String = kSecAttrSynchronizable as String
+private let SecUseDataProtectionKeychain: String = kSecUseDataProtectionKeychain as String
 
 private let logger = Logger(subsystem: "KeychainWrapper", category: "KeychainWrapper")
 
@@ -68,10 +69,10 @@ public extension KeychainWrapper {
         // passes value to query
         query[SecValueData] = value
 
-        // Item must have accessibility set so default is used when none is specified.
-        query[SecAttrAccessible] = accessibility
-                                    .or( KeychainWrapper.ItemAccessibility.whenUnlocked )
-                                    .keychainAttrValue
+//        // Item must have accessibility set so default is used when none is specified.
+//        query[SecAttrAccessible] = accessibility
+//                                    .or( KeychainWrapper.ItemAccessibility.whenUnlocked )
+//                                    .keychainAttrValue
 
         // Add item to keychain.
         let status = SecItemAdd(query as CFDictionary, nil)
@@ -173,29 +174,11 @@ private extension KeychainWrapper {
         synchronizable: Bool = false
     ) -> [String:Any] {
 
-        var query: [String:Any] = [
+        let query: [String:Any] = [
             SecClass: kSecClassGenericPassword,
+            SecAttrAccount:  key.data(using: .utf8)!,
             SecAttrService: serviceName,
         ]
-
-        if let accessibility {
-            query[SecAttrAccessible] = accessibility.keychainAttrValue
-        }
-
-        if let accessGroup {
-            query[SecAttrAccessGroup] = accessGroup
-        }
-
-        if synchronizable {
-            query[SecAttrSynchronizable] = kCFBooleanTrue
-        }
-
-        // Uses binary representation of the key for the `kSecAttrGeneric` and `kSecAttrAccount`
-        // In theory this should make it a bit harder to find the keychain entry for a given key.
-        if let encodedIdentifier = key.data(using: .utf8) {
-            query[SecAttrGeneric] = encodedIdentifier
-            query[SecAttrAccount] = encodedIdentifier
-        }
 
         return query
     }
