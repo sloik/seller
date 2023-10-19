@@ -5,19 +5,38 @@ import PackageDescription
 
 let package = Package(
     name: "Onion",
+
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "Onion",
-            targets: ["Onion"]),
+            type: .dynamic,
+            targets: ["Onion"]
+        ),
     ],
+
+    dependencies: [
+        .package(
+            url: "https://github.com/apple/swift-http-types.git",
+            from: "0.1.0"
+        ),
+    ],
+
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "Onion"),
+            name: "Onion",
+            dependencies: [
+                .product(
+                    name: "HTTPTypesFoundation",
+                    package: "swift-http-types"
+                ),
+            ]
+        ),
+
         .testTarget(
             name: "OnionTests",
-            dependencies: ["Onion"]),
+            dependencies: [
+                "Onion",
+            ]
+        ),
     ]
 )
