@@ -6,6 +6,12 @@ import PackageDescription
 let package = Package(
     name: "Onion",
 
+    platforms: [
+        .iOS(.v17),
+        .macOS(.v14),
+        .tvOS(.v17),
+    ],
+
     products: [
         .library(
             name: "Onion",
@@ -25,6 +31,10 @@ let package = Package(
         .target(
             name: "Onion",
             dependencies: [
+                .product(
+                    name: "HTTPTypes",
+                    package: "swift-http-types"
+                ),
                 .product(
                     name: "HTTPTypesFoundation",
                     package: "swift-http-types"
