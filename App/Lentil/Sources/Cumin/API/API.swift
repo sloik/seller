@@ -1,8 +1,10 @@
 // system
 import Foundation
 import OSLog
+import HTTPTypes
 
 // local
+import Onion
 
 // 3rd party
 import AliasWonderland
@@ -12,12 +14,15 @@ import SweetURL
 private let logger = Logger(subsystem: "API", category: "API")
 
 final class API {
-    var _getTokenCode: AsyncThrowsClosure<String,Token>
+    var _getTokenCode: AsyncThrowsClosure2I<String, APIClientType, Token>
+    var _authClient: APIClientType
 
     init(
-        getTokenCode: @escaping AsyncThrowsClosure<String,Token>
+        getTokenCode: @escaping AsyncThrowsClosure2I<String, APIClientType, Token>,
+        authClient: APIClientType
     ) {
         self._getTokenCode = getTokenCode
+        self._authClient = authClient
     }
 }
 
@@ -27,7 +32,7 @@ extension API {
         logger.info("Getting token from code: \(code, privacy: .private)")
 
         do {
-            return try await _getTokenCode(code)
+            return try await _getTokenCode(code, _authClient)
         } catch {
             logger.error("Failed to get token from code: \(code, privacy: .private) with error: \(error.localizedDescription)")
             throw error
@@ -38,7 +43,6 @@ extension API {
 extension API {
     enum E: Error {
         case notHttpResponse
-        case expectedHttp200(code: Int)
         case unableToCreateRequest
     }
 }
@@ -49,13 +53,15 @@ extension API {
 
     static var mock: Self {
         .init(
-            getTokenCode: { _ in Token.mock }
+            getTokenCode: { _,_ in Token.mock },
+            authClient: Mock.ApiClient()
         )
     }
 
     static var prod: Self {
         .init(
-            getTokenCode: Prod.getToken(code:)
+            getTokenCode: Prod.getToken(code:authClient:),
+            authClient: APIClient(baseURL: URL(string: "https://allegro.pl")!)
         )
     }
 }
@@ -66,59 +72,42 @@ extension API {
 
     enum Prod {
 
-        static func getToken(code: String) async throws -> Token {
-
-            let authURL = URL(string: "https://allegro.pl/auth/oauth/token")!
-
-            var components = URLComponents(url: authURL, resolvingAgainstBaseURL: true)
+        static func getToken(code: String, authClient: APIClientType) async throws -> Token {
 
             guard
-                let redirectURI = Cumin.secrets.value(for: .oauthRedirectUri).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+                let encodedCredentials: String = "\(Cumin.secrets.value(for: .clientId)):\(Cumin.secrets.value(for: .clientSecret))"
+                    .data(using: .utf8)?
+                    .base64EncodedString(),
+                let redirectURI: String = Cumin.secrets.value(for: .oauthRedirectUri).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
             else {
+                logger.error("Unable to create request with credentials and redirect URI")
                 throw E.unableToCreateRequest
             }
 
-            components?.queryItems = [
-                .init(name: "grant_type", value: "authorization_code"),
-                .init(name: "code", value: code),
-                .init(
-                    name: "redirect_uri",
-                    value: redirectURI
-                ),
-            ]
+            let tokenRequest = GetToken(
+                code: code,
+                encodedCredentials: encodedCredentials,
+                redirectURI: redirectURI
+            )
 
-            guard
-                let tokenURL = components?.url,
-                let encodedCredentials = "\(Cumin.secrets.value(for: .clientId)):\(Cumin.secrets.value(for: .clientSecret))" .data(using: .utf8)?
-                    .base64EncodedString()
-            else {
-                throw E.unableToCreateRequest
-            }
+            let (token, httpResponse): (Token, HTTPResponse) = try await authClient.get( tokenRequest )
 
-            let request = tokenURL
-                .asRequest(method: .get)
-                .set(
-                    header: .authorization,
-                    value: "Basic \(encodedCredentials)"
-                )
-
-            let (data, response) = try await URLSession.shared.data(for: request)
-
-
-            let httpResponse = try cast(response, to: HTTPURLResponse.self)
-                .throwOrGetValue { API.E.notHttpResponse }
-
-            guard
-                200..<300 ~= httpResponse.statusCode
-            else {
-                throw E.expectedHttp200(code: httpResponse.statusCode)
-            }
-
-            let token = try JSONDecoder().decode(Token.self, from: data)
+            logger.info("Response: \(httpResponse.debugDescription)")
 
             return token
         }
 
+    }
+
+    enum Mock {
+        final class ApiClient: APIClientType {
+
+            let baseURL: URL = URL(string: "https://allegro.pl")!
+
+            func get<R>(_ request: R) async throws -> (R.Output, HTTPResponse) where R : Request {
+                fatalError()
+            }
+        }
     }
 }
 

@@ -1,43 +1,90 @@
 
 import Foundation
+import OSLog
 
 import HTTPTypesFoundation
 import HTTPTypes
 
-protocol APIClientType {
-    func send(_ request: HTTPRequest) async throws -> HTTPResponse
+private let logger = Logger(subsystem: "Onion", category: "Onion")
+
+public protocol Request<Output> {
+
+    /// Expected returned type.
+    associatedtype Output: ContentType
+
+    /// Path component for the request.
+    var path: String { get }
+
+    var headerFields: HTTPFields { get }
 }
 
-enum E: Error {
+public extension Request {
+    var headerFields: HTTPFields {
+        [:]
+    }
+}
 
-    enum HTTPTypeConversionError: Error {
-        case failedToConvertURLResponseToHTTPResponse
+extension Request {
+    func decode(_ resposne: Data) throws -> Output {
+        let decoder = JSONDecoder()
+        return try decoder.decode(Output.self, from: resposne)
+    }
+}
+
+/// generic http sift api client using protocols and generics
+public protocol APIClientType {
+
+    /// base url for the api client
+    var baseURL: URL { get }
+
+    /// send a request to the server
+    func get<R: Request>(_ request: R) async throws -> (R.Output, HTTPResponse)
+}
+
+public final class APIClient: APIClientType {
+    
+    public var baseURL: URL
+
+
+    private var baseRequest: HTTPRequest {
+        HTTPRequest(
+            method: .get,
+            scheme: baseURL.scheme,
+            authority: baseURL.host,
+            path: baseURL.path,
+            headerFields: [:]
+        )
     }
 
-    case unableToCreateURLRequest
-}
-
-final class APIClient: APIClientType {
-    
     private let session: URLSession
-    
-    init(session: URLSession = .shared) {
-        self.session = session
+
+    public init(
+        baseURL: URL
+    ) {
+        self.baseURL = baseURL
+        self.session = URLSession.shared
     }
-    
-    func send(_ request: HTTPRequest) async throws -> HTTPResponse {
+
+    public func get<R: Request>(_ request: R) async throws -> (R.Output, HTTPResponse) {
+
+        var httpRequest = baseRequest
+        httpRequest.path = request.path
+        httpRequest.headerFields = request.headerFields
+
+        // TODO: add a retry count eg. max 3 times
+        let (data, httpResponse) = try await session.data(for: httpRequest)
+
         guard
-            let urlRequest = URLRequest(httpRequest: request)
+            case .successful = httpResponse.status.kind
         else {
-            throw E.unableToCreateURLRequest
+            logger.error("Request \(type(of: request)) failed with response: \(httpResponse.debugDescription)")
+
+            throw E.notSuccessStatus(status: httpResponse.status, data: data)
         }
 
-        let (data, urlResponse) = try await session.data(for: urlRequest)
-        guard 
-            let response = (urlResponse as? HTTPURLResponse)?.httpResponse
-        else {
-            throw E.HTTPTypeConversionError.failedToConvertURLResponseToHTTPResponse
-        }
-        return response
+        let output = try request.decode(data)
+
+        return (output, httpResponse)
+
     }
 }

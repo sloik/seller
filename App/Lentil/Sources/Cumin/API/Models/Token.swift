@@ -2,16 +2,17 @@
 // system
 import Foundation
 import OSLog
+import HTTPTypes
 
 // local
+import Onion
 
 // 3rd party
 import AliasWonderland
 import OptionalAPI
 import SweetURL
 
-
-public struct Token: Codable, Equatable, Hashable {
+public struct Token: Codable, Equatable, Hashable, ContentType {
 
     public enum TokenType: String, Codable {
         case bearer = "bearer"

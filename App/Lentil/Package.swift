@@ -24,6 +24,8 @@ let package = Package(
 
         .package(path: "../KeychainWrapper"),
 
+        .package(path: "../Onion"),
+
         .package(
             url: "https://github.com/sloik/AliasWonderland.git",
             from: "3.6.0"
@@ -73,6 +75,7 @@ let package = Package(
                 "Utilities",
                 "Zippy",
                 "KeychainWrapper",
+                "Onion",
             ]
         ),
 
