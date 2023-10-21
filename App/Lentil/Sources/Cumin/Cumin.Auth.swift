@@ -76,12 +76,9 @@ extension CuminUseCases.Auth {
         }
 
         static func parseResultAndGetUserToken(_ url: URL) async throws {
-
-            // Extracts code from URL
-            try await URLComponents(url: url, resolvingAgainstBaseURL: false)?
-                .queryItems?
-                .first(where: { $0.name == "code" })?
-                .value
+            try await url
+                .queryValues( "code" )?
+                .first
                 .tryAsyncMap( Cumin.api.getToken(code:) )
                 .tryAsyncFlatMap { (token: Token?) in
                     try token
