@@ -35,6 +35,7 @@ public final class APIClient: APIClientType {
         var httpRequest = baseRequest
         httpRequest.path = request.path
         httpRequest.headerFields = request.headerFields
+        httpRequest.method = request.method
 
         let (data, httpResponse) = try await session.data(for: httpRequest)
 

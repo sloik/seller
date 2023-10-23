@@ -11,10 +11,16 @@ public protocol Request<Output> {
     var path: String { get }
 
     var headerFields: HTTPFields { get }
+
+    var method: HTTPRequest.Method { get }
 }
 
 public extension Request {
     var headerFields: HTTPFields {
         [:]
+    }
+
+    var method: HTTPRequest.Method {
+        .get
     }
 }
