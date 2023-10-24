@@ -14,11 +14,11 @@ package extension CuminUseCases {
 
     struct Auth {
         var _currentToken: Producer<String?>
-        var _parseResultAndGetUserToken: AsyncThrowsConsumer<URL>
+        var _parseResultAndGetUserToken: AsyncThrowsConsumer2I<URL, SideEffectClosure>
 
         init(
             currentToken: @escaping Producer<String?>,
-            parseResultAndGetUserToken: @escaping AsyncThrowsConsumer<URL>
+            parseResultAndGetUserToken: @escaping AsyncThrowsConsumer2I<URL, SideEffectClosure>
         ) {
             self._currentToken = currentToken
             self._parseResultAndGetUserToken = parseResultAndGetUserToken
@@ -33,11 +33,11 @@ package extension CuminUseCases.Auth {
         _currentToken()
     }
 
-    func parseResultAndGetUserToken(from url: URL) async throws {
+    func parseResultAndGetUserToken(from url: URL, didLogin: @escaping SideEffectClosure) async throws {
         logger.info("Parsing result and getting user token from URL: \(url, privacy: .private)")
 
         do {
-            try await _parseResultAndGetUserToken(url)
+            try await _parseResultAndGetUserToken(url, didLogin)
         } catch {
             logger.error("Failed to parse result and get user token from URL: \(url, privacy: .private) with error: \(error.localizedDescription)")
             throw error
@@ -75,7 +75,7 @@ extension CuminUseCases.Auth {
                 .map( \.accessToken )
         }
 
-        static func parseResultAndGetUserToken(_ url: URL) async throws {
+        static func parseResultAndGetUserToken(_ url: URL, didLogin: @escaping SideEffectClosure) async throws {
             try await url
                 .queryValues( "code" )?
                 .first
@@ -85,6 +85,7 @@ extension CuminUseCases.Auth {
                         .encode()
                         .tryWhenSome { tokenData in
                             try Cumin.secureStore.save(data: tokenData, for: .token)
+                            didLogin()
                         }
                 }
         }

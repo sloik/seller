@@ -20,56 +20,57 @@ package struct AuthenticationView: View {
     @State var showedError: Error? = nil
 
     @State private var navPath = NavigationPath()
-    @State private var isMainViewPresented = false
 
-    package init() {}
+    private var didLogin: Consumer<Error?>
+
+    package init(
+        didLogin: @escaping Consumer<Error?>
+    ) {
+        self.didLogin = didLogin
+    }
 
     package var body: some View {
+        VStack {
+            WebView(url: try! Yuca.cumin.secrets.authenticationURL) { url in
 
-        NavigationStack(path: $navPath) {
+                guard self.showError.isFalse else { return }
 
-            VStack {
-                WebView(url: try! Yuca.cumin.secrets.authenticationURL) { url in
+                enum E: Error {
+                    case missingURL
+                }
 
-                    guard self.showError.isFalse else { return }
+                if let url {
 
-                    enum E: Error {
-                        case missingURL
-                    }
-                    
-                    if let url {
-                        
-                        Task {
-                            do {
-                                try await Yuca.cumin.auth.parseResultAndGetUserToken(from: url)
-                                self.isMainViewPresented = true
-                            }
-                            catch {
-                                self.showedError = error
-                                self.showError = true
-                                self.isMainViewPresented = false
+                    Task {
+                        do {
+                            try await Yuca.cumin.auth.parseResultAndGetUserToken(from: url) {
+                                didLogin( nil )
                             }
                         }
-                    }
-                    else {
-                        self.showedError = E.missingURL
-                        self.showError = true
-                        self.isMainViewPresented = false
+                        catch {
+                            self.showedError = error
+                            self.showError = true
+                        }
                     }
                 }
+                else {
+                    // we are not loggein
+                    self.showedError = E.missingURL
+                    self.showError = true
+                }
             }
-            .alert(isPresented: $showError) {
-                Alert(
-                    title: Text("Error"),
-                    message: Text(String(describing: showedError!)),
-                    dismissButton: .default(Text("OK"))
-                )
-            }
-            .navigationDestination(isPresented: $isMainViewPresented) {
-                MainView()
-            }
-            .navigationTitle("Login...")
         }
+        .alert(isPresented: $showError) {
+            Alert(
+                title: Text("Error"),
+                message: Text(String(describing: showedError!)),
+                dismissButton: .default(
+                    Text("Ok"),
+                    action: { didLogin( self.showedError ) }
+                )
+            )
+        }
+        .navigationTitle("Login...")
     }
 }
 

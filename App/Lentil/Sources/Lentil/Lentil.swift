@@ -35,8 +35,8 @@ public struct LentilUseCases {
 
 public extension LentilUseCases {
 
-    var loginUI: some View {
-        AuthenticationView()
+    func loginUI(didLogin: @escaping Consumer<Error?>) -> some View {
+        AuthenticationView(didLogin: didLogin)
     }
 
 }

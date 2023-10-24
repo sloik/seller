@@ -20,6 +20,11 @@ let package = Package(
     dependencies: [
         .package(path: "../Lentil"),
         .package(path: "../Utilities"),
+
+        .package(
+            url: "https://github.com/sloik/OptionalAPI.git",
+            from: "5.1.1"
+        ),
     ],
     targets: [
         .target(
@@ -27,6 +32,8 @@ let package = Package(
             dependencies: [
                 "Lentil",       // Login functionality
                 "Utilities",    // Utilities
+
+                "OptionalAPI",
             ]
         ),
         .testTarget(

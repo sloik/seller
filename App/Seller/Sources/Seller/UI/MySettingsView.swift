@@ -6,18 +6,29 @@ import Lentil
 struct MySettingsView: View {
     @State private var path = NavigationPath()
 
+    // TODO:
+    // if loggedin
+
+    @State private var showLoginFlow = false
+
     var body: some View {
         NavigationStack(path: $path) {
-            Button {
-                path.append("AuthenticationView")
-            } label: {
-                Text("Log in")
+            //            Button {
+            //                showLoginFlow = true
+            //            }
+
+            Button("Login") {
+                showLoginFlow = true
             }
-            .navigationDestination(for: String.self) { view in
-                if view == "AuthenticationView" {
-                    Lentil.loginUI
-                }
+            .sheet(isPresented: $showLoginFlow) {
+                Lentil
+                    .loginUI { _ in
+                       showLoginFlow = false
+                    }
             }
+
+
+
         }
     }
 }
