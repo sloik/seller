@@ -1,6 +1,8 @@
 // system
 import SwiftUI
 
+import Lentil
+
 struct MySettingsView: View {
     @State private var path = NavigationPath()
 
@@ -13,7 +15,7 @@ struct MySettingsView: View {
             }
             .navigationDestination(for: String.self) { view in
                 if view == "AuthenticationView" {
-                    AuthenticationView()
+                    Lentil.loginUI
                 }
             }
         }
