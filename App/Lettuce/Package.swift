@@ -24,6 +24,8 @@ let package = Package(
 
         .package(path: "../Utilities"),
 
+        .package(path: "../Onion"),
+
         .package(
             url: "https://github.com/sloik/AliasWonderland.git",
             from: "3.6.0"
@@ -53,6 +55,7 @@ let package = Package(
             name: "Lettuce",
             dependencies: [
                 "Utilities",
+                "Onion",
 
                 "AliasWonderland",
                 "OptionalAPI",
