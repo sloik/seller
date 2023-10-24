@@ -61,6 +61,7 @@
 		64078B552A87B7C300877322 /* Seller */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Seller; path = ../Seller; sourceTree = "<group>"; };
 		645D65812AA33D9F0087728A /* Lentil */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Lentil; path = ../Lentil; sourceTree = "<group>"; };
 		6469863C2AA659F6008D8916 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		646AFC452AE84A49005B49B1 /* Lettuce */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Lettuce; path = ../Lettuce; sourceTree = "<group>"; };
 		646EA1A32AA34F72008745B2 /* SecretsStore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SecretsStore; path = ../SecretsStore; sourceTree = "<group>"; };
 		647FB0202ABE1CB300BF3053 /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Utilities; path = ../Utilities; sourceTree = "<group>"; };
 		648887882AE1B89100F00646 /* Onion */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Onion; path = ../Onion; sourceTree = "<group>"; };
@@ -99,6 +100,7 @@
 			children = (
 				648B0B5C2ABF58CD00FD8C52 /* KeychainWrapper */,
 				645D65812AA33D9F0087728A /* Lentil */,
+				646AFC452AE84A49005B49B1 /* Lettuce */,
 				648887882AE1B89100F00646 /* Onion */,
 				646EA1A32AA34F72008745B2 /* SecretsStore */,
 				64078B552A87B7C300877322 /* Seller */,
