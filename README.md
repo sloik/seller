@@ -1,6 +1,8 @@
 # Seller
 
-# Modules
+This project is a multipatform (iOS, iPadOS, macOS) app for sellers to manage their offers and messages on [allegro](https://allegro.pl) platform.
+
+# Overall Architecture Diagram
 
 ```
 ╔═══════════════════════════╗
@@ -46,22 +48,10 @@
 └────────────┘└─────────────┘   └────────────────────────────────┘
 ```
 
-## Hosting Apps (AlleSeller)
+# Modules
 
-Hosting apps for the seller project.
+Each module has it's own README.md file. Please refer to them for more information. Here is a short description of each module.
 
-## Seller
+## [Alle Seller](App/AlleSeller/README.md)
 
-All the app logic and use cases.
-
-## Lentil
-
-User login module. Handeles networking and UI.
-
-### Yuca
-
-UI part and zero logic.
-
-### Cumin
-
-Logic, models and networking related to user login.
+This is the hosting app for the Alle Seller project. It's main purpose is to host the main app (Seller).
