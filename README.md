@@ -44,7 +44,6 @@ This project is a multipatform (iOS, iPadOS, macOS) app for sellers to manage th
 │            ││             │   │       [Keychain Wrapper]       │
 │            ││             │   │                                │
 │            ││             │   │ Internal Keychain Abstraction  │
-│            ││             │   │                                │
 └────────────┘└─────────────┘   └────────────────────────────────┘
 ```
 
