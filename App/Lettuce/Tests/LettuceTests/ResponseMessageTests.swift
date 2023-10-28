@@ -53,8 +53,8 @@ final class ResponseMessageTests: XCTestCase {
         // Assert
         let expectedResult = Message(
             id: "string",
-            status: MessageStatus.verifying.rawValue,
-            type: MessageType.messageCenter.rawValue,
+            status: Message.Status.verifying.rawValue,
+            type: Message.MessageType.messageCenter.rawValue,
             createdAt: "2019-08-24T14:15:22Z",
             thread: Message.ThreadId(id: "string"),
             author: Message.MessageAuthor(
@@ -70,7 +70,7 @@ final class ResponseMessageTests: XCTestCase {
                 fileName: "string",
                 mimeType: "string",
                 url: "string",
-                status: MessageAttachmentStatus.new.rawValue)],
+                status: Message.MessageAttachmentInfo.AttachmentStatus.new.rawValue)],
             additionalInformation: Message.MessageAdditionalInformation(
                 vin: "JT2SV12E6F0308977"))
         

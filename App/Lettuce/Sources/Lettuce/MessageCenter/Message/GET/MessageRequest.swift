@@ -9,7 +9,7 @@ struct GetMessage: Request {
     typealias Output = Message
     
     var path: String {
-        "https://api.allegro.pl/messaging/messages/\(messageId)"
+        "/messaging/messages/\(messageId)"
     }
     
     var headerFields: HTTPFields {

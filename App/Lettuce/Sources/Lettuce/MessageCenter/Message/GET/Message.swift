@@ -5,31 +5,24 @@ import HTTPTypes
 // local
 import Onion
 
-public enum MessageStatus: String, Codable {
-    case verifying = "VERIFYING"
-    case blocked = "BLOCKED"
-    case delivered = "DELIVERED"
-    case interacting = "INTERACTING"
-    case dismissed = "DISMISSED"
-}
-
-public enum MessageType: String, Codable {
-    case askQuestion = "ASK_QUESTION"
-    case mail = "MAIL"
-    case messageCenter = "MESSAGE_CENTER"
-}
-
-public enum MessageAttachmentStatus: String, Codable {
-    case new = "NEW"
-    case safe = "SAFE"
-    case unsafe = "UNSAFE"
-    case expired = "EXPIRED"
-}
-
 /// https://developer.allegro.pl/documentation#operation/getMessageGET
 public struct Message: Codable, Equatable, ContentType {
     public let id: String
-    public let status: MessageStatus.RawValue
+    
+    public enum Status: String, Codable {
+        case verifying = "VERIFYING"
+        case blocked = "BLOCKED"
+        case delivered = "DELIVERED"
+        case interacting = "INTERACTING"
+        case dismissed = "DISMISSED"
+    }
+    public let status: Status.RawValue
+    
+    public enum MessageType: String, Codable {
+        case askQuestion = "ASK_QUESTION"
+        case mail = "MAIL"
+        case messageCenter = "MESSAGE_CENTER"
+    }
     public let type: MessageType.RawValue
     public let createdAt: String
     
@@ -57,7 +50,14 @@ public struct Message: Codable, Equatable, ContentType {
         public let fileName: String
         public let mimeType: String?
         public let url: String?
-        public let status: MessageAttachmentStatus.RawValue
+        
+        public enum AttachmentStatus: String, Codable {
+            case new = "NEW"
+            case safe = "SAFE"
+            case unsafe = "UNSAFE"
+            case expired = "EXPIRED"
+        }
+        public let status: AttachmentStatus.RawValue
     }
     public let attachments: [MessageAttachmentInfo]
     
