@@ -1,7 +1,7 @@
 # Keychain Wrapper
 
-Internal Keychain Abstraction
+This is a work in progres abstraction/warapper for keychain access. It's main purpose is to provide a simple interface for storing and retrieving data from keychain.
 
-# TBC
+# Future
 
-...
+Most likely we will have to expand it to have different targets for iOS and macOS implementation. One day we will get there or we are just waiting for you to help us out :)
