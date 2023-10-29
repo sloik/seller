@@ -10,7 +10,6 @@ public final class APIClient: APIClientType {
 
     public var baseURL: URL
 
-
     private var baseRequest: HTTPRequest {
         HTTPRequest(
             method: .get,
