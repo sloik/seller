@@ -14,9 +14,7 @@ public final class APIClient: APIClientType {
     private var baseRequest: HTTPRequest {
         HTTPRequest(
             method: .get,
-            scheme: baseURL.scheme,
-            authority: baseURL.host,
-            path: baseURL.path,
+            url: baseURL,
             headerFields: [:]
         )
     }
