@@ -9,8 +9,8 @@ import Onion
 public struct MessageInThread: Codable, Equatable, ContentType {
     public let text: String
     
-    public struct MessageAttachmentId: Codable, Equatable {
+    public struct AttachmentId: Codable, Equatable {
         public let id: String
     }
-    public let attachments: [MessageAttachmentId]?
+    public let attachments: [AttachmentId]?
 }
