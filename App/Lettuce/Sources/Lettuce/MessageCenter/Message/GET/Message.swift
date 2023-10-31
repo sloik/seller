@@ -16,14 +16,14 @@ public struct Message: Codable, Equatable, ContentType {
         case interacting = "INTERACTING"
         case dismissed = "DISMISSED"
     }
-    public let status: Status.RawValue
+    public let status: Status
     
     public enum MessageType: String, Codable {
         case askQuestion = "ASK_QUESTION"
         case mail = "MAIL"
         case messageCenter = "MESSAGE_CENTER"
     }
-    public let type: MessageType.RawValue
+    public let type: MessageType
     public let createdAt: String
     
     public struct ThreadId: Codable, Equatable {
@@ -57,7 +57,7 @@ public struct Message: Codable, Equatable, ContentType {
             case unsafe = "UNSAFE"
             case expired = "EXPIRED"
         }
-        public let status: AttachmentStatus.RawValue
+        public let status: AttachmentStatus
     }
     public let attachments: [MessageAttachmentInfo]
     
