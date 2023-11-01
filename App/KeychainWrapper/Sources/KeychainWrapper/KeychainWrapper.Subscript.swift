@@ -7,11 +7,12 @@ public extension KeychainWrapper {
             self.data(for: key)
         }
         set {
+            
             if let newValue {
                 self.set(newValue, key: key)
+            } else {
+                self.delete(key: key)
             }
-            // TODO: - Implement setting none
-            // https://github.com/sloik/seller/issues/22
         }
     }
 }

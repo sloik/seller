@@ -25,6 +25,7 @@ private let SecAttrAccessGroup: String! = kSecAttrAccessGroup as String
 private let SecReturnAttributes: String = kSecReturnAttributes as String
 private let SecAttrSynchronizable: String = kSecAttrSynchronizable as String
 private let SecUseDataProtectionKeychain: String = kSecUseDataProtectionKeychain as String
+private let SecReturnRefference: String = kSecReturnRef as String
 
 private let logger = Logger(subsystem: "KeychainWrapper", category: "KeychainWrapper")
 
@@ -91,6 +92,21 @@ public extension KeychainWrapper {
             return false
         }
     }
+    
+    @discardableResult
+    func delete(key: String, accessibility: KeychainAttrRepresentable? = nil,  synchronizable: Bool = false ) -> Bool {
+        let query = queryDictionary(for: key, accessibility: accessibility, synchronizable: synchronizable)
+        
+        let status = SecItemDelete(query as CFDictionary)
+        
+        if(status == errSecSuccess || status == errSecItemNotFound) {
+            return true
+        } else {
+            logger.debug("Can not delete keychain item, because of unhandled error: \(status)")
+            return false
+        }
+    }
+    
 
     private func update(
         _ value: Data,
