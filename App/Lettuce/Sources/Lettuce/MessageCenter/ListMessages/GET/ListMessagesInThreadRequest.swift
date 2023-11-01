@@ -9,34 +9,31 @@ struct ListMessagesInThreadRequest: Request {
     typealias Output = [Message]
     
     var path: String {
-        return preparePathWithComponents()
+        preparePathWithComponents()
     }
     
-   func preparePathWithComponents() -> String {
+    func preparePathWithComponents() -> String {
         var components = URLComponents()
-        components.path = self.path
+        let defaultPath = "/messaging/threads/\(threadId)/messages"
+
+        components.path = defaultPath
         components.queryItems = []
+               
+        let queryItems: [(name: String, value: String?)] = [
+            ("limit", String(limit)),
+            ("offset", String(offset)),
+            ("before", before),
+            ("after", after)
+        ]
+
+        components.queryItems?.append(contentsOf: queryItems.compactMap { name, value in
+            value.map { URLQueryItem(name: name, value: $0) }
+        })
         
-        if let limit = limit {
-            components.queryItems?.append(URLQueryItem(name: "limit", value: String(limit)))
-        }
-        
-        if let offset = offset {
-            components.queryItems?.append(URLQueryItem(name: "offset", value: String(offset)))
-        }
-        
-        if let before = before {
-            components.queryItems?.append(URLQueryItem(name: "before", value: before))
-        }
-        
-        if let after = after {
-            components.queryItems?.append(URLQueryItem(name: "after", value: after))
-        }
-        
-        if components.queryItems != [], let componentsURL = components.url?.absoluteString {
+        if let componentsURL = components.url?.absoluteString {
             return componentsURL
         } else {
-            return "/messaging/threads/\(threadId)/messages"
+            return defaultPath
         }
     }
     
@@ -50,8 +47,8 @@ struct ListMessagesInThreadRequest: Request {
     let token: String
     let threadId: String
     
-    let limit: Int?
-    let offset: Int?
+    var limit: Int = 20
+    var offset: Int = 0
     let before: String?
     let after: String?
 }
