@@ -21,12 +21,12 @@ final class ResponseMessageInThreadTests: XCTestCase {
         }
         """
         // Act
-        let result = try JSONDecoder().decode(MessageInThread.self, from: jsonString.data(using: .utf8)!)
+        let result = try JSONDecoder().decode(NewMessageInThread.self, from: jsonString.data(using: .utf8)!)
         
         // Assert
-        let expectedResult = MessageInThread(
+        let expectedResult = NewMessageInThread(
             text: "string",
-            attachments: [MessageInThread.AttachmentId(id: "string")])
+            attachments: [NewMessageInThread.AttachmentId(id: "string")])
         
         XCTAssertEqual(result, expectedResult)
     }

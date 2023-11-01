@@ -6,7 +6,7 @@ import HTTPTypes
 import Onion
 
 /// https://developer.allegro.pl/documentation#operation/newMessageInThreadPOST
-public struct MessageInThread: Codable, Equatable, ContentType {
+public struct NewMessageInThread: Codable, Equatable, ContentType {
     public let text: String
     
     public struct AttachmentId: Codable, Equatable {
