@@ -2,7 +2,7 @@
 import Foundation
 
 /// Data that can be received from a server
-public protocol ContentType: Codable {}
+public protocol ContentType: Codable, Equatable {}
 
 //
 // Default implementations to common types that can be send thru an wire.
