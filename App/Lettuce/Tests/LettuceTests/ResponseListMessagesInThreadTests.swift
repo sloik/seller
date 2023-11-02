@@ -13,7 +13,7 @@ final class ResponseListMessagesInThreadTests: XCTestCase {
         let urlRelativePath = request.preparePathWithComponents()
         
         // Assert
-        XCTAssert(urlRelativePath == expectedRelativeUrlPath)
+        XCTAssertEqual(urlRelativePath, expectedRelativeUrlPath)
     }
     
     func test_requestWithBeforeAndDefaultParameters() throws {
@@ -25,7 +25,7 @@ final class ResponseListMessagesInThreadTests: XCTestCase {
         let urlRelativePath = request.preparePathWithComponents()
         
         // Assert
-        XCTAssert(urlRelativePath == expectedRelativeUrlPath)
+        XCTAssertEqual(urlRelativePath, expectedRelativeUrlPath)
     }
     
     func test_requestWithAllParameters() throws {
@@ -37,7 +37,7 @@ final class ResponseListMessagesInThreadTests: XCTestCase {
         let urlRelativePath = request.preparePathWithComponents()
         
         // Assert
-        XCTAssert(urlRelativePath == expectedRelativeUrlPath)
+        XCTAssertEqual(urlRelativePath, expectedRelativeUrlPath)
     }
     
     func test_parsingJsonExample() throws {
