@@ -25,6 +25,11 @@ let package = Package(
             url: "https://github.com/apple/swift-http-types.git",
             from: "1.0.0"
         ),
+
+        .package(
+            url: "https://github.com/sloik/AliasWonderland.git",
+            from: "3.6.3"
+        ),
     ],
 
     targets: [
@@ -39,6 +44,8 @@ let package = Package(
                     name: "HTTPTypesFoundation",
                     package: "swift-http-types"
                 ),
+
+                "AliasWonderland",
             ]
         ),
 
