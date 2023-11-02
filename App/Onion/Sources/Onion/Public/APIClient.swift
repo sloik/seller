@@ -29,7 +29,7 @@ public final class APIClient: APIClientType {
         self.session = URLSession.shared
     }
 
-    public func get<R: Request>(_ request: R) async throws -> (R.Output, HTTPResponse) {
+    public func run<R: Request>(_ request: R) async throws -> (R.Output, HTTPResponse) {
         logger.debug("Sending request \(type(of: request))")
 
         let httpRequest = httpRequest(from: request)

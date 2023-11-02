@@ -52,5 +52,3 @@ struct ListMessagesInThreadRequest: Request {
     let before: String?
     let after: String?
 }
-
-extension Array<Message>: ContentType {}

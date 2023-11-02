@@ -1,0 +1,68 @@
+{
+  "pins" : [
+    {
+      "identity" : "aliaswonderland",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sloik/AliasWonderland.git",
+      "state" : {
+        "revision" : "504057f36c7afc1eb06a5254a2c04e5bf96e66f4",
+        "version" : "3.6.3"
+      }
+    },
+    {
+      "identity" : "eitherswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sloik/EitherSwift.git",
+      "state" : {
+        "revision" : "938cc33fdcae663c1daf59e4d45ac11ab02608d7",
+        "version" : "1.1.1"
+      }
+    },
+    {
+      "identity" : "funckeypath",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sloik/FuncKeyPath.git",
+      "state" : {
+        "revision" : "e4e6fe23f132a8859df7e6579fb0f59b262a13e8",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "optionalapi",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sloik/OptionalAPI.git",
+      "state" : {
+        "revision" : "3110da57769eae75456b6af0d6b91f2ac00bfd17",
+        "version" : "5.1.1"
+      }
+    },
+    {
+      "identity" : "sweetbool",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sloik/SweetBool.git",
+      "state" : {
+        "revision" : "4930157f54a37d555699455f8ece46c6ad8f6eb5",
+        "version" : "1.1.2"
+      }
+    },
+    {
+      "identity" : "swift-http-types",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-http-types.git",
+      "state" : {
+        "revision" : "99d066e29effa8845e4761dd3f2f831edfdf8925",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "zippy",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sloik/Zippy.git",
+      "state" : {
+        "revision" : "d099c9c0be18016cac261b50f3b9b106b6842dd5",
+        "version" : "0.0.6"
+      }
+    }
+  ],
+  "version" : 2
+}
