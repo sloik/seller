@@ -28,6 +28,7 @@ public final class APIClient: APIClientType {
     }
 
     public func get<R: Request>(_ request: R) async throws -> (R.Output, HTTPResponse) {
+        logger.debug("Sending request \(type(of: request))")
 
         let httpRequest = httpRequest(from: request)
 
