@@ -34,6 +34,9 @@ public final class APIClient: APIClientType {
 
         let (data, httpResponse) = try await session.data(for: httpRequest)
 
+        return try commonValidationAndDecode(request: request, data: data, httpResponse: httpResponse)
+    }
+
 
 private extension APIClient {
 
