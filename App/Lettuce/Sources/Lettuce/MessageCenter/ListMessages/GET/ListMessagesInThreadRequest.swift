@@ -28,11 +28,7 @@ struct ListMessagesInThreadRequest: PaginatedRequest {
             value.map { URLQueryItem(name: name, value: $0) }
         })
         
-        if let componentsURL = components.url?.absoluteString {
-            return componentsURL
-        } else {
-            return defaultPath
-        }
+        return components.url?.absoluteString ?? defaultPath
     }
     
     var headerFields: HTTPFields {
