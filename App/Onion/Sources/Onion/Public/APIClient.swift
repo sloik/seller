@@ -36,6 +36,11 @@ public final class APIClient: APIClientType {
 
         let (data, httpResponse) = try await session.data(for: httpRequest)
 
+
+private extension APIClient {
+
+    func commonValidationAndDecode<R: Request>(request: R, data: Data, httpResponse: HTTPResponse) throws -> (R.Output, HTTPResponse) {
+
         guard
             case .successful = httpResponse.status.kind
         else {
@@ -47,11 +52,17 @@ public final class APIClient: APIClientType {
         let output = try request.decode(data)
 
         return (output, httpResponse)
-
     }
-}
 
-private extension APIClient {
+    func httpRequest<R: Request>(from request: R) -> HTTPRequest {
+
+        var httpRequest = baseRequest
+        httpRequest.path = request.path
+        httpRequest.headerFields = request.headerFields
+        httpRequest.method = request.method
+
+        return httpRequest
+    }
 
     /// Fetches request and in case of errors retries is to total of 3 times.
     func trieToLoad(request: HTTPRequest) async throws -> (Data, HTTPResponse) {
