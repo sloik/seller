@@ -5,7 +5,7 @@ import HTTPTypes
 // local
 import Onion
 
-struct ListMessagesInThreadRequest: Request {
+struct ListMessagesInThreadRequest: PaginatedRequest {
     typealias Output = [Message]
     
     var path: String {
@@ -47,8 +47,24 @@ struct ListMessagesInThreadRequest: Request {
     let token: String
     let threadId: String
     
-    var limit: Int = 20
-    var offset: Int = 0
+    let limit: Int
+    let offset: Int
     let before: String?
     let after: String?
+
+    internal init(
+        token: String,
+        threadId: String,
+        limit: Int = 20,
+        offset: Int = 0,
+        before: String? = nil,
+        after: String? = nil
+    ) {
+        self.token = token
+        self.threadId = threadId
+        self.limit = limit
+        self.offset = offset
+        self.before = before
+        self.after = after
+    }
 }
