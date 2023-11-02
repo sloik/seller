@@ -17,17 +17,8 @@ struct ListMessagesInThreadRequest: PaginatedRequest {
         let defaultPath = "/messaging/threads/\(threadId)/messages"
 
         components.path = defaultPath
-        components.queryItems = paginationQueryItems
+        components.queryItems = paginationQueryItems + filterDateQueryItems
 
-        let queryItems: [(name: String, value: String?)] = [
-            ("before", before),
-            ("after", after)
-        ]
-
-        components.queryItems?.append(contentsOf: queryItems.compactMap { name, value in
-            value.map { URLQueryItem(name: name, value: $0) }
-        })
-        
         return components.url?.absoluteString ?? defaultPath
     }
     
@@ -60,5 +51,17 @@ struct ListMessagesInThreadRequest: PaginatedRequest {
         self.offset = offset
         self.before = before
         self.after = after
+    }
+}
+
+private extension ListMessagesInThreadRequest {
+
+    var filterDateQueryItems: [URLQueryItem] {
+        var items = [URLQueryItem]()
+
+        if let before { items.append(URLQueryItem(name: "before", value: before)) }
+        if let after { items.append(URLQueryItem(name: "after", value: after)) }
+
+        return items
     }
 }
