@@ -57,21 +57,21 @@ final class ResponseMessageTests: XCTestCase {
             type: Message.MessageType.messageCenter,
             createdAt: "2019-08-24T14:15:22Z",
             thread: Message.ThreadId(id: "string"),
-            author: Message.MessageAuthor(
+            author: Message.Author(
                 login: "string",
                 isInterlocutor: true),
             text: "string",
             subject: "string",
-            relatesTo: Message.MessageRelatedObject(
+            relatesTo: Message.RelatedObject(
                 offer: Message.ThreadId(id: "string"),
                 order: Message.ThreadId(id: "string")),
             hasAdditionalAttachments: false,
-            attachments: [Message.MessageAttachmentInfo(
+            attachments: [Message.AttachmentInfo(
                 fileName: "string",
                 mimeType: "string",
                 url: "string",
-                status: Message.MessageAttachmentInfo.AttachmentStatus.new)],
-            additionalInformation: Message.MessageAdditionalInformation(
+                status: Message.AttachmentInfo.Status.new)],
+            additionalInformation: Message.AdditionalInformation(
                 vin: "JT2SV12E6F0308977"))
         
         XCTAssertEqual(result, expectedResult)

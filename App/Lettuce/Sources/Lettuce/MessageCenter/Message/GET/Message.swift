@@ -31,38 +31,38 @@ public struct Message: Codable, Equatable, ContentType {
     }
     public let thread: ThreadId
     
-    public struct MessageAuthor: Codable, Equatable {
+    public struct Author: Codable, Equatable {
         public let login: String
         public let isInterlocutor: Bool
     }
-    public let author: MessageAuthor
+    public let author: Author
     public let text: String
     public let subject: String?
     
-    public struct MessageRelatedObject: Codable, Equatable {
+    public struct RelatedObject: Codable, Equatable {
         public let offer: ThreadId?
         public let order: ThreadId?
     }
-    public let relatesTo: MessageRelatedObject
+    public let relatesTo: RelatedObject
     public let hasAdditionalAttachments: Bool
     
-    public struct MessageAttachmentInfo: Codable, Equatable {
+    public struct AttachmentInfo: Codable, Equatable {
         public let fileName: String
         public let mimeType: String?
         public let url: String?
         
-        public enum AttachmentStatus: String, Codable {
+        public enum Status: String, Codable {
             case new = "NEW"
             case safe = "SAFE"
             case unsafe = "UNSAFE"
             case expired = "EXPIRED"
         }
-        public let status: AttachmentStatus
+        public let status: Status
     }
-    public let attachments: [MessageAttachmentInfo]
+    public let attachments: [AttachmentInfo]
     
-    public struct MessageAdditionalInformation: Codable, Equatable {
+    public struct AdditionalInformation: Codable, Equatable {
         public let vin: String?
     }
-    public let additionalInformation: MessageAdditionalInformation?
+    public let additionalInformation: AdditionalInformation?
 }
