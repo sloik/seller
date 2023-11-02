@@ -17,11 +17,9 @@ struct ListMessagesInThreadRequest: PaginatedRequest {
         let defaultPath = "/messaging/threads/\(threadId)/messages"
 
         components.path = defaultPath
-        components.queryItems = []
-               
+        components.queryItems = paginationQueryItems
+
         let queryItems: [(name: String, value: String?)] = [
-            ("limit", String(limit)),
-            ("offset", String(offset)),
             ("before", before),
             ("after", after)
         ]
