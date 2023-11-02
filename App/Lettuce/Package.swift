@@ -46,6 +46,11 @@ let package = Package(
             from: "0.0.6"
         ),
 
+        .package(
+            url: "https://github.com/sloik/SweetURL.git",
+            from: "0.0.7"
+        ),
+
     ],
 
     targets: [
@@ -61,6 +66,7 @@ let package = Package(
                 "OptionalAPI",
                 "SweetBool",
                 "Zippy",
+                "SweetURL",
             ]
         ),
         .testTarget(

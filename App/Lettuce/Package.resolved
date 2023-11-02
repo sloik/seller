@@ -46,6 +46,15 @@
       }
     },
     {
+      "identity" : "sweeturl",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sloik/SweetURL.git",
+      "state" : {
+        "revision" : "68eda157c28a7215dfc5ec20785b60dbeb02e657",
+        "version" : "0.0.7"
+      }
+    },
+    {
       "identity" : "swift-http-types",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-http-types.git",
