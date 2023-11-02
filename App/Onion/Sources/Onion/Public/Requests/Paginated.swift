@@ -7,18 +7,10 @@ public protocol Paginated {
 }
 
 public extension Paginated {
-    var offset: UInt {
-        0
-    }
-
-    var limit: UInt {
-        20
-    }
-
-    var queryItems: [URLQueryItem] {
+    var paginationQueryItems: [URLQueryItem] {
         [
-            URLQueryItem(name: "offset", value: "\(offset)"),
-            URLQueryItem(name: "limit", value: "\(limit)")
+            URLQueryItem(name: "limit", value: "\(self.limit)"),
+            URLQueryItem(name: "offset", value: "\(self.offset)"),
         ]
     }
 }
