@@ -18,9 +18,9 @@ final class ResponseListMessagesInThreadTests: XCTestCase {
     
     func test_requestWithBeforeAndDefaultParameters() throws {
         // Arrange
-        let expectedRelativeUrlPath = "/messaging/threads/11/messages?limit=20&offset=0&before=before"
-        let request = ListMessagesInThreadRequest(token: "token", threadId: "11", before: "before", after: nil)
-        
+        let expectedRelativeUrlPath = "/messaging/threads/11/messages?limit=20&offset=0"
+        let request = ListMessagesInThreadRequest(token: "token", threadId: "11", before: nil, after: nil)
+
         // Act
         let urlRelativePath = request.preparePathWithComponents()
         
@@ -30,7 +30,7 @@ final class ResponseListMessagesInThreadTests: XCTestCase {
     
     func test_requestWithAllParameters() throws {
         // Arrange
-        let expectedRelativeUrlPath = "/messaging/threads/11/messages?limit=30&offset=5&before=before&after=after"
+        let expectedRelativeUrlPath = "/messaging/threads/11/messages?limit=30&before=before&after=after"
         let request = ListMessagesInThreadRequest(token: "token", threadId: "11", limit: 30, offset: 5, before: "before", after: "after")
         
         // Act
