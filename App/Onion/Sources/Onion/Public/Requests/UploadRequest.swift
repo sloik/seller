@@ -2,15 +2,12 @@
 import Foundation
 import HTTPTypes
 
-public protocol UploadRequest: Request {
-    var body: any ContentType { get }
+public protocol UploadRequest<Input>: Request {
+    associatedtype Input: ContentType
+    var body: Input { get }
 }
 
 public extension UploadRequest {
-    var method: HTTPRequest.Method {
-        .post
-    }
-
     var bodyData: Data {
         get throws {
             let encoder = JSONEncoder()
