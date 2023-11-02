@@ -17,7 +17,7 @@ struct ListMessagesInThreadRequest: PaginatedRequest {
         let defaultPath = "/messaging/threads/\(threadId)/messages"
 
         components.path = defaultPath
-        components.queryItems = paginationQueryItems + filterDateQueryItems
+        components.queryItems = filterDateQueryItems
 
         return components.url?.absoluteString ?? defaultPath
     }
@@ -57,9 +57,14 @@ struct ListMessagesInThreadRequest: PaginatedRequest {
 private extension ListMessagesInThreadRequest {
 
     var filterDateQueryItems: [URLQueryItem] {
-        var items = [URLQueryItem]()
+        var items = paginationQueryItems
 
-        if let before { items.append(URLQueryItem(name: "before", value: before)) }
+        if let before {
+            items.append(URLQueryItem(name: "before", value: before))
+
+            // Message creation date before filter parameter (exclusive) - cannot be used with offset.
+            items.removeAll(where: { $0.name == "offset" })
+        }
         if let after { items.append(URLQueryItem(name: "after", value: after)) }
 
         return items
