@@ -6,6 +6,8 @@ import OSLog
 import HTTPTypesFoundation
 import HTTPTypes
 
+import AliasWonderland
+
 public final class APIClient: APIClientType {
 
     public var baseURL: URL
@@ -32,7 +34,9 @@ public final class APIClient: APIClientType {
 
         let httpRequest = httpRequest(from: request)
 
-        let (data, httpResponse) = try await session.data(for: httpRequest)
+        let (data, httpResponse) = try await tryToLoad {
+            try await session.data(for: httpRequest)
+        }
 
         return try commonValidationAndDecode(request: request, data: data, httpResponse: httpResponse)
     }
@@ -42,7 +46,9 @@ public final class APIClient: APIClientType {
 
         let httpRequest = httpRequest(from: request)
 
-        let (data, httpResponse) = try await session.upload(for: httpRequest, from: request.bodyData)
+        let (data, httpResponse) = try await tryToLoad {
+            try await session.upload(for: httpRequest, from: request.bodyData)
+        }
 
         return try commonValidationAndDecode(request: request, data: data, httpResponse: httpResponse)
     }
@@ -75,20 +81,20 @@ private extension APIClient {
         return httpRequest
     }
 
-    /// Fetches request and in case of errors retries is to total of 3 times.
-    func trieToLoad(request: HTTPRequest) async throws -> (Data, HTTPResponse) {
+    /// Runs `action` and in case of errors retries is to total of 3 times.
+    func tryToLoad<A,B>(action: AsyncThrowsProducer2O<A,B>) async throws -> (A, B) {
 
         // Tries to get the data for a request 2 times
         for _ in 1...2 {
             do {
-                return try await session.data(for: request)
+                return try await action()
             } catch {
                 // ignore the error now
                 continue
             }
         }
 
-        // Trie it 3rd and last time
-        return try await session.data(for: request)
+        // try it 3rd and last time
+        return try await action()
     }
 }
