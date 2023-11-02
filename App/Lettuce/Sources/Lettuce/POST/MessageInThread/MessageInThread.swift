@@ -1,6 +1,5 @@
 // system
 import Foundation
-import HTTPTypes
 
 // local
 import Onion
