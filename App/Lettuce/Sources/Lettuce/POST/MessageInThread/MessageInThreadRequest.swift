@@ -7,7 +7,7 @@ import Onion
 
 struct PostMessageInThread: UploadRequest {
     typealias Output = Message
-    
+
     var path: String {
         "/messaging/threads/\(threadId)/messages"
     }
