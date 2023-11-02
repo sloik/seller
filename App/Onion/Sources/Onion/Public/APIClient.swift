@@ -29,10 +29,7 @@ public final class APIClient: APIClientType {
 
     public func get<R: Request>(_ request: R) async throws -> (R.Output, HTTPResponse) {
 
-        var httpRequest = baseRequest
-        httpRequest.path = request.path
-        httpRequest.headerFields = request.headerFields
-        httpRequest.method = request.method
+        let httpRequest = httpRequest(from: request)
 
         let (data, httpResponse) = try await session.data(for: httpRequest)
 
