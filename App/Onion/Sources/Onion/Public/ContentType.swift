@@ -4,7 +4,10 @@ import Foundation
 /// Data that can be received from a server
 public protocol ContentType: Codable, Equatable {}
 
-//
-// Default implementations to common types that can be send thru an wire.
-//
+// MARK: - Common ContentType types
+
 extension String: ContentType {}
+
+extension Array: ContentType where Element: ContentType {}
+
+extension Dictionary: ContentType where Key == String, Value: ContentType {}
