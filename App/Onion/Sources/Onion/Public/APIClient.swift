@@ -37,6 +37,16 @@ public final class APIClient: APIClientType {
         return try commonValidationAndDecode(request: request, data: data, httpResponse: httpResponse)
     }
 
+    public func upload<R: UploadRequest>(_ request: R) async throws -> (R.Output, HTTPResponse) {
+        logger.debug("Sending request \(type(of: request))")
+
+        let httpRequest = httpRequest(from: request)
+
+        let (data, httpResponse) = try await session.upload(for: httpRequest, from: request.bodyData)
+
+        return try commonValidationAndDecode(request: request, data: data, httpResponse: httpResponse)
+    }
+}
 
 private extension APIClient {
 

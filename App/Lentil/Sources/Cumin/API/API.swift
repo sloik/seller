@@ -138,7 +138,11 @@ extension API {
 
             let baseURL: URL = URL(string: "https://fake.api.pl")!
 
-            func get<R>(_ request: R) async throws -> (R.Output, HTTPResponse) where R : Request {
+            func get<R: Request>(_ request: R) async throws -> (R.Output, HTTPResponse) {
+                fatalError()
+            }
+
+            func upload<R: UploadRequest>(_ request: R) async throws -> (R.Output, HTTPTypes.HTTPResponse) {
                 fatalError()
             }
         }

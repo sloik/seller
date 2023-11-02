@@ -12,4 +12,7 @@ public protocol APIClientType {
     ///
     /// If the request is `GET` then body is ignored.
     func get<R: Request>(_ request: R) async throws -> (R.Output, HTTPResponse)
+
+    /// Uploads data to a resource.
+    func upload<R: UploadRequest>(_ request: R) async throws -> (R.Output, HTTPResponse)
 }
