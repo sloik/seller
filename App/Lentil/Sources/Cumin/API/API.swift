@@ -119,7 +119,7 @@ extension API {
                 redirectURI: redirectURI
             )
 
-            let (token, httpResponse): (Token, HTTPResponse) = try await authClient.get( tokenRequest )
+            let (token, httpResponse): (Token, HTTPResponse) = try await authClient.run( tokenRequest )
 
             logger.info("Response: \(httpResponse.debugDescription)")
 
@@ -138,7 +138,7 @@ extension API {
 
             let baseURL: URL = URL(string: "https://fake.api.pl")!
 
-            func get<R: Request>(_ request: R) async throws -> (R.Output, HTTPResponse) {
+            func run<R: Request>(_ request: R) async throws -> (R.Output, HTTPResponse) {
                 fatalError()
             }
 
