@@ -57,7 +57,7 @@ private extension APIClient {
     func trieToLoad(request: HTTPRequest) async throws -> (Data, HTTPResponse) {
 
         // Tries to get the data for a request 2 times
-        for tryCount in 1...2 {
+        for _ in 1...2 {
             do {
                 return try await session.data(for: request)
             } catch {
