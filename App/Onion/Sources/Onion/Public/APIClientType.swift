@@ -8,6 +8,8 @@ public protocol APIClientType {
     /// base url for the api client
     var baseURL: URL { get }
 
-    /// send a request to the server
+    /// Send a request to the server
+    ///
+    /// If the request is `GET` then body is ignored.
     func get<R: Request>(_ request: R) async throws -> (R.Output, HTTPResponse)
 }
