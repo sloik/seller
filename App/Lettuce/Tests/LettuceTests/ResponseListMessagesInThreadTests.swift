@@ -110,11 +110,11 @@ final class ResponseListMessagesInThreadTests: XCTestCase {
                     offer: Message.ThreadId(id: "string"),
                     order: Message.ThreadId(id: "string")),
                 hasAdditionalAttachments: false,
-                attachments: [Message.AttachmentInfo(
+                attachments: [Attachment(
                     fileName: "string",
                     mimeType: "string",
                     url: "string",
-                    status: Message.AttachmentInfo.Status.new)],
+                    status: Attachment.Status.new)],
                 additionalInformation: Message.AdditionalInformation(vin: "JT2SV12E6F0308977"))],
             offset: 0,
             limit: 0)
