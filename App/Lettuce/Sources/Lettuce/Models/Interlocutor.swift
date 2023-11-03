@@ -7,5 +7,16 @@ import Onion
 
 struct Interlocutor: ContentType {
     let login: String
-    let avatarUrl: String
+    let avatarUrlString: String
+
+    enum CodingKeys: String, CodingKey {
+        case login = "login"
+        case avatarUrlString = "avatarUrl"
+    }
+}
+
+extension Interlocutor {
+    var avatarUrl: URL? {
+        URL(string: avatarUrlString)
+    }
 }

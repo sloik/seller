@@ -28,7 +28,7 @@ final class ChangeReadFlagOnThreadRequestTests: XCTestCase {
             lastMessageDateTime: "2019-08-24T14:15:22Z",
             interlocutor: Interlocutor(
                 login: "string",
-                avatarUrl: "string"
+                avatarUrlString: "string"
             )
         )
 

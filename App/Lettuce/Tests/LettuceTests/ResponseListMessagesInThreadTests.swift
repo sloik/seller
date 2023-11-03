@@ -114,7 +114,7 @@ final class ResponseListMessagesInThreadTests: XCTestCase {
                 attachments: [Attachment(
                     fileName: "string",
                     mimeType: "string",
-                    url: "string",
+                    urlString: "string",
                     status: Attachment.Status.new)],
                 additionalInformation: Message.AdditionalInformation(vin: "JT2SV12E6F0308977"))],
             offset: 0,

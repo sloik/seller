@@ -71,7 +71,7 @@ final class ResponseMessageTests: XCTestCase {
             attachments: [Attachment(
                 fileName: "string",
                 mimeType: "string",
-                url: "string",
+                urlString: "string",
                 status: Attachment.Status.new)],
             additionalInformation: Message.AdditionalInformation(
                 vin: "JT2SV12E6F0308977"))
