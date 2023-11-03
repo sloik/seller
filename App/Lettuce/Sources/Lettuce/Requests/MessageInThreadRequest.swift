@@ -14,8 +14,8 @@ struct PostMessageInThread: UploadRequest {
     
     var headerFields: HTTPFields {
         [
-            HTTPField.Name.authorization : "Bearer \(token)",
-            HTTPField.Name.contentType : "application/vnd.allegro.public.v1+json"
+            HTTPField.Name.authorization : .bearer(token),
+            HTTPField.Name.contentType : .applicationVndAllegroV1Json
         ]
     }
 
