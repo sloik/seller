@@ -29,12 +29,12 @@ struct UploadAttachmentRequest: UploadRequest {
     let attachmentId: Identifier<Attachment>
 
     enum AttachmentType: String, ContentType {
-        case png = "image/png"
+        case png  = "image/png"
         case jpeg = "image/jpeg"
-        case gif = "image/gif"
+        case gif  = "image/gif"
         case tiff = "image/tiff"
-        case bmp = "image/bmp"
-        case pdf = "application/pdf"
+        case bmp  = "image/bmp"
+        case pdf  = "application/pdf"
     }
     let attachmentType: AttachmentType
     let attachmentData: Data
