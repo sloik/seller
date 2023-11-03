@@ -27,6 +27,6 @@ struct Attachment: ContentType {
 
 extension Attachment {
     var url: URL? {
-       return urlString.flatMap( URL.init(string:) )
+        urlString.flatMap( URL.init(string:) )
     }
 }
