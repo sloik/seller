@@ -10,8 +10,8 @@ final class ResponseListMessagesInThreadTests: XCTestCase {
         let request = ListMessagesInThreadRequest(token: "token", threadId: "11", before: nil, after: nil)
         
         // Act
-        let urlRelativePath = request.preparePathWithComponents()
-        
+        let urlRelativePath = request.path
+
         // Assert
         XCTAssertEqual(urlRelativePath, expectedRelativeUrlPath)
     }
@@ -22,8 +22,8 @@ final class ResponseListMessagesInThreadTests: XCTestCase {
         let request = ListMessagesInThreadRequest(token: "token", threadId: "11", before: nil, after: nil)
 
         // Act
-        let urlRelativePath = request.preparePathWithComponents()
-        
+        let urlRelativePath = request.path
+
         // Assert
         XCTAssertEqual(urlRelativePath, expectedRelativeUrlPath)
     }
@@ -34,7 +34,7 @@ final class ResponseListMessagesInThreadTests: XCTestCase {
         let request = ListMessagesInThreadRequest(token: "token", threadId: "11", limit: 30, offset: 5, before: "before", after: "after")
         
         // Act
-        let urlRelativePath = request.preparePathWithComponents()
+        let urlRelativePath = request.path
         
         // Assert
         XCTAssertEqual(urlRelativePath, expectedRelativeUrlPath)

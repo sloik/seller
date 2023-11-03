@@ -26,7 +26,7 @@ final class ChangeReadFlagOnThreadRequestTests: XCTestCase {
             id: "string",
             read: true,
             lastMessageDateTime: "2019-08-24T14:15:22Z",
-            interlocutor: ChangeReadFlagOnThreadRequest.Response.Interlocutor(
+            interlocutor: Interlocutor(
                 login: "string",
                 avatarUrl: "string"
             )

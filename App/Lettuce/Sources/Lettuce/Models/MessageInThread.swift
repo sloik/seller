@@ -5,7 +5,7 @@ import Foundation
 import Onion
 
 /// https://developer.allegro.pl/documentation#operation/newMessageInThreadPOST
-public struct NewMessageInThread: Codable, Equatable, ContentType {
+public struct NewMessageInThread: ContentType {
     public let text: String
     
     public struct AttachmentId: Codable, Equatable {

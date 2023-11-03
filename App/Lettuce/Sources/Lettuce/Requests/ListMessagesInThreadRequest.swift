@@ -9,10 +9,6 @@ struct ListMessagesInThreadRequest: PaginatedRequest {
     typealias Output = [Message]
     
     var path: String {
-        preparePathWithComponents()
-    }
-    
-    func preparePathWithComponents() -> String {
         var components = URLComponents()
         let defaultPath = "/messaging/threads/\(threadId)/messages"
 

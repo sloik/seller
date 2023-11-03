@@ -33,11 +33,6 @@ extension ChangeReadFlagOnThreadRequest {
         let id: String
         let read: Bool
         let lastMessageDateTime: String
-
-        struct Interlocutor: ContentType {
-            let login: String
-            let avatarUrl: String
-        }
         let interlocutor: Interlocutor
     }
 }
