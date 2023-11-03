@@ -29,11 +29,6 @@ struct Message: ContentType {
         let id: String
     }
     let thread: ThreadId
-
-    struct Author: ContentType {
-        let login: String
-        let isInterlocutor: Bool
-    }
     let author: Author
     let text: String
     let subject: String?

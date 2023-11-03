@@ -57,9 +57,10 @@ final class ResponseMessageTests: XCTestCase {
             type: Message.MessageType.messageCenter,
             createdAt: "2019-08-24T14:15:22Z",
             thread: Message.ThreadId(id: "string"),
-            author: Message.Author(
+            author: Author(
                 login: "string",
-                isInterlocutor: true),
+                isInterlocutor: true
+            ),
             text: "string",
             subject: "string",
             relatesTo: Message.RelatedObject(
