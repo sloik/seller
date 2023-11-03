@@ -26,8 +26,9 @@ final class ResponseMessageInThreadTests: XCTestCase {
         // Assert
         let expectedResult = NewMessageInThread(
             text: "string",
-            attachments: [NewMessageInThread.AttachmentId(id: "string")])
-        
+            attachments: ["string"]
+        )
+
         XCTAssertEqual(result, expectedResult)
     }
 }

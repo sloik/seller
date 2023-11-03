@@ -1,10 +1,14 @@
 
 import Foundation
 
-public struct Identifier: ContentType, Identifiable {
-    let id: String
+public struct Identifier<Tag>: ContentType, Identifiable, ExpressibleByStringLiteral {
+    public let id: String
 
     public init(id: String) {
         self.id = id
+    }
+
+    public init(stringLiteral value: String) {
+        self.id = value
     }
 }

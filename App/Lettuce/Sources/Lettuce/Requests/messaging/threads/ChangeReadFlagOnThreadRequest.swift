@@ -29,7 +29,7 @@ struct ChangeReadFlagOnThreadRequest: UploadRequest {
 }
 
 extension ChangeReadFlagOnThreadRequest {
-    struct Response: ContentType {
+    struct Response: ContentType, Identifiable {
         let id: String
         let read: Bool
         let lastMessageDateTime: String

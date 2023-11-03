@@ -99,8 +99,7 @@ final class ResponseListMessagesInThreadTests: XCTestCase {
                 status: Message.Status.verifying,
                 type: Message.MessageType.messageCenter,
                 createdAt: "2019-08-24T14:15:22Z",
-                thread: Message.ThreadId(
-                    id: "string"),
+                thread: .init(id: "string"),
                 author: Author(
                     login: "string",
                     isInterlocutor: true
@@ -108,8 +107,9 @@ final class ResponseListMessagesInThreadTests: XCTestCase {
                 text: "string",
                 subject: "string",
                 relatesTo: Message.RelatedObject(
-                    offer: Message.ThreadId(id: "string"),
-                    order: Message.ThreadId(id: "string")),
+                    offer: "string",
+                    order: "string"
+                ),
                 hasAdditionalAttachments: false,
                 attachments: [Attachment(
                     fileName: "string",

@@ -28,16 +28,10 @@ struct PostMessageInThread: UploadRequest {
 
     struct Body: ContentType {
         let text: String
+        let attachments: [Identifier<Attachment>]?
 
-        struct AttachmentId: ContentType {
-            let id: String
-        }
-        let attachments: [AttachmentId]?
-
-        struct Recipient: ContentType {
-            let id: String
-        }
-        let recipient: Recipient
+        enum Recipient {}
+        let recipient: Identifier<Recipient>
     }
     let body: Body
 }

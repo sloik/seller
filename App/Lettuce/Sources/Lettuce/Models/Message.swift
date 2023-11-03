@@ -5,7 +5,7 @@ import Foundation
 import Onion
 
 /// https://developer.allegro.pl/documentation#operation/getMessageGET
-struct Message: ContentType {
+struct Message: ContentType, Identifiable {
     let id: String
 
     enum Status: String, ContentType {
@@ -25,17 +25,16 @@ struct Message: ContentType {
     let type: MessageType
     let createdAt: String
 
-    struct ThreadId: ContentType {
-        let id: String
-    }
-    let thread: ThreadId
+    enum ThreadId {}
+    let thread: Identifier<ThreadId>
+
     let author: Author
     let text: String
     let subject: String?
 
     struct RelatedObject: ContentType {
-        let offer: ThreadId?
-        let order: ThreadId?
+        let offer: Identifier<ThreadId>?
+        let order: Identifier<ThreadId>?
     }
     let relatesTo: RelatedObject
     let hasAdditionalAttachments: Bool
