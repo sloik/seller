@@ -7,6 +7,30 @@ public extension String {
         "application/vnd.allegro.public.v1+json"
     }
 
+    static var applicationPdf: String {
+        "application/pdf"
+    }
+
+    static var imagePng: String {
+        "image/png"
+    }
+
+    static var imageJpeg: String {
+        "image/jpeg"
+    }
+
+    static var imageGif: String {
+        "image/gif"
+    }
+
+    static var imageTiff: String {
+        "image/tiff"
+    }
+
+    static var imageBmp: String {
+        "image/bmp"
+    }
+
     static func bearer(_ token: String) -> String {
         "Bearer \(token)"
     }
