@@ -19,13 +19,15 @@ struct UploadAttachmentRequest: UploadRequest {
     }
 
     var headerFields: HTTPFields {
-        [
-            HTTPField.Name.authorization : .bearer(token),
-            HTTPField.Name.contentType : attachmentType.rawValue
-        ]
+        var fields: HTTPFields = [:]
+
+        fields[.contentType] = attachmentType.rawValue
+        fields[token.httpField.name] = token.httpField.value
+
+        return fields
     }
 
-    let token: String
+    let token: BearerToken
     let attachmentId: Identifier<Attachment>
 
     enum AttachmentType: String, ContentType {
