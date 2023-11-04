@@ -16,7 +16,7 @@ public struct BearerToken: ContentType, ExpressibleByStringLiteral {
 }
 
 public extension BearerToken {
-    public var httpField: HTTPField {
+    var httpField: HTTPField {
         HTTPField(name: .authorization, value: .bearer(token))
     }
 }
