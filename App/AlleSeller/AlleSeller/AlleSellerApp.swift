@@ -3,7 +3,7 @@ import SwiftUI
 
 import Seller
 
-var CurrentSeller: Seller = .init()
+let CurrentSeller: Seller = .init()
 
 @main
 struct AlleSellerApp: App {
