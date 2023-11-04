@@ -56,13 +56,16 @@ final class ResponseListUserThreadsTests: XCTestCase {
         
         // Assert
         let expectedResult = ListUserThreads(
-            threads: [ListUserThreads.Thread(
-                id: "string",
-                read: true,
-                lastMessageDateTime: "2019-08-24T14:15:22Z",
-                interlocutor: ListUserThreads.Thread.Interlocutor(
-                    login: "string",
-                    avatarURL: "string"))],
+            threads: [
+                ListUserThreads.Thread(
+                    id: "string",
+                    read: true,
+                    lastMessageDateTime: "2019-08-24T14:15:22Z",
+                    interlocutor: Interlocutor(
+                        login: "string",
+                        avatarUrlString: "string")
+                )
+            ],
             offset: 0,
             limit: 0)
         
