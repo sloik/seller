@@ -16,7 +16,11 @@ struct AlleSellerApp: App {
 
     var body: some Scene {
         WindowGroup {
-            seller.body
+            seller
+                .body
+                .onShakeGesture {
+                    print(#function)
+                }
         }
     }
 }
