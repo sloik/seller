@@ -16,6 +16,12 @@ let package = Package(
             type: .dynamic,
             targets: ["Seller"]
         ),
+
+        .library(
+            name: "SellerDebug",
+            type: .dynamic,
+            targets: ["SellerDebug"]
+        ),
     ],
     dependencies: [
         .package(path: "../Lentil"),
@@ -36,6 +42,14 @@ let package = Package(
                 "OptionalAPI",
             ]
         ),
+
+        .target(
+            name: "SellerDebug",
+            dependencies: [
+                "Seller",
+            ]
+        ),
+
         .testTarget(
             name: "SellerTests",
             dependencies: ["Seller"]
