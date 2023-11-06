@@ -2,38 +2,73 @@
 import Foundation
 import SwiftUI
 import UIKit
+import Observation
+
+
+
+@Observable
+final class DebugModel {
+
+
+}
+
+struct TextDetailRow: View {
+    let title: String
+    let text: String
+
+    var body: some View {
+        HStack {
+            Text(title)
+            Spacer()
+            Text(text)
+        }
+    }
+}
+
+struct GlobalEnvironmentView: View {
+    var body: some View {
+        Text("Global environment")
+    }
+}
 
 struct DebugView: View {
 
     @Environment(\.dismiss) var dismiss
 
+    let globalItems: [GlobalItem] = [
+        GlobalItem(name: "Networking Environment", value: "unknown", type: .networking)
+    ]
+
     @State private var globalNetworkingEnvironment: Bool = true
+
+    @State private var path: [GlobalItem] = []
 
     var body: some View {
 
-        NavigationView {
+        NavigationStack(path: $path) {
             List {
                 Section(header: HeaderView(text: "🌐 Global")) {
-                    Text("Item")
-                    Toggle("Networking Environment", isOn: $globalNetworkingEnvironment)
-                        .onChange(of: globalNetworkingEnvironment) { old, new in
-                            print(#function, old, new)
+
+                    ForEach(globalItems, id: \.name) { listItem in
+                        NavigationLink(value: listItem) {
+                            TextDetailRow(title: listItem.name, text: listItem.value)
                         }
-                }
+                    }
 
-                Section(header: HeaderView(text: "🫐 Lentil")) {
-                    Text("Item")
                 }
+                .listStyle(InsetGroupedListStyle())
 
-                Section(header: HeaderView(text: "🥬 Lettuce")) {
-                    Text("Item")
-                }
             }
-            .listStyle(InsetGroupedListStyle())
-            .navigationTitle("⚙️ Debug")
             .toolbar {
                 Button("Dismiss") {
                     dismiss()
+                }
+            }
+            .navigationTitle("⚙️ Debug")
+            .navigationDestination(for: GlobalItem.self) { listItem in
+                switch listItem.type {
+                case .networking:
+                    Text("Fun")
                 }
             }
         }
@@ -49,4 +84,14 @@ struct HeaderView: View {
             .font(.title3)
             .bold()
     }
+}
+
+enum ItemType {
+    case networking
+}
+
+struct GlobalItem: Hashable {
+    let name: String
+    let value: String
+    let type: ItemType
 }
