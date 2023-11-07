@@ -98,3 +98,22 @@ private extension APIClient {
         return try await action()
     }
 }
+
+// MARK: -
+
+open class MockApiClient: APIClientType {
+
+   public let baseURL: URL
+
+    public init(baseURL: URL = URL(string: "https://fake.api.pl")!) {
+        self.baseURL = baseURL
+    }
+
+    public func run<R: Request>(_ request: R) async throws -> (R.Output, HTTPResponse) {
+        fatalError("Provide your own implementation of \(#function)")
+    }
+
+    public func upload<R: UploadRequest>(_ request: R) async throws -> (R.Output, HTTPTypes.HTTPResponse) {
+        fatalError("Provide your own implementation of \(#function)")
+    }
+}

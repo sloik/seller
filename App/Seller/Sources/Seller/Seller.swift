@@ -2,19 +2,17 @@
 import Lentil
 import SwiftUI
 import OptionalAPI
+import Onion
 
 public final class Seller {
-
-    public enum Env {
-        case prod
-        case sandbox
-    }
 
     public init() {
     }
 
-    public func takeOff(env: Env) {
-        LentilUseCases.start(env: env.lentilEnv)
+    public func configure(
+        using configuration: Configuration
+    ) {
+        LentilUseCases.configure(apiClient: configuration.apiClient)
     }
 
     public var body: some View {
@@ -22,14 +20,12 @@ public final class Seller {
     }
 }
 
-private extension Seller.Env {
+public extension Seller {
+    struct Configuration {
+        let apiClient: APIClientType
 
-    var lentilEnv: LentilUseCases.Env {
-        switch self {
-        case .prod:
-            return .prod
-        case .sandbox:
-            return .mock
+        public init(apiClient: APIClientType) {
+            self.apiClient = apiClient
         }
     }
 }

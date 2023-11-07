@@ -4,15 +4,12 @@ import Foundation
 // local
 import SecretsStore
 import Cumin
+import Onion
 
 // 3rd party
 import AliasWonderland
 
-package var Yuca: YucaUseCases!
-
-package func takeOffYuca(cumin: CuminUseCases) {
-    Yuca = YucaUseCases(cumin: cumin)
-}
+package private(set) var Yuca: YucaUseCases!
 
 package struct YucaUseCases {
 
@@ -26,11 +23,8 @@ package struct YucaUseCases {
 }
 
 package extension YucaUseCases {
-    static var prod: YucaUseCases {
-        .init(cumin: .prod)
-    }
 
-    static var mock: YucaUseCases {
-        .prod
+    static func takeOffYuca(cumin: CuminUseCases) {
+        Yuca = YucaUseCases(cumin: cumin)
     }
 }

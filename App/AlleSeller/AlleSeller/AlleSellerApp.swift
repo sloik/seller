@@ -2,6 +2,7 @@
 import SwiftUI
 
 import Seller
+import Onion
 
 let CurrentSeller: Seller = .init()
 
@@ -13,7 +14,11 @@ struct AlleSellerApp: App {
     #endif
 
     init() {
-        CurrentSeller.takeOff(env: .prod)
+        let configuration = Seller.Configuration(
+            apiClient: ApiClientFactory.makeApiClient(for: .production)
+        )
+
+        CurrentSeller.configure(using: configuration)
     }
 
 

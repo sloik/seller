@@ -3,6 +3,7 @@ import Foundation
 
 // local
 import SecretsStore
+import Onion
 
 // 3rd party
 import AliasWonderland
@@ -30,12 +31,12 @@ package final class CuminUseCases {
 }
 
 package extension CuminUseCases {
-    static var prod: CuminUseCases {
+    static func prod(apiClient: APIClientType) -> Self {
         .init(
             auth: .prod,
             secrets: ProductionSecretsStore(),
             secureStore: .prod,
-            api: .prod
+            api: API.prod(apiClient: apiClient)
         )
     }
 

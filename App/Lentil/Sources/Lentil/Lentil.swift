@@ -6,6 +6,7 @@ import SwiftUI
 import Cumin
 import Yuca
 import SecretsStore
+import Onion
 
 // 3rd party
 import AliasWonderland
@@ -18,15 +19,11 @@ public struct LentilUseCases {
         case prod, mock
     }
 
-    public static func start(env: Env) {
-        switch env {
-        case .prod:
-            Cumin = .prod
-            Yuca = .prod
-        case .mock:
-            Cumin = .mock
-            Yuca = .mock
-        }
+    public static func configure(
+        apiClient: APIClientType
+    ) {
+        Cumin = .prod(apiClient: apiClient)
+        YucaUseCases.takeOffYuca(cumin: Cumin)
 
         Lentil = .init()
     }

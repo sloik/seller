@@ -15,35 +15,28 @@ private let logger = Logger(subsystem: "API", category: "API")
 
 final class API {
     var _getTokenCode: AsyncThrowsClosure2I<String, APIClientType, Token>
-    var _authClient: Closure<Environment, APIClientType>
-    var _environment: Environment
+    var _authClient: APIClientType
 
     init(
         getTokenCode: @escaping AsyncThrowsClosure2I<String, APIClientType, Token>,
-        authClient:  @escaping Closure<Environment, APIClientType>,
-        environment: Environment
+        authClient:  APIClientType
     ) {
         self._getTokenCode = getTokenCode
         self._authClient = authClient
-        self._environment = environment
     }
 }
 
 extension API {
 
-    var currentEnvironment: Environment {
-        _environment
-    }
-
-    var apiClientForCurrentEnvironment: APIClientType {
-        _authClient(_environment)
+    var currentClient: APIClientType {
+        _authClient
     }
 
     func getToken(code: String) async throws -> Token {
         logger.info("Getting token from code: \(code, privacy: .private)")
 
         do {
-            return try await _getTokenCode(code, apiClientForCurrentEnvironment)
+            return try await _getTokenCode(code, currentClient)
         } catch {
             logger.error("Failed to get token from code: \(code, privacy: .private) with error: \(error.localizedDescription)")
             throw error
@@ -60,28 +53,17 @@ extension API {
 
 extension API {
 
-    enum Environment {
-        case prod
-        case sandbox
-    }
-}
-
-
-extension API {
-
     static var mock: Self {
         .init(
             getTokenCode: { _,_ in Token.mock },
-            authClient: Mock.authClient(environment:),
-            environment: .sandbox
+            authClient: Mock.ApiClient()
         )
     }
 
-    static var prod: Self {
+    static func prod(apiClient: APIClientType) -> Self {
         .init(
             getTokenCode: Prod.getToken(code:authClient:),
-            authClient: Prod.authClient(environment:),
-            environment: .prod
+            authClient: apiClient
         )
     }
 }
@@ -91,15 +73,6 @@ extension API {
 extension API {
 
     enum Prod {
-
-        static func authClient(environment: Environment) -> APIClientType {
-            switch environment {
-            case .prod:
-                return APIClient(baseURL: URL(string: "https://allegro.pl")!)
-            case .sandbox:
-                return APIClient(baseURL: URL(string: "https://allegro.pl.allegrosandbox.pl")!)
-            }
-        }
 
         static func getToken(code: String, authClient: APIClientType) async throws -> Token {
 
@@ -129,10 +102,6 @@ extension API {
     }
 
     enum Mock {
-
-        static func authClient(environment: Environment) -> APIClientType {
-            Mock.ApiClient()
-        }
 
         final class ApiClient: APIClientType {
 
