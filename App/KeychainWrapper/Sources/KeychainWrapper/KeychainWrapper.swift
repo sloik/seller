@@ -111,6 +111,49 @@ public extension KeychainWrapper {
 
 // MARK: - Getters
 public extension KeychainWrapper {
+    
+    /// Get the keys and values of all keychain entries matching
+    /// the current ServiceName and AccessGroup if one is set.
+    var allEntries: [String:String] {
+        
+        let query: [String:Any] = [
+            SecClass: kSecClassGenericPassword,
+            SecAttrService: serviceName,
+            SecMatchLimit: kSecMatchLimitAll,
+            SecReturnAttributes: true,
+            SecReturnRefference as String : kCFBooleanTrue ?? true,
+        ]
+        
+        var result: AnyObject?
+        let status = withUnsafeMutablePointer(to: &result) {
+            SecItemCopyMatching(query as CFDictionary, UnsafeMutablePointer($0))
+        }
+        guard
+            status == errSecSuccess,
+            let results = result as? [[String:Any]]
+        else {
+            return [:]
+        }
+        
+        
+        return results
+            .compactMap { (result: [String:Any]) -> [String:String] in
+                if let keyData:Data = result[kSecAttrAccount as String] as? Data,
+                   let key:String = String(data: keyData, encoding:.utf8),
+                   let valueData:Data = result[kSecValueData as String] as? Data,
+                   let value: String = String(data: valueData, encoding:.utf8) {
+                    return [key:value]
+                }
+                return [:]
+        }
+            .flatMap{$0}
+            .reduce([String:String]()) {
+                (dict, entries) in
+                var dictionary = dict
+                dictionary.updateValue(entries.value, forKey: entries.key)
+                return dictionary
+            }
+    }
 
     func data(
         for key: String,
