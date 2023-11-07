@@ -147,7 +147,7 @@
 				64078B2B2A87B72B00877322 /* AlleSellerApp.swift */,
 				64078B2F2A87B72D00877322 /* Assets.xcassets */,
 				6490B4492AF66295007C8013 /* Debug */,
-				6477BBC02AFAB5800024D672 /* Dependencies */,
+				6477BBC02AFAB5800024D672 /* Factories */,
 				64078B312A87B72D00877322 /* Preview Content */,
 			);
 			path = AlleSeller;
@@ -178,12 +178,12 @@
 			path = AlleSellerUITests;
 			sourceTree = "<group>";
 		};
-		6477BBC02AFAB5800024D672 /* Dependencies */ = {
+		6477BBC02AFAB5800024D672 /* Factories */ = {
 			isa = PBXGroup;
 			children = (
 				6477BBC12AFABC080024D672 /* ApiClientFactory.swift */,
 			);
-			path = Dependencies;
+			path = Factories;
 			sourceTree = "<group>";
 		};
 		6490B4492AF66295007C8013 /* Debug */ = {
