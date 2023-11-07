@@ -41,7 +41,7 @@ struct DebugView: View {
 
     @State private var globalNetworkingEnvironment: Bool = true
 
-    @State private var path: [GlobalItem] = []
+    @State private var path = NavigationPath()
 
     var body: some View {
 
@@ -67,8 +67,7 @@ struct DebugView: View {
             .navigationTitle("⚙️ Debug")
             .navigationDestination(for: GlobalItem.self) { listItem in
                 switch listItem.type {
-                case .networking:
-                    Text("Fun")
+                case .networking: NetworkingApiClientChooser()
                 }
             }
         }
@@ -94,4 +93,16 @@ struct GlobalItem: Hashable {
     let name: String
     let value: String
     let type: ItemType
+}
+
+struct NetworkingApiClientChooser: View {
+
+
+    var body: some View {
+        List {
+
+            
+        }
+        .navigationTitle("🕸️ Networking Client")
+    }
 }
