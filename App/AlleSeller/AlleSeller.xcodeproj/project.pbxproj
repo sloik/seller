@@ -18,6 +18,7 @@
 		6477BBC22AFABC080024D672 /* ApiClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6477BBC12AFABC080024D672 /* ApiClientFactory.swift */; };
 		6477BBC42AFAC00D0024D672 /* Onion in Frameworks */ = {isa = PBXBuildFile; productRef = 6477BBC32AFAC00D0024D672 /* Onion */; };
 		6477BBC52AFAC00D0024D672 /* Onion in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 6477BBC32AFAC00D0024D672 /* Onion */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		6477BBC72AFAE60F0024D672 /* NetworkingApiClientChooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6477BBC62AFAE60F0024D672 /* NetworkingApiClientChooser.swift */; };
 		6490B44B2AF662BB007C8013 /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6490B44A2AF662BB007C8013 /* DebugView.swift */; };
 		6490B44E2AF66388007C8013 /* UIDevcie.Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6490B44D2AF66388007C8013 /* UIDevcie.Notifications.swift */; };
 		6490B4502AF663EA007C8013 /* UIWindow.Motion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6490B44F2AF663EA007C8013 /* UIWindow.Motion.swift */; };
@@ -73,6 +74,7 @@
 		646AFC452AE84A49005B49B1 /* Lettuce */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Lettuce; path = ../Lettuce; sourceTree = "<group>"; };
 		646EA1A32AA34F72008745B2 /* SecretsStore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SecretsStore; path = ../SecretsStore; sourceTree = "<group>"; };
 		6477BBC12AFABC080024D672 /* ApiClientFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClientFactory.swift; sourceTree = "<group>"; };
+		6477BBC62AFAE60F0024D672 /* NetworkingApiClientChooser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingApiClientChooser.swift; sourceTree = "<group>"; };
 		647FB0202ABE1CB300BF3053 /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Utilities; path = ../Utilities; sourceTree = "<group>"; };
 		648887882AE1B89100F00646 /* Onion */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Onion; path = ../Onion; sourceTree = "<group>"; };
 		648B0B5C2ABF58CD00FD8C52 /* KeychainWrapper */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = KeychainWrapper; path = ../KeychainWrapper; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				6490B44A2AF662BB007C8013 /* DebugView.swift */,
+				6477BBC62AFAE60F0024D672 /* NetworkingApiClientChooser.swift */,
 				6490B44C2AF66357007C8013 /* ShakeGesture */,
 			);
 			path = Debug;
@@ -356,6 +359,7 @@
 				6477BBC22AFABC080024D672 /* ApiClientFactory.swift in Sources */,
 				6490B4502AF663EA007C8013 /* UIWindow.Motion.swift in Sources */,
 				64078B2C2A87B72B00877322 /* AlleSellerApp.swift in Sources */,
+				6477BBC72AFAE60F0024D672 /* NetworkingApiClientChooser.swift in Sources */,
 				6490B4542AF664FA007C8013 /* SwiftUI.View.ShakeGesture.Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

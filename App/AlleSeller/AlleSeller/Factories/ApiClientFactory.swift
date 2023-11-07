@@ -15,7 +15,7 @@ enum ApiClientFactory {
     }
 }
 
-private extension ApiClientFactory.Environment {
+extension ApiClientFactory.Environment {
 
     var url: URL {
         switch self {

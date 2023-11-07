@@ -95,14 +95,3 @@ struct GlobalItem: Hashable {
     let type: ItemType
 }
 
-struct NetworkingApiClientChooser: View {
-
-
-    var body: some View {
-        List {
-
-            
-        }
-        .navigationTitle("🕸️ Networking Client")
-    }
-}
