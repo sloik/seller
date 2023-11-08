@@ -13,7 +13,12 @@ struct NetworkingApiClientChooser: View {
         List {
 
             ForEach(configurations, id: \.name) { configuration in
-                NetworkingConfigurationView(configuration: configuration)
+                Button {
+                    print("Tapped \(configuration.name)")
+                } label: {
+                    NetworkingConfigurationView(configuration: configuration)
+                }
+                .buttonStyle(PlainButtonStyle())
             }
 
         }
