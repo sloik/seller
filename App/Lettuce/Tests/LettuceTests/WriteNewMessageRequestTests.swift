@@ -28,8 +28,8 @@ final class WriteNewMessageRequestTests: XCTestCase {
         let result = try JSONDecoder().decode(WriteNewMessageRequest.Input.self, from: jsonString.data(using: .utf8)!)
         
         // Assert
-        let expectedResult = WriteNewMessageRequest.Input(
-            recipient: NewMessage.Recipient(login: "string"),
+        let expectedResult = WriteNewMessageRequest.Body(
+            recipient: WriteNewMessageRequest.Body.Recipient(login: "string"),
             text: "string",
             attachments: [Identifier(id: "string")])
         

@@ -6,9 +6,9 @@ import HTTPTypes
 import Onion
 
 /// https://developer.allegro.pl/documentation#operation/newMessagePOST
-struct WriteNewMessageRequest: Request {
+struct WriteNewMessageRequest: UploadRequest {
     typealias Output = Message
-    typealias Input = NewMessage
+    typealias Input = Body
     
     var path: String {
         "/messaging/messages"
@@ -25,5 +25,21 @@ struct WriteNewMessageRequest: Request {
         ]
     }
     
+    let body: Body
     let token: String
+}
+
+extension WriteNewMessageRequest {
+    struct Body: ContentType {
+        struct Recipient: ContentType {
+            let login: String
+        }
+        let recipient: Recipient
+        let text: String
+        
+        struct MessageAttachment: ContentType {
+            let id: String
+        }
+        let attachments: [Identifier<MessageAttachment>]?
+    }
 }
