@@ -6,7 +6,7 @@ import HTTPTypes
 import Onion
 
 /// https://developer.allegro.pl/documentation#operation/listThreadsGET
-struct ListUserThreads: Codable, Equatable, ContentType, Paginated {
+struct ListUserThreads: ContentType, Paginated {
     struct Thread: Codable, Equatable {
         let id: String
         let read: Bool
