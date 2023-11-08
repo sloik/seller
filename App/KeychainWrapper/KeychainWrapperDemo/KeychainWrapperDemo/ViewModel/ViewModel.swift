@@ -40,7 +40,6 @@ class ViewModel: Keychainable {
         } else {
             throw CustomException.getDataFromKeychain(message: Constants.noDataUnderKeyException + key)
         }
-        
     }
     
     @discardableResult
@@ -54,8 +53,6 @@ class ViewModel: Keychainable {
         throw CustomException.cannotDeleteDataFromGivenKey(message: Constants.deleteDataException)
     }
 }
-
-
 
 
 

@@ -1,10 +1,3 @@
-//
-//  Constants.swift
-//  KeychainWrapperDemo
-//
-//  Created by Szymon Kowalski on 22/10/2023.
-//
-
 import Foundation
 
 internal struct Constants {
@@ -13,7 +6,6 @@ internal struct Constants {
     static var saveSectionHeaderTitle = "Save value to keychain"
     static var saveSectionTextFieldValue = "type value to save"
     static var saveSectionTextFieldKeyValue = "type key for saved value"
-    
     
     //Retrieve
     static var getValueHeaderTitle = "Get Value from keychain"
@@ -29,7 +21,6 @@ internal struct Constants {
     static var error = "Error!!!"
     static var ok = "OK"
     static var unknownError = "Unknown Error!!!"
-
     
     //Exception messages:
     static var storeDataToKeychainException = "Can't set data to keychain"
@@ -37,8 +28,4 @@ internal struct Constants {
     static var dataDecodingException = "Can't decode data"
     static var noDataUnderKeyException = "There is no data under key: "
     static var deleteDataException = "Can't delete data"
-    
-    
-    
-    
 }
