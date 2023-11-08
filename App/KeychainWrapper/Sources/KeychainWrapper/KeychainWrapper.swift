@@ -118,20 +118,6 @@ public extension KeychainWrapper {
 
         return status == errSecSuccess
     }
-    
-    @discardableResult
-    func delete(key: String, accessibility: KeychainAttrRepresentable? = nil,  synchronizable: Bool = false ) -> Bool {
-        let query = queryDictionary(for: key, accessibility: accessibility, synchronizable: synchronizable)
-        
-        let status = SecItemDelete(query as CFDictionary)
-        
-        if(status == errSecSuccess || status == errSecItemNotFound) {
-            return true
-        } else {
-            logger.debug("Can not delete keychain item, because of unhandled error: \(status)")
-            return false
-        }
-    }
 }
 
 // MARK: - Getters
