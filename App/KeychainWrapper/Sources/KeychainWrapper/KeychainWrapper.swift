@@ -25,6 +25,7 @@ private let SecAttrAccessGroup: String! = kSecAttrAccessGroup as String
 private let SecReturnAttributes: String = kSecReturnAttributes as String
 private let SecAttrSynchronizable: String = kSecAttrSynchronizable as String
 private let SecUseDataProtectionKeychain: String = kSecUseDataProtectionKeychain as String
+private let SecReturnRefference: String = kSecReturnRef as String
 
 private let logger = Logger(subsystem: "KeychainWrapper", category: "KeychainWrapper")
 
@@ -91,6 +92,21 @@ public extension KeychainWrapper {
             return false
         }
     }
+    
+    @discardableResult
+    func delete(key: String, accessibility: KeychainAttrRepresentable? = nil,  synchronizable: Bool = false ) -> Bool {
+        let query = queryDictionary(for: key, accessibility: accessibility, synchronizable: synchronizable)
+        
+        let status = SecItemDelete(query as CFDictionary)
+        
+        if(status == errSecSuccess || status == errSecItemNotFound) {
+            return true
+        } else {
+            logger.debug("Can not delete keychain item, because of unhandled error: \(status)")
+            return false
+        }
+    }
+    
 
     private func update(
         _ value: Data,
@@ -111,34 +127,48 @@ public extension KeychainWrapper {
 
 // MARK: - Getters
 public extension KeychainWrapper {
-
-    /// Get the keys of all keychain entries matching 
+    
+    /// Get the keys and values of all keychain entries matching
     /// the current ServiceName and AccessGroup if one is set.
-    var allKeys: Set<String> {
-
+    var allEntries: [String:String] {
+        
         let query: [String:Any] = [
             SecClass: kSecClassGenericPassword,
             SecAttrService: serviceName,
-            SecAttrAccessGroup: accessGroup ?? "",
             SecMatchLimit: kSecMatchLimitAll,
-            SecReturnAttributes: true
+            SecReturnAttributes: true,
+            SecReturnRefference as String : kCFBooleanTrue ?? true,
         ]
-
+        
         var result: AnyObject?
-        let status = SecItemCopyMatching(query as CFDictionary, &result)
-        guard 
+        let status = withUnsafeMutablePointer(to: &result) {
+            SecItemCopyMatching(query as CFDictionary, UnsafeMutablePointer($0))
+        }
+        guard
             status == errSecSuccess,
             let results = result as? [[String:Any]]
         else {
-            return []
+            return [:]
         }
-
-        let keys: [String] = results
-            .compactMap { (result: [String : Any]) -> String? in
-                result[SecAttrAccount] as? String
+        
+        
+        return results
+            .compactMap { (result: [String:Any]) -> [String:String] in
+                if let keyData:Data = result[kSecAttrAccount as String] as? Data,
+                   let key:String = String(data: keyData, encoding:.utf8),
+                   let valueData:Data = result[kSecValueData as String] as? Data,
+                   let value: String = String(data: valueData, encoding:.utf8) {
+                    return [key:value]
+                }
+                return [:]
+        }
+            .flatMap{$0}
+            .reduce([String:String]()) {
+                (dict, entries) in
+                var dictionary = dict
+                dictionary.updateValue(entries.value, forKey: entries.key)
+                return dictionary
             }
-
-        return Set(keys)
     }
 
     func data(
