@@ -70,11 +70,6 @@ public extension KeychainWrapper {
         // passes value to query
         query[SecValueData] = value
 
-//        // Item must have accessibility set so default is used when none is specified.
-//        query[SecAttrAccessible] = accessibility
-//                                    .or( KeychainWrapper.ItemAccessibility.whenUnlocked )
-//                                    .keychainAttrValue
-
         // Add item to keychain.
         let status = SecItemAdd(query as CFDictionary, nil)
 
