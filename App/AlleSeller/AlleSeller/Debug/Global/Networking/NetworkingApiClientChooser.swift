@@ -16,7 +16,8 @@ struct NetworkingApiClientChooser: View {
 
             ForEach(configurations, id: \.environment) { configuration in
                 NetworkingConfigurationView(configuration: configuration) {
-                    print("Tapped \(configuration.environment.name)")
+                    let newApiClient = ApiClientFactory.makeApiClient(for: configuration.environment)
+                    setCurrent(apiClient: newApiClient)
                 }
             }
 
@@ -26,5 +27,5 @@ struct NetworkingApiClientChooser: View {
 }
 
 private func setCurrent(apiClient: APIClientType) {
-
+    print("🛤️", #function, apiClient.baseURL.absoluteString)
 }
