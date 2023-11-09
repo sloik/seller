@@ -1,5 +1,6 @@
 
 import SwiftUI
+import AliasWonderland
 
 struct NetworkingApiClientChooser: View {
 
@@ -13,12 +14,9 @@ struct NetworkingApiClientChooser: View {
         List {
 
             ForEach(configurations, id: \.name) { configuration in
-                Button {
+                NetworkingConfigurationView(configuration: configuration) {
                     print("Tapped \(configuration.name)")
-                } label: {
-                    NetworkingConfigurationView(configuration: configuration)
                 }
-                .buttonStyle(PlainButtonStyle())
             }
 
         }
@@ -38,19 +36,38 @@ struct NetworkingConfigurationView: View {
 
     let configuration: Configuration
 
+    let action: SideEffectClosure
+
     var body: some View {
 
-        HStack {
-            Text(configuration.name)
+        Button(action: action) {
+            HStack {
+                Text(configuration.name)
 
-            Text(configuration.url?.absoluteString ?? "-")
+                Text(configuration.url?.absoluteString ?? "-")
 
-            if configuration.isActive {
-                Image(systemName: "checkmark")
-                    .foregroundColor(.blue)
+                Spacer()
+
+                if configuration.isActive {
+                    Image(systemName: "checkmark")
+                        .foregroundColor(.blue)
+                }
+
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .contentShape(Rectangle())
 
         }
-
+        .buttonStyle( PlainButtonStyle() )
     }
+}
+
+#Preview {
+
+    NetworkingConfigurationView(
+        configuration: .init(name: "Name", url: .none, isActive: true),
+        action: {}
+    )
+    .previewLayout(.sizeThatFits)
+
 }
