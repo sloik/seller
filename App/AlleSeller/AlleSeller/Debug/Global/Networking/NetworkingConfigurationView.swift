@@ -6,8 +6,7 @@ import AliasWonderland
 struct NetworkingConfigurationView: View {
 
     struct Configuration {
-        let name: String
-        let url: URL?
+        let environment: ApiClientFactory.Environment
         let isActive: Bool
     }
 
@@ -19,9 +18,9 @@ struct NetworkingConfigurationView: View {
 
         Button(action: action) {
             HStack {
-                Text(configuration.name)
+                Text(configuration.environment.name)
 
-                Text(configuration.url?.absoluteString ?? "-")
+                Text(configuration.environment.url.absoluteString)
 
                 Spacer()
 
@@ -42,7 +41,7 @@ struct NetworkingConfigurationView: View {
 #Preview {
 
     NetworkingConfigurationView(
-        configuration: .init(name: "Name", url: .none, isActive: true),
+        configuration: .init(environment: .production, isActive: true),
         action: {}
     )
     .previewLayout(.sizeThatFits)

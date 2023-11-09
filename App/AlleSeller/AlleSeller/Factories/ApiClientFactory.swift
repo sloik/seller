@@ -4,7 +4,7 @@ import Onion
 
 enum ApiClientFactory {
 
-    enum Environment {        
+    enum Environment: Hashable {        
         case production
         case sandbox
         case custom(URL)
@@ -16,6 +16,14 @@ enum ApiClientFactory {
 }
 
 extension ApiClientFactory.Environment {
+
+    var name: String {
+        switch self {
+        case .production: return "Production"
+        case .sandbox   : return "Sandbox"
+        case .custom    : return "Custom"
+        }
+    }
 
     var url: URL {
         switch self {

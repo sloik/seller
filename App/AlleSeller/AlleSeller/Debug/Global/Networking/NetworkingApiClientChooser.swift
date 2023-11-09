@@ -1,25 +1,30 @@
 
 import SwiftUI
 import AliasWonderland
+import Onion
 
 struct NetworkingApiClientChooser: View {
 
     let configurations: [NetworkingConfigurationView.Configuration] = [
-        .init(name: "Production", url: ApiClientFactory.Environment.production.url, isActive: false),
-        .init(name: "Sandbox", url: ApiClientFactory.Environment.sandbox.url, isActive: false),
-        .init(name: "Custom", url: .none, isActive: false)
+        .init(environment: .production, isActive: false),
+        .init(environment: .sandbox, isActive: false),
+        .init(environment: .custom( URL(string: "www.fake.url")! ), isActive: false)
     ]
 
     var body: some View {
         List {
 
-            ForEach(configurations, id: \.name) { configuration in
+            ForEach(configurations, id: \.environment) { configuration in
                 NetworkingConfigurationView(configuration: configuration) {
-                    print("Tapped \(configuration.name)")
+                    print("Tapped \(configuration.environment.name)")
                 }
             }
 
         }
         .navigationTitle("🕸️ Networking Client")
     }
+}
+
+private func setCurrent(apiClient: APIClientType) {
+
 }
