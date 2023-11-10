@@ -17,22 +17,24 @@ struct NetworkingConfigurationView: View {
     var body: some View {
 
         Button(action: action) {
+
             HStack {
-                Text(configuration.environment.name)
+                VStack(alignment: .leading) {
+                    Text(configuration.environment.name)
 
-                Text(configuration.environment.url.absoluteString)
-
-                Spacer()
+                    HStack {
+                        Text(configuration.environment.url.absoluteString)
+                        Spacer()
+                    }
+                }
 
                 if configuration.isActive {
                     Image(systemName: "checkmark")
                         .foregroundColor(.blue)
                 }
-
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .contentShape(Rectangle())
-
         }
         .buttonStyle( PlainButtonStyle() )
     }
