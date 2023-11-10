@@ -28,4 +28,8 @@ public extension Seller {
             self.apiClient = apiClient
         }
     }
+
+    var apiClient: APIClientType {
+        Lentil.apiClient
+    }
 }

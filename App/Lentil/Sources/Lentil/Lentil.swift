@@ -32,6 +32,10 @@ public struct LentilUseCases {
 
 public extension LentilUseCases {
 
+    var apiClient: APIClientType {
+        Cumin.apiClient
+    }
+
     func loginUI(didLogin: @escaping Consumer<Error?>) -> some View {
         AuthenticationView(didLogin: didLogin)
     }

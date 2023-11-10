@@ -48,4 +48,8 @@ package extension CuminUseCases {
             api: .mock
         )
     }
+
+    var apiClient: APIClientType {
+        api.currentClient
+    }
 }
