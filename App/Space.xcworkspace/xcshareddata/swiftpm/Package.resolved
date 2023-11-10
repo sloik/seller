@@ -41,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/sloik/SweetBool.git",
       "state" : {
-        "revision" : "4930157f54a37d555699455f8ece46c6ad8f6eb5",
-        "version" : "1.1.2"
+        "revision" : "b3b4888e6fed9ce0e1b768349e2318d0e518624f",
+        "version" : "1.1.3"
       }
     },
     {
