@@ -41,26 +41,3 @@ public extension LentilUseCases {
     }
 
 }
-
-// MARK: - Implementation details
-
-//public func takeOffLentil() {
-//    Lentil = .prod
-//}
-//
-//public extension LentilUseCases {
-//
-//    static var prod: LentilUseCases {
-//        Cumin = .prod
-//    }
-//}
-
-// MARK: - Mock
-
-public extension LentilUseCases {
-
-//    static var mock: LentilUseCases {
-//        Cumin = .mock
-//    }
-}
-
