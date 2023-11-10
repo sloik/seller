@@ -4,10 +4,19 @@ import Onion
 
 enum ApiClientFactory {
 
-    enum Environment: Hashable {        
+    enum Environment: Hashable, Equatable {        
         case production
         case sandbox
         case custom(URL)
+
+        var isCustom: Bool {
+            switch self {
+            case .custom: 
+                return true
+            default:
+                return false
+            }
+        }
     }
 
     static func makeApiClient(for environment: Environment) -> APIClientType {
