@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,6 +17,7 @@
 		64151DEB2AFFC4C500FB68B5 /* DebugView.NetworkingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64151DEA2AFFC4C500FB68B5 /* DebugView.NetworkingRow.swift */; };
 		64151DEE2AFFC70700FB68B5 /* InlineSnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 64151DED2AFFC70700FB68B5 /* InlineSnapshotTesting */; };
 		64151DF02AFFC70700FB68B5 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 64151DEF2AFFC70700FB68B5 /* SnapshotTesting */; };
+		64151DF32AFFCB2A00FB68B5 /* Onion in Frameworks */ = {isa = PBXBuildFile; productRef = 64151DF22AFFCB2A00FB68B5 /* Onion */; };
 		646063112AFED8ED006A4424 /* SweetBool in Frameworks */ = {isa = PBXBuildFile; productRef = 646063102AFED8ED006A4424 /* SweetBool */; };
 		646063132AFED8ED006A4424 /* SweetPredicate in Frameworks */ = {isa = PBXBuildFile; productRef = 646063122AFED8ED006A4424 /* SweetPredicate */; };
 		647505A92AA62C0600946955 /* Seller in Frameworks */ = {isa = PBXBuildFile; productRef = 647505A82AA62C0600946955 /* Seller */; };
@@ -116,6 +117,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64151DF32AFFCB2A00FB68B5 /* Onion in Frameworks */,
 				64151DEE2AFFC70700FB68B5 /* InlineSnapshotTesting in Frameworks */,
 				64151DF02AFFC70700FB68B5 /* SnapshotTesting in Frameworks */,
 			);
@@ -307,6 +309,7 @@
 			packageProductDependencies = (
 				64151DED2AFFC70700FB68B5 /* InlineSnapshotTesting */,
 				64151DEF2AFFC70700FB68B5 /* SnapshotTesting */,
+				64151DF22AFFCB2A00FB68B5 /* Onion */,
 			);
 			productName = AlleSellerTests;
 			productReference = 64078B382A87B72D00877322 /* AlleSellerTests.xctest */;
@@ -365,6 +368,7 @@
 			packageReferences = (
 				6460630F2AFED8ED006A4424 /* XCRemoteSwiftPackageReference "SweetBool" */,
 				64151DEC2AFFC70700FB68B5 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
+				64151DF12AFFCB2A00FB68B5 /* XCLocalSwiftPackageReference "../Onion" */,
 			);
 			productRefGroup = 64078B292A87B72B00877322 /* Products */;
 			projectDirPath = "";
@@ -759,6 +763,13 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		64151DF12AFFCB2A00FB68B5 /* XCLocalSwiftPackageReference "../Onion" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../Onion;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		64151DEC2AFFC70700FB68B5 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -788,6 +799,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 64151DEC2AFFC70700FB68B5 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
 			productName = SnapshotTesting;
+		};
+		64151DF22AFFCB2A00FB68B5 /* Onion */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Onion;
 		};
 		646063102AFED8ED006A4424 /* SweetBool */ = {
 			isa = XCSwiftPackageProductDependency;

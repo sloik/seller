@@ -7,4 +7,7 @@
    <FileRef
       location = "container:AlleSeller/AlleSeller.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:AlleSellerTests.xctestplan">
+   </FileRef>
 </Workspace>

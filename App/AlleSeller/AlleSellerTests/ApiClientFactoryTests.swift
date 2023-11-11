@@ -2,22 +2,114 @@
 import XCTest
 @testable import AlleSeller
 
+import InlineSnapshotTesting
+import Onion
+
 final class ApiClientFactoryTests: XCTestCase {
 
+    func test_environment_name() throws {
+        // Arrange
+        let sut: [ApiClientFactory.Environment] = [
+            .production,
+            .sandbox,
+            .custom(URL(string: "https://example.com")!)
+        ]
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+        // Act
+        assertInlineSnapshot(
+            of: sut.map(\.name).joined(separator:"\n"),
+            as: .lines
+        ) {
+        """
+        Production
+        Sandbox
+        Custom
+        """
+        }
     }
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func test_environment_url() throws {
+        // Arrange
+        let sut: [ApiClientFactory.Environment] = [
+            .production,
+            .sandbox,
+            .custom(URL(string: "https://example.com")!)
+        ]
+
+        // Act
+        assertInlineSnapshot(
+            of: sut.map(\.url.absoluteString).joined(separator:"\n"),
+            as: .lines
+        ) {
+        """
+        https://allegro.pl
+        https://allegro.pl.allegrosandbox.pl
+        https://example.com
+        """
         }
+    }
+
+    func test_environment_isCustom() throws {
+        // Arrange
+        let sut: [ApiClientFactory.Environment] = [
+            .production,
+            .sandbox,
+            .custom(URL(string: "https://example.com")!)
+        ]
+
+        let expectedValues: [Bool] = [
+            false,
+            false,
+            true
+        ]
+
+        // Act
+        let actualValues = sut.map( \.isCustom )
+
+        // Assert
+        XCTAssertEqual(actualValues, expectedValues)
+    }
+
+    func test_environment_description() throws {
+        // Arrange
+        let sut: [ApiClientFactory.Environment] = [
+            .production,
+            .sandbox,
+            .custom(URL(string: "https://example.com")!)
+        ]
+
+        // Act
+        assertInlineSnapshot(
+            of: sut.map(\.description).joined(separator:"\n"),
+            as: .lines
+        ) {
+        """
+        Production
+        Sandbox
+        Custom: https://example.com
+        """
+        }
+    }
+
+    func test_makeApiClient() throws {
+        // Arrange
+        let sut: [ApiClientFactory.Environment] = [
+            .production,
+            .sandbox,
+            .custom(URL(string: "https://example.com")!)
+        ]
+
+        let expectedClientURLs = [
+            URL(string: "https://allegro.pl")!,
+            URL(string: "https://allegro.pl.allegrosandbox.pl")!,
+            URL(string: "https://example.com")!
+        ]
+
+        // Act
+        let actualValues = sut.map( ApiClientFactory.makeApiClient )
+
+        // Assert
+        XCTAssertEqual(actualValues.map(\.baseURL), expectedClientURLs)
     }
 
 }
