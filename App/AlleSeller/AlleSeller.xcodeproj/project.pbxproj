@@ -13,6 +13,8 @@
 		64078B3D2A87B72D00877322 /* AlleSellerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64078B3C2A87B72D00877322 /* AlleSellerTests.swift */; };
 		64078B472A87B72D00877322 /* AlleSellerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64078B462A87B72D00877322 /* AlleSellerUITests.swift */; };
 		64078B492A87B72D00877322 /* AlleSellerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64078B482A87B72D00877322 /* AlleSellerUITestsLaunchTests.swift */; };
+		64151DE92AFFA39800FB68B5 /* DebugNetworkingInfoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64151DE82AFFA39800FB68B5 /* DebugNetworkingInfoProvider.swift */; };
+		64151DEB2AFFC4C500FB68B5 /* DebugView.NetworkingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64151DEA2AFFC4C500FB68B5 /* DebugView.NetworkingRow.swift */; };
 		646063112AFED8ED006A4424 /* SweetBool in Frameworks */ = {isa = PBXBuildFile; productRef = 646063102AFED8ED006A4424 /* SweetBool */; };
 		646063132AFED8ED006A4424 /* SweetPredicate in Frameworks */ = {isa = PBXBuildFile; productRef = 646063122AFED8ED006A4424 /* SweetPredicate */; };
 		647505A92AA62C0600946955 /* Seller in Frameworks */ = {isa = PBXBuildFile; productRef = 647505A82AA62C0600946955 /* Seller */; };
@@ -21,7 +23,7 @@
 		6477BBC42AFAC00D0024D672 /* Onion in Frameworks */ = {isa = PBXBuildFile; productRef = 6477BBC32AFAC00D0024D672 /* Onion */; };
 		6477BBC52AFAC00D0024D672 /* Onion in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 6477BBC32AFAC00D0024D672 /* Onion */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		6477BBC72AFAE60F0024D672 /* NetworkingApiClientChooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6477BBC62AFAE60F0024D672 /* NetworkingApiClientChooser.swift */; };
-		64830E642AFD8122002C4993 /* TextDetailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64830E632AFD8122002C4993 /* TextDetailRow.swift */; };
+		64830E642AFD8122002C4993 /* TextDetailRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64830E632AFD8122002C4993 /* TextDetailRowView.swift */; };
 		64830E662AFD81A3002C4993 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64830E652AFD81A3002C4993 /* HeaderView.swift */; };
 		64830E682AFD8364002C4993 /* NetworkingConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64830E672AFD8364002C4993 /* NetworkingConfigurationView.swift */; };
 		6490B44B2AF662BB007C8013 /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6490B44A2AF662BB007C8013 /* DebugView.swift */; };
@@ -74,6 +76,8 @@
 		64078B462A87B72D00877322 /* AlleSellerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlleSellerUITests.swift; sourceTree = "<group>"; };
 		64078B482A87B72D00877322 /* AlleSellerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlleSellerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		64078B552A87B7C300877322 /* Seller */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Seller; path = ../Seller; sourceTree = "<group>"; };
+		64151DE82AFFA39800FB68B5 /* DebugNetworkingInfoProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugNetworkingInfoProvider.swift; sourceTree = "<group>"; };
+		64151DEA2AFFC4C500FB68B5 /* DebugView.NetworkingRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugView.NetworkingRow.swift; sourceTree = "<group>"; };
 		645D65812AA33D9F0087728A /* Lentil */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Lentil; path = ../Lentil; sourceTree = "<group>"; };
 		6469863C2AA659F6008D8916 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		646AFC452AE84A49005B49B1 /* Lettuce */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Lettuce; path = ../Lettuce; sourceTree = "<group>"; };
@@ -81,7 +85,7 @@
 		6477BBC12AFABC080024D672 /* ApiClientFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClientFactory.swift; sourceTree = "<group>"; };
 		6477BBC62AFAE60F0024D672 /* NetworkingApiClientChooser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingApiClientChooser.swift; sourceTree = "<group>"; };
 		647FB0202ABE1CB300BF3053 /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Utilities; path = ../Utilities; sourceTree = "<group>"; };
-		64830E632AFD8122002C4993 /* TextDetailRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDetailRow.swift; sourceTree = "<group>"; };
+		64830E632AFD8122002C4993 /* TextDetailRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDetailRowView.swift; sourceTree = "<group>"; };
 		64830E652AFD81A3002C4993 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		64830E672AFD8364002C4993 /* NetworkingConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingConfigurationView.swift; sourceTree = "<group>"; };
 		648887882AE1B89100F00646 /* Onion */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Onion; path = ../Onion; sourceTree = "<group>"; };
@@ -190,6 +194,14 @@
 			path = AlleSellerUITests;
 			sourceTree = "<group>";
 		};
+		64151DE72AFFA38A00FB68B5 /* InfoProviders */ = {
+			isa = PBXGroup;
+			children = (
+				64151DE82AFFA39800FB68B5 /* DebugNetworkingInfoProvider.swift */,
+			);
+			path = InfoProviders;
+			sourceTree = "<group>";
+		};
 		6477BBC02AFAB5800024D672 /* Factories */ = {
 			isa = PBXGroup;
 			children = (
@@ -201,9 +213,11 @@
 		64830E612AFD80D7002C4993 /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				64151DEA2AFFC4C500FB68B5 /* DebugView.NetworkingRow.swift */,
 				6490B44A2AF662BB007C8013 /* DebugView.swift */,
 				64830E652AFD81A3002C4993 /* HeaderView.swift */,
-				64830E632AFD8122002C4993 /* TextDetailRow.swift */,
+				64830E632AFD8122002C4993 /* TextDetailRowView.swift */,
+				64151DE72AFFA38A00FB68B5 /* InfoProviders */,
 				64830E622AFD80E4002C4993 /* Networking */,
 			);
 			path = Global;
@@ -387,6 +401,7 @@
 			files = (
 				6490B4522AF66433007C8013 /* ShakeGestureViewModifier.swift in Sources */,
 				6490B44B2AF662BB007C8013 /* DebugView.swift in Sources */,
+				64151DE92AFFA39800FB68B5 /* DebugNetworkingInfoProvider.swift in Sources */,
 				6490B44E2AF66388007C8013 /* UIDevcie.Notifications.swift in Sources */,
 				6477BBC22AFABC080024D672 /* ApiClientFactory.swift in Sources */,
 				6490B4502AF663EA007C8013 /* UIWindow.Motion.swift in Sources */,
@@ -394,7 +409,8 @@
 				64830E682AFD8364002C4993 /* NetworkingConfigurationView.swift in Sources */,
 				64078B2C2A87B72B00877322 /* AlleSellerApp.swift in Sources */,
 				6477BBC72AFAE60F0024D672 /* NetworkingApiClientChooser.swift in Sources */,
-				64830E642AFD8122002C4993 /* TextDetailRow.swift in Sources */,
+				64151DEB2AFFC4C500FB68B5 /* DebugView.NetworkingRow.swift in Sources */,
+				64830E642AFD8122002C4993 /* TextDetailRowView.swift in Sources */,
 				6490B4542AF664FA007C8013 /* SwiftUI.View.ShakeGesture.Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
