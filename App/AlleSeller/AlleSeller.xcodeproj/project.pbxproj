@@ -304,6 +304,10 @@
 				64078B3A2A87B72D00877322 /* PBXTargetDependency */,
 			);
 			name = AlleSellerTests;
+			packageProductDependencies = (
+				64151DED2AFFC70700FB68B5 /* InlineSnapshotTesting */,
+				64151DEF2AFFC70700FB68B5 /* SnapshotTesting */,
+			);
 			productName = AlleSellerTests;
 			productReference = 64078B382A87B72D00877322 /* AlleSellerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -360,6 +364,7 @@
 			mainGroup = 64078B1F2A87B72A00877322;
 			packageReferences = (
 				6460630F2AFED8ED006A4424 /* XCRemoteSwiftPackageReference "SweetBool" */,
+				64151DEC2AFFC70700FB68B5 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
 			);
 			productRefGroup = 64078B292A87B72B00877322 /* Products */;
 			projectDirPath = "";
@@ -755,6 +760,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		64151DEC2AFFC70700FB68B5 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.14.2;
+			};
+		};
 		6460630F2AFED8ED006A4424 /* XCRemoteSwiftPackageReference "SweetBool" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sloik/SweetBool";
@@ -766,6 +779,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		64151DED2AFFC70700FB68B5 /* InlineSnapshotTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 64151DEC2AFFC70700FB68B5 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = InlineSnapshotTesting;
+		};
+		64151DEF2AFFC70700FB68B5 /* SnapshotTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 64151DEC2AFFC70700FB68B5 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = SnapshotTesting;
+		};
 		646063102AFED8ED006A4424 /* SweetBool */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6460630F2AFED8ED006A4424 /* XCRemoteSwiftPackageReference "SweetBool" */;
