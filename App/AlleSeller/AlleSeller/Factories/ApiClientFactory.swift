@@ -8,15 +8,6 @@ enum ApiClientFactory {
         case production
         case sandbox
         case custom(URL)
-
-        var isCustom: Bool {
-            switch self {
-            case .custom: 
-                return true
-            default:
-                return false
-            }
-        }
     }
 
     static func makeApiClient(for environment: Environment) -> APIClientType {
@@ -43,6 +34,15 @@ extension ApiClientFactory.Environment {
             return URL(string: "https://allegro.pl.allegrosandbox.pl")!
         case .custom(let url):
             return url
+        }
+    }
+
+    var isCustom: Bool {
+        switch self {
+        case .custom:
+            return true
+        default:
+            return false
         }
     }
 }
