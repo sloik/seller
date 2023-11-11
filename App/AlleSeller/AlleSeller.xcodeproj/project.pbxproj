@@ -10,11 +10,13 @@
 		64078B2C2A87B72B00877322 /* AlleSellerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64078B2B2A87B72B00877322 /* AlleSellerApp.swift */; };
 		64078B302A87B72D00877322 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64078B2F2A87B72D00877322 /* Assets.xcassets */; };
 		64078B332A87B72D00877322 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64078B322A87B72D00877322 /* Preview Assets.xcassets */; };
-		64078B3D2A87B72D00877322 /* AlleSellerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64078B3C2A87B72D00877322 /* AlleSellerTests.swift */; };
+		64078B3D2A87B72D00877322 /* ApiClientFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64078B3C2A87B72D00877322 /* ApiClientFactoryTests.swift */; };
 		64078B472A87B72D00877322 /* AlleSellerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64078B462A87B72D00877322 /* AlleSellerUITests.swift */; };
 		64078B492A87B72D00877322 /* AlleSellerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64078B482A87B72D00877322 /* AlleSellerUITestsLaunchTests.swift */; };
 		64151DE92AFFA39800FB68B5 /* DebugNetworkingInfoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64151DE82AFFA39800FB68B5 /* DebugNetworkingInfoProvider.swift */; };
 		64151DEB2AFFC4C500FB68B5 /* DebugView.NetworkingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64151DEA2AFFC4C500FB68B5 /* DebugView.NetworkingRow.swift */; };
+		64151DEE2AFFC70700FB68B5 /* InlineSnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 64151DED2AFFC70700FB68B5 /* InlineSnapshotTesting */; };
+		64151DF02AFFC70700FB68B5 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 64151DEF2AFFC70700FB68B5 /* SnapshotTesting */; };
 		646063112AFED8ED006A4424 /* SweetBool in Frameworks */ = {isa = PBXBuildFile; productRef = 646063102AFED8ED006A4424 /* SweetBool */; };
 		646063132AFED8ED006A4424 /* SweetPredicate in Frameworks */ = {isa = PBXBuildFile; productRef = 646063122AFED8ED006A4424 /* SweetPredicate */; };
 		647505A92AA62C0600946955 /* Seller in Frameworks */ = {isa = PBXBuildFile; productRef = 647505A82AA62C0600946955 /* Seller */; };
@@ -71,7 +73,7 @@
 		64078B2F2A87B72D00877322 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		64078B322A87B72D00877322 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		64078B382A87B72D00877322 /* AlleSellerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AlleSellerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		64078B3C2A87B72D00877322 /* AlleSellerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlleSellerTests.swift; sourceTree = "<group>"; };
+		64078B3C2A87B72D00877322 /* ApiClientFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClientFactoryTests.swift; sourceTree = "<group>"; };
 		64078B422A87B72D00877322 /* AlleSellerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AlleSellerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		64078B462A87B72D00877322 /* AlleSellerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlleSellerUITests.swift; sourceTree = "<group>"; };
 		64078B482A87B72D00877322 /* AlleSellerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlleSellerUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -114,6 +116,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64151DEE2AFFC70700FB68B5 /* InlineSnapshotTesting in Frameworks */,
+				64151DF02AFFC70700FB68B5 /* SnapshotTesting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,7 +184,7 @@
 		64078B3B2A87B72D00877322 /* AlleSellerTests */ = {
 			isa = PBXGroup;
 			children = (
-				64078B3C2A87B72D00877322 /* AlleSellerTests.swift */,
+				64078B3C2A87B72D00877322 /* ApiClientFactoryTests.swift */,
 			);
 			path = AlleSellerTests;
 			sourceTree = "<group>";
@@ -419,7 +423,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				64078B3D2A87B72D00877322 /* AlleSellerTests.swift in Sources */,
+				64078B3D2A87B72D00877322 /* ApiClientFactoryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
