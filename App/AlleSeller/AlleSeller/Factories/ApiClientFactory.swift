@@ -47,3 +47,12 @@ extension ApiClientFactory.Environment {
     }
 }
 
+extension ApiClientFactory.Environment: CustomStringConvertible {
+    var description: String {
+        switch self {
+        case .production: return "Production"
+        case .sandbox   : return "Sandbox"
+        case .custom(let url): return "\(name): \(url.absoluteString)"
+        }
+    }
+}
