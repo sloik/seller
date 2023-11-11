@@ -5,27 +5,15 @@ import UIKit
 import Observation
 
 struct DebugView: View {
-
-    struct Item: Hashable {
-
-        enum Destination: Equatable {
-            case networking
-        }
-
-        let name: String
-        let value: String
-        let destination: Destination
-    }
-
     @Environment(\.dismiss) var dismiss
 
-    let globalItems: [Item] = [
-        Item(name: "Networking Environment", value: "unknown", destination: .networking)
-    ]
+    @State private var globalItems: [Item] = []
 
-    @State private var globalNetworkingEnvironment: Bool = true
+    @State private var currentNetworkingEnv: ApiClientFactory.Environment = .production
 
     @State private var path = NavigationPath()
+
+    let networkingInfoProvider = DebugNetworkingInfoProvider()
 
     var body: some View {
 
@@ -34,7 +22,14 @@ struct DebugView: View {
                 Section(header: HeaderView(text: "🌐 Global")) {
                     ForEach(globalItems, id: \.name) { listItem in
                         NavigationLink(value: listItem) {
-                            TextDetailRow(title: listItem.name, text: listItem.value)
+
+                            switch listItem.destination {
+                            case .networking:
+                                NetworkingRow(
+                                    title: listItem.name,
+                                    currentEnvironment: $currentNetworkingEnv
+                                )
+                            }
                         }
                     }
                 }
@@ -48,9 +43,39 @@ struct DebugView: View {
             .navigationTitle("⚙️ Debug")
             .navigationDestination(for: Item.self) { item in
                 switch item.destination {
-                case .networking: NetworkingApiClientChooser()
+                case .networking:
+                    NetworkingApiClientChooser(
+                        currentEnv: $currentNetworkingEnv,
+                        infoProvider: networkingInfoProvider
+                    )
                 }
             }
         }
+        .onAppear {
+            refreshItems()
+        }
+    }
+
+    private func refreshItems() {
+        currentNetworkingEnv = networkingInfoProvider.environment
+
+        globalItems = [
+            Item(
+                name: "Networking",
+                destination: .networking
+            ),
+        ]
+    }
+}
+
+private extension DebugView {
+    struct Item: Hashable {
+
+        let name: String
+
+        enum Destination: Equatable, Hashable {
+            case networking
+        }
+        let destination: Destination
     }
 }

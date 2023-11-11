@@ -9,6 +9,10 @@ struct NetworkingApiClientChooser: View {
 
     @State var configurations: [NetworkingConfigurationView.Configuration] = []
 
+    @Binding var currentEnv: ApiClientFactory.Environment
+
+    let infoProvider: DebugNetworkingInfoProvider
+
     var body: some View {
         List {
             ForEach(configurations, id: \.environment) { configuration in
@@ -29,19 +33,6 @@ struct NetworkingApiClientChooser: View {
         }
     }
 
-    private var baseURL: URL {  CurrentSeller.apiClient.baseURL }
-
-    private var environment: ApiClientFactory.Environment {
-        switch baseURL {
-        case ApiClientFactory.Environment.production.url:
-            return .production
-        case ApiClientFactory.Environment.sandbox.url:
-            return .sandbox
-        default:
-            return .custom(baseURL)
-        }
-    }
-
     var configurationContainsCustom: Bool {
         configurations
             .map(\.environment)
@@ -49,9 +40,12 @@ struct NetworkingApiClientChooser: View {
     }
 
     private func refreshConfiguration() {
+
+        currentEnv = infoProvider.environment
+
         configurations = [
-            .init(environment: .production, isActive: environment == .production ),
-            .init(environment: .sandbox, isActive: environment == .sandbox),
+            .init(environment: .production, isActive: currentEnv == .production ),
+            .init(environment: .sandbox, isActive: currentEnv == .sandbox),
         ]
 
         configurations
@@ -61,17 +55,16 @@ struct NetworkingApiClientChooser: View {
                 configurations
                     .append(
                         .init(
-                            environment: .custom(baseURL),
+                            environment: .custom(infoProvider.baseURL),
                             isActive: true
                         )
                     )
             }
-
     }
-}
 
-private func setCurrent(apiClient: APIClientType) {
-    CurrentSeller.configure(
-        using: .init(apiClient: apiClient)
-    )
+    private func setCurrent(apiClient: APIClientType) {
+        CurrentSeller.configure(
+            using: .init(apiClient: apiClient)
+        )
+    }
 }
