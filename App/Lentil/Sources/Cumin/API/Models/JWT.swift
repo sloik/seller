@@ -79,7 +79,8 @@ extension JWT {
 
 extension JWT {
     struct Signature {
-
+        // Can not verify signature, probably because of issue: https://github.com/allegro/allegro-api/issues/686
+        // Seems like allegro is using public key that they don't share publicly
         let signature: String
     }
 }
