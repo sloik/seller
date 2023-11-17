@@ -15,7 +15,7 @@ jobs:
     runs-on: macos-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: swift-actions/setup-swift@v1
 
     - name: Keychain Wrapper Tests
