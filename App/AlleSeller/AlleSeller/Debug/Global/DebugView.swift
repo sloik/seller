@@ -32,10 +32,9 @@ struct DebugView: View {
                         }
                     }
                 }
-                // check if platform is not macOS
-#if os(iOS) 
+            #if os(iOS)
                 .listStyle(InsetGroupedListStyle())
-#endif
+            #endif
             }
             .toolbar {
                 Button("Dismiss") {
