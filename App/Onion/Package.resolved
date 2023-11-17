@@ -1,12 +1,21 @@
 {
   "pins" : [
     {
+      "identity" : "aliaswonderland",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sloik/AliasWonderland.git",
+      "state" : {
+        "revision" : "504057f36c7afc1eb06a5254a2c04e5bf96e66f4",
+        "version" : "3.6.3"
+      }
+    },
+    {
       "identity" : "swift-http-types",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-http-types.git",
       "state" : {
-        "revision" : "68deedb6b98837564cf0231fa1df48de35881993",
-        "version" : "0.2.1"
+        "revision" : "99d066e29effa8845e4761dd3f2f831edfdf8925",
+        "version" : "1.0.0"
       }
     }
   ],
