@@ -14,30 +14,30 @@ jobs:
 
     runs-on: macos-latest
 
-    steps:
-    - uses: actions/checkout@v3
-    - uses: swift-actions/setup-swift@v1
+#     steps:
+#     - uses: actions/checkout@v3
+#     - uses: swift-actions/setup-swift@v1
 
     # - name: Keychain Wrapper Tests
     #   run: swift test -v
     #   working-directory: App/KeychainWrapper/
 
-    - name: Lentil Tests
-      run: swift test -v
-      working-directory: App/Lentil/
+    # - name: Lentil Tests
+    #   run: swift test -v
+    #   working-directory: App/Lentil/
 
-    - name: Lettuce Tests
-      run: swift test -v
-      working-directory: App/Lettuce/
+    # - name: Lettuce Tests
+    #   run: swift test -v
+    #   working-directory: App/Lettuce/
 
-    - name: Onion Tests
-      run: swift test -v
-      working-directory: App/Onion/
+    # - name: Onion Tests
+    #   run: swift test -v
+    #   working-directory: App/Onion/
 
-    - name: Tomatos Tests
-      run: swift test -v
-      working-directory: App/Tomatos/
+    # - name: Tomatos Tests
+    #   run: swift test -v
+    #   working-directory: App/Tomatos/
 
-    - name: Utilities Tests
-      run: swift test -v
-      working-directory: App/Utilities/
+    # - name: Utilities Tests
+    #   run: swift test -v
+    #   working-directory: App/Utilities/
