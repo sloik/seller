@@ -63,8 +63,13 @@ struct NetworkingApiClientChooser: View {
     }
 
     private func setCurrent(apiClient: APIClientType) {
+        let currentSecrets = CurrentSeller.secrets
+
         CurrentSeller.configure(
-            using: .init(apiClient: apiClient)
+            using: .init(
+                apiClient: apiClient,
+                secrets: currentSecrets
+            )
         )
     }
 }

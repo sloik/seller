@@ -31,10 +31,13 @@ package final class CuminUseCases {
 }
 
 package extension CuminUseCases {
-    static func prod(apiClient: APIClientType) -> Self {
+    static func prod(
+        apiClient: APIClientType,
+        secrets: SecretsStoreType
+    ) -> Self {
         .init(
             auth: .prod,
-            secrets: ProductionSecretsStore(),
+            secrets: secrets,
             secureStore: .prod,
             api: API.prod(apiClient: apiClient)
         )

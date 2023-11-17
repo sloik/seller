@@ -15,7 +15,8 @@ struct AlleSellerApp: App {
 
     init() {
         let configuration = Seller.Configuration(
-            apiClient: ApiClientFactory.makeApiClient(for: .production)
+            apiClient: ApiClientFactory.makeApiClient(for: .production), 
+            secrets: ProductionSecretsStore()
         )
 
         CurrentSeller.configure(using: configuration)

@@ -20,9 +20,10 @@ public struct LentilUseCases {
     }
 
     public static func configure(
-        apiClient: APIClientType
+        apiClient: APIClientType,
+        secrets: SecretsStoreType
     ) {
-        Cumin = .prod(apiClient: apiClient)
+        Cumin = .prod(apiClient: apiClient, secrets: secrets)
         YucaUseCases.takeOffYuca(cumin: Cumin)
 
         Lentil = .init()
@@ -34,6 +35,10 @@ public extension LentilUseCases {
 
     var apiClient: APIClientType {
         Cumin.apiClient
+    }
+
+    var secrets: SecretsStoreType {
+        Cumin.secrets
     }
 
     func loginUI(didLogin: @escaping Consumer<Error?>) -> some View {

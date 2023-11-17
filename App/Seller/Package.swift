@@ -27,6 +27,7 @@ let package = Package(
         .package(path: "../Lentil"),
         .package(path: "../Utilities"),
         .package(path: "../Onion"),
+        .package(path: "../SecretsStore"),
 
         .package(
             url: "https://github.com/sloik/OptionalAPI.git",
@@ -40,6 +41,7 @@ let package = Package(
                 "Lentil",       // Login functionality
                 "Utilities",    // Utilities
                 "Onion",        // Networking
+                "SecretsStore",  // Secrets
 
                 "OptionalAPI",
             ]

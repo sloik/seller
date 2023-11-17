@@ -20,6 +20,8 @@
 		64151DF32AFFCB2A00FB68B5 /* Onion in Frameworks */ = {isa = PBXBuildFile; productRef = 64151DF22AFFCB2A00FB68B5 /* Onion */; };
 		646063112AFED8ED006A4424 /* SweetBool in Frameworks */ = {isa = PBXBuildFile; productRef = 646063102AFED8ED006A4424 /* SweetBool */; };
 		646063132AFED8ED006A4424 /* SweetPredicate in Frameworks */ = {isa = PBXBuildFile; productRef = 646063122AFED8ED006A4424 /* SweetPredicate */; };
+		6474C0252B07C46D009903C6 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6474C0242B07C42F009903C6 /* Secrets.swift */; };
+		6474C02A2B07C6C8009903C6 /* SecretsStore in Frameworks */ = {isa = PBXBuildFile; productRef = 6474C0292B07C6C8009903C6 /* SecretsStore */; };
 		647505A92AA62C0600946955 /* Seller in Frameworks */ = {isa = PBXBuildFile; productRef = 647505A82AA62C0600946955 /* Seller */; };
 		647505AA2AA62C0600946955 /* Seller in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 647505A82AA62C0600946955 /* Seller */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		6477BBC22AFABC080024D672 /* ApiClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6477BBC12AFABC080024D672 /* ApiClientFactory.swift */; };
@@ -85,6 +87,7 @@
 		6469863C2AA659F6008D8916 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		646AFC452AE84A49005B49B1 /* Lettuce */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Lettuce; path = ../Lettuce; sourceTree = "<group>"; };
 		646EA1A32AA34F72008745B2 /* SecretsStore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SecretsStore; path = ../SecretsStore; sourceTree = "<group>"; };
+		6474C0242B07C42F009903C6 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		6477BBC12AFABC080024D672 /* ApiClientFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClientFactory.swift; sourceTree = "<group>"; };
 		6477BBC62AFAE60F0024D672 /* NetworkingApiClientChooser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingApiClientChooser.swift; sourceTree = "<group>"; };
 		647FB0202ABE1CB300BF3053 /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Utilities; path = ../Utilities; sourceTree = "<group>"; };
@@ -110,6 +113,7 @@
 				647505A92AA62C0600946955 /* Seller in Frameworks */,
 				646063112AFED8ED006A4424 /* SweetBool in Frameworks */,
 				646063132AFED8ED006A4424 /* SweetPredicate in Frameworks */,
+				6474C02A2B07C6C8009903C6 /* SecretsStore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,6 +172,7 @@
 				6469863C2AA659F6008D8916 /* Info.plist */,
 				64078B2B2A87B72B00877322 /* AlleSellerApp.swift */,
 				64078B2F2A87B72D00877322 /* Assets.xcassets */,
+				6474C0232B07C42F009903C6 /* _Secrets */,
 				6490B4492AF66295007C8013 /* Debug */,
 				6477BBC02AFAB5800024D672 /* Factories */,
 				64078B312A87B72D00877322 /* Preview Content */,
@@ -206,6 +211,14 @@
 				64151DE82AFFA39800FB68B5 /* DebugNetworkingInfoProvider.swift */,
 			);
 			path = InfoProviders;
+			sourceTree = "<group>";
+		};
+		6474C0232B07C42F009903C6 /* _Secrets */ = {
+			isa = PBXGroup;
+			children = (
+				6474C0242B07C42F009903C6 /* Secrets.swift */,
+			);
+			path = _Secrets;
 			sourceTree = "<group>";
 		};
 		6477BBC02AFAB5800024D672 /* Factories */ = {
@@ -287,6 +300,7 @@
 				6477BBC32AFAC00D0024D672 /* Onion */,
 				646063102AFED8ED006A4424 /* SweetBool */,
 				646063122AFED8ED006A4424 /* SweetPredicate */,
+				6474C0292B07C6C8009903C6 /* SecretsStore */,
 			);
 			productName = AlleSeller;
 			productReference = 64078B282A87B72B00877322 /* AlleSeller.app */;
@@ -369,6 +383,7 @@
 				6460630F2AFED8ED006A4424 /* XCRemoteSwiftPackageReference "SweetBool" */,
 				64151DEC2AFFC70700FB68B5 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
 				64151DF12AFFCB2A00FB68B5 /* XCLocalSwiftPackageReference "../Onion" */,
+				6474C0282B07C6C8009903C6 /* XCLocalSwiftPackageReference "../SecretsStore" */,
 			);
 			productRefGroup = 64078B292A87B72B00877322 /* Products */;
 			projectDirPath = "";
@@ -421,6 +436,7 @@
 				64830E662AFD81A3002C4993 /* HeaderView.swift in Sources */,
 				64830E682AFD8364002C4993 /* NetworkingConfigurationView.swift in Sources */,
 				64078B2C2A87B72B00877322 /* AlleSellerApp.swift in Sources */,
+				6474C0252B07C46D009903C6 /* Secrets.swift in Sources */,
 				6477BBC72AFAE60F0024D672 /* NetworkingApiClientChooser.swift in Sources */,
 				64151DEB2AFFC4C500FB68B5 /* DebugView.NetworkingRow.swift in Sources */,
 				64830E642AFD8122002C4993 /* TextDetailRowView.swift in Sources */,
@@ -768,6 +784,10 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../Onion;
 		};
+		6474C0282B07C6C8009903C6 /* XCLocalSwiftPackageReference "../SecretsStore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../SecretsStore;
+		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -813,6 +833,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6460630F2AFED8ED006A4424 /* XCRemoteSwiftPackageReference "SweetBool" */;
 			productName = SweetPredicate;
+		};
+		6474C0292B07C6C8009903C6 /* SecretsStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SecretsStore;
 		};
 		647505A82AA62C0600946955 /* Seller */ = {
 			isa = XCSwiftPackageProductDependency;
