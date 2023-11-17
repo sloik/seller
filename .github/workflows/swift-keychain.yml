@@ -16,7 +16,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+
     - name: Build
       run: swift build -v
+      working-directory: App/KeychainWrapper/
+
     - name: Run tests
       run: swift test -v
+      working-directory: App/KeychainWrapper/
