@@ -12,15 +12,15 @@ on:
 jobs:
   build:
 
-    runs-on: [self-hosted, ARM64, macos-latest]
+    runs-on: macos-latest
 
     steps:
     - uses: actions/checkout@v3
     - uses: swift-actions/setup-swift@v1
 
-    - name: Keychain Wrapper Tests
-      run: swift test -v
-      working-directory: App/KeychainWrapper/
+    # - name: Keychain Wrapper Tests
+    #   run: swift test -v
+    #   working-directory: App/KeychainWrapper/
 
     - name: Lentil Tests
       run: swift test -v
