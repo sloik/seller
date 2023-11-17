@@ -1,7 +1,6 @@
 
 import Foundation
 import SwiftUI
-import UIKit
 import Observation
 
 struct DebugView: View {
@@ -33,7 +32,10 @@ struct DebugView: View {
                         }
                     }
                 }
+                // check if platform is not macOS
+#if os(iOS) 
                 .listStyle(InsetGroupedListStyle())
+#endif
             }
             .toolbar {
                 Button("Dismiss") {
