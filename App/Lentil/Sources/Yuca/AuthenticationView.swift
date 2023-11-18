@@ -13,9 +13,6 @@ import SweetBool
 
 package struct AuthenticationView: View {
 
-    @Environment(\.webAuthenticationSession)
-    var session
-
     @State var showError: Bool = false
     @State var showedError: Error? = nil
 
