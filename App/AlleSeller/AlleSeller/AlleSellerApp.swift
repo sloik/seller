@@ -1,4 +1,5 @@
 
+import Foundation
 import SwiftUI
 
 import Seller
@@ -27,6 +28,10 @@ struct AlleSellerApp: App {
         WindowGroup {
             CurrentSeller
                 .body
+            #if os(macOS)
+                .frame(minWidth: 800, minHeight: 600)
+            #endif  
+
             #if DEBUG
                 .onShakeGesture {
                     showsDebugView.toggle()

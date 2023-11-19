@@ -19,10 +19,10 @@ struct MySettingsView: View {
                     .loginUI { _ in
                        showLoginFlow = false
                     }
+                    #if os(macOS)
+                    .frame(minWidth: 800, maxWidth: .infinity, minHeight: 800, maxHeight: .infinity)
+                    #endif
             }
-
-
-
         }
     }
 }
