@@ -36,5 +36,15 @@ struct AlleSellerApp: App {
                 }
             #endif
         }
+        .commands {
+            #if DEBUG
+            CommandMenu("Debug") {
+                Button("Toggle Debug View") {
+                    showsDebugView.toggle()
+                }
+                .keyboardShortcut("d", modifiers: [/*@START_MENU_TOKEN@*/.command/*@END_MENU_TOKEN@*/,.shift])
+            }
+            #endif
+        }
     }
 }
