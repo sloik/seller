@@ -28,7 +28,7 @@ package struct AuthenticationView: View {
 
     package var body: some View {
         VStack {
-            WebView(url: try! Yuca.cumin.secrets.authenticationURL) { url in
+            WebView(url: authenticationURL) { url in
 
                 guard self.showError.isFalse else { return }
 
@@ -71,4 +71,31 @@ package struct AuthenticationView: View {
     }
 }
 
+// MARK: - Allegro Sandbox
+
+private extension AuthenticationView {
+
+    var usesSandboxClient: Bool {
+        Yuca.cumin.apiClient.baseURL.absoluteString.contains( "sandbox" )
+    }
+
+    var baseAuthURL: URL { try! Yuca.cumin.secrets.authenticationURL }
+
+    var sandboxAuthenticationURL: URL {
+        var components = baseAuthURL.urlComponents!
+
+        components.host = components
+            .host!
+            .replacingOccurrences(
+                of: "allegro.pl",
+                with: "allegro.pl.allegrosandbox.pl"
+            )
+
+        return components.url!
+    }
+
+    var authenticationURL: URL {
+        usesSandboxClient ? sandboxAuthenticationURL : baseAuthURL
+    }
+}
 

@@ -4,6 +4,7 @@ import AliasWonderland
 import Onion
 import SweetBool
 import SweetPredicate
+import SecretsStore
 
 struct NetworkingApiClientChooser: View {
 
@@ -17,26 +18,15 @@ struct NetworkingApiClientChooser: View {
         List {
             ForEach(configurations, id: \.environment) { configuration in
                 NetworkingConfigurationView(configuration: configuration) {
-                    let newApiClient = ApiClientFactory.makeApiClient(for: configuration.environment)
-                    setCurrent(apiClient: newApiClient)
+                    setCurrent(environment: configuration.environment)
                     refreshConfiguration()
                 }
-            }
-
-            if configurationContainsCustom.isFalse {
-                Text("TODO: add a way to inject custom URL string")
             }
         }
         .navigationTitle("🕸️ Networking Client")
         .onAppear {
             refreshConfiguration()
         }
-    }
-
-    var configurationContainsCustom: Bool {
-        configurations
-            .map(\.environment)
-            .contains(where: \.isCustom)
     }
 
     private func refreshConfiguration() {
@@ -47,28 +37,16 @@ struct NetworkingApiClientChooser: View {
             .init(environment: .production, isActive: currentEnv == .production ),
             .init(environment: .sandbox, isActive: currentEnv == .sandbox),
         ]
-
-        configurations
-            .map(\.isActive)
-            .allSatisfy( \.isFalse )
-            .whenTrue {
-                configurations
-                    .append(
-                        .init(
-                            environment: .custom(infoProvider.baseURL),
-                            isActive: true
-                        )
-                    )
-            }
     }
 
-    private func setCurrent(apiClient: APIClientType) {
-        let currentSecrets = CurrentSeller.secrets
+    private func setCurrent(environment: AppEnvironment) {
+        let newApiClient = ApiClientFactory.makeApiClient(for: environment)
+        let newSecrets = SecretsStoreFactory.makeStore(for: environment)
 
         CurrentSeller.configure(
             using: .init(
-                apiClient: apiClient,
-                secrets: currentSecrets
+                apiClient: newApiClient,
+                secrets: newSecrets
             )
         )
     }
