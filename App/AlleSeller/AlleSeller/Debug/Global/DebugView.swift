@@ -8,7 +8,7 @@ struct DebugView: View {
 
     @State private var globalItems: [Item] = []
 
-    @State private var currentNetworkingEnv: ApiClientFactory.Environment = .production
+    @State private var currentNetworkingEnv: AppEnvironment = .production
 
     @State private var path = NavigationPath()
 

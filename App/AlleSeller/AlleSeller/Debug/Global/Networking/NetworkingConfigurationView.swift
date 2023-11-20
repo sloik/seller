@@ -6,7 +6,7 @@ import AliasWonderland
 struct NetworkingConfigurationView: View {
 
     struct Configuration {
-        let environment: ApiClientFactory.Environment
+        let environment: AppEnvironment
         let isActive: Bool
     }
 
@@ -20,10 +20,10 @@ struct NetworkingConfigurationView: View {
 
             HStack {
                 VStack(alignment: .leading) {
-                    Text(configuration.environment.name)
+                    Text(configuration.environment.description)
 
                     HStack {
-                        Text(configuration.environment.url.absoluteString)
+                        Text(configuration.environment.apiClientBaseURL.absoluteString)
                         Spacer()
                     }
                 }

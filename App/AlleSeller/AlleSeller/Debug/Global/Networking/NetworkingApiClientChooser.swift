@@ -9,7 +9,7 @@ struct NetworkingApiClientChooser: View {
 
     @State var configurations: [NetworkingConfigurationView.Configuration] = []
 
-    @Binding var currentEnv: ApiClientFactory.Environment
+    @Binding var currentEnv: AppEnvironment
 
     let infoProvider: DebugNetworkingInfoProvider
 

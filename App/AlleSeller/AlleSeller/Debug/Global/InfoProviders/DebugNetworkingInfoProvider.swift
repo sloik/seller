@@ -4,14 +4,14 @@ import Foundation
 final class DebugNetworkingInfoProvider {
     var baseURL: URL {  CurrentSeller.apiClient.baseURL }
 
-    var environment: ApiClientFactory.Environment {
+    var environment: AppEnvironment {
         switch baseURL {
-        case ApiClientFactory.Environment.production.url:
+        case AppEnvironment.production.apiClientBaseURL:
             return .production
-        case ApiClientFactory.Environment.sandbox.url:
+        case AppEnvironment.sandbox.apiClientBaseURL:
             return .sandbox
         default:
-            return .custom(baseURL)
+            fatalError("Unknown base URL: \(baseURL)")
         }
     }
 }
