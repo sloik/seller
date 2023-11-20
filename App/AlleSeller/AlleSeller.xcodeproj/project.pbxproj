@@ -29,6 +29,7 @@
 		6477BBC52AFAC00D0024D672 /* Onion in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 6477BBC32AFAC00D0024D672 /* Onion */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		6477BBC72AFAE60F0024D672 /* NetworkingApiClientChooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6477BBC62AFAE60F0024D672 /* NetworkingApiClientChooser.swift */; };
 		6481ED632B0C00AD005C0A4C /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6481ED622B0C00AD005C0A4C /* AppEnvironment.swift */; };
+		6481ED652B0C02EF005C0A4C /* SecretsStoreFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6481ED642B0C02EF005C0A4C /* SecretsStoreFactory.swift */; };
 		64830E642AFD8122002C4993 /* TextDetailRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64830E632AFD8122002C4993 /* TextDetailRowView.swift */; };
 		64830E662AFD81A3002C4993 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64830E652AFD81A3002C4993 /* HeaderView.swift */; };
 		64830E682AFD8364002C4993 /* NetworkingConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64830E672AFD8364002C4993 /* NetworkingConfigurationView.swift */; };
@@ -93,6 +94,7 @@
 		6477BBC62AFAE60F0024D672 /* NetworkingApiClientChooser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingApiClientChooser.swift; sourceTree = "<group>"; };
 		647FB0202ABE1CB300BF3053 /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Utilities; path = ../Utilities; sourceTree = "<group>"; };
 		6481ED622B0C00AD005C0A4C /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
+		6481ED642B0C02EF005C0A4C /* SecretsStoreFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretsStoreFactory.swift; sourceTree = "<group>"; };
 		64830E632AFD8122002C4993 /* TextDetailRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDetailRowView.swift; sourceTree = "<group>"; };
 		64830E652AFD81A3002C4993 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		64830E672AFD8364002C4993 /* NetworkingConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingConfigurationView.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				6477BBC12AFABC080024D672 /* ApiClientFactory.swift */,
+				6481ED642B0C02EF005C0A4C /* SecretsStoreFactory.swift */,
 			);
 			path = Factories;
 			sourceTree = "<group>";
@@ -432,6 +435,7 @@
 			files = (
 				6490B4522AF66433007C8013 /* ShakeGestureViewModifier.swift in Sources */,
 				6490B44B2AF662BB007C8013 /* DebugView.swift in Sources */,
+				6481ED652B0C02EF005C0A4C /* SecretsStoreFactory.swift in Sources */,
 				64151DE92AFFA39800FB68B5 /* DebugNetworkingInfoProvider.swift in Sources */,
 				6490B44E2AF66388007C8013 /* UIDevcie.Notifications.swift in Sources */,
 				6481ED632B0C00AD005C0A4C /* AppEnvironment.swift in Sources */,
