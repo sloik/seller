@@ -6,13 +6,11 @@ import Observation
 struct DebugView: View {
     @Environment(\.dismiss) var dismiss
 
+    @State private var debugFeatures: DebugFeaturesModel = .init()
+
     @State private var globalItems: [Item] = []
 
-    @State private var currentNetworkingEnv: AppEnvironment = .production
-
     @State private var path = NavigationPath()
-
-    let networkingInfoProvider = DebugNetworkingInfoProvider()
 
     var body: some View {
 
@@ -26,7 +24,7 @@ struct DebugView: View {
                             case .networking:
                                 NetworkingRow(
                                     title: listItem.name,
-                                    currentEnvironment: $currentNetworkingEnv
+                                    currentEnvironment: $debugFeatures.appEnvironment
                                 )
                             }
                         }
@@ -46,8 +44,7 @@ struct DebugView: View {
                 switch item.destination {
                 case .networking:
                     NetworkingApiClientChooser(
-                        currentEnv: $currentNetworkingEnv,
-                        infoProvider: networkingInfoProvider
+                        currentEnv: $debugFeatures.appEnvironment
                     )
                 }
             }
@@ -58,8 +55,6 @@ struct DebugView: View {
     }
 
     private func refreshItems() {
-        currentNetworkingEnv = networkingInfoProvider.environment
-
         globalItems = [
             Item(
                 name: "Networking",

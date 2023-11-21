@@ -1,10 +1,10 @@
 
 import Foundation
 
-final class DebugNetworkingInfoProvider {
-    var baseURL: URL {  CurrentSeller.apiClient.baseURL }
+enum DebugNetworkingInfoProvider {
+    static var baseURL: URL {  CurrentSeller.apiClient.baseURL }
 
-    var environment: AppEnvironment {
+    static var environment: AppEnvironment {
         switch baseURL {
         case AppEnvironment.production.apiClientBaseURL:
             return .production
