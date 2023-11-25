@@ -35,8 +35,8 @@ struct NavigationView: View {
                 .overlay(dividerColor)
         }
         .sheet(isPresented: $viewModel.showingFilterSearchPopup) {
-           Text("Placeholder for popup view")
-               .presentationDetents(Set(filterPopupHeight))
-       }
+            FilterSearchView(viewModel: viewModel)
+                .presentationDetents(Set(filterPopupHeight))
+        }
     }
 }
