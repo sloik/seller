@@ -2,7 +2,7 @@
 import SwiftUI
 
 struct NavigationView: View {
-    @ObservedObject var viewModel: MyMessagesViewModel
+    @Bindable var viewModel: MyMessagesViewModel
     private let filterPopupHeight = stride(from: 0.4, through: 1.0, by: 0.4).map { PresentationDetent.fraction($0) }
     private let iconWidth: CGFloat = 24.0
     private let dividerColor = Color(red: 0xB5 / 255.0, green: 0xB5 / 255.0, blue: 0xB5 / 255.0)
@@ -35,8 +35,8 @@ struct NavigationView: View {
                 .overlay(dividerColor)
         }
         .sheet(isPresented: $viewModel.showingFilterSearchPopup) {
-           Text("Placeholder for popup view")
-               .presentationDetents(Set(filterPopupHeight))
-       }
+            FilterSearchView(viewModel: viewModel)
+                .presentationDetents(Set(filterPopupHeight))
+        }
     }
 }
