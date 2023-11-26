@@ -7,10 +7,10 @@ struct MessagesFilterType: Identifiable, Hashable {
     let isChecked: Bool
 }
 
-class MyMessagesViewModel: ObservableObject {
+@Observable class MyMessagesViewModel: ObservableObject {
    
-    @Published var searchFilterTextField: String = ""
-    @Published var showingFilterSearchPopup = false
+    var searchFilterTextField: String = ""
+    var showingFilterSearchPopup = false
 
     var filterTypes = [
         MessagesFilterType(title: "Nieprzeczytane", isChecked: false),

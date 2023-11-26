@@ -3,7 +3,7 @@ import SwiftUI
 
 struct FilterSearchView: View {
     
-    @ObservedObject var viewModel: MyMessagesViewModel
+    private var viewModel: MyMessagesViewModel
     private let cornerRadiusSize = 10.0
     private let lightGrayBackground = Color(red: 0.95, green: 0.95, blue: 0.96)
 
@@ -27,7 +27,7 @@ struct FilterSearchView: View {
     }
     
     private struct FilterCells: View {
-        @ObservedObject var viewModel: MyMessagesViewModel
+        private var viewModel: MyMessagesViewModel
 
         init(viewModel: MyMessagesViewModel) {
             self.viewModel = viewModel
@@ -50,7 +50,7 @@ struct FilterSearchView: View {
     }
     
     private struct FilterHeader: View {
-        @ObservedObject private var viewModel: MyMessagesViewModel
+        @Bindable private var viewModel: MyMessagesViewModel
         
         private let lightGray = Color(red: 0.46, green: 0.46, blue: 0.5).opacity(0.12)
         private let cornerRadiusSize = 10.0
@@ -79,7 +79,7 @@ struct FilterSearchView: View {
     }
 
     private struct ActionButtonViewStack: View {
-        @ObservedObject private var viewModel: MyMessagesViewModel
+        private var viewModel: MyMessagesViewModel
         
         private let geometry: GeometryProxy
         private let mediumGray = Color(red: 0.69, green: 0.69, blue: 0.69)
