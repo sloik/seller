@@ -50,9 +50,10 @@ struct FilterSearchView: View {
     }
     
     private struct FilterHeader: View {
+        @Environment(\.colorScheme) private var colorScheme
+
         @Bindable private var viewModel: MyMessagesViewModel
         
-        private let lightGray = Color(red: 0.46, green: 0.46, blue: 0.5).opacity(0.12)
         private let cornerRadiusSize = 10.0
         
         init(viewModel: MyMessagesViewModel) {
@@ -71,7 +72,12 @@ struct FilterSearchView: View {
                     TextField("Nazwa klienta (login Allegro)", text: $viewModel.searchFilterTextField)
                 }
                 .frame(height: 36)
-                .background(RoundedRectangle(cornerSize: CGSize(width: cornerRadiusSize, height: cornerRadiusSize)).foregroundStyle(lightGray))
+                .background(
+                    RoundedRectangle(
+                        cornerSize: CGSize(width: cornerRadiusSize, height: cornerRadiusSize)
+                    )
+                    .foregroundStyle( .design(color: .lightGray, with: colorScheme) )
+                )
                 .padding(.bottom, 20)
                 .padding(.horizontal, 16)
             }
@@ -79,11 +85,12 @@ struct FilterSearchView: View {
     }
 
     private struct ActionButtonViewStack: View {
+        @Environment(\.colorScheme) private var colorScheme
+
         private var viewModel: MyMessagesViewModel
         
         private let geometry: GeometryProxy
-        private let mediumGray = Color(red: 0.69, green: 0.69, blue: 0.69)
-        
+
         init(geometry: GeometryProxy, viewModel: MyMessagesViewModel) {
             self.geometry = geometry
             self.viewModel = viewModel
@@ -93,7 +100,7 @@ struct FilterSearchView: View {
             HStack(alignment: .center, spacing: 0) {
                 FilterActionButton(geometry: geometry,
                                    action: { viewModel.showingFilterSearchPopup.toggle() },
-                                   backgroundColor: mediumGray,
+                                   backgroundColor: .design(color: .mediumGray, with: colorScheme),
                                    foregroundColor: .black,
                                    title: "Anuluj")
                 Spacer()
