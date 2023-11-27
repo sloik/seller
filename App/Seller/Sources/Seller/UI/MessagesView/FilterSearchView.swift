@@ -62,7 +62,7 @@ struct FilterSearchView: View {
         var body: some View {
             VStack(spacing: 0) {
                 Text("Filtruj")
-                    .font(Font.custom("SF Pro", size: 17).weight(.semibold))
+                    .design(typography: .label(weight: .semibold))
                     .padding(.top, 40)
                     .padding(.bottom, 12)
                 HStack {
