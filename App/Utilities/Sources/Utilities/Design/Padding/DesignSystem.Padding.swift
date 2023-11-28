@@ -9,7 +9,7 @@ extension DesignSystem {
         case base   (_ edges: Edge.Set)
         case bigger (_ edges: Edge.Set)
 
-        @available(*, deprecated, message: "Please use any other value!")
+        @available(*, deprecated, message: "👨‍🎨 Design System: Please use any other value!")
         case custom(edges: Edge.Set, length: CGFloat)
     }
 }
