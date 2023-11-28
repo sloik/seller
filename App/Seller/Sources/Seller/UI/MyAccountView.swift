@@ -3,7 +3,7 @@ import SwiftUI
 
 import Lentil
 
-struct MySettingsView: View {
+struct MyAccountView: View {
     @State private var path = NavigationPath()
 
     @State private var showLoginFlow = false
@@ -28,5 +28,5 @@ struct MySettingsView: View {
 }
 
 #Preview {
-    MySettingsView()
+    MyAccountView()
 }
