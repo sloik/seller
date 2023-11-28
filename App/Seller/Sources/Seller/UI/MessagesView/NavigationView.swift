@@ -17,17 +17,18 @@ struct NavigationView: View {
                 Text("Wiadomości")
                     .font(.custom("SF Pro Display", size: 28))
                     .fontWeight(.medium)
-                    .padding(.leading, 28)
+                    .design(padding: .custom(edges: .leading, length: 28))
                 Spacer()
                 Button(action: { viewModel.showingFilterSearchPopup.toggle() },
                        label: {
                     Image("threeDotsVerticalIcon").resizable().foregroundColor(.black).frame(width: iconWidth, height: iconWidth)
-                        .padding(.horizontal, 8)
+                        .design(padding: .custom(edges: .horizontal, length: 8))
                 })
                 Button(action: { viewModel.showingFilterSearchPopup.toggle() },
                        label: {
                     Image("searchIcon").resizable().foregroundColor(.black).frame(width: iconWidth, height: iconWidth)
                         .padding(.trailing, 13)
+                        .design(padding: .smaller(.trailing))
                 })
             }
             .frame(height: 77)

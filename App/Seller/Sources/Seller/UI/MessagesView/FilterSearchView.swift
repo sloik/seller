@@ -64,8 +64,8 @@ struct FilterSearchView: View {
             VStack(spacing: 0) {
                 Text("Filtruj")
                     .design(typography: .label(weight: .semibold))
-                    .padding(.top, 40)
-                    .padding(.bottom, 12)
+                    .design(padding: .custom(edges: .top, length: 40))
+                    .design(padding: .smaller(.bottom))
                 HStack {
                     Image("searchGlyphIcon")
                         .padding(.leading, 8)
@@ -78,8 +78,8 @@ struct FilterSearchView: View {
                     )
                     .foregroundStyle( .design(color: .lightGray, with: colorScheme) )
                 )
-                .padding(.bottom, 20)
-                .padding(.horizontal, 16)
+                .design(padding: .bigger(.bottom))
+                .design(padding: .base(.horizontal))
             }
         }
     }

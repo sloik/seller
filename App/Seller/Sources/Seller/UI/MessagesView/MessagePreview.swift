@@ -10,7 +10,6 @@ struct MessagePreview: View {
     private let fontColor = (Color(red: 0.24, green: 0.24, blue: 0.26).opacity(0.6))
     private let circleWidth = 63.0
     private let circleLeftPadding = 30.0
-    private let circleRightPadding = 16.0
     private let iconSize = 19.0
     private var hasAttachment: Bool = false
     private var hasUnreadMessages: Bool = false
@@ -23,8 +22,8 @@ struct MessagePreview: View {
                         .foregroundColor(Color.gray)
                         .frame(width: circleWidth, height: circleWidth)
                         .overlay(GreenOnlineCircle())
-                        .padding(.leading, circleLeftPadding)
-                        .padding(.trailing, circleRightPadding)
+                        .design(padding: .custom(edges: .leading, length: circleLeftPadding))
+                        .design(padding: .base(.trailing))
                     VStack(spacing: 0) {
                         HStack(spacing: 0) {
                             VStack(spacing: 0) {
@@ -38,7 +37,7 @@ struct MessagePreview: View {
                                         .foregroundColor(fontColor)
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                 }
-                                .padding(.top, 6)
+                                .design(padding: .custom(edges: .top, length: 6))
                             }
                             Spacer()
                             VStack(spacing: 0) {
@@ -53,7 +52,7 @@ struct MessagePreview: View {
                                             .font(.custom("SF Pro Display", fixedSize: 14))
                                             .foregroundColor(.white)
                                     }
-                                    .padding(.top, 4)
+                                    .design(padding: .custom(edges: .top, length: 4))
                                 }
                             }
                         }

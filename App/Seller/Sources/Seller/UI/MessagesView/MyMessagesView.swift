@@ -16,7 +16,7 @@ struct MessagesView: View {
             ScrollView {
                 VStack(spacing: 17) {
                     MessagePreview()
-                        .padding(.top, 30)
+                        .design(padding: .custom(edges: .top, length: 30))
                     MessagePreview(hasAttachment: true)
                 }
             }

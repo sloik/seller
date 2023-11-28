@@ -5,8 +5,8 @@ struct PlaceholderSearch: View {
     var body: some View {
         RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
             .frame(height: 32)
-            .padding(.horizontal, 16)
+            .design(padding: .base(.horizontal))
             .foregroundColor(Color.gray.opacity(0.12))
-            .padding(.bottom, 15)
+            .design(padding: .base(.bottom))
     }
 }
