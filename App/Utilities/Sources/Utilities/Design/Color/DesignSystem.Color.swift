@@ -13,7 +13,8 @@ extension DesignSystem {
 
 extension DesignSystem.Color {
 
-    func designColor(with scheme: ColorScheme) -> SwiftUI.Color {
+    /// Returns `Color` for `ColorScheme`.
+    func with(_ scheme: ColorScheme) -> SwiftUI.Color {
 
         switch self {
         case .lightGray:
@@ -29,5 +30,5 @@ extension DesignSystem.Color {
             )
         }
     }
-    
+
 }
