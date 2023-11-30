@@ -1,7 +1,7 @@
 // system
 import SwiftUI
 
-struct NavigationView: View {
+struct MessageNavigationView: View {
     @Bindable var viewModel: MyMessagesViewModel
     private let filterPopupHeight = stride(from: 0.4, through: 1.0, by: 0.4).map { PresentationDetent.fraction($0) }
     private let iconWidth: CGFloat = 24.0
