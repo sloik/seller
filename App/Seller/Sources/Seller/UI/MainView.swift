@@ -1,8 +1,11 @@
 //system
 import SwiftUI
 
+// local
+import Utilities
+
 struct MainView: View {
-    
+
     var body: some View {
         TabView {
             Group {
@@ -21,25 +24,6 @@ struct MainView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
-    }
-    
-    private struct TabBarIcon: View {
-        private let imageName: String
-        private let titleName: String
-        
-        init(imageName: String, titleName: String) {
-            self.imageName = imageName
-            self.titleName = titleName
-        }
-        
-        var body: some View {
-            VStack(spacing: 0) {
-                Image(imageName)
-                    .padding(.bottom, 10)
-                Text(titleName)
-                    .design(typography: .label(weight: .regular, size: 12))
-            }
-        }
     }
 }
 
