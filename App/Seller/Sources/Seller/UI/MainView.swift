@@ -1,29 +1,25 @@
 //system
 import SwiftUI
 
+// local
+import Utilities
+
 struct MainView: View {
 
     var body: some View {
         TabView {
             Group {
-                MyOffersView()
-                    .tabItem {
-                        Label("Moje oferty", systemImage: "list.bullet")
-                    }
-                   
-                MyTransactionsView()
-                    .tabItem {
-                        Label("Transakcje", systemImage: "dollarsign.square")
-                    }
-                   
                 MessagesView()
                     .tabItem {
-                        Label("Wiadomości", systemImage: "message")
+                        TabBarIcon(imageName: "messageTabIcon", titleName: "Wiadomości")
                     }
-
-                MySettingsView()
+                MyOrdersView()
                     .tabItem {
-                        Label("Ustawienia", systemImage: "slider.horizontal.3")
+                        TabBarIcon(imageName: "orderTabIcon", titleName: "Zamówienia")
+                    }
+                MyAccountView()
+                    .tabItem {
+                        TabBarIcon(imageName: "accountTabIcon", titleName: "Konto")
                     }
             }
         }

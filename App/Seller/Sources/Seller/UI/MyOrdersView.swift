@@ -1,12 +1,12 @@
 // system
 import SwiftUI
 
-struct MyOffersView: View {
+struct MyOrdersView: View {
     var body: some View {
-        Text("My offers")
+        Text("My orders")
     }
 }
 
 #Preview {
-    MyOffersView()
+    MyOrdersView()
 }
