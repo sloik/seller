@@ -20,8 +20,8 @@ struct MessageDetailNavigationView: View {
                     .overlay( .design(color: .gray71, with: colorScheme) )
                 ScrollView {
                     Text("Today")
-                        .padding(.top, 22)
-                        .padding(.bottom, 25)
+                        .design(padding: .custom(edges: .top, length: 22))
+                        .design(padding: .custom(edges: .bottom, length: 25))
                     MessageBubble(geometry: geometry, isInterlocutor: true)
                     MessageSpacer()
                     MessageBubble(geometry: geometry, isInterlocutor: false)
@@ -50,7 +50,7 @@ struct MessageDetailNavigationView: View {
                 }, label: {
                     Image(systemName: "chevron.left")
                         .foregroundStyle(Color.black)
-                        .padding(.horizontal, 16)
+                        .design(padding: .base([.horizontal]))
                 })
                 ZStack {
                     Circle()
@@ -59,11 +59,11 @@ struct MessageDetailNavigationView: View {
                     Text("AB")
                         .design(typography: .label(weight: .medium, size: 21))
                 }
-                .padding(.trailing, 10)
+                .design(padding: .custom(edges: .leading, length: 10))
                 VStack(alignment: .leading, spacing: 0) {
                     Text("User name")
                         .design(typography: .label(weight: .medium))
-                        .padding(.bottom, 6)
+                        .design(padding: .custom(edges: .bottom, length: 6))
                     Text("{offer:title}")
                         .design(typography: .label(weight: .medium, size: 14))
                         .foregroundStyle( .design(color: .gray55, with: colorScheme) )
@@ -103,17 +103,17 @@ struct MessageDetailNavigationView: View {
         var body: some View {
             VStack(alignment: horizontalAlignment, spacing: 0) {
                 Text("Hi! your last shot was realy good!")
-                    .padding(.vertical, smallerPadding)
-                    .padding(.horizontal, 14)
-                    .background(isInterlocutor 
+                    .design(padding: .custom(edges: .vertical, length: smallerPadding))
+                    .design(padding: .custom(edges: .horizontal, length: 14))
+                    .background(isInterlocutor
                                 ? .design(color: .gray92, with: colorScheme)
                                 : .design(color: .gray69, with: colorScheme),
                                 in: RoundedRectangle(cornerSize: CGSize(width: cornerRadius, height: cornerRadius)))
-                    .padding(.bottom, smallerPadding)
-                    .padding(.horizontal, horizontalPadding)
+                    .design(padding: .custom(edges: .bottom, length: smallerPadding))
+                    .design(padding: .custom(edges: .horizontal, length: horizontalPadding))
                 Text("9:23")
                     .foregroundStyle( .design(color: .gray5958, with: colorScheme) )
-                    .padding(.horizontal, horizontalPadding)
+                    .design(padding: .custom(edges: .horizontal, length: horizontalPadding))
             }
             .frame(width: geometry.size.width, alignment: alignment)
         }
@@ -134,13 +134,13 @@ struct MessageDetailNavigationView: View {
                 HStack(spacing: 0) {
                     TextField("Type a message", text: $viewModel.conversationMessage, axis: .vertical)
                         .lineLimit(viewModel.conversationLineLimit)
-                        .padding(.leading, padding)
+                        .design(padding: .custom(edges: .leading, length: padding))
                     Spacer()
                     Button(action: {
                         print("Attachment clicked")
                     }, label: {
                         Image(systemName: "paperclip")
-                            .padding(.horizontal, padding)
+                            .design(padding: .custom(edges: .horizontal, length: padding))
                     })
                 }
                 .frame(height: 78)
