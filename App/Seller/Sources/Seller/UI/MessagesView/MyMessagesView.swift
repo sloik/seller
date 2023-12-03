@@ -19,7 +19,7 @@ struct MessagesView: View {
                     VStack(spacing: 17) {
                         NavigationLink(destination: MessageDetailNavigationView(viewModel: MessageDetailChatViewModel())) {
                             MessagePreview()
-                                .padding(.top, 30)
+                                .design(padding: .bigger(.top))
                         }
                         NavigationLink(destination: MessageDetailNavigationView(viewModel: MessageDetailChatViewModel())) {
                             MessagePreview(hasAttachment: true)
