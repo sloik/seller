@@ -15,7 +15,7 @@ public struct TabBarIcon: View {
             Image(imageName)
                 .padding(.bottom, 10)
             Text(titleName)
-                .design(typography: .label(weight: .regular, size: 12))
+                .design(typography: .custom(weight: .regular, size: 12))
         }
     }
 }
