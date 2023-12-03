@@ -20,8 +20,7 @@ struct MessageDetailNavigationView: View {
                     .overlay( .design(color: .gray71, with: colorScheme) )
                 ScrollView {
                     Text("Today")
-                        .design(padding: .custom(edges: .top, length: 22))
-                        .design(padding: .custom(edges: .bottom, length: 25))
+                        .design(padding: .big([.top, .bottom]))
                     MessageBubble(geometry: geometry, isInterlocutor: true)
                     MessageSpacer()
                     MessageBubble(geometry: geometry, isInterlocutor: false)
@@ -32,7 +31,9 @@ struct MessageDetailNavigationView: View {
                 TypeMessageView(viewModel: viewModel).ignoresSafeArea(.all)
             }
             .navigationBarBackButtonHidden(true)
+            #if canImport(UIKit)
             .toolbar(.hidden, for: .tabBar)
+            #endif
         }
     }
 
@@ -57,15 +58,15 @@ struct MessageDetailNavigationView: View {
                         .frame(width: circleSize, height: circleSize)
                         .foregroundStyle( .design(color: .gray91, with: colorScheme) )
                     Text("AB")
-                        .design(typography: .label(weight: .medium, size: 21))
+                        .design(typography: .custom(weight: .medium, size: 21))
                 }
-                .design(padding: .custom(edges: .leading, length: 10))
+                .design(padding: .smaller(.leading))
                 VStack(alignment: .leading, spacing: 0) {
                     Text("User name")
                         .design(typography: .label(weight: .medium))
-                        .design(padding: .custom(edges: .bottom, length: 6))
+                        .design(padding: .tiny(.bottom))
                     Text("{offer:title}")
-                        .design(typography: .label(weight: .medium, size: 14))
+                        .design(typography: .custom(weight: .medium, size: 14))
                         .foregroundStyle( .design(color: .gray55, with: colorScheme) )
                 }
                 Spacer()
@@ -89,8 +90,6 @@ struct MessageDetailNavigationView: View {
         private let geometry: GeometryProxy
         private let alignment: Alignment
         private let horizontalAlignment: HorizontalAlignment
-        private let smallerPadding: CGFloat = 10
-        private let horizontalPadding: CGFloat = 29
         private let cornerRadius: CGFloat = 18
 
         init(geometry: GeometryProxy, isInterlocutor: Bool) {
@@ -103,17 +102,19 @@ struct MessageDetailNavigationView: View {
         var body: some View {
             VStack(alignment: horizontalAlignment, spacing: 0) {
                 Text("Hi! your last shot was realy good!")
-                    .design(padding: .custom(edges: .vertical, length: smallerPadding))
-                    .design(padding: .custom(edges: .horizontal, length: 14))
+                    .design(
+                        padding: .smal(.vertical), 
+                        padding: .base(.horizontal)
+                    )
                     .background(isInterlocutor
                                 ? .design(color: .gray92, with: colorScheme)
                                 : .design(color: .gray69, with: colorScheme),
                                 in: RoundedRectangle(cornerSize: CGSize(width: cornerRadius, height: cornerRadius)))
-                    .design(padding: .custom(edges: .bottom, length: smallerPadding))
-                    .design(padding: .custom(edges: .horizontal, length: horizontalPadding))
+                    .design(padding: .smal(.bottom))
+                    .design(padding: .large(.horizontal))
                 Text("9:23")
                     .foregroundStyle( .design(color: .gray5958, with: colorScheme) )
-                    .design(padding: .custom(edges: .horizontal, length: horizontalPadding))
+                    .design(padding: .large(.horizontal))
             }
             .frame(width: geometry.size.width, alignment: alignment)
         }
@@ -122,7 +123,6 @@ struct MessageDetailNavigationView: View {
     private struct TypeMessageView: View {
 
         @Bindable private var viewModel: MessageDetailChatViewModel
-        private let padding: CGFloat = 29
 
         init(viewModel: MessageDetailChatViewModel) {
             self.viewModel = viewModel
@@ -134,13 +134,13 @@ struct MessageDetailNavigationView: View {
                 HStack(spacing: 0) {
                     TextField("Type a message", text: $viewModel.conversationMessage, axis: .vertical)
                         .lineLimit(viewModel.conversationLineLimit)
-                        .design(padding: .custom(edges: .leading, length: padding))
+                        .design(padding: .large(.leading))
                     Spacer()
                     Button(action: {
                         print("Attachment clicked")
                     }, label: {
                         Image(systemName: "paperclip")
-                            .design(padding: .custom(edges: .horizontal, length: padding))
+                            .design(padding: .large(.horizontal))
                     })
                 }
                 .frame(height: 78)

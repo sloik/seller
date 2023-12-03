@@ -64,11 +64,11 @@ struct FilterSearchView: View {
             VStack(spacing: 0) {
                 Text("Filtruj")
                     .design(typography: .label(weight: .semibold))
-                    .design(padding: .custom(edges: .top, length: 40))
-                    .design(padding: .smaller(.bottom))
+                    .design(padding: .hugger(.top))
+                    .design(padding: .smal(.bottom))
                 HStack {
                     Image("searchGlyphIcon")
-                        .padding(.leading, 8)
+                        .design(padding: .smaller(.leading))
                     TextField("Nazwa klienta (login Allegro)", text: $viewModel.searchFilterTextField)
                 }
                 .frame(height: 36)
@@ -78,7 +78,7 @@ struct FilterSearchView: View {
                     )
                     .foregroundStyle( .design(color: .lightGray, with: colorScheme) )
                 )
-                .design(padding: .bigger(.bottom))
+                .design(padding: .big(.bottom))
                 .design(padding: .base(.horizontal))
             }
         }
