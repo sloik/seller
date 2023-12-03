@@ -14,6 +14,9 @@ public extension DesignSystem {
         /// 13x13 points frame.
         case f13x13
 
+        /// 300x400 points frame.
+        case f300x400
+
         /// 800x800 points frame.
         case f800x800
     }
@@ -29,6 +32,9 @@ extension DesignSystem.Frame {
 
         case .f13x13:
             return CGSize(width: 13, height: 13)
+
+        case .f300x400:
+            return CGSize(width: 300, height: 400)
 
         case .f800x800:
             return CGSize(width: 800, height: 800)
