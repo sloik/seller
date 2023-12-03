@@ -37,9 +37,10 @@ struct MessageNavigationView: View {
         }
         .sheet(isPresented: $viewModel.showingFilterSearchPopup) {
             FilterSearchView(viewModel: viewModel)
-                .presentationDetents(Set(filterPopupHeight))
             #if os(macOS)
                 .design(sheet: .small)
+            #else
+                .presentationDetents(Set(filterPopupHeight))
             #endif
         }
     }
