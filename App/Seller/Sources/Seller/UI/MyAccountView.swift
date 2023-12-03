@@ -19,7 +19,9 @@ struct MyAccountView: View {
                     .loginUI { _ in
                        showLoginFlow = false
                     }
+                #if os(macOS)
                     .design(sheet: .regular)
+                #endif
             }
         }
     }
