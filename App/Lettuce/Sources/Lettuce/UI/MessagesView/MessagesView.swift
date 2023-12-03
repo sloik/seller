@@ -2,15 +2,18 @@
 import SwiftUI
 
 // Internal
+import Utilities
 
 // 3rd
 import OptionalAPI
 
-struct MessagesView: View {
+public struct MessagesView: View {
     private var viewModel = MyMessagesViewModel()
     @State private var shouldNavigate = true
 
-    var body: some View {
+    public init() {}
+
+    public var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
                 MessageNavigationView(viewModel: viewModel)
