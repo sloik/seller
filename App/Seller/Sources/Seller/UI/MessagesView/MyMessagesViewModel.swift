@@ -7,7 +7,7 @@ struct MessagesFilterType: Identifiable, Hashable {
     let isChecked: Bool
 }
 
-@Observable class MyMessagesViewModel: ObservableObject {
+@Observable class MyMessagesViewModel {
    
     var searchFilterTextField: String = ""
     var showingFilterSearchPopup = false

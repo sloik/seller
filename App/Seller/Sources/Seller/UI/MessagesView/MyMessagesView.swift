@@ -7,7 +7,7 @@ import SwiftUI
 import OptionalAPI
 
 struct MessagesView: View {
-    @ObservedObject private var viewModel = MyMessagesViewModel()
+    private var viewModel = MyMessagesViewModel()
     @State private var shouldNavigate = true
 
     var body: some View {
