@@ -22,6 +22,8 @@
 		646063132AFED8ED006A4424 /* SweetPredicate in Frameworks */ = {isa = PBXBuildFile; productRef = 646063122AFED8ED006A4424 /* SweetPredicate */; };
 		6474C0252B07C46D009903C6 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6474C0242B07C42F009903C6 /* Secrets.swift */; };
 		6474C02A2B07C6C8009903C6 /* SecretsStore in Frameworks */ = {isa = PBXBuildFile; productRef = 6474C0292B07C6C8009903C6 /* SecretsStore */; };
+		6474DBE22B1B758400970C29 /* Utilities in Frameworks */ = {isa = PBXBuildFile; productRef = 6474DBE12B1B758400970C29 /* Utilities */; };
+		6474DBE32B1B758400970C29 /* Utilities in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 6474DBE12B1B758400970C29 /* Utilities */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		647505A92AA62C0600946955 /* Seller in Frameworks */ = {isa = PBXBuildFile; productRef = 647505A82AA62C0600946955 /* Seller */; };
 		647505AA2AA62C0600946955 /* Seller in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 647505A82AA62C0600946955 /* Seller */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		6477BBC22AFABC080024D672 /* ApiClientFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6477BBC12AFABC080024D672 /* ApiClientFactory.swift */; };
@@ -66,6 +68,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				6477BBC52AFAC00D0024D672 /* Onion in Embed Frameworks */,
+				6474DBE32B1B758400970C29 /* Utilities in Embed Frameworks */,
 				647505AA2AA62C0600946955 /* Seller in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -116,6 +119,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6477BBC42AFAC00D0024D672 /* Onion in Frameworks */,
+				6474DBE22B1B758400970C29 /* Utilities in Frameworks */,
 				647505A92AA62C0600946955 /* Seller in Frameworks */,
 				646063112AFED8ED006A4424 /* SweetBool in Frameworks */,
 				646063132AFED8ED006A4424 /* SweetPredicate in Frameworks */,
@@ -310,6 +314,7 @@
 				646063102AFED8ED006A4424 /* SweetBool */,
 				646063122AFED8ED006A4424 /* SweetPredicate */,
 				6474C0292B07C6C8009903C6 /* SecretsStore */,
+				6474DBE12B1B758400970C29 /* Utilities */,
 			);
 			productName = AlleSeller;
 			productReference = 64078B282A87B72B00877322 /* AlleSeller.app */;
@@ -849,6 +854,10 @@
 		6474C0292B07C6C8009903C6 /* SecretsStore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SecretsStore;
+		};
+		6474DBE12B1B758400970C29 /* Utilities */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Utilities;
 		};
 		647505A82AA62C0600946955 /* Seller */ = {
 			isa = XCSwiftPackageProductDependency;
