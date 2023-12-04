@@ -110,6 +110,7 @@
 		6490B44F2AF663EA007C8013 /* UIWindow.Motion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindow.Motion.swift; sourceTree = "<group>"; };
 		6490B4512AF66433007C8013 /* ShakeGestureViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeGestureViewModifier.swift; sourceTree = "<group>"; };
 		6490B4532AF664FA007C8013 /* SwiftUI.View.ShakeGesture.Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUI.View.ShakeGesture.Extension.swift; sourceTree = "<group>"; };
+		64AC2FE62B1E3B6C003C56D0 /* Acorn */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Acorn; path = ../Acorn; sourceTree = "<group>"; };
 		695F72442ACF0F0800CC7606 /* Tomatos */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Tomatos; path = ../Tomatos; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -150,6 +151,7 @@
 		64078B1F2A87B72A00877322 = {
 			isa = PBXGroup;
 			children = (
+				64AC2FE62B1E3B6C003C56D0 /* Acorn */,
 				648B0B5C2ABF58CD00FD8C52 /* KeychainWrapper */,
 				645D65812AA33D9F0087728A /* Lentil */,
 				646AFC452AE84A49005B49B1 /* Lettuce */,
