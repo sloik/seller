@@ -16,15 +16,12 @@ final class MyAccountViewModel {
 
     var visible: State = .login
 
-    var path = NavigationPath()
-
     /// Controls visibility of the login web view.
     var loginWebViewIsPresented = false {
         didSet {
             visible = Lentil.hasUserToken.biTransform(yes: .profile, no: .login)
         }
     }
-
 
     init() {
         visible = Lentil.hasUserToken.biTransform(yes: .profile, no: .login)
@@ -51,5 +48,5 @@ extension MyAccountViewModel {
         Lentil.logout()
         visible = .login
     }
-
+    
 }

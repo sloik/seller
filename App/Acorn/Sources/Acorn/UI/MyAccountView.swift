@@ -10,15 +10,12 @@ public struct MyAccountView: View {
     public init(){}
 
     public var body: some View {
-        NavigationStack(path: $model.path) {
-            ZStack {
-                LoginView(model: model)
-                    .opacity( model.opacity(for: .login) )
+        ZStack {
+            LoginView(model: model)
+                .opacity( model.opacity(for: .login) )
 
-                UserProfileView(model: model)
-                    .opacity( model.opacity(for: .profile) )
-            }
-
+            UserProfileView(model: model)
+                .opacity( model.opacity(for: .profile) )
         }
     }
 }
