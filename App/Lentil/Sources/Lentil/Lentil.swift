@@ -41,6 +41,11 @@ public extension LentilUseCases {
         Cumin.secrets
     }
 
+    /// True when has user token.
+    var hasUserToken: Bool {
+        Cumin.auth.token.isNotNone
+    }
+
     func loginUI(didLogin: @escaping Consumer<Error?>) -> some View {
         AuthenticationView(didLogin: didLogin)
     }

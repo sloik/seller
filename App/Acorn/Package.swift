@@ -22,6 +22,12 @@ let package = Package(
     dependencies: [
         .package(path: "../Lentil"),
         .package(path: "../Utilities"),
+        .package(path: "../Onion"),
+
+        .package(
+            url: "https://github.com/sloik/SweetBool.git",
+            from: "1.1.3"
+        ),
     ],
 
     targets: [
@@ -30,6 +36,9 @@ let package = Package(
             dependencies: [
                 "Lentil",       // Login functionality
                 "Utilities",    // Utilities
+                "Onion",        // Networking
+
+                "SweetBool",
             ]
         ),
         .testTarget(
