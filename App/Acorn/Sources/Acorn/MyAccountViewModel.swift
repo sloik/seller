@@ -48,4 +48,9 @@ extension MyAccountViewModel {
         loginWebViewIsPresented = true
     }
 
+    func logout() {
+        Lentil.logout()
+        visible = .login
+    }
+
 }

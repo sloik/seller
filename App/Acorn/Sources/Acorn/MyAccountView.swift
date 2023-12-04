@@ -15,7 +15,7 @@ public struct MyAccountView: View {
                 LoginView(model: model)
                     .opacity( model.opacity(for: .login) )
 
-                UserProfileView()
+                UserProfileView(model: model)
                     .opacity( model.opacity(for: .profile) )
             }
 
@@ -28,8 +28,15 @@ public struct MyAccountView: View {
 }
 
 struct UserProfileView: View {
+    @Bindable var model: MyAccountViewModel
+
     var body: some View {
-        Text("User Profile")
+
+        VStack {
+            Text("User Profile")
+            
+            Button("Logout", action: model.logout)
+        }
     }
 }
 

@@ -25,14 +25,17 @@ package extension CuminUseCases {
         }
 
         var _saveDataFor: ThrowsConsumer2I<Data,Key>
-        var _dataForKey: ThrowsClosure<Key, Data?>
+        var _dataForKey: Closure<Key, Data?>
+        var _deleteKey: Consumer<Key>
 
         init(
             saveDataFor: @escaping ThrowsConsumer2I<Data,Key>,
-            dataForKey: @escaping ThrowsClosure<Key, Data?>
+            dataForKey: @escaping Closure<Key, Data?>,
+            deleteKey: @escaping Consumer<Key>
         ) {
             self._saveDataFor = saveDataFor
             self._dataForKey = dataForKey
+            self._deleteKey = deleteKey
         }
     }
 }
@@ -47,9 +50,14 @@ package extension CuminUseCases.SecureStore {
         try _saveDataFor(data, key)
     }
 
-    func data(_ key: Key) throws -> Data? {
+    func data(_ key: Key) -> Data? {
         logger.info("Getting value for key: [\(key.rawValue)]")
-        return try _dataForKey(key)
+        return _dataForKey(key)
+    }
+
+    func delete(_ key: Key) {
+        logger.info("Removing value for key: [\(key.rawValue)]")
+        _deleteKey(key)
     }
 }
 
@@ -60,7 +68,8 @@ package extension CuminUseCases.SecureStore {
     static var prod: Self {
         .init(
             saveDataFor: CuminUseCases.SecureStore.Prod.save(data:for:), 
-            dataForKey: CuminUseCases.SecureStore.Prod.data(key:)
+            dataForKey: CuminUseCases.SecureStore.Prod.data(key:),
+            deleteKey: CuminUseCases.SecureStore.Prod.delete(key:)
         )
     }
 
@@ -84,10 +93,15 @@ extension CuminUseCases.SecureStore {
             }
         }
 
-        static func data(key: Key) throws -> Data? {
+        static func data(key: Key) -> Data? {
             let wrapper = KeychainWrapper()
 
             return wrapper[key.rawValue]
+        }
+
+        static func delete(key: Key) {
+            let wrapper = KeychainWrapper()
+            wrapper.delete(key: key.rawValue)
         }
     }
 }

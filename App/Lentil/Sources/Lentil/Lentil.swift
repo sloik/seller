@@ -1,6 +1,7 @@
 // system
 import Foundation
 import SwiftUI
+import OSLog
 
 // local
 import Cumin
@@ -12,6 +13,8 @@ import Onion
 import AliasWonderland
 
 public private(set) var Lentil: LentilUseCases!
+
+private let logger = Logger(subsystem: "LentilUseCases", category: "Lentil")
 
 public struct LentilUseCases {
 
@@ -46,8 +49,20 @@ public extension LentilUseCases {
         Cumin.auth.token.isNotNone
     }
 
+}
+
+// MARK: - Login
+
+public extension LentilUseCases {
+
     func loginUI(didLogin: @escaping Consumer<Error?>) -> some View {
         AuthenticationView(didLogin: didLogin)
     }
 
+    func logout() {
+        logger.info("Logging out")
+
+        Cumin.secureStore.delete(.refreshToken)
+        Cumin.secureStore.delete(.token)
+    }
 }
