@@ -4,6 +4,7 @@ import SwiftUI
 // local
 import Utilities
 import Lettuce
+import Acorn
 
 struct MainView: View {
 

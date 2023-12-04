@@ -29,6 +29,11 @@ let package = Package(
             url: "https://github.com/sloik/SweetBool.git",
             from: "1.1.3"
         ),
+
+        .package(
+            url: "https://github.com/sloik/OptionalAPI.git",
+            from: "5.1.1"
+        ),
     ],
 
     targets: [
@@ -38,6 +43,7 @@ let package = Package(
             name: "Utilities",
             dependencies: [
                 "SweetBool",
+                "OptionalAPI",
             ]
         ),
 

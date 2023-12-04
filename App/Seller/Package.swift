@@ -24,11 +24,11 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(path: "../Lentil"),
         .package(path: "../Utilities"),
         .package(path: "../Onion"),
         .package(path: "../SecretsStore"),
         .package(path: "../Lettuce"),
+        .package(path: "../Acorn"),
 
         .package(
             url: "https://github.com/sloik/OptionalAPI.git",
@@ -39,11 +39,11 @@ let package = Package(
         .target(
             name: "Seller",
             dependencies: [
-                "Lentil",       // Login functionality
                 "Utilities",    // Utilities
                 "Onion",        // Networking
                 "SecretsStore", // Secrets
                 "Lettuce",      // Messages
+                "Acorn",        // Account / User Profile
 
                 "OptionalAPI",
             ]
