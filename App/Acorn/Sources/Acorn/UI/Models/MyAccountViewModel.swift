@@ -7,7 +7,6 @@ import Observation
 import Lentil
 import SweetBool
 
-
 @Observable
 final class MyAccountViewModel {
 
