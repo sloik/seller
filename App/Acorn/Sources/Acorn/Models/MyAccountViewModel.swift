@@ -4,8 +4,8 @@ import SwiftUI
 import Observation
 
 // local
-import Lentil
 import SweetBool
+import Onion
 
 @Observable
 final class MyAccountViewModel {
@@ -14,7 +14,11 @@ final class MyAccountViewModel {
         case login, profile
     }
 
+    private let loginHandler: LoginHandler
+    private let apiClient: APIClientType
+
     var visible: State = .login
+    var user: User?
 
     /// Controls visibility of the login web view.
     var loginWebViewIsPresented = false {
@@ -23,34 +27,47 @@ final class MyAccountViewModel {
         }
     }
 
-    init() {
+    init(
+        loginHandler: LoginHandler,
+        apiClient: APIClientType
+    ) {
+        self.loginHandler = loginHandler
+        self.apiClient = apiClient
         updateVisibility()
     }
 }
 
-// MARK: - User Interaction
+// MARK: - View Interface
 
 extension MyAccountViewModel {
 
     func didTapLogin() {
-        loginWebViewIsPresented = true
+        loginWebView(show: true)
     }
 
     func didTapLogout() {
         logout()
     }
-}
 
-// MARK: - UI State
-
-extension MyAccountViewModel {
-
-    func updateVisibility() {
-        visible = Lentil.hasUserToken.biTransform(yes: .profile, no: .login)
+    func onAppear() {
+        fetchUserData()
     }
 
     func opacity(for state: State) -> Double {
         state == visible ? 1 : 0
+    }
+}
+
+// MARK: - UI State
+
+private extension MyAccountViewModel {
+
+    func loginWebView(show: Bool) {
+        loginWebViewIsPresented = show
+    }
+
+    func updateVisibility() {
+        visible = loginHandler.hasToken.biTransform(yes: .profile, no: .login)
     }
 }
 
@@ -62,7 +79,37 @@ extension MyAccountViewModel {
     }
 
     func logout() {
-        Lentil.logout()
+        loginHandler.logout()
         visible = .login
+    }
+}
+
+// MARK: - User Data
+
+private extension MyAccountViewModel {
+
+    func fetchUserData() {
+        Task {
+            user = try await getUser()
+        }
+    }
+
+    func getUser() async throws -> User {
+
+        enum GetUserError: Error {
+            case missingToken
+        }
+
+        guard
+            let token = loginHandler.token
+        else {
+            throw GetUserError.missingToken
+        }
+
+        let meRequest = MeRequest(token: token)
+
+        let (user, _) = try await apiClient.run( meRequest )
+
+        return user
     }
 }

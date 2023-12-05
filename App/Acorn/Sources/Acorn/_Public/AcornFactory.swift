@@ -1,6 +1,7 @@
 
 import SwiftUI
 import Onion
+import Lentil
 
 public final class AcornFactory {
 
@@ -26,8 +27,12 @@ public extension AcornFactory {
 
 extension AcornFactory {
 
+    var loginHandler: LoginHandler {
+        Lentil
+    }
+
     var myAccountViewModel: MyAccountViewModel {
-        MyAccountViewModel()
+        MyAccountViewModel(loginHandler: loginHandler, apiClient: apiClient)
     }
 
 }

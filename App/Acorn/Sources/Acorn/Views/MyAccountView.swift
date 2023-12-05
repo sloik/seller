@@ -2,6 +2,7 @@
 import SwiftUI
 
 import Lentil
+import Onion
 
 struct MyAccountView: View {
 
@@ -18,10 +19,16 @@ struct MyAccountView: View {
 
             UserProfileView(model: model)
                 .opacity( model.opacity(for: .profile) )
+                .onAppear(perform: model.onAppear)
         }
     }
 }
 
 #Preview {
-    MyAccountView(model: .init())
+    MyAccountView(
+        model: .init(
+            loginHandler: Lentil,
+            apiClient: MockApiClient()
+        )
+    )
 }
