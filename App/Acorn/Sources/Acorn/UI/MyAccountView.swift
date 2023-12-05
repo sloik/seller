@@ -3,13 +3,13 @@ import SwiftUI
 
 import Lentil
 
-public struct MyAccountView: View {
+struct MyAccountView: View {
 
     @State private var model = MyAccountViewModel()
 
-    public init(){}
+    init(){}
 
-    public var body: some View {
+    var body: some View {
         ZStack {
             LoginView(model: model)
                 .opacity( model.opacity(for: .login) )

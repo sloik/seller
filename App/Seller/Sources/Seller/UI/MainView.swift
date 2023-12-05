@@ -19,7 +19,7 @@ struct MainView: View {
                     .tabItem {
                         TabBarIcon(imageName: "orderTabIcon", titleName: "Zamówienia")
                     }
-                MyAccountView()
+                AcornFactory.makeAccountView()
                     .tabItem {
                         TabBarIcon(imageName: "accountTabIcon", titleName: "Konto")
                     }
