@@ -9,7 +9,7 @@ struct UserProfileView: View {
         VStack {
             Text("User Profile")
 
-            Button("Logout", action: model.logout)
+            Button("Logout", action: model.didTapLogout)
         }
     }
 }

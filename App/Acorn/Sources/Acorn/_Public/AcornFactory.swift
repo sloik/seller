@@ -18,8 +18,16 @@ public final class AcornFactory {
 public extension AcornFactory {
     /// Main entry point view for user profile.
     func makeAccountView() -> some View {
-        MyAccountView()
+        MyAccountView(model: myAccountViewModel)
     }
 }
 
 // MARK: - Internal
+
+extension AcornFactory {
+
+    var myAccountViewModel: MyAccountViewModel {
+        MyAccountViewModel()
+    }
+
+}

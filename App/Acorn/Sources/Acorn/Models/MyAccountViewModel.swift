@@ -19,20 +19,12 @@ final class MyAccountViewModel {
     /// Controls visibility of the login web view.
     var loginWebViewIsPresented = false {
         didSet {
-            visible = Lentil.hasUserToken.biTransform(yes: .profile, no: .login)
+            updateVisibility()
         }
     }
 
     init() {
-        visible = Lentil.hasUserToken.biTransform(yes: .profile, no: .login)
-    }
-
-    func didLogin(_ error: Error?) {
-        loginWebViewIsPresented = false
-    }
-
-    func opacity(for state: State) -> Double {
-        state == visible ? 1 : 0
+        updateVisibility()
     }
 }
 
@@ -44,9 +36,33 @@ extension MyAccountViewModel {
         loginWebViewIsPresented = true
     }
 
+    func didTapLogout() {
+        logout()
+    }
+}
+
+// MARK: - UI State
+
+extension MyAccountViewModel {
+
+    func updateVisibility() {
+        visible = Lentil.hasUserToken.biTransform(yes: .profile, no: .login)
+    }
+
+    func opacity(for state: State) -> Double {
+        state == visible ? 1 : 0
+    }
+}
+
+// MARK: - Login
+
+extension MyAccountViewModel {
+    func didLogin(_ error: Error?) {
+        loginWebViewIsPresented = false
+    }
+
     func logout() {
         Lentil.logout()
         visible = .login
     }
-    
 }

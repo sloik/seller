@@ -5,9 +5,11 @@ import Lentil
 
 struct MyAccountView: View {
 
-    @State private var model = MyAccountViewModel()
+    @State private var model: MyAccountViewModel
 
-    init(){}
+    init(model: MyAccountViewModel) {
+        self.model = model
+    }
 
     var body: some View {
         ZStack {
@@ -21,5 +23,5 @@ struct MyAccountView: View {
 }
 
 #Preview {
-    MyAccountView()
+    MyAccountView(model: .init())
 }
