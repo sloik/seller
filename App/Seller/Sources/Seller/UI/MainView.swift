@@ -5,8 +5,11 @@ import SwiftUI
 import Utilities
 import Lettuce
 import Acorn
+import Onion
 
 struct MainView: View {
+
+    let acornFactory: AcornFactory
 
     var body: some View {
         TabView {
@@ -19,7 +22,7 @@ struct MainView: View {
                     .tabItem {
                         TabBarIcon(imageName: "orderTabIcon", titleName: "Zamówienia")
                     }
-                AcornFactory.makeAccountView()
+                acornFactory.makeAccountView()
                     .tabItem {
                         TabBarIcon(imageName: "accountTabIcon", titleName: "Konto")
                     }
@@ -30,5 +33,7 @@ struct MainView: View {
 }
 
 #Preview {
-    MainView()
+    MainView(
+        acornFactory: .init(apiClient: MockApiClient())
+    )
 }

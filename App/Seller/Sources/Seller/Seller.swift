@@ -4,8 +4,11 @@ import SwiftUI
 import OptionalAPI
 import Onion
 import SecretsStore
+import Acorn
 
 public final class Seller {
+
+    private var acornFactory: AcornFactory!
 
     public init() {
     }
@@ -18,10 +21,14 @@ public final class Seller {
                 apiClient: configuration.apiClient, 
                 secrets: configuration.secrets
             )
+
+        acornFactory = AcornFactory(
+            apiClient: configuration.apiClient
+        )
     }
 
     public var body: some View {
-        MainView()
+        MainView(acornFactory: self.acornFactory)
     }
 }
 

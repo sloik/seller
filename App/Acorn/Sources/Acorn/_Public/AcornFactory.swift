@@ -1,11 +1,25 @@
 
 import SwiftUI
+import Onion
 
-public enum AcornFactory {
+public final class AcornFactory {
 
+    private let apiClient: APIClientType
+
+    public init(
+        apiClient: APIClientType
+    ) {
+        self.apiClient = apiClient
+    }
+}
+
+// MARK: - Public
+
+public extension AcornFactory {
     /// Main entry point view for user profile.
-    public static func makeAccountView() -> some View {
+    func makeAccountView() -> some View {
         MyAccountView()
     }
-
 }
+
+// MARK: - Internal
