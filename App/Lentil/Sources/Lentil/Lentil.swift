@@ -44,6 +44,10 @@ public extension LentilUseCases {
         Cumin.secrets
     }
 
+    var userToken: String? {
+        Cumin.auth.token
+    }
+
     /// True when has user token.
     var hasUserToken: Bool {
         Cumin.auth.token.isNotNone
