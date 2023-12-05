@@ -6,6 +6,7 @@ import HTTPTypes
 // local
 import Onion
 
+/// https://developer.allegro.pl/documentation#operation/meGET
 struct MeRequest: Request {
     typealias Output = User
 
