@@ -25,7 +25,7 @@ final class DebugFeaturesModel {
         CurrentSeller.configure(
             using: .init(
                 authApiClient: newAuthClient,
-                apiClient: newApiClient,
+                restApiClient: newApiClient,
                 secrets: newSecrets
             )
         )

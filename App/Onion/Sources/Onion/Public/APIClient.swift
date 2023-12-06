@@ -30,7 +30,7 @@ public final class APIClient: APIClientType {
     }
 
     public func run<R: Request>(_ request: R) async throws -> (R.Output, HTTPResponse) {
-        logger.debug("Sending request \(type(of: request))")
+        logger.debug("Sending request \(type(of: request)) \(self.baseURL.absoluteString)\(request.path)")
 
         let httpRequest = httpRequest(from: request)
 

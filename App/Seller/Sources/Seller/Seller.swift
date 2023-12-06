@@ -23,7 +23,7 @@ public final class Seller {
             )
 
         acornFactory = AcornFactory(
-            apiClient: configuration.authApiClient
+            apiClient: configuration.restApiClient
         )
     }
 
@@ -38,17 +38,17 @@ public extension Seller {
         let authApiClient: APIClientType
 
         /// Client used for REST API.
-        let apiClient: APIClientType
+        let restApiClient: APIClientType
 
         let secrets: SecretsStoreType
 
         public init(
             authApiClient: APIClientType,
-            apiClient: APIClientType,
+            restApiClient: APIClientType,
             secrets: SecretsStoreType
         ) {
             self.authApiClient = authApiClient
-            self.apiClient = apiClient
+            self.restApiClient = restApiClient
             self.secrets = secrets
         }
     }
