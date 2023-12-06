@@ -8,6 +8,7 @@ struct UserProfileView: View {
 
         VStack {
             Text("User Profile")
+            Text("Login: \(model.user?.login ?? "Unknown")")
 
             Button("Logout", action: model.didTapLogout)
         }
