@@ -17,3 +17,13 @@ public extension String {
         return Data(base64Encoded: base64)
     }
 }
+
+#if canImport(SwiftUI)
+
+import SwiftUI
+
+extension String: View {
+    public var body: Text { Text(self) }
+}
+
+#endif
