@@ -2,7 +2,7 @@ import Foundation
 
 import Onion
 
-struct User: ContentType {
+struct User: ContentType, Identifiable, Equatable {
     let id: String
     let login: String
     let firstName: String
