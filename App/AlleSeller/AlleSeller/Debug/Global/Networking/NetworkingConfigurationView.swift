@@ -23,7 +23,7 @@ struct NetworkingConfigurationView: View {
                     Text(configuration.environment.description)
 
                     HStack {
-                        Text(configuration.environment.apiClientBaseURL.absoluteString)
+                        Text(configuration.environment.authClientBaseURL.absoluteString)
                         Spacer()
                     }
                 }

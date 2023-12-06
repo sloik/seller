@@ -18,11 +18,13 @@ final class DebugFeaturesModel {
     }
 
     private func updateAppEnvironment() {
-        let newApiClient = ApiClientFactory.makeApiClient(for: appEnvironment)
+        let newAuthClient = ApiClientFactory.makeAuthApiClient(for: appEnvironment)
+        let newApiClient = ApiClientFactory.makeRestApiClient(for: appEnvironment)
         let newSecrets = SecretsStoreFactory.makeStore(for: appEnvironment)
 
         CurrentSeller.configure(
             using: .init(
+                authApiClient: newAuthClient,
                 apiClient: newApiClient,
                 secrets: newSecrets
             )

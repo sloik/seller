@@ -18,12 +18,12 @@ public final class Seller {
     ) {
         LentilUseCases
             .configure(
-                apiClient: configuration.apiClient, 
+                apiClient: configuration.authApiClient, 
                 secrets: configuration.secrets
             )
 
         acornFactory = AcornFactory(
-            apiClient: configuration.apiClient
+            apiClient: configuration.authApiClient
         )
     }
 
@@ -34,16 +34,26 @@ public final class Seller {
 
 public extension Seller {
     struct Configuration {
+        /// Client used for token related requests.
+        let authApiClient: APIClientType
+
+        /// Client used for REST API.
         let apiClient: APIClientType
+
         let secrets: SecretsStoreType
 
-        public init(apiClient: APIClientType, secrets: SecretsStoreType) {
+        public init(
+            authApiClient: APIClientType,
+            apiClient: APIClientType,
+            secrets: SecretsStoreType
+        ) {
+            self.authApiClient = authApiClient
             self.apiClient = apiClient
             self.secrets = secrets
         }
     }
 
-    var apiClient: APIClientType {
+    var authApiClient: APIClientType {
         Lentil.apiClient
     }
 
