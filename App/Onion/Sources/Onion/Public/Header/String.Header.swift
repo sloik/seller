@@ -7,6 +7,10 @@ public extension String {
         "application/vnd.allegro.public.v1+json"
     }
 
+    static var applicationJson: String {
+        "application/json"
+    }
+
     static var applicationPdf: String {
         "application/pdf"
     }
