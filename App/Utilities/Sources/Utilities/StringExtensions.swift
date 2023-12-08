@@ -18,6 +18,9 @@ public extension String {
     }
 }
 
+// Now you can throw strings ;)
+extension String: Error {}
+
 #if canImport(SwiftUI)
 
 import SwiftUI
