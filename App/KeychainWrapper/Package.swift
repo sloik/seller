@@ -21,7 +21,7 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/sloik/OptionalAPI.git",
-            from: "5.1.1"
+            from: "5.1.2"
         ),
     ],
     targets: [
