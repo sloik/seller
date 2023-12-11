@@ -43,7 +43,7 @@ let package = Package(
 
         .package(
             url: "https://github.com/sloik/Zippy.git",
-            from: "0.0.6"
+            from: "0.0.7"
         ),
 
         .package(
