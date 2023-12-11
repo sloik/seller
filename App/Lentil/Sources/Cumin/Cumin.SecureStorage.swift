@@ -24,12 +24,12 @@ package extension CuminUseCases {
             case unableToSaveData(key: Key)
         }
 
-        var _saveDataFor: ThrowsConsumer2I<Data,Key>
+        var _saveDataFor: ThrowsConsumer<Data,Key>
         var _dataForKey: Closure<Key, Data?>
         var _deleteKey: Consumer<Key>
 
         init(
-            saveDataFor: @escaping ThrowsConsumer2I<Data,Key>,
+            saveDataFor: @escaping ThrowsConsumer<Data,Key>,
             dataForKey: @escaping Closure<Key, Data?>,
             deleteKey: @escaping Consumer<Key>
         ) {

@@ -14,11 +14,11 @@ import SweetURL
 private let logger = Logger(subsystem: "API", category: "API")
 
 final class API {
-    var _getTokenCode: AsyncThrowsClosure2I<String, APIClientType, Token>
+    var _getTokenCode: AsyncThrowsClosure<String, APIClientType, Token>
     var _authClient: APIClientType
 
     init(
-        getTokenCode: @escaping AsyncThrowsClosure2I<String, APIClientType, Token>,
+        getTokenCode: @escaping AsyncThrowsClosure<String, APIClientType, Token>,
         authClient:  APIClientType
     ) {
         self._getTokenCode = getTokenCode

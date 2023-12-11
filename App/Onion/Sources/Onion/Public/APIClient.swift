@@ -82,7 +82,7 @@ private extension APIClient {
     }
 
     /// Runs `action` and in case of errors retries is to total of 3 times.
-    func tryToLoad<A,B>(action: AsyncThrowsProducer2O<A,B>) async throws -> (A, B) {
+    func tryToLoad<A,B>(action: AsyncThrowsProducer<A,B>) async throws -> (A, B) {
 
         // Tries to get the data for a request 2 times
         for _ in 1...2 {

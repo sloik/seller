@@ -14,11 +14,11 @@ package extension CuminUseCases {
 
     struct Auth {
         var _currentToken: Producer<String?>
-        var _parseResultAndGetUserToken: AsyncThrowsConsumer2I<URL, SideEffectClosure>
+        var _parseResultAndGetUserToken: AsyncThrowsConsumer<URL, SideEffectClosure>
 
         init(
             currentToken: @escaping Producer<String?>,
-            parseResultAndGetUserToken: @escaping AsyncThrowsConsumer2I<URL, SideEffectClosure>
+            parseResultAndGetUserToken: @escaping AsyncThrowsConsumer<URL, SideEffectClosure>
         ) {
             self._currentToken = currentToken
             self._parseResultAndGetUserToken = parseResultAndGetUserToken

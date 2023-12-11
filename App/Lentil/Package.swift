@@ -28,12 +28,12 @@ let package = Package(
 
         .package(
             url: "https://github.com/sloik/AliasWonderland.git",
-            from: "3.6.3"
+            from: "4.0.0"
         ),
 
         .package(
             url: "https://github.com/sloik/OptionalAPI.git",
-            from: "5.1.1"
+            from: "5.1.2"
         ),
 
         .package(
