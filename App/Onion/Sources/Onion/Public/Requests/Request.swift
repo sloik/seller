@@ -25,6 +25,8 @@ public extension Request {
     }
 
     /// True when request should have JWT token.
+    ///
+    /// For reference check: [RFC6750 - The OAuth 2.0 Authorization Framework: Bearer Token Usage](https://www.rfc-editor.org/rfc/rfc6750)
     var authorizationWithJWTNeeded: Bool {
         headerFields[values: .authorization]
             .map{ $0.lowercased() }
