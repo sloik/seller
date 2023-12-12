@@ -14,13 +14,16 @@ package extension CuminUseCases {
 
     struct Auth {
         var _currentToken: Producer<String?>
+        var _currentRefreshToken: Producer<String?>
         var _parseResultAndGetUserToken: AsyncThrowsConsumer<URL, SideEffectClosure>
 
         init(
             currentToken: @escaping Producer<String?>,
+            currentRefreshToken: @escaping Producer<String?>,
             parseResultAndGetUserToken: @escaping AsyncThrowsConsumer<URL, SideEffectClosure>
         ) {
             self._currentToken = currentToken
+            self._currentRefreshToken = currentRefreshToken
             self._parseResultAndGetUserToken = parseResultAndGetUserToken
         }
     }
@@ -31,6 +34,10 @@ package extension CuminUseCases.Auth {
 
     var token: String? {
         _currentToken()
+    }
+
+    var refreshToken: String? {
+        _currentRefreshToken()
     }
 
     func parseResultAndGetUserToken(from url: URL, didLogin: @escaping SideEffectClosure) async throws {
@@ -52,6 +59,7 @@ package extension CuminUseCases.Auth {
     static var prod: Self {
         .init(
             currentToken: Prod.currentToken,
+            currentRefreshToken: Prod.currentRefreshToken,
             parseResultAndGetUserToken: Prod.parseResultAndGetUserToken
         )
     }
@@ -73,6 +81,13 @@ extension CuminUseCases.Auth {
                 .data(.token)
                 .decode( Token.self )
                 .map( \.accessToken )
+        }
+
+        static func currentRefreshToken() -> String? {
+            Cumin.secureStore
+                .data(.token)
+                .decode( Token.self )
+                .map( \.refreshToken )
         }
 
         static func parseResultAndGetUserToken(_ url: URL, didLogin: @escaping SideEffectClosure) async throws {
