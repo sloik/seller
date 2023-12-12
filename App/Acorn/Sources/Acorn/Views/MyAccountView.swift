@@ -28,7 +28,7 @@ struct MyAccountView: View {
     MyAccountView(
         model: .init(
             loginHandler: Lentil,
-            apiClient: MockApiClient()
+            networkingHandler: MockNetworkingHandler()
         )
     )
 }

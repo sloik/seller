@@ -18,7 +18,7 @@ final class MyAccountViewModel {
     }
 
     private let loginHandler: LoginHandler
-    private let apiClient: APIClientType
+    private let networkingHandler: NetworkingHandlerType
 
     var visible: State = .login
     var user: User?
@@ -32,10 +32,10 @@ final class MyAccountViewModel {
 
     init(
         loginHandler: LoginHandler,
-        apiClient: APIClientType
+        networkingHandler: NetworkingHandlerType
     ) {
         self.loginHandler = loginHandler
-        self.apiClient = apiClient
+        self.networkingHandler = networkingHandler
         updateVisibility()
     }
 }
@@ -111,7 +111,7 @@ private extension MyAccountViewModel {
 
         let meRequest = MeRequest(token: token)
 
-        let (user, _) = try await apiClient.run( meRequest )
+        let (user, _) = try await networkingHandler.run( meRequest )
 
         return user
     }

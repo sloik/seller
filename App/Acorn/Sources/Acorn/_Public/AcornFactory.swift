@@ -31,8 +31,15 @@ extension AcornFactory {
         Lentil
     }
 
+    var networkingHandler: NetworkingHandlerType {
+        NetworkingHandler(apiClient: apiClient)
+    }
+
     var myAccountViewModel: MyAccountViewModel {
-        MyAccountViewModel(loginHandler: loginHandler, apiClient: apiClient)
+        MyAccountViewModel(
+            loginHandler: loginHandler,
+            networkingHandler: networkingHandler
+        )
     }
 
 }
