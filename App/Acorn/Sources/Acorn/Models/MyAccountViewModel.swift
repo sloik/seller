@@ -17,7 +17,7 @@ final class MyAccountViewModel {
         case login, profile
     }
 
-    private let loginHandler: LoginHandler
+    private let loginHandler: LoginHandlerType
     private let networkingHandler: NetworkingHandlerType
 
     var visible: State = .login
@@ -31,7 +31,7 @@ final class MyAccountViewModel {
     }
 
     init(
-        loginHandler: LoginHandler,
+        loginHandler: LoginHandlerType,
         networkingHandler: NetworkingHandlerType
     ) {
         self.loginHandler = loginHandler

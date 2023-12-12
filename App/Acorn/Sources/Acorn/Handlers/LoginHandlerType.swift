@@ -3,7 +3,7 @@ import Foundation
 
 import Lentil
 
-protocol LoginHandler {
+protocol LoginHandlerType {
     var token: String? { get }
 
     func logout()
@@ -12,7 +12,7 @@ protocol LoginHandler {
     func refreshToken() async
 }
 
-extension LoginHandler {
+extension LoginHandlerType {
     var hasToken: Bool {
         token.isNotNone
     }
@@ -22,7 +22,7 @@ extension LoginHandler {
 
 import Cumin
 
-extension LentilUseCases: LoginHandler {
+extension LentilUseCases: LoginHandlerType {
     var token: String? {
         userToken
     }

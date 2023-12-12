@@ -27,7 +27,7 @@ public extension AcornFactory {
 
 extension AcornFactory {
 
-    var loginHandler: LoginHandler {
+    var loginHandler: LoginHandlerType {
         Lentil
     }
 
