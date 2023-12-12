@@ -23,4 +23,9 @@ public extension Request {
     var method: HTTPRequest.Method {
         .get
     }
+
+    /// True when headers contain authorization field.
+    var authorizationNeeded: Bool {
+        headerFields[.authorization] != .none
+    }
 }
