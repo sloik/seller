@@ -1,6 +1,7 @@
 
 // System
 import Foundation
+import OSLog
 
 // Local
 import Onion
@@ -8,6 +9,7 @@ import Onion
 // 3rd party
 import HTTPTypes
 
+private let logger = Logger(subsystem: "Acorn", category: "NetworkingHandler")
 
 protocol NetworkingHandlerType {
 
