@@ -2,10 +2,13 @@
 // system
 import SwiftUI
 import Observation
+import OSLog
 
 // local
 import SweetBool
 import Onion
+
+private let logger = Logger(subsystem: "Acorn", category: "MyAccountViewModel")
 
 @Observable
 final class MyAccountViewModel {
