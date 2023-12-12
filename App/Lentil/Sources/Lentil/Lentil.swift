@@ -48,6 +48,10 @@ public extension LentilUseCases {
         Cumin.auth.token
     }
 
+    var userRefreshToken: String? {
+        Cumin.auth.refreshToken
+    }
+
     /// True when has user token.
     var hasUserToken: Bool {
         Cumin.auth.token.isNotNone
@@ -66,7 +70,10 @@ public extension LentilUseCases {
     func logout() {
         logger.info("Logging out")
 
-        Cumin.secureStore.delete(.refreshToken)
         Cumin.secureStore.delete(.token)
+    }
+
+    func refreshToken() {
+        fatalError("Not implemented")
     }
 }
