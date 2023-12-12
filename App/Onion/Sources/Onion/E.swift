@@ -10,8 +10,8 @@ enum E: Error {
 
     /// Returned status is not from 200+ range.
     ///
-    /// Contains `status` which is HTTP Response status and `data`.
-    case notSuccessStatus(status: HTTPResponse.Status, data: Data)
+    /// Contains `response` and `data`.
+    case notSuccessStatus(response: HTTPResponse, data: Data)
 
     case unableToCreateURLRequest
 }
