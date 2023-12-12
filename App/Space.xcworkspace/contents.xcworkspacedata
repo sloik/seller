@@ -10,4 +10,7 @@
    <FileRef
       location = "group:AlleSellerTests.xctestplan">
    </FileRef>
+   <FileRef
+      location = "group:Onion.xctestplan">
+   </FileRef>
 </Workspace>
