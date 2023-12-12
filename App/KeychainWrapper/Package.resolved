@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/sloik/AliasWonderland.git",
       "state" : {
-        "revision" : "dd1724e10bbb49783583775419012d09954978a6",
-        "version" : "3.6.0"
+        "revision" : "46f7667556438502bbc1f7bcf05aae03f1ee4e98",
+        "version" : "4.0.0"
       }
     },
     {
@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/sloik/OptionalAPI.git",
       "state" : {
-        "revision" : "3110da57769eae75456b6af0d6b91f2ac00bfd17",
-        "version" : "5.1.1"
+        "revision" : "ec30267576e00f36fdcd53f1d050abbfa8f716ec",
+        "version" : "5.1.2"
       }
     }
   ],
