@@ -17,7 +17,7 @@ package extension CuminUseCases {
     struct SecureStore {
 
         package enum Key: String {
-            case token, refreshToken
+            case token
         }
 
         package enum E: Error {
