@@ -65,7 +65,7 @@ private extension APIClient {
         else {
             logger.error("Request \(type(of: request)) failed with response: \(httpResponse.debugDescription)")
 
-            throw E.notSuccessStatus(response: httpResponse, data: data)
+            throw OnionError.notSuccessStatus(response: httpResponse, data: data)
         }
 
         let output = try request.decode(data)
