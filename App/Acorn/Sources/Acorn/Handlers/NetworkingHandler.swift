@@ -20,10 +20,14 @@ final class NetworkingHandler {
 
     let apiClient: APIClientType
 
+    let loginHandler: LoginHandlerType
+
     init(
-        apiClient: APIClientType
+        apiClient: APIClientType,
+        loginHandler: LoginHandlerType
     ) {
         self.apiClient = apiClient
+        self.loginHandler = loginHandler
     }
 }
 

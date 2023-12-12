@@ -32,7 +32,10 @@ extension AcornFactory {
     }
 
     var networkingHandler: NetworkingHandlerType {
-        NetworkingHandler(apiClient: apiClient)
+        NetworkingHandler(
+            apiClient: apiClient,
+            loginHandler: loginHandler
+        )
     }
 
     var myAccountViewModel: MyAccountViewModel {
