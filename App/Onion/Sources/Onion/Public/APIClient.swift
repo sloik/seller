@@ -8,6 +8,8 @@ import HTTPTypes
 
 import AliasWonderland
 
+private let logger = Logger(subsystem: "Onion", category: "API Client")
+
 public final class APIClient: APIClientType {
 
     public var baseURL: URL
@@ -63,7 +65,7 @@ private extension APIClient {
         else {
             logger.error("Request \(type(of: request)) failed with response: \(httpResponse.debugDescription)")
 
-            throw E.notSuccessStatus(status: httpResponse.status, data: data)
+            throw E.notSuccessStatus(response: httpResponse, data: data)
         }
 
         let output = try request.decode(data)
@@ -90,6 +92,7 @@ private extension APIClient {
                 return try await action()
             } catch {
                 // ignore the error now
+                logger.error("Error while trying to load data: \(error)")
                 continue
             }
         }
