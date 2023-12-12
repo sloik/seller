@@ -33,6 +33,11 @@ let package = Package(
             url: "https://github.com/sloik/OptionalAPI.git",
             from: "5.1.2"
         ),
+
+        .package(
+            url: "https://github.com/apple/swift-http-types.git",
+            from: "1.0.2"
+        ),
     ],
 
     targets: [
@@ -45,6 +50,11 @@ let package = Package(
 
                 "SweetBool",
                 "OptionalAPI",
+
+                .product(
+                    name: "HTTPTypes",
+                    package: "swift-http-types"
+                ),
             ]
         ),
         .testTarget(
