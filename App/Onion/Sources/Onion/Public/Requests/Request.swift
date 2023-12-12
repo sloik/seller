@@ -24,8 +24,10 @@ public extension Request {
         .get
     }
 
-    /// True when headers contain authorization field.
-    var authorizationNeeded: Bool {
-        headerFields[.authorization] != .none
+    /// True when request should have JWT token.
+    var authorizationWithJWTNeeded: Bool {
+        headerFields[values: .authorization]
+            .map{ $0.lowercased() }
+            .contains { value in value.contains("bearer") }
     }
 }

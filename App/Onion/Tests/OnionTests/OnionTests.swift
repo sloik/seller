@@ -1,12 +1,18 @@
 import XCTest
+
+import HTTPTypes
+
 @testable import Onion
 
 final class OnionTests: XCTestCase {
-    func testExample() throws {
-        // XCTest Documentation
-        // https://developer.apple.com/documentation/xctest
 
-        // Defining Test Cases and Test Methods
-        // https://developer.apple.com/documentation/xctest/defining_test_cases_and_test_methods
+    func test_authorizationWithJWTNeeded() throws {
+
+        let just = JustRequest()
+        XCTAssertFalse( just.authorizationWithJWTNeeded )
+
+        let auth = AuthorizationRequest()
+        XCTAssertTrue( auth.authorizationWithJWTNeeded )
     }
 }
+
