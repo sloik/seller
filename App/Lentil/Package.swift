@@ -51,6 +51,10 @@ let package = Package(
             from: "0.0.7"
         ),
 
+        .package(
+            url: "https://github.com/apple/swift-http-types.git",
+            from: "1.0.2"
+        ),
     ],
     
     targets: [
@@ -76,6 +80,11 @@ let package = Package(
                 "Zippy",
                 "KeychainWrapper",
                 "Onion",
+
+                .product(
+                    name: "HTTPTypes",
+                    package: "swift-http-types"
+                ),
             ]
         ),
 
