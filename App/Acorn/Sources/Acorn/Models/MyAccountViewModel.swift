@@ -44,6 +44,13 @@ final class MyAccountViewModel {
 
 extension MyAccountViewModel {
 
+    func didTapRefreshToken() {
+        Task {
+            try await loginHandler.refreshToken()
+            updateVisibility()
+        }
+    }
+
     func didTapLogin() {
         loginWebView(show: true)
     }

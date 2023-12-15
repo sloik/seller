@@ -13,13 +13,21 @@ struct MyAccountView: View {
     }
 
     var body: some View {
-        ZStack {
-            LoginView(model: model)
-                .opacity( model.opacity(for: .login) )
 
-            UserProfileView(model: model)
-                .opacity( model.opacity(for: .profile) )
-                .onAppear(perform: model.onAppear)
+        VStack {
+
+            Button("Force Refresh Token") {
+                model.didTapRefreshToken()
+            }
+
+            ZStack {
+                LoginView(model: model)
+                    .opacity( model.opacity(for: .login) )
+
+                UserProfileView(model: model)
+                    .opacity( model.opacity(for: .profile) )
+                    .onAppear(perform: model.onAppear)
+            }
         }
     }
 }
