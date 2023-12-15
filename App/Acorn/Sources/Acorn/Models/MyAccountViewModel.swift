@@ -93,7 +93,14 @@ private extension MyAccountViewModel {
 
     func fetchUserData() {
         Task {
-            user = try await getUser()
+            do {
+                user = try await getUser()
+            } catch {
+                logger.info("Unable to get user data with error: \(error.localizedDescription)")
+
+                user = .none
+                visible = .login
+            }
         }
     }
 

@@ -1,5 +1,9 @@
 import Foundation
 
+import OSLog
+
+private let logger = Logger(subsystem: "SecretsStore", category: "SecretsStore")
+
 /// Namespace for keys that define secrets that the app can access to.
 public enum Keys {
 
@@ -37,6 +41,12 @@ public enum SecretsStoreError: Error {
 
     /// Thrown when the url is invalid.
     case invalidURL(String)
+
+    /// Thrown when `client id` and `client secret` cannot be encoded.
+    case unableToEncodeClientCredentials
+
+    /// Thrown when the redirect uri cannot be created.
+    case unableToCreateRedirectUri
 }
 
 
@@ -59,10 +69,44 @@ public extension SecretsStoreType {
                     .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
                     .flatMap( URL.init(string:) )
              else {
+                logger.error("Unable to create authentication url")
                 throw SecretsStoreError.invalidURL(authenticationString)
             }
 
             return url
+        }
+    }
+
+    /// Base64 encoded `client id` and `client secret`.
+    /// - `throws`: `SecretsStoreError.unableToEncodeClientCredentials` when credentials cannot be encoded.
+    var encodedCredentials: String {
+        get throws {
+
+            let credentials = "\(value(for: .clientId)):\(value(for: .clientSecret))"
+
+            guard
+                let encodedCredentials = credentials.data(using: .utf8)?.base64EncodedString()
+            else {
+                logger.error("Unable to encode credentials")
+                throw SecretsStoreError.unableToEncodeClientCredentials
+            }
+
+            return encodedCredentials
+        }
+    }
+
+    /// Redirect uri that is used for OAuth.
+    /// - `throws`: `SecretsStoreError.unableToCreateRedirectUri` when unable to create the redirect uri.
+    var oauthRedirectUri: String {
+        get throws {
+            guard
+                let uri = value(for: .oauthRedirectUri).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            else {
+                logger.error("Unable to encode redirect uri")
+                throw SecretsStoreError.unableToCreateRedirectUri
+            }
+
+            return uri
         }
     }
 }

@@ -9,7 +9,7 @@ protocol LoginHandlerType {
     func logout()
 
     /// Used to get new token when it expired.
-    func refreshToken() async
+    func refreshToken() async throws
 }
 
 extension LoginHandlerType {

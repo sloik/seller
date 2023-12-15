@@ -15,15 +15,20 @@ package extension CuminUseCases {
     struct Auth {
         var _currentToken: Producer<String?>
         var _currentRefreshToken: Producer<String?>
+        var _fetchNewTokenUsingRefreshToken: AsyncThrowsConsumer<Void>
+
         var _parseResultAndGetUserToken: AsyncThrowsConsumer<URL, SideEffectClosure>
 
         init(
             currentToken: @escaping Producer<String?>,
             currentRefreshToken: @escaping Producer<String?>,
+            fetchNewTokenUsingRefreshToken: @escaping  AsyncThrowsConsumer<Void>,
             parseResultAndGetUserToken: @escaping AsyncThrowsConsumer<URL, SideEffectClosure>
         ) {
             self._currentToken = currentToken
             self._currentRefreshToken = currentRefreshToken
+            self._fetchNewTokenUsingRefreshToken = fetchNewTokenUsingRefreshToken
+
             self._parseResultAndGetUserToken = parseResultAndGetUserToken
         }
     }
@@ -50,6 +55,10 @@ package extension CuminUseCases.Auth {
             throw error
         }
     }
+
+    func fetchNewTokenUsingRefreshToken() async throws {
+        try await _fetchNewTokenUsingRefreshToken( () )
+    }
 }
 
 // MARK: - Factory
@@ -59,13 +68,23 @@ package extension CuminUseCases.Auth {
     static var prod: Self {
         .init(
             currentToken: Prod.currentToken,
-            currentRefreshToken: Prod.currentRefreshToken,
+            currentRefreshToken: Prod.currentRefreshToken, 
+            fetchNewTokenUsingRefreshToken: Prod.fetchNewTokenUsingRefreshToken,
             parseResultAndGetUserToken: Prod.parseResultAndGetUserToken
         )
     }
 
     static var mock: Self {
         .prod
+    }
+}
+
+// MARK: - Errors
+
+package extension CuminUseCases.Auth {
+    
+    enum E: Error {
+        case noRefreshToken
     }
 }
 
@@ -88,6 +107,26 @@ extension CuminUseCases.Auth {
                 .data(.token)
                 .decode( Token.self )
                 .map( \.refreshToken )
+        }
+
+        static func fetchNewTokenUsingRefreshToken() async throws {
+
+            guard 
+                let refreshToken = currentRefreshToken()
+            else {
+                logger.error("Failed to fetch new token using refresh token because refresh token was nil")
+                throw E.noRefreshToken
+            }
+
+            // Box in optional to get
+            let newToken: Token? = try await Cumin.api.getNewToken(refreshToken: refreshToken)
+
+            try newToken
+                .encode()
+                .tryWhenSome { tokenData in
+                    try Cumin.secureStore.save(data: tokenData, for: .token)
+                }
+
         }
 
         static func parseResultAndGetUserToken(_ url: URL, didLogin: @escaping SideEffectClosure) async throws {

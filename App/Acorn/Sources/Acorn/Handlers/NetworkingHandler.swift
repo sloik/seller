@@ -31,6 +31,12 @@ final class NetworkingHandler {
     }
 }
 
+enum NetworkingHandlerError: Error {
+
+    /// Thrown when refresh token request does not provide a valid token.
+    case unableToRefreshToken(underlyingError: Error)
+}
+
 extension NetworkingHandler: NetworkingHandlerType {
 
     func run<R: Request>(_ request: R) async throws -> (R.Output, HTTPResponse) {
@@ -49,7 +55,15 @@ private extension NetworkingHandler {
         func refreshTokenAndTriggerRequestOneMoreTime() async throws -> (R.Output, HTTPResponse) {
             logger.debug("Refreshing token and trying to run request \(type(of: R.self))")
 
-            await loginHandler.refreshToken()
+            do {
+                try await loginHandler.refreshToken()
+            } catch {
+                logger.error("Unable to refresh token with error: \(error.localizedDescription)")
+                logger.info("Re login user to get the new token and refresh token")
+
+                throw NetworkingHandlerError.unableToRefreshToken(underlyingError: error)
+            }
+
             return try await apiClient.run(request)
         }
 

@@ -38,4 +38,9 @@ public extension String {
     static func bearer(_ token: String) -> String {
         "Bearer \(token)"
     }
+
+    /// `"Basic credentials_string"`
+    static func basic(_ credentials: String) -> String {
+        "Basic \(credentials)"
+    }
 }

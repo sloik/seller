@@ -15,13 +15,18 @@ private let logger = Logger(subsystem: "API", category: "API")
 
 final class API {
     var _getTokenCode: AsyncThrowsClosure<String, APIClientType, Token>
+    var _getNewToken: AsyncThrowsClosure<String, APIClientType, Token>
+
     var _authClient: APIClientType
 
     init(
         getTokenCode: @escaping AsyncThrowsClosure<String, APIClientType, Token>,
+        getNewToken: @escaping AsyncThrowsClosure<String, APIClientType, Token>,
         authClient:  APIClientType
     ) {
         self._getTokenCode = getTokenCode
+        self._getNewToken = getNewToken
+
         self._authClient = authClient
     }
 }
@@ -42,6 +47,17 @@ extension API {
             throw error
         }
     }
+
+    func getNewToken(refreshToken: String) async throws -> Token {
+        logger.info("Getting new token from refresh token: \(refreshToken, privacy: .private)")
+
+        do {
+            return try await _getNewToken(refreshToken, currentClient)
+        } catch {
+            logger.error("Failed to get new token from refresh token: \(refreshToken, privacy: .private) with error: \(error.localizedDescription)")
+            throw error
+        }
+    }
 }
 
 extension API {
@@ -56,6 +72,7 @@ extension API {
     static var mock: Self {
         .init(
             getTokenCode: { _,_ in Token.mock },
+            getNewToken: { _,_ in Token.mock },
             authClient: Mock.ApiClient()
         )
     }
@@ -63,6 +80,7 @@ extension API {
     static func prod(apiClient: APIClientType) -> Self {
         .init(
             getTokenCode: Prod.getToken(code:authClient:),
+            getNewToken: Prod.getNewToken(refreshToken:authClient:),
             authClient: apiClient
         )
     }
@@ -76,23 +94,28 @@ extension API {
 
         static func getToken(code: String, authClient: APIClientType) async throws -> Token {
 
-            guard
-                let encodedCredentials: String = "\(Cumin.secrets.value(for: .clientId)):\(Cumin.secrets.value(for: .clientSecret))"
-                    .data(using: .utf8)?
-                    .base64EncodedString(),
-                let redirectURI: String = Cumin.secrets.value(for: .oauthRedirectUri).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-            else {
-                logger.error("Unable to create request with credentials and redirect URI")
-                throw E.unableToCreateRequest
-            }
-
             let tokenRequest = GetToken(
                 code: code,
-                encodedCredentials: encodedCredentials,
-                redirectURI: redirectURI
+                encodedCredentials: try Cumin.secrets.encodedCredentials,
+                redirectURI: try Cumin.secrets.oauthRedirectUri
             )
 
             let (token, httpResponse): (Token, HTTPResponse) = try await authClient.run( tokenRequest )
+
+            logger.info("Response: \(httpResponse.debugDescription)")
+
+            return token
+        }
+
+        static func getNewToken(refreshToken: String, authClient: APIClientType) async throws -> Token {
+
+            let refreshToken = GetNewToken(
+                refreshToken: refreshToken,
+                redirectURI: try Cumin.secrets.oauthRedirectUri,
+                encodedCredentials: try Cumin.secrets.encodedCredentials
+            )
+
+            let (token, httpResponse): (Token, HTTPResponse) = try await authClient.run( refreshToken )
 
             logger.info("Response: \(httpResponse.debugDescription)")
 

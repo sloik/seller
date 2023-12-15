@@ -73,7 +73,7 @@ public extension LentilUseCases {
         Cumin.secureStore.delete(.token)
     }
 
-    func refreshToken() {
-        fatalError("Not implemented")
+    func refreshToken() async throws {
+        try await Cumin.auth.fetchNewTokenUsingRefreshToken()
     }
 }

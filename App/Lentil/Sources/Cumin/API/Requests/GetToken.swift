@@ -13,7 +13,7 @@ struct GetToken: Request {
 
     var headerFields: HTTPFields {
         [
-            HTTPField.Name.authorization : "Basic \(encodedCredentials)"
+            HTTPField.Name.authorization : .basic( encodedCredentials )
         ]
     }
 
