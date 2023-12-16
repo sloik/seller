@@ -21,6 +21,9 @@ let package = Package(
     ],
 
     dependencies: [
+
+        .package(path: "../Utilities"),
+
         .package(
             url: "https://github.com/apple/swift-http-types.git",
             from: "1.0.2"
@@ -36,6 +39,9 @@ let package = Package(
         .target(
             name: "Onion",
             dependencies: [
+
+                "Utilities",
+
                 .product(
                     name: "HTTPTypes",
                     package: "swift-http-types"
