@@ -103,18 +103,19 @@ extension CuminUseCases.Auth {
         }
 
         static func currentRefreshToken() -> String? {
-            Cumin.secureStore
+            logger.debug("\(type(of: self)) \(#function)>")
+
+            return Cumin.secureStore
                 .data(.token)
                 .decode( Token.self )
                 .map( \.refreshToken )
         }
 
         static func fetchNewTokenUsingRefreshToken() async throws {
-
             guard 
                 let refreshToken = currentRefreshToken()
             else {
-                logger.error("Failed to fetch new token using refresh token because refresh token was nil")
+                logger.error("\(type(of: self)) \(#function)> Failed to fetch new token using refresh token because refresh token was nil")
                 throw E.noRefreshToken
             }
 

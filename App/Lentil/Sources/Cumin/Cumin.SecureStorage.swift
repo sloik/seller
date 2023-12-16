@@ -46,17 +46,17 @@ package extension CuminUseCases {
 package extension CuminUseCases.SecureStore {
 
     func save(data: Data, for key: Key) throws {
-        logger.info("Saving value for key: [\(key.rawValue)]")
+        logger.info("\(type(of: self)) \(#function)> Saving value for key: [\(key.rawValue)]")
         try _saveDataFor(data, key)
     }
 
     func data(_ key: Key) -> Data? {
-        logger.info("Getting value for key: [\(key.rawValue)]")
+        logger.info("\(type(of: self)) \(#function)> Getting value for key: [\(key.rawValue)]")
         return _dataForKey(key)
     }
 
     func delete(_ key: Key) {
-        logger.info("Removing value for key: [\(key.rawValue)]")
+        logger.info("\(type(of: self)) \(#function)> Removing value for key: [\(key.rawValue)]")
         _deleteKey(key)
     }
 }

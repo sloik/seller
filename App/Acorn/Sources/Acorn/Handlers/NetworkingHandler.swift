@@ -53,13 +53,13 @@ private extension NetworkingHandler {
     func tryToRunAndRefreshTokenWhenNeeded<R: Request>(_ request: R) async throws -> (R.Output, HTTPResponse) {
 
         func refreshTokenAndTriggerRequestOneMoreTime() async throws -> (R.Output, HTTPResponse) {
-            logger.debug("Refreshing token and trying to run request \(type(of: R.self))")
+            logger.debug("\(type(of: self)) \(#function)> Refreshing token and trying to run request \(type(of: R.self))")
 
             do {
                 try await loginHandler.refreshToken()
             } catch {
-                logger.error("Unable to refresh token with error: \(error.localizedDescription)")
-                logger.info("Re login user to get the new token and refresh token")
+                logger.error("\(type(of: self)) \(#function)> Unable to refresh token with error: \(error.localizedDescription)")
+                logger.info("\(type(of: self)) \(#function)> Re login user to get the new token and refresh token")
 
                 throw NetworkingHandlerError.unableToRefreshToken(underlyingError: error)
             }
@@ -68,16 +68,17 @@ private extension NetworkingHandler {
         }
 
         do {
+            logger.debug("\(type(of: self)) \(#function)> Trying to run request \(type(of: request))")
             return try await apiClient.run(request)
         } 
         // Catch error related expired JWT
         catch OnionError.notSuccessStatus(let response, _) where response.status.code == 401 {
-            logger.debug("Unauthorised request \(type(of: R.self))")
+            logger.debug("\(type(of: self)) \(#function)> Unauthorised request \(type(of: request))")
 
             return try await refreshTokenAndTriggerRequestOneMoreTime()
 
         } catch {
-            logger.error("Error running \(type(of: R.self)) with error: \(error.localizedDescription)")
+            logger.error("Error running \(type(of: request)) with error: \(error.localizedDescription)")
             throw error
         }
 

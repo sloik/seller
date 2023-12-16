@@ -74,6 +74,7 @@ public extension LentilUseCases {
     }
 
     func refreshToken() async throws {
+        logger.debug("\(type(of: self)) \(#function)>")
         try await Cumin.auth.fetchNewTokenUsingRefreshToken()
     }
 }

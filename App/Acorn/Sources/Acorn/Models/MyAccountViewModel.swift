@@ -103,7 +103,7 @@ private extension MyAccountViewModel {
             do {
                 user = try await getUser()
             } catch {
-                logger.info("Unable to get user data with error: \(error.localizedDescription)")
+                logger.info("\(type(of: self)) \(#function)> Unable to get user data with error: \(error.localizedDescription)")
 
                 user = .none
                 visible = .login

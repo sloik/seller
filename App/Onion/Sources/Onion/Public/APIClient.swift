@@ -34,7 +34,10 @@ public final class APIClient: APIClientType {
     }
 
     public func run<R: Request>(_ request: R) async throws -> (R.Output, HTTPResponse) {
-        logger.debug("Sending request \(type(of: request)) \(self.baseURL.absoluteString)\(request.path)")
+
+        let requestID = UUID()
+
+        logger.debug("\(type(of: self)) \(#function) \(requestID)> Sending request \(type(of: request)) \(self.baseURL.absoluteString)\(request.path)")
 
         let httpRequest = httpRequest(from: request)
 
@@ -42,11 +45,14 @@ public final class APIClient: APIClientType {
             try await session.data(for: httpRequest)
         }
 
+        logger.debug("\(type(of: self)) \(#function) \(requestID)> Response: \(httpResponse.debugDescription)")
+        logger.debug("\(type(of: self)) \(#function) \(requestID)>     Data: \(String(data: data, encoding: .utf8) ?? "-")")
+
         return try commonValidationAndDecode(request: request, data: data, httpResponse: httpResponse)
     }
 
     public func upload<R: UploadRequest>(_ request: R) async throws -> (R.Output, HTTPResponse) {
-        logger.debug("Sending request \(type(of: request))")
+        logger.debug("\(type(of: self)) \(#function)> Sending request \(type(of: request))")
 
         let httpRequest = httpRequest(from: request)
 
@@ -65,7 +71,7 @@ private extension APIClient {
         guard
             case .successful = httpResponse.status.kind
         else {
-            logger.error("Request \(type(of: request)) failed with response: \(httpResponse.debugDescription)")
+            logger.error("\(type(of: self)) \(#function)> Request \(type(of: request)) failed with response: \(httpResponse.debugDescription)")
 
             throw OnionError.notSuccessStatus(response: httpResponse, data: data)
         }
@@ -94,7 +100,7 @@ private extension APIClient {
                 return try await action()
             } catch {
                 // ignore the error now
-                logger.error("Error while trying to load data: \(error)")
+                logger.error("\(type(of: self)) \(#function)> Error while trying to load data: \(error)")
                 continue
             }
         }

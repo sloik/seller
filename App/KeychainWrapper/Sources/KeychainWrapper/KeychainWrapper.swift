@@ -83,7 +83,7 @@ public extension KeychainWrapper {
             return update(value, key: key, accessibility: accessibility, synchronizable: synchronizable)
         } else {
             let errorMessage = errorMessage(statusCode: status)
-            logger.debug("Status code: <\(status)> message: <\(errorMessage)> for key: <\(key)>")
+            logger.debug("\(type(of: self)) \(#function)> Status code: <\(status)> message: <\(errorMessage)> for key: <\(key)>")
             return false
         }
     }
@@ -97,7 +97,7 @@ public extension KeychainWrapper {
         if(status == errSecSuccess || status == errSecItemNotFound) {
             return true
         } else {
-            logger.debug("Can not delete keychain item, because of unhandled error: \(status)")
+            logger.debug("\(type(of: self)) \(#function)> Can not delete keychain item, because of unhandled error: \(status)")
             return false
         }
     }

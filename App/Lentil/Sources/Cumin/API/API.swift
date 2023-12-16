@@ -38,23 +38,23 @@ extension API {
     }
 
     func getToken(code: String) async throws -> Token {
-        logger.info("Getting token from code: \(code, privacy: .private)")
+        logger.info("\(type(of: self)) \(#function)> Getting token from code: \(code, privacy: .private)")
 
         do {
             return try await _getTokenCode(code, currentClient)
         } catch {
-            logger.error("Failed to get token from code: \(code, privacy: .private) with error: \(error.localizedDescription)")
+            logger.error("\(type(of: self)) \(#function)> Failed to get token from code: \(code, privacy: .private) with error: \(error.localizedDescription)")
             throw error
         }
     }
 
     func getNewToken(refreshToken: String) async throws -> Token {
-        logger.info("Getting new token from refresh token: \(refreshToken, privacy: .private)")
+        logger.info("\(type(of: self)) \(#function)> Refresh token: \(refreshToken, privacy: .private)")
 
         do {
             return try await _getNewToken(refreshToken, currentClient)
         } catch {
-            logger.error("Failed to get new token from refresh token: \(refreshToken, privacy: .private) with error: \(error.localizedDescription)")
+            logger.error("\(type(of: self)) \(#function)> Failed to get new token from refresh token: \(refreshToken, privacy: .private) with error: \(error.localizedDescription)")
             throw error
         }
     }
@@ -100,9 +100,11 @@ extension API {
                 redirectURI: try Cumin.secrets.oauthRedirectUri
             )
 
+            logger.debug("\(type(of: self)) \(#function)> Request: \(type(of: tokenRequest))")
+
             let (token, httpResponse): (Token, HTTPResponse) = try await authClient.run( tokenRequest )
 
-            logger.info("Response: \(httpResponse.debugDescription)")
+            logger.debug("\(type(of: self)) \(#function)> Response: \(httpResponse.debugDescription)")
 
             return token
         }
@@ -115,9 +117,9 @@ extension API {
                 encodedCredentials: try Cumin.secrets.encodedCredentials
             )
 
-            let (token, httpResponse): (Token, HTTPResponse) = try await authClient.run( refreshToken )
+            let (token, httpResponse): (Token, HTTPResponse) = try await authClient.run( newToken )
 
-            logger.info("Response: \(httpResponse.debugDescription)")
+            logger.info("\(type(of: self)) \(#function)> Response: \(httpResponse.debugDescription)")
 
             return token
         }
