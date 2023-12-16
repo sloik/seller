@@ -111,7 +111,14 @@ extension API {
 
         static func getNewToken(refreshToken: String, authClient: APIClientType) async throws -> Token {
 
-            let refreshToken = GetNewToken(
+            guard 
+                let refreshToken = refreshToken.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            else {
+                logger.error("\(type(of: self)) \(#function)> Failed to add percent encoding to refresh token: \(refreshToken, privacy: .private)")
+                throw E.unableToCreateRequest
+            }
+
+            let newToken = GetNewToken(
                 refreshToken: refreshToken,
                 redirectURI: try Cumin.secrets.oauthRedirectUri,
                 encodedCredentials: try Cumin.secrets.encodedCredentials

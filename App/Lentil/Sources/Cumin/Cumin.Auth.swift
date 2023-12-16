@@ -120,7 +120,17 @@ extension CuminUseCases.Auth {
             }
 
             // Box in optional to get
-            let newToken: Token? = try await Cumin.api.getNewToken(refreshToken: refreshToken)
+            let newToken: Token?
+
+            do {
+                newToken = try await Cumin.api.getNewToken(refreshToken: refreshToken)
+            } catch {
+                logger.error("\(type(of: self)) \(#function)> Failed to fetch new token using refresh token because of error: \(error.localizedDescription)")
+
+                // TODO: inspect errors and throw more concrete errors
+
+                throw error
+            }
 
             try newToken
                 .encode()
