@@ -4,25 +4,19 @@ import Foundation
 import OSLog
 
 // Local
-import Onion
 
 // 3rd party
 import HTTPTypes
 
-private let logger = Logger(subsystem: "Acorn", category: "NetworkingHandler")
+private let logger = Logger(subsystem: "Onion", category: "NetworkingHandler")
 
-protocol NetworkingHandlerType {
-
-    func run<R: Request>(_ request: R) async throws -> (R.Output, HTTPResponse)
-}
-
-final class NetworkingHandler {
+public final class NetworkingHandler {
 
     let apiClient: APIClientType
 
     let loginHandler: LoginHandlerType
 
-    init(
+    public init(
         apiClient: APIClientType,
         loginHandler: LoginHandlerType
     ) {
@@ -39,7 +33,7 @@ enum NetworkingHandlerError: Error {
 
 extension NetworkingHandler: NetworkingHandlerType {
 
-    func run<R: Request>(_ request: R) async throws -> (R.Output, HTTPResponse) {
+    public func run<R: Request>(_ request: R) async throws -> (R.Output, HTTPResponse) {
         if request.authorizationWithJWTNeeded {
              try await tryToRunAndRefreshTokenWhenNeeded(request)
         } else {
@@ -83,13 +77,4 @@ private extension NetworkingHandler {
         }
 
     }
-}
-
-// MARK: - Mock
-
-final class MockNetworkingHandler: NetworkingHandlerType {
-
-        func run<R: Request>(_ request: R) async throws -> (R.Output, HTTPResponse) {
-            fatalError("MockNetworkingHandler.run not implemented")
-        }
 }

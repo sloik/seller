@@ -1,29 +1,17 @@
 
+// System
 import Foundation
 
+// Local
 import Lentil
-
-protocol LoginHandlerType {
-    var token: String? { get }
-
-    func logout()
-
-    /// Used to get new token when it expired.
-    func refreshToken() async throws
-}
-
-extension LoginHandlerType {
-    var hasToken: Bool {
-        token.isNotNone
-    }
-}
+import Onion
 
 // MARK: - Conformers
 
 import Cumin
 
 extension LentilUseCases: LoginHandlerType {
-    var token: String? {
+    public var token: String? {
         userToken
     }
 }
