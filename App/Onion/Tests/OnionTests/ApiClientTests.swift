@@ -35,7 +35,7 @@ final class ApiClientTests: XCTestCase {
         do {
             try await sut.run(JustRequest())
             XCTFail("Should throw an error!")
-        } catch OnionError.notSuccessStatus(let response, let data) {
+        } catch OnionError.notSuccessStatus(let response, _) {
             XCTAssertEqual(response, .init(status: .unauthorized))
         } catch {
             XCTFail("Thrown unexpected error: \(error)")
