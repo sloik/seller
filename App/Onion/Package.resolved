@@ -10,6 +10,33 @@
       }
     },
     {
+      "identity" : "funckeypath",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sloik/FuncKeyPath.git",
+      "state" : {
+        "revision" : "e4e6fe23f132a8859df7e6579fb0f59b262a13e8",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "optionalapi",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sloik/OptionalAPI.git",
+      "state" : {
+        "revision" : "ec30267576e00f36fdcd53f1d050abbfa8f716ec",
+        "version" : "5.1.2"
+      }
+    },
+    {
+      "identity" : "sweetbool",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sloik/SweetBool.git",
+      "state" : {
+        "revision" : "b3b4888e6fed9ce0e1b768349e2318d0e518624f",
+        "version" : "1.1.3"
+      }
+    },
+    {
       "identity" : "swift-http-types",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-http-types.git",

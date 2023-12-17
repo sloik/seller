@@ -12,6 +12,13 @@ import AliasWonderland
 
 private let logger = Logger(subsystem: "Onion", category: "API Client")
 
+public protocol URLSessionType {
+    func data(for request: HTTPRequest) async throws -> (Data, HTTPResponse)
+    func upload(for request: HTTPRequest, from bodyData: Data) async throws -> (Data, HTTPResponse)
+}
+
+extension URLSession: URLSessionType {}
+
 public final class APIClient: APIClientType {
 
     public var baseURL: URL
@@ -24,15 +31,17 @@ public final class APIClient: APIClientType {
         )
     }
 
-    private let session: URLSession
+    private let session: URLSessionType
 
     public init(
-        baseURL: URL
+        baseURL: URL,
+        session: URLSessionType = URLSession.shared
     ) {
         self.baseURL = baseURL
-        self.session = URLSession.shared
+        self.session = session
     }
 
+    @discardableResult
     public func run<R: Request>(_ request: R) async throws -> (R.Output, HTTPResponse) {
 
         let requestID = UUID()
@@ -107,24 +116,5 @@ private extension APIClient {
 
         // try it 3rd and last time
         return try await action()
-    }
-}
-
-// MARK: -
-
-open class MockApiClient: APIClientType {
-
-   public let baseURL: URL
-
-    public init(baseURL: URL = URL(string: "https://fake.api.pl")!) {
-        self.baseURL = baseURL
-    }
-
-    public func run<R: Request>(_ request: R) async throws -> (R.Output, HTTPResponse) {
-        fatalError("Provide your own implementation of \(#function)")
-    }
-
-    public func upload<R: UploadRequest>(_ request: R) async throws -> (R.Output, HTTPTypes.HTTPResponse) {
-        fatalError("Provide your own implementation of \(#function)")
     }
 }

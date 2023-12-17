@@ -33,6 +33,7 @@ struct MainView: View {
 }
 
 #Preview {
+
     MainView(
         acornFactory: .init(apiClient: MockApiClient())
     )
