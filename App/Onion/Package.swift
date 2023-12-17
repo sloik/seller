@@ -38,6 +38,11 @@ let package = Package(
             url: "https://github.com/sloik/OptionalAPI.git",
             from: "5.1.2"
         ),
+
+        .package(
+            url: "https://github.com/sloik/ExTests.git",
+            from: "0.1.2"
+        ),
     ],
 
     targets: [
@@ -65,6 +70,7 @@ let package = Package(
             name: "OnionTests",
             dependencies: [
                 "Onion",
+                "ExTests",
             ]
         ),
     ]
