@@ -5,6 +5,15 @@ import HTTPTypes
 import Foundation
 import AliasWonderland
 
+struct MockResponse: ContentType {
+    
+    static var mock: MockResponse {
+        MockResponse(payload: "Mock Response")
+    }
+
+    let payload: String
+}
+
 protocol MockRequestType: Request {
     var response: (Output, HTTPResponse) { get }
     var tag: String { get }
@@ -12,7 +21,7 @@ protocol MockRequestType: Request {
 
 
 class MockRequest: MockRequestType {
-    typealias Output = String
+    typealias Output = MockResponse
     var path: String = ""
 
     var tag: String = "MockRequest"
@@ -31,7 +40,7 @@ extension MockRequest {
     static var okResponse: MockRequest {
         let request = MockRequest()
         request.responseProducer = {
-            ("Mock Response", HTTPResponse(status: .ok))
+            (.mock, HTTPResponse(status: .ok))
         }
         request.tag = "Ok Request"
         return request
@@ -41,7 +50,7 @@ extension MockRequest {
         let request = MockRequest()
         request.headerFields = [HTTPField.Name.authorization : .bearer("token")]
         request.responseProducer = {
-            ("Mock Response", HTTPResponse(status: .unauthorized))
+            (.mock, HTTPResponse(status: .unauthorized))
         }
         request.tag = "Unauthorized Request"
         return request
@@ -50,12 +59,12 @@ extension MockRequest {
 
 
 struct JustRequest: Request {
-    typealias Output = String
+    typealias Output = MockResponse
     var path: String = "/"
 }
 
 struct AuthorizationRequest: Request {
-    typealias Output = String
+    typealias Output = MockResponse
     var path: String = "/"
 
     var headerFields: HTTPFields { [HTTPField.Name.authorization : .bearer("token")] }

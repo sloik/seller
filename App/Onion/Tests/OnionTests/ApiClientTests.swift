@@ -40,8 +40,10 @@ final class ApiClientTests: XCTestCase {
         } catch {
             XCTFail("Thrown unexpected error: \(error)")
         }
+    }
 
-
+    func test_run_shouldRunOnlyOnceFor200Ok() {
+        
     }
 
 }

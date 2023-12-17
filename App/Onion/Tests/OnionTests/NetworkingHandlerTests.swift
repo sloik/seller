@@ -36,7 +36,7 @@ final class NetworkingHandlerTests: XCTestCase {
         let (response, httpResponse) = try await sut.run(request)
 
         // Assert
-        XCTAssertEqual(response, "Mock Response")
+        XCTAssertEqual(response, .mock)
         XCTAssertEqual(httpResponse.status, .ok)
 
         XCTAssertEqual(
