@@ -2,7 +2,7 @@
 import Foundation
 import HTTPTypes
 
-/// generic http Swift api client using protocols and generics
+/// Type that defines basic url for API and knows how to make a request.
 public protocol APIClientType {
 
     /// base url for the api client

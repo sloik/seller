@@ -7,6 +7,7 @@ import OSLog
 
 // 3rd party
 import HTTPTypes
+import AliasWonderland
 
 private let logger = Logger(subsystem: "Onion", category: "NetworkingHandler")
 
@@ -33,16 +34,37 @@ enum NetworkingHandlerError: Error {
 
 extension NetworkingHandler: NetworkingHandlerType {
 
+    @discardableResult
     public func run<R: Request>(_ request: R) async throws -> (R.Output, HTTPResponse) {
-        if request.authorizationWithJWTNeeded {
-             try await tryToRunAndRefreshTokenWhenNeeded(request)
-        } else {
-             try await apiClient.run(request)
+        try await tryToLoad {
+            if request.authorizationWithJWTNeeded {
+                try await tryToRunAndRefreshTokenWhenNeeded(request)
+            } else {
+                try await apiClient.run(request)
+            }
         }
     }
 }
 
 private extension NetworkingHandler {
+
+    /// Runs `action` and in case of errors retries is to total of 3 times.
+    func tryToLoad<A,B>(action: AsyncThrowsProducer<A,B>) async throws -> (A, B) {
+
+        // Tries to get the data for a request 2 times
+        for _ in 1...2 {
+            do {
+                return try await action()
+            } catch {
+                // ignore the error now
+                logger.error("\(type(of: self)) \(#function)> Error while trying to load data: \(error)")
+                continue
+            }
+        }
+
+        // try it 3rd and last time
+        return try await action()
+    }
 
     func tryToRunAndRefreshTokenWhenNeeded<R: Request>(_ request: R) async throws -> (R.Output, HTTPResponse) {
 

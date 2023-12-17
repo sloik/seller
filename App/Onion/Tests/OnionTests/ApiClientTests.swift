@@ -63,29 +63,5 @@ final class ApiClientTests: XCTestCase {
             XCTFail("Should not throw error: \(error)")
         }
     }
-
-    func test_run_whenSessionFails_shouldTryRequestMaxThreeTimes() async throws {
-        // Arrange
-        let dataRequestExpectation = expectation(description: "Should call dataForRequest three times").expect(3).strict()
-
-        await session.setDataFor { _ in
-            dataRequestExpectation.fulfill()
-            throw "URLSession error"
-        }
-
-        // Act & Assert
-        do {
-            try await sut.run(JustRequest())
-            XCTFail("Should throw")
-        } catch let error as String {
-            XCTAssertEqual(error, "URLSession error")
-
-            await fulfillment(of: [dataRequestExpectation], timeout: 0.1)
-        } catch {
-            XCTFail("Unexpected error thrhown: \(error)")
-        }
-
-    }
-
 }
 

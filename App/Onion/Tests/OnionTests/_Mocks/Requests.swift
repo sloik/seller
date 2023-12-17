@@ -15,7 +15,7 @@ struct MockResponse: ContentType {
 }
 
 protocol MockRequestType: Request {
-    var response: (Output, HTTPResponse) { get }
+    var response: (Output, HTTPResponse) { get throws }
     var tag: String { get }
 }
 
@@ -26,9 +26,11 @@ class MockRequest: MockRequestType {
 
     var tag: String = "MockRequest"
 
-    var responseProducer: Producer<(Output, HTTPResponse)>?
+    var responseProducer: ThrowsProducer<(Output, HTTPResponse)>?
     var response: (Output, HTTPResponse) {
-        responseProducer!()
+        get throws {
+            try responseProducer!()
+        }
     }
 
     var headerFields: HTTPFields = [:]
@@ -53,6 +55,13 @@ extension MockRequest {
             (.mock, HTTPResponse(status: .unauthorized))
         }
         request.tag = "Unauthorized Request"
+        return request
+    }
+
+    static var throwingResponse: MockRequest {
+        let request = MockRequest()
+        request.responseProducer = { throw "Request failed!" }
+        request.tag = "Throwing Request"
         return request
     }
 }

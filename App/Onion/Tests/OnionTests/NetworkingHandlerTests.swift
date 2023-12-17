@@ -3,6 +3,8 @@ import XCTest
 import Onion
 import HTTPTypes
 
+import ExTests
+
 final class NetworkingHandlerTests: XCTestCase {
 
     var apiClient: MockApiClient!
@@ -43,6 +45,32 @@ final class NetworkingHandlerTests: XCTestCase {
             apiClient.processedRequests.map(\.tag),
             ["Ok Request"]
         )
+    }
+
+    func test_run_whenSessionFails_shouldTryRequestMaxThreeTimes() async throws {
+        // Arrange
+
+        let expectedError = "Some error in running the request!"
+        let dataRequestExpectation = expectation(description: "Should call dataForRequest three times").expect(3).strict()
+
+        let request = MockRequest.throwingResponse
+        request.responseProducer = {
+            dataRequestExpectation.fulfill()
+            throw expectedError
+        }
+
+        // Act & Assert
+        do {
+            try await sut.run( request )
+            XCTFail("Should throw")
+        } catch let error as String {
+            XCTAssertEqual(error, expectedError)
+
+            await fulfillment(of: [dataRequestExpectation], timeout: 0.1)
+        } catch {
+            XCTFail("Unexpected error thrown: \(error)")
+        }
+
     }
 
 //    func test_tryToRunAndRefreshTokenWhenNeeded() async throws {

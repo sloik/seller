@@ -29,7 +29,7 @@ class MockApiClient: APIClientType {
 
         processedRequests.append(mockRequest)
 
-        return mockRequest.response as! (R.Output, HTTPResponse)
+        return try mockRequest.response as! (R.Output, HTTPResponse)
     }
 
     public func upload<R: UploadRequest>(_ request: R) async throws -> (R.Output, HTTPTypes.HTTPResponse) {

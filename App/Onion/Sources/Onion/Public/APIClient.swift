@@ -50,9 +50,7 @@ public final class APIClient: APIClientType {
 
         let httpRequest = httpRequest(from: request)
 
-        let (data, httpResponse) = try await tryToLoad {
-            try await session.data(for: httpRequest)
-        }
+        let (data, httpResponse) = try await session.data(for: httpRequest)
 
         logger.debug("\(type(of: self)) \(#function) \(requestID)> Response: \(httpResponse.debugDescription)")
         logger.debug("\(type(of: self)) \(#function) \(requestID)>     Data: \(String(data: data, encoding: .utf8) ?? "-")")
@@ -65,9 +63,7 @@ public final class APIClient: APIClientType {
 
         let httpRequest = httpRequest(from: request)
 
-        let (data, httpResponse) = try await tryToLoad {
-            try await session.upload(for: httpRequest, from: request.bodyData)
-        }
+        let (data, httpResponse) = try await session.upload(for: httpRequest, from: request.bodyData)
 
         return try commonValidationAndDecode(request: request, data: data, httpResponse: httpResponse)
     }
@@ -98,23 +94,5 @@ private extension APIClient {
         httpRequest.method = request.method
 
         return httpRequest
-    }
-
-    /// Runs `action` and in case of errors retries is to total of 3 times.
-    func tryToLoad<A,B>(action: AsyncThrowsProducer<A,B>) async throws -> (A, B) {
-
-        // Tries to get the data for a request 2 times
-        for _ in 1...2 {
-            do {
-                return try await action()
-            } catch {
-                // ignore the error now
-                logger.error("\(type(of: self)) \(#function)> Error while trying to load data: \(error)")
-                continue
-            }
-        }
-
-        // try it 3rd and last time
-        return try await action()
     }
 }
