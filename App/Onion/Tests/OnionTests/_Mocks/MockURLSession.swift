@@ -9,9 +9,18 @@ import Onion
 import HTTPTypes
 import AliasWonderland
 
-class MockURLSession: URLSessionType {
+actor MockURLSession: URLSessionType {
 
-    var dataForRequestClosure: AsyncThrowsClosure<HTTPRequest, (Data, HTTPResponse)>!
+    var dataForRequestCount = 0
+
+    private var dataForRequestClosure: AsyncThrowsClosure<HTTPRequest, (Data, HTTPResponse)>!
+    func setDataFor(_ closure: @escaping AsyncThrowsClosure<HTTPRequest, (Data, HTTPResponse)>) {
+        dataForRequestClosure =  { request in
+            self.dataForRequestCount += 1
+            return try await closure(request)
+        }
+    }
+
     func data(for request: HTTPRequest) async throws -> (Data, HTTPResponse) {
         try await dataForRequestClosure(request)
     }
