@@ -10,6 +10,15 @@
       }
     },
     {
+      "identity" : "extests",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sloik/ExTests.git",
+      "state" : {
+        "revision" : "14884fa297fc7a450ceaf078fba50f6b12635fdf",
+        "version" : "0.1.2"
+      }
+    },
+    {
       "identity" : "funckeypath",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/sloik/FuncKeyPath.git",
