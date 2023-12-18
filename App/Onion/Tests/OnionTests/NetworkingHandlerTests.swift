@@ -4,6 +4,7 @@ import Onion
 import HTTPTypes
 
 import ExTests
+import AliasWonderland
 
 final class NetworkingHandlerTests: XCTestCase {
 
@@ -32,19 +33,23 @@ final class NetworkingHandlerTests: XCTestCase {
     func test_shouldUseApiClientToRunRequests() async throws {
 
         // Arrange
-        let request = NetworkFlow.okResponse
+        let flow = TestsFlow.okResponse
 
         // Act
-        let (response, httpResponse) = try await sut.run(request)
+        do {
+            let (response, httpResponse) = try await sut.run(flow)
 
-        // Assert
-        XCTAssertEqual(response, .mock)
-        XCTAssertEqual(httpResponse.status, .ok)
+            // Assert
+            XCTAssertEqual(response, .mock)
+            XCTAssertEqual(httpResponse.status, .ok)
 
-        XCTAssertEqual(
-            apiClient.processedRequests.map(\.tag),
-            ["Ok Request"]
-        )
+            XCTAssertEqual(
+                apiClient.processedRequests.map(\.tag),
+                ["Ok Request"]
+            )
+        } catch {
+            XCTFail("Should not throw!")
+        }
     }
 
     func test_run_whenSessionFails_shouldTryRequestMaxThreeTimes() async throws {
@@ -53,15 +58,16 @@ final class NetworkingHandlerTests: XCTestCase {
         let expectedError = "Some error in running the request!"
         let dataRequestExpectation = expectation(description: "Should call dataForRequest three times").expect(3).strict()
 
-        let request = NetworkFlow.throwingResponse
-        request.responseProducer = {
+        let flow = TestsFlow.throwingResponse
+
+        flow.responseProducer = {
             dataRequestExpectation.fulfill()
             throw expectedError
         }
 
         // Act & Assert
         do {
-            try await sut.run( request )
+            try await sut.run( flow )
             XCTFail("Should throw")
         } catch let error as String {
             XCTAssertEqual(error, expectedError)
@@ -73,23 +79,48 @@ final class NetworkingHandlerTests: XCTestCase {
 
     }
 
-//    func test_tryToRunAndRefreshTokenWhenNeeded() async throws {
-//
-//        let apiClient = MockAPIClient()
-//        let loginHandler = MockLoginHandler()
-//
-//        let networkingHandler = NetworkingHandler(
-//            apiClient: apiClient,
-//            loginHandler: loginHandler
-//        )
-//
-//        let request = JustRequest()
-//        let (output, response) = try await networkingHandler.run(request)
-//
-//        XCTAssertEqual(output, "MockRequest")
-//        XCTAssertEqual(response.statusCode, 200)
-//    }
-//
+    func test_tryToRunAndRefreshTokenWhenNeededAndRetryTheRequest() async throws {
+        // Arrange
+        let didRefreshToken = expectation(description: "Did not refresh token!").onceStrict()
+        let didRetryTheRequest = expectation(description: "Should retry the request!").onceStrict()
+
+        let fulfillRetryRequestAndReturnOkResponse: ThrowsProducer<(FlowResponse, HTTPResponse)> = {
+            didRetryTheRequest.fulfill()
+            return try TestsFlow.okResponse.response
+        }
+
+        // Start with a flow that need a token and throws an unauthorized response error.
+        let flow = TestsFlow.unauthorizedResponse
+        flow.responseProducer = {
+            throw OnionError.notSuccessStatus(response: .init(status: .unauthorized), data: Data())
+        }
+
+        // Check that token was refreshed
+        loginHandler.refreshTokenClosure = { _ in
+            didRefreshToken.fulfill()
+            flow.responseProducer = fulfillRetryRequestAndReturnOkResponse
+        }
+
+        // Act
+        do {
+            let (output, response) = try await sut.run(flow)
+
+            await fulfillment(
+                of: [
+                    didRefreshToken,
+                    didRetryTheRequest
+                ],
+                timeout: 0.1,
+                enforceOrder: true
+            )
+
+            XCTAssertEqual(output, .mock)
+            XCTAssertEqual(response, .init(status: .ok))
+        } catch {
+            XCTFail("No erros should be thrown!")
+        }
+    }
+
 //    func test_tryToRunAndRefreshTokenWhenNeeded_whenRefreshTokenThrows() async throws {
 //
 //        let apiClient = MockAPIClient()

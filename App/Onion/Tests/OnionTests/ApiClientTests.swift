@@ -34,7 +34,7 @@ final class ApiClientTests: XCTestCase {
 
         // Act & Assert
         do {
-            try await sut.run(JustRequest())
+            try await sut.run(TestsFlow.okResponse.request)
             XCTFail("Should throw an error!")
         } catch OnionError.notSuccessStatus(let response, _) {
             XCTAssertEqual(response, .init(status: .unauthorized))
@@ -50,13 +50,12 @@ final class ApiClientTests: XCTestCase {
         await session.setDataFor { _ in
             dataRequestExpectation.fulfill()
 
-            let response: NetworkFlow.Response? = .mock
-            return (response.encode()!, HTTPResponse(status: .ok))
+            return try TestsFlow.okResponse.responseData
         }
 
         // Act & Assert
         do {
-            try await sut.run(JustRequest())
+            try await sut.run(TestsFlow.okResponse.request)
 
             await fulfillment(of: [dataRequestExpectation], timeout: 0.1)
         } catch {
@@ -71,13 +70,13 @@ final class ApiClientTests: XCTestCase {
         await session.setUploadFor { _,_ in
             dataRequestExpectation.fulfill()
 
-            let response: NetworkFlow.Response? = .mock
-            return (response.encode()!, HTTPResponse(status: .ok))
+            let flow = TestsFlow.okResponse
+            return try flow.responseData
         }
 
         // Act & Assert
         do {
-            try await sut.upload( NetworkFlow.okResponse )
+            _ = try await sut.upload( TestsFlow.okResponse.request )
 
             await fulfillment(of: [dataRequestExpectation], timeout: 0.1)
         } catch {

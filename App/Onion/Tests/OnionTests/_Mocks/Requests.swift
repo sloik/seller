@@ -5,24 +5,19 @@ import HTTPTypes
 import Foundation
 import AliasWonderland
 
-protocol TagableType {
-    var tag: String { get }
-
-}
-
-protocol ResponseProviderType: UploadRequest & TagableType {
-    var response: (Output, HTTPResponse) { get throws }
-}
-
-
-struct JustRequest: Request {
-    typealias Output = NetworkFlow.Response
-    var path: String = "/"
-}
-
-struct AuthorizationRequest: Request {
-    typealias Output = NetworkFlow.Response
-    var path: String = "/"
-
-    var headerFields: HTTPFields { [HTTPField.Name.authorization : .bearer("token")] }
-}
+//protocol TagableType {
+//    var tag: String { get }
+//
+//}
+//
+//protocol ResponseProviderType {
+//    associatedtype Output
+//
+//    var response: (Output, HTTPResponse) { get throws }
+//}
+//
+//protocol RequestProviderType {
+//    associatedtype Input
+//
+//    var request: Input { get }
+//}

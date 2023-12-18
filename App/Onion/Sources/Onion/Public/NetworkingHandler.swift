@@ -26,7 +26,7 @@ public final class NetworkingHandler {
     }
 }
 
-enum NetworkingHandlerError: Error {
+public enum NetworkingHandlerError: Error {
 
     /// Thrown when refresh token request does not provide a valid token.
     case unableToRefreshToken(underlyingError: Error)

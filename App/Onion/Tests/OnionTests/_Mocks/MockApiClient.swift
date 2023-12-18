@@ -17,19 +17,19 @@ class MockApiClient: APIClientType {
     }
 
     enum E: Error {
-        case notMockRequest
+        case notTestFlowRequest
     }
 
-    var processedRequests: [NetworkFlow] = []
+    var processedRequests: [TestsFlow] = []
     public func run<R: Request>(_ request: R) async throws -> (R.Output, HTTPResponse) {
 
-        guard let mockRequest = request as? NetworkFlow else {
-            throw E.notMockRequest
+        guard let testFlowRequest = request as? TestsFlow else {
+            throw E.notTestFlowRequest
         }
 
-        processedRequests.append(mockRequest)
+        processedRequests.append(testFlowRequest)
 
-        return try mockRequest.response as! (R.Output, HTTPResponse)
+        return try testFlowRequest.response as! (R.Output, HTTPResponse)
     }
 
     public func upload<R: UploadRequest>(_ request: R) async throws -> (R.Output, HTTPTypes.HTTPResponse) {
