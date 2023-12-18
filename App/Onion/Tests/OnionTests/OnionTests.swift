@@ -8,10 +8,10 @@ final class OnionTests: XCTestCase {
 
     func test_authorizationWithJWTNeeded() throws {
 
-        let just = TestsFlow.okResponse.request
+        let just = TestsFlow.okResponse
         XCTAssertFalse( just.authorizationWithJWTNeeded )
 
-        let auth = TestsFlow.unauthorizedResponse.request
+        let auth = TestsFlow.unauthorizedResponse
         XCTAssertTrue( auth.authorizationWithJWTNeeded )
     }
 }
