@@ -32,7 +32,7 @@ final class NetworkingHandlerTests: XCTestCase {
     func test_shouldUseApiClientToRunRequests() async throws {
 
         // Arrange
-        let request = MockRequest.okResponse
+        let request = NetworkFlow.okResponse
 
         // Act
         let (response, httpResponse) = try await sut.run(request)
@@ -53,7 +53,7 @@ final class NetworkingHandlerTests: XCTestCase {
         let expectedError = "Some error in running the request!"
         let dataRequestExpectation = expectation(description: "Should call dataForRequest three times").expect(3).strict()
 
-        let request = MockRequest.throwingResponse
+        let request = NetworkFlow.throwingResponse
         request.responseProducer = {
             dataRequestExpectation.fulfill()
             throw expectedError

@@ -50,13 +50,34 @@ final class ApiClientTests: XCTestCase {
         await session.setDataFor { _ in
             dataRequestExpectation.fulfill()
 
-            let response: MockResponse? = .mock
+            let response: NetworkFlow.Response? = .mock
             return (response.encode()!, HTTPResponse(status: .ok))
         }
 
         // Act & Assert
         do {
             try await sut.run(JustRequest())
+
+            await fulfillment(of: [dataRequestExpectation], timeout: 0.1)
+        } catch {
+            XCTFail("Should not throw error: \(error)")
+        }
+    }
+
+    func test_upload_shouldRunOnlyOnceFor200Ok() async throws {
+        // Arrange
+        let dataRequestExpectation = expectation(description: "Should call uploadForRequest only once").onceStrict()
+
+        await session.setUploadFor { _,_ in
+            dataRequestExpectation.fulfill()
+
+            let response: NetworkFlow.Response? = .mock
+            return (response.encode()!, HTTPResponse(status: .ok))
+        }
+
+        // Act & Assert
+        do {
+            try await sut.upload( NetworkFlow.okResponse )
 
             await fulfillment(of: [dataRequestExpectation], timeout: 0.1)
         } catch {

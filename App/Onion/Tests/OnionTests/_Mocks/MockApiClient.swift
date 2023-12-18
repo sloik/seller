@@ -20,10 +20,10 @@ class MockApiClient: APIClientType {
         case notMockRequest
     }
 
-    var processedRequests: [MockRequest] = []
+    var processedRequests: [NetworkFlow] = []
     public func run<R: Request>(_ request: R) async throws -> (R.Output, HTTPResponse) {
 
-        guard let mockRequest = request as? MockRequest else {
+        guard let mockRequest = request as? NetworkFlow else {
             throw E.notMockRequest
         }
 

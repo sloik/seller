@@ -25,7 +25,15 @@ actor MockURLSession: URLSessionType {
         try await dataForRequestClosure(request)
     }
 
+    var uploadForRequestCount = 0
+    private var uploadForRequestClosure: AsyncThrowsClosure<HTTPRequest, Data, (Data, HTTPResponse)>!
+    func setUploadFor(_ closure: @escaping AsyncThrowsClosure<HTTPRequest, Data, (Data, HTTPResponse)>) {
+        uploadForRequestClosure = { (request: HTTPRequest, data: Data) in
+            self.uploadForRequestCount += 1
+            return try await closure(request, data)
+        }
+    }
     func upload(for request: HTTPRequest, from bodyData: Data) async throws -> (Data, HTTPResponse) {
-        fatalError("Not implemented")
+        try await uploadForRequestClosure(request, bodyData)
     }
 }

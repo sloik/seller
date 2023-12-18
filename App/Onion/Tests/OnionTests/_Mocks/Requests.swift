@@ -5,75 +5,23 @@ import HTTPTypes
 import Foundation
 import AliasWonderland
 
-struct MockResponse: ContentType {
-    
-    static var mock: MockResponse {
-        MockResponse(payload: "Mock Response")
-    }
-
-    let payload: String
-}
-
-protocol MockRequestType: Request {
-    var response: (Output, HTTPResponse) { get throws }
+protocol TagableType {
     var tag: String { get }
+
 }
 
-
-class MockRequest: MockRequestType {
-    typealias Output = MockResponse
-    var path: String = ""
-
-    var tag: String = "MockRequest"
-
-    var responseProducer: ThrowsProducer<(Output, HTTPResponse)>?
-    var response: (Output, HTTPResponse) {
-        get throws {
-            try responseProducer!()
-        }
-    }
-
-    var headerFields: HTTPFields = [:]
-
-    init(){}
-}
-
-extension MockRequest {
-    static var okResponse: MockRequest {
-        let request = MockRequest()
-        request.responseProducer = {
-            (.mock, HTTPResponse(status: .ok))
-        }
-        request.tag = "Ok Request"
-        return request
-    }
-
-    static var unauthorizedResponse: MockRequest {
-        let request = MockRequest()
-        request.headerFields = [HTTPField.Name.authorization : .bearer("token")]
-        request.responseProducer = {
-            (.mock, HTTPResponse(status: .unauthorized))
-        }
-        request.tag = "Unauthorized Request"
-        return request
-    }
-
-    static var throwingResponse: MockRequest {
-        let request = MockRequest()
-        request.responseProducer = { throw "Request failed!" }
-        request.tag = "Throwing Request"
-        return request
-    }
+protocol ResponseProviderType: UploadRequest & TagableType {
+    var response: (Output, HTTPResponse) { get throws }
 }
 
 
 struct JustRequest: Request {
-    typealias Output = MockResponse
+    typealias Output = NetworkFlow.Response
     var path: String = "/"
 }
 
 struct AuthorizationRequest: Request {
-    typealias Output = MockResponse
+    typealias Output = NetworkFlow.Response
     var path: String = "/"
 
     var headerFields: HTTPFields { [HTTPField.Name.authorization : .bearer("token")] }
