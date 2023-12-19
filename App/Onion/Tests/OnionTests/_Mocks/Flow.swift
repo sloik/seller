@@ -71,7 +71,10 @@ extension FlowRequest {
 
 // MARK: - Flow as Request
 
-extension Flow: Request {
+extension Flow: UploadRequest {
+
+
+    // MARK: Request
     typealias Output = FlowResponse
 
     var path: String { request.path }
@@ -79,6 +82,14 @@ extension Flow: Request {
     var headerFields: HTTPFields { request.headerFields }
 
     var method: HTTPRequest.Method { request.method }
+
+    // MARK: UploadRequest
+    typealias Input = FlowRequest.Input
+
+    var body: String {
+        request.body
+    }
+
 }
 
 // MARK: - Response
