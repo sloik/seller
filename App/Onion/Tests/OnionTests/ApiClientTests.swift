@@ -26,23 +26,63 @@ final class ApiClientTests: XCTestCase {
         try await super.tearDown()
     }
 
-    func test_run_shouldThrowAnErrorWhenSessionDoesNotReturn200Ok() async throws {
+    /// When `URLSession` does throw an error.
+    ///
+    /// ## **Expected behaviour:**
+    ///
+    /// Error should be passed up without any changes.
+    func test_run_shouldThrowAnErrorWhenSessionFails() async throws {
         // Arrange
+        let expectedError = "Session failure!"
         await session.setDataFor { _ in
-            (Data(), HTTPResponse(status: .unauthorized))
+            throw expectedError
         }
 
         // Act & Assert
         do {
             try await sut.run(TestsFlow.okResponse.request)
             XCTFail("Should throw an error!")
-        } catch OnionError.notSuccessStatus(let response, _) {
-            XCTAssertEqual(response, .init(status: .unauthorized))
+        } catch let error as String {
+            XCTAssertEqual(error, expectedError)
         } catch {
             XCTFail("Thrown unexpected error: \(error)")
         }
     }
 
+    /// When `URLSession` returns a valid response and data
+    /// but the response in not from 2xx range.
+    ///
+    /// ## **Expected behaviour:**
+    ///
+    /// `OnionError.notSuccessStatus` should be thrown containing original
+    /// `HTTPResponse` and data.
+    func test_run_shouldThrowAnErrorWhenSessionDoesNotReturn200Ok() async throws {
+        // Arrange
+        let responsePayload = "Some response"
+        var expectedData: Data { Data(responsePayload.utf8) }
+
+        await session.setDataFor { _ in
+            (expectedData, HTTPResponse(status: .unauthorized))
+        }
+
+        // Act & Assert
+        do {
+            try await sut.run(TestsFlow.okResponse.request)
+            XCTFail("Should not throw an error!")
+        } catch OnionError.notSuccessStatus(let response, let data) {
+            XCTAssertEqual(response, .init(status: .unauthorized))
+            XCTAssertEqual(String(data: data, encoding: .utf8)!, responsePayload)
+        } catch {
+            XCTFail("Thrown unexpected error: \(error)")
+        }
+    }
+
+    /// When running a `Request`.
+    ///
+    /// ## **Expected behaviour:**
+    ///
+    /// - One run should trigger only one session call.
+    /// - Successful request should not throw
     func test_run_shouldRunOnlyOnceFor200Ok() async throws {
         // Arrange
         let dataRequestExpectation = expectation(description: "Should call dataForRequest only once").onceStrict()
@@ -63,6 +103,12 @@ final class ApiClientTests: XCTestCase {
         }
     }
 
+    /// When running an `UploadRequest` request.
+    ///
+    /// ## **Expected behaviour:**
+    ///
+    /// - One upload should trigger only one session call.
+    /// - Successful request should not throw
     func test_upload_shouldRunOnlyOnceFor200Ok() async throws {
         // Arrange
         let dataRequestExpectation = expectation(description: "Should call uploadForRequest only once").onceStrict()

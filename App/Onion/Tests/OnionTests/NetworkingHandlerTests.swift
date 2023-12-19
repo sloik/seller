@@ -30,6 +30,13 @@ final class NetworkingHandlerTests: XCTestCase {
         try await super.tearDown()
     }
 
+    /// When running a `Request`
+    ///
+    /// ## **Expected behaviour:**
+    ///
+    /// - `APIClient` should be used to run the request.
+    /// - Data should be returned
+    /// - `HTTPStatus` should be returned
     func test_shouldUseApiClientToRunRequests() async throws {
 
         // Arrange
@@ -52,11 +59,17 @@ final class NetworkingHandlerTests: XCTestCase {
         }
     }
 
+    /// When running a `Request` and it fails
+    ///
+    /// ## **Expected behaviour:**
+    ///
+    /// - request should be retried 3x
+    /// - result of final error should be returned
     func test_run_whenSessionFails_shouldTryRequestMaxThreeTimes() async throws {
         // Arrange
 
         let expectedError = "Some error in running the request!"
-        let dataRequestExpectation = expectation(description: "Should call dataForRequest three times").expect(3).strict()
+        let dataRequestExpectation = expectation(description: "Should call dataForRequest 3 times").expect(3).strict()
 
         let flow = TestsFlow.throwingResponse
 
@@ -68,9 +81,14 @@ final class NetworkingHandlerTests: XCTestCase {
         // Act & Assert
         do {
             try await sut.run( flow )
-            XCTFail("Should throw")
+            XCTFail("Should not throw")
         } catch let error as String {
             XCTAssertEqual(error, expectedError)
+
+            XCTAssertEqual(
+                apiClient.processedRequests.map(\.tag),
+                ["Throwing Request", "Throwing Request", "Throwing Request"]
+            )
 
             await fulfillment(of: [dataRequestExpectation], timeout: 0.1)
         } catch {
