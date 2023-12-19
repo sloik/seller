@@ -40,7 +40,7 @@ class Flow {
 
 // MARK: - Request
 
-struct FlowRequest: UploadRequest {
+struct FlowRequest: UploadRequest, Equatable {
 
     // MARK: Request
     typealias Output = FlowResponse
@@ -81,7 +81,7 @@ extension Flow: Request {
 // MARK: - Response
 
 /// `ContentType` that is returned by the flow.
-struct FlowResponse: ContentType {
+struct FlowResponse: ContentType, Equatable {
     static var mock: Self {
         FlowResponse(payload: "Mock Response")
     }
