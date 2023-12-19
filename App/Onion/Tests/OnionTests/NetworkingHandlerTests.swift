@@ -40,7 +40,7 @@ final class NetworkingHandlerTests: XCTestCase {
     func test_shouldUseApiClientToRunRequests() async throws {
 
         // Arrange
-        let flow = TestsFlow.okResponse
+        let flow = Flow.okResponse
 
         // Act
         do {
@@ -71,7 +71,7 @@ final class NetworkingHandlerTests: XCTestCase {
         let expectedError = "Some error in running the request!"
         let dataRequestExpectation = expectation(description: "Should call dataForRequest 3 times").expect(3).strict()
 
-        let flow = TestsFlow.throwingResponse
+        let flow = Flow.throwingResponse
 
         flow.responseProducer = {
             dataRequestExpectation.fulfill()
@@ -97,6 +97,13 @@ final class NetworkingHandlerTests: XCTestCase {
 
     }
 
+    /// When running a `Request` that has `authorization` header and the
+    /// token is invalid.
+    ///
+    /// ## **Expected behaviour:**
+    ///
+    /// - should try to refresh token
+    /// - when refreshed the initial request should be retried
     func test_tryToRunAndRefreshTokenWhenNeededAndRetryTheRequest() async throws {
         // Arrange
         let didRefreshToken = expectation(description: "Did not refresh token!").onceStrict()
@@ -104,11 +111,11 @@ final class NetworkingHandlerTests: XCTestCase {
 
         let fulfillRetryRequestAndReturnOkResponse: ThrowsProducer<(FlowResponse, HTTPResponse)> = {
             didRetryTheRequest.fulfill()
-            return try TestsFlow.okResponse.response
+            return try Flow.okResponse.response
         }
 
         // Start with a flow that need a token and throws an unauthorized response error.
-        let flow = TestsFlow.unauthorizedResponse
+        let flow = Flow.unauthorizedResponse
         flow.responseProducer = {
             throw OnionError.notSuccessStatus(response: .init(status: .unauthorized), data: Data())
         }

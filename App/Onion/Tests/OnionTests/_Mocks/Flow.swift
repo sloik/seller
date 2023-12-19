@@ -5,8 +5,6 @@ import HTTPTypes
 import Foundation
 import AliasWonderland
 
-typealias TestsFlow = Flow
-
 /// Type that is a `request` and `upload request` together with 
 /// a definition of a response that should be returned from
 /// the network.
@@ -23,6 +21,11 @@ class Flow {
     }
 
     // MARK: Configuration
+
+    /// Closure called when `response` is accessed. 
+    ///
+    /// You can use this also as a point to rigger any other action in the
+    /// test. As long as it returns the desired response.
     var responseProducer: ThrowsProducer<(FlowResponse, HTTPResponse)>?
 
     var responseData: (Data, HTTPResponse) {
@@ -93,8 +96,8 @@ struct FlowResponse: ContentType, Equatable {
 // MARK: - Factory
 
 extension Flow {
-    static var okResponse: TestsFlow {
-        let flow = TestsFlow(request: .stringRequest)
+    static var okResponse: Flow {
+        let flow = Flow(request: .stringRequest)
 
         flow.responseProducer = {
             (.mock, HTTPResponse(status: .ok))
@@ -104,8 +107,8 @@ extension Flow {
         return flow
     }
 
-    static var unauthorizedResponse: TestsFlow {
-        let flow = TestsFlow(request: .stringRequest)
+    static var unauthorizedResponse: Flow {
+        let flow = Flow(request: .stringRequest)
 
         flow.request.headerFields = [HTTPField.Name.authorization : .bearer("token")]
         flow.responseProducer = {
@@ -116,16 +119,16 @@ extension Flow {
         return flow
     }
 
-    static var throwingResponse: TestsFlow {
-        let flow = TestsFlow(request: .stringRequest)
+    static var throwingResponse: Flow {
+        let flow = Flow(request: .stringRequest)
         flow.responseProducer = { throw "Request failed!" }
         flow.tag = "Throwing Request"
 
         return flow
     }
 
-    static var uploadResponse: TestsFlow{
-        let flow = TestsFlow(request: .stringRequest)
+    static var uploadResponse: Flow {
+        let flow = Flow(request: .stringRequest)
 
         flow.responseProducer = {
             (.mock, HTTPResponse(status: .ok))
