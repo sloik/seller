@@ -145,23 +145,4 @@ final class NetworkingHandlerTests: XCTestCase {
             XCTFail("No erros should be thrown!")
         }
     }
-
-//    func test_tryToRunAndRefreshTokenWhenNeeded_whenRefreshTokenThrows() async throws {
-//
-//        let apiClient = MockAPIClient()
-//        let loginHandler = MockLoginHandler(shouldThrow: true)
-//
-//        let networkingHandler = NetworkingHandler(
-//            apiClient: apiClient,
-//            loginHandler: loginHandler
-//        )
-//
-//        let request = MockRequest()
-//        do {
-//            _ = try await networkingHandler.run(request)
-//            XCTFail("Should have thrown")
-//        } catch {
-//            XCTAssertEqual(error.localizedDescription, "MockLoginHandler.refreshToken throws")
-//        }
-//    }
 }
