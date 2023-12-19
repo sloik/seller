@@ -8,12 +8,24 @@ import AliasWonderland
 /// Type that is a `request` and `upload request` together with 
 /// a definition of a response that should be returned from
 /// the network.
+///
+/// `Flow` also conforms to `UploadRequest` so it can be used
+/// as a `Request` object. All call are forwarded to appropriate
+/// properties.
 class Flow {
-
+    
+    /// Identifier for the flow.
     var tag: String = ""
 
+    /// Request that should be used to run the flow.
     var request: FlowRequest
 
+    /// Response that should be returned when running the flow.
+    /// 
+    /// This of this as a __backend response__ that contains
+    /// the `data` (`FlowResponse`) and `response` (`HTTPResponse`).
+    ///
+    /// `responseProducer` closure is called each time accessing this property.
     var response: (FlowResponse, HTTPResponse) {
         get throws {
             try responseProducer!()
@@ -28,6 +40,14 @@ class Flow {
     /// test. As long as it returns the desired response.
     var responseProducer: ThrowsProducer<(FlowResponse, HTTPResponse)>?
 
+    /// Response that should be returned when running the flow.
+    ///
+    /// This of this as a __backend response__ that contains
+    /// the `data` (`Data`) and `response` (`HTTPResponse`).
+    /// This form of response is more close to the bottom parts
+    /// of the stack (before `Codable` is used).
+    ///
+    /// `responseProducer` closure is called each time accessing this property.
     var responseData: (Data, HTTPResponse) {
         get throws {
             let (output, response) = try response
@@ -43,6 +63,8 @@ class Flow {
 
 // MARK: - Request
 
+
+/// Type used for describing all requests in tests.
 struct FlowRequest: UploadRequest, Equatable {
 
     // MARK: Request
