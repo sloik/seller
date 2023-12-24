@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/sloik/AliasWonderland.git",
       "state" : {
-        "revision" : "46f7667556438502bbc1f7bcf05aae03f1ee4e98",
-        "version" : "4.0.0"
+        "revision" : "29951552c3b6265a8f1ef8904ca39a40f78b1ea6",
+        "version" : "4.0.1"
       }
     },
     {
@@ -52,6 +52,24 @@
       "state" : {
         "revision" : "1827dc94bdab2eb5f2fc804e9b0cb43574282566",
         "version" : "1.0.2"
+      }
+    },
+    {
+      "identity" : "swift-snapshot-testing",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/swift-snapshot-testing",
+      "state" : {
+        "revision" : "59b663f68e69f27a87b45de48cb63264b8194605",
+        "version" : "1.15.1"
+      }
+    },
+    {
+      "identity" : "swift-syntax",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-syntax.git",
+      "state" : {
+        "revision" : "6ad4ea24b01559dde0773e3d091f1b9e36175036",
+        "version" : "509.0.2"
       }
     }
   ],
