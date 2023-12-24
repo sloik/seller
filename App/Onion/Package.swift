@@ -30,6 +30,11 @@ let package = Package(
         ),
 
         .package(
+            url: "https://github.com/pointfreeco/swift-snapshot-testing",
+            from: "1.15.1"
+        ),
+
+        .package(
             url: "https://github.com/sloik/AliasWonderland.git",
             from: "4.0.1"
         ),
@@ -71,6 +76,7 @@ let package = Package(
             dependencies: [
                 "Onion",
                 "ExTests",
+                .product(name: "InlineSnapshotTesting", package: "swift-snapshot-testing"),
             ]
         ),
     ]

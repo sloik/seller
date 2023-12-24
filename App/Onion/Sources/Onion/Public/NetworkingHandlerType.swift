@@ -16,7 +16,7 @@ public protocol NetworkingHandlerType {
 
 // MARK: - Mock
 
-public final class MockNetworkingHandler: NetworkingHandlerType {
+open class MockNetworkingHandler: NetworkingHandlerType {
 
     public init() {}
 

@@ -63,7 +63,7 @@ public final class APIClient: APIClientType {
 
         let httpRequest = httpRequest(from: request)
 
-        let (data, httpResponse) = try await session.upload(for: httpRequest, from: request.bodyData)
+        let (data, httpResponse) = try await session.upload(for: httpRequest, from: request.body.data)
 
         return try commonValidationAndDecode(request: request, data: data, httpResponse: httpResponse)
     }
