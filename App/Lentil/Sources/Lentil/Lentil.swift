@@ -78,3 +78,12 @@ public extension LentilUseCases {
         try await Cumin.auth.fetchNewTokenUsingRefreshToken()
     }
 }
+
+
+extension LentilUseCases: LoginHandlerType {
+
+    public var token: String? {
+        userToken
+    }
+    
+}
