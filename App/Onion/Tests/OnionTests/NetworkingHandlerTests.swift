@@ -172,7 +172,7 @@ final class NetworkingHandlerTests: XCTestCase {
 
         // Act & Assert
         do {
-            let (output, response) = try await sut.run(flow)
+            let _ = try await sut.run(flow)
 
             XCTFail("Should throw an error!")
         } catch NetworkingHandlerError.unableToRefreshToken(let underlyingError) {
@@ -203,7 +203,7 @@ final class NetworkingHandlerTests: XCTestCase {
 
         // Act & Assert
         do {
-            let (output, response) = try await sut.run(flow)
+            let _ = try await sut.run(flow)
 
             XCTFail("Should throw an error!")
         } catch let error as String {
