@@ -9,6 +9,7 @@ import HTTPTypesFoundation
 import HTTPTypes
 
 import AliasWonderland
+import OptionalAPI
 
 private let logger = Logger(subsystem: "Onion", category: "API Client")
 
@@ -52,8 +53,13 @@ public final class APIClient: APIClientType {
 
         let (data, httpResponse) = try await session.data(for: httpRequest)
 
-        logger.debug("\(type(of: self)) \(#function) \(requestID)> Response: \(httpResponse.debugDescription)")
-        logger.debug("\(type(of: self)) \(#function) \(requestID)>     Data: \(String(data: data, encoding: .utf8) ?? "-")")
+        logger.debug(
+            """
+            \(type(of: self)) \(#function) \(requestID)> 
+                Response: \(httpResponse.debugDescription)
+                    Data: \(String(data: data, encoding: .utf8) ?? "-")
+            """
+        )
 
         return try commonValidationAndDecode(request: request, data: data, httpResponse: httpResponse)
     }

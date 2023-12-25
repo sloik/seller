@@ -145,4 +145,75 @@ final class NetworkingHandlerTests: XCTestCase {
             XCTFail("No erros should be thrown!")
         }
     }
+
+
+    /// When running a `Request` that has `authorization` header 
+    /// **and** the the token is invalid,
+    /// **and** unable to refresh token.
+    ///
+    /// ## **Expected behaviour:**
+    ///
+    /// - should throw an error that cannot refresh token
+    func test_run_shouldThrowAnErrorWhenUnableToRefreshToken() async throws {
+
+        // Arrange
+
+        // Start with a flow that need a token and throws an unauthorized response error.
+        let flow = Flow.unauthorizedResponse
+        flow.responseProducer = {
+            throw OnionError.notSuccessStatus(response: .init(status: .unauthorized), data: Data())
+        }
+
+        // Throw an error when trying to refresh token
+        let expectedError = "Simulated error while refreshing token"
+        loginHandler.refreshTokenClosure = { _ in
+            throw expectedError
+        }
+
+        // Act & Assert
+        do {
+            let (output, response) = try await sut.run(flow)
+
+            XCTFail("Should throw an error!")
+        } catch NetworkingHandlerError.unableToRefreshToken(let underlyingError) {
+            XCTAssertEqual(
+                underlyingError as? String,
+                expectedError,
+                "Should pass the underlying error from the refresh token method!"
+            )
+        } catch {
+            XCTFail("Should throw a different error but got: \(error)")
+        }
+    }
+
+    
+    /// When running a `Request` that has `authorization` header
+    /// **and** the the token is invalid,
+    /// **and** error is unknown or unexpected
+    ///
+    /// ## **Expected behaviour:**
+    ///
+    /// - should rethrow the underlying error to the upper layers
+    func test_run_shouldRethrowAnyNotHandeledErrors() async throws {
+        // Arrange
+        let expectedError = "Some error did occur"
+
+        let flow = Flow.unauthorizedResponse
+        flow.responseProducer = { throw expectedError }
+
+        // Act & Assert
+        do {
+            let (output, response) = try await sut.run(flow)
+
+            XCTFail("Should throw an error!")
+        } catch let error as String {
+            XCTAssertEqual(
+                error,
+                expectedError,
+                "Should pass the underlying error from the refresh token method!"
+            )
+        } catch {
+            XCTFail("Should throw a different error but got: \(error)")
+        }
+    }
 }
