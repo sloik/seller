@@ -17,3 +17,24 @@ struct ListUserThreads: ContentType, Paginated {
     let offset: UInt
     let limit: UInt
 }
+
+extension ListUserThreads.Thread {
+    static var mock: ListUserThreads.Thread {
+        .init(
+            id: "1",
+            read: false, 
+            lastMessageDateTime: .none,
+            interlocutor: .none
+        )
+    }
+}
+
+extension ListUserThreads {
+    static var mock: Self {
+        .init(threads: [.mock, .mock], offset: 0, limit: 0)
+    }
+
+    static var empty: Self {
+        .init(threads: [], offset: 0, limit: 0)
+    }
+}
