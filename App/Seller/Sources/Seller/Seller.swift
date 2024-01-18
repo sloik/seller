@@ -33,7 +33,8 @@ public final class Seller {
         )
 
         lettuceFactory = LettuceFactory(
-            networkingHandler: networkingHandler
+            networkingHandler: networkingHandler, 
+            tokenProvider: { Lentil.token }
         )
     }
 

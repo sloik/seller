@@ -37,6 +37,9 @@ struct MainView: View {
 
     MainView(
         acornFactory: .init(networkingHandler: MockNetworkingHandler()),
-        lettuceFactory: .init(networkingHandler: MockNetworkingHandler())
+        lettuceFactory: .init(
+            networkingHandler: MockNetworkingHandler(),
+            tokenProvider: { "token" }
+        )
     )
 }

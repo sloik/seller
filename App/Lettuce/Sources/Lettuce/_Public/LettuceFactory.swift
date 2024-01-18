@@ -2,16 +2,20 @@
 import Foundation
 import SwiftUI
 
+import AliasWonderland
 import Onion
 
 public final class LettuceFactory {
     
     private let networkingHandler: NetworkingHandlerType
+    private let tokenProvider: Producer<String?>
 
     public init(
-        networkingHandler: NetworkingHandlerType
+        networkingHandler: NetworkingHandlerType,
+        tokenProvider: @escaping Producer<String?>
     ) {
         self.networkingHandler = networkingHandler
+        self.tokenProvider = tokenProvider
     }
 }
 
@@ -29,7 +33,10 @@ public extension LettuceFactory {
 extension LettuceFactory {
 
     var myMessagesViewModel: MyMessagesViewModel {
-        .init(networkingHandler: networkingHandler)
+        .init(
+            networkingHandler: networkingHandler,
+            tokenProvider: tokenProvider
+        )
     }
 
 }

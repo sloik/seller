@@ -1,6 +1,8 @@
 // system
 import Observation
 import Foundation
+
+import AliasWonderland
 import Onion
 
 struct MessagesFilterType: Identifiable, Hashable {
@@ -16,7 +18,7 @@ class MyMessagesViewModel {
     var showingFilterSearchPopup = false
 
     private let networkingHandler: NetworkingHandlerType
-
+    private let tokenProvider: Producer<String?>
     private(set) var threads: ListUserThreads = .empty
 
     var filterTypes = [
@@ -25,12 +27,14 @@ class MyMessagesViewModel {
     ]
 
     init(
-        networkingHandler: NetworkingHandlerType
+        networkingHandler: NetworkingHandlerType,
+        tokenProvider: @escaping Producer<String?>
     ) {
         self.networkingHandler = networkingHandler
+        self.tokenProvider = tokenProvider
 
         Task {
-            self.threads = await self.fetchMessages()
+            self.threads = (try? await self.fetchMessages()) ?? .empty
         }
     }
 
@@ -39,7 +43,20 @@ class MyMessagesViewModel {
 
 extension MyMessagesViewModel {
 
-    func fetchMessages() async -> ListUserThreads {
-        return .mock
+    var token: String  {
+        get throws {
+            guard let token = tokenProvider() else {
+                throw Errors.unableToGetToken
+            }
+            return token
+        }
+    }
+
+    func fetchMessages() async throws -> ListUserThreads {
+        let request = GetListUserThreads(token: try token)
+
+        let (result, _) = try await networkingHandler.run(request)
+
+        return result
     }
 }
