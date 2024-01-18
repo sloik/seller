@@ -5,12 +5,12 @@ import Lentil
 
 public final class AcornFactory {
 
-    private let apiClient: APIClientType
+    private let networkingHandler: NetworkingHandlerType
 
     public init(
-        apiClient: APIClientType
+        networkingHandler: NetworkingHandlerType
     ) {
-        self.apiClient = apiClient
+        self.networkingHandler = networkingHandler
     }
 }
 
@@ -18,7 +18,7 @@ public final class AcornFactory {
 
 public extension AcornFactory {
     /// Main entry point view for user profile.
-    func makeAccountView() -> some View {
+    func makeEntryView() -> some View {
         MyAccountView(model: myAccountViewModel)
     }
 }
@@ -29,13 +29,6 @@ extension AcornFactory {
 
     var loginHandler: LoginHandlerType {
         Lentil
-    }
-
-    var networkingHandler: NetworkingHandlerType {
-        NetworkingHandler(
-            apiClient: apiClient,
-            loginHandler: loginHandler
-        )
     }
 
     var myAccountViewModel: MyAccountViewModel {

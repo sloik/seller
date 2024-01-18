@@ -1,14 +1,18 @@
 
-import Lentil
-import SwiftUI
-import OptionalAPI
-import Onion
-import SecretsStore
 import Acorn
+import Lentil
+import Lettuce
+import Onion
+import OptionalAPI
+import SecretsStore
+import SwiftUI
 
 public final class Seller {
 
     private var acornFactory: AcornFactory!
+    private var lettuceFactory: LettuceFactory!
+
+    private var networkingHandler: NetworkingHandlerType!
 
     public init() {
     }
@@ -22,13 +26,22 @@ public final class Seller {
                 secrets: configuration.secrets
             )
 
+        networkingHandler = NetworkingHandler(apiClient: configuration.restApiClient, loginHandler: Lentil)
+
         acornFactory = AcornFactory(
-            apiClient: configuration.restApiClient
+            networkingHandler: networkingHandler
+        )
+
+        lettuceFactory = LettuceFactory(
+            networkingHandler: networkingHandler
         )
     }
 
     public var body: some View {
-        MainView(acornFactory: self.acornFactory)
+        MainView(
+            acornFactory: self.acornFactory,
+            lettuceFactory: self.lettuceFactory
+        )
     }
 }
 

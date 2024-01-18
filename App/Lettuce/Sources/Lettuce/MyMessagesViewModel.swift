@@ -1,6 +1,7 @@
 // system
 import Observation
 import Foundation
+import Onion
 
 struct MessagesFilterType: Identifiable, Hashable {
     let id = UUID()
@@ -8,10 +9,13 @@ struct MessagesFilterType: Identifiable, Hashable {
     let isChecked: Bool
 }
 
-@Observable class MyMessagesViewModel {
-   
+@Observable 
+class MyMessagesViewModel {
+
     var searchFilterTextField: String = ""
     var showingFilterSearchPopup = false
+
+    private let networkingHandler: NetworkingHandlerType
 
     private(set) var threads: ListUserThreads = .empty
 
@@ -20,11 +24,16 @@ struct MessagesFilterType: Identifiable, Hashable {
         MessagesFilterType(title: "Bez odpowiedzi", isChecked: false)
     ]
 
-    init() {
+    init(
+        networkingHandler: NetworkingHandlerType
+    ) {
+        self.networkingHandler = networkingHandler
+
         Task {
             self.threads = await self.fetchMessages()
         }
     }
+
 }
 
 

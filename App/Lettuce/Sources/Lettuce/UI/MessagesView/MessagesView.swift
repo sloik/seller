@@ -7,11 +7,13 @@ import Utilities
 // 3rd
 import OptionalAPI
 
-public struct MessagesView: View {
-    private var viewModel = MyMessagesViewModel()
+struct MessagesView: View {
+    @State private var viewModel: MyMessagesViewModel
     @State private var shouldNavigate = true
 
-    public init() {}
+    init(model: MyMessagesViewModel) {
+        self.viewModel = model
+    }
 
     public var body: some View {
         NavigationStack {
@@ -35,6 +37,6 @@ public struct MessagesView: View {
     }
 }
 
-#Preview {
-    MessagesView()
-}
+//#Preview {
+//    MessagesView()
+//}

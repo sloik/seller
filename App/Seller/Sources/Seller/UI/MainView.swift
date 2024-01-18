@@ -2,19 +2,20 @@
 import SwiftUI
 
 // local
-import Utilities
-import Lettuce
 import Acorn
+import Lettuce
 import Onion
+import Utilities
 
 struct MainView: View {
 
     let acornFactory: AcornFactory
+    let lettuceFactory: LettuceFactory
 
     var body: some View {
         TabView {
             Group {
-                MessagesView()
+                lettuceFactory.makeEntryView()
                     .tabItem {
                         TabBarIcon(imageName: "messageTabIcon", titleName: "Wiadomości")
                     }
@@ -22,7 +23,7 @@ struct MainView: View {
                     .tabItem {
                         TabBarIcon(imageName: "orderTabIcon", titleName: "Zamówienia")
                     }
-                acornFactory.makeAccountView()
+                acornFactory.makeEntryView()
                     .tabItem {
                         TabBarIcon(imageName: "accountTabIcon", titleName: "Konto")
                     }
@@ -35,6 +36,7 @@ struct MainView: View {
 #Preview {
 
     MainView(
-        acornFactory: .init(apiClient: MockApiClient())
+        acornFactory: .init(networkingHandler: MockNetworkingHandler()),
+        lettuceFactory: .init(networkingHandler: MockNetworkingHandler())
     )
 }
