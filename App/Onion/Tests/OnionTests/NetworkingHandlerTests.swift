@@ -216,4 +216,8 @@ final class NetworkingHandlerTests: XCTestCase {
             XCTFail("Should throw a different error but got: \(error)")
         }
     }
+
+    func test_run_whenTokenIsRefresh_shouldUpdateRequestWithNewToken() async throws {
+        XCTFail("Test not implemented")
+    }
 }
