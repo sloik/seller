@@ -3,6 +3,8 @@ import Foundation
 import SwiftUI
 import Observation
 
+import Seller
+
 struct DebugView: View {
     @Environment(\.dismiss) var dismiss
 
@@ -29,6 +31,16 @@ struct DebugView: View {
                             }
                         }
                     }
+                }
+
+                Section(header: HeaderView(text: "🏃🏻‍♂️ Actions")) {
+
+                    Button("Force Refresh Token") {
+                        Task {
+                            try? await CurrentSeller.refreshToken()
+                        }
+                    }
+
                 }
             #if os(iOS)
                 .listStyle(InsetGroupedListStyle())

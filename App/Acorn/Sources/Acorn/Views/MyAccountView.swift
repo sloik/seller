@@ -27,31 +27,6 @@ struct MyAccountView: View {
                     .onAppear(perform: model.onAppear)
 
             }
-
-            #if DEBUG
-
-            DebugView(model: $model)
-                .padding()
-
-            #endif
-        }
-    }
-}
-
-private struct DebugView: View {
-
-    @Binding var model: MyAccountViewModel
-
-    var body: some View {
-
-        VStack(alignment: .leading) {
-            "🩺 Debug"
-                .font(.headline)
-                .padding([.top, .trailing, .bottom], 20)
-
-            Button("Force Refresh Token") {
-                model.didTapRefreshToken()
-            }
         }
     }
 }

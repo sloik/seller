@@ -74,4 +74,8 @@ public extension Seller {
     var secrets: SecretsStoreType {
         Lentil.secrets
     }
+
+    func refreshToken() async throws {
+        try await Lentil.refreshToken()
+    }
 }
