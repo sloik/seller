@@ -19,7 +19,9 @@ struct UserProfileView: View {
                             Image(systemName: "bell.circle.fill")
                                 .resizable()
                                 .frame(width: 24, height: 24)
+                            #if !os(macOS)
                                 .foregroundColor(Color(.systemGray4))
+                            #endif
 
                             "Option \(option)"
                         }
@@ -48,7 +50,9 @@ private struct UserAvatarView: View {
             Image(systemName: "person.circle.fill")
                 .resizable()
                 .frame(width: 80, height: 80)
+            #if !os(macOS)
                 .foregroundColor(Color(.systemGray4))
+            #endif
 
             "\(login)"
                 .font(.title2)
