@@ -8,6 +8,8 @@ import Utilities
 import OptionalAPI
 
 struct MessagesView: View {
+    @Environment(LettuceFactory.self) private var factory
+
     @State private var viewModel: MyMessagesViewModel
     @State private var shouldNavigate = true
 
@@ -22,11 +24,15 @@ struct MessagesView: View {
                     .frame(height: 77)
                 ScrollView {
                     VStack(spacing: 17) {
-                        NavigationLink(destination: MessageDetailNavigationView(viewModel: MessageDetailChatViewModel())) {
+                        NavigationLink(
+                            destination: MessageDetailNavigationView(viewModel: factory.detailChatViewModel())
+                        ) {
                             MessagePreview()
                                 .design(padding: .bigger(.top))
                         }
-                        NavigationLink(destination: MessageDetailNavigationView(viewModel: MessageDetailChatViewModel())) {
+                        NavigationLink(
+                            destination: MessageDetailNavigationView(viewModel: factory.detailChatViewModel())
+                        ) {
                             MessagePreview(hasAttachment: true)
                         }
                     }
