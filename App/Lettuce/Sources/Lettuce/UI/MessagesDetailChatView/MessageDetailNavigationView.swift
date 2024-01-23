@@ -18,6 +18,13 @@ struct MessageDetailNavigationView: View {
                 NavigationHeaderMessageDetailView()
                 Divider()
                     .overlay( .design(color: .gray71, with: colorScheme) )
+
+                ForEach(viewModel.messages.messages) { message in
+                    message.text
+                }
+
+                Divider()
+
                 ScrollView {
                     Text("Today")
                         .design(padding: .big([.top, .bottom]))
@@ -29,6 +36,7 @@ struct MessageDetailNavigationView: View {
                 }
                 Spacer()
                 TypeMessageView(viewModel: viewModel).ignoresSafeArea(.all)
+                Spacer()
             }
             .navigationBarBackButtonHidden(true)
             #if canImport(UIKit)

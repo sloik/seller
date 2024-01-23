@@ -6,7 +6,15 @@ import HTTPTypes
 import Onion
 
 struct ListMessagesInThreadRequest: PaginatedRequest {
-    typealias Output = [Message]
+
+    struct PaginatedMessages: ContentType, Paginated {
+        let offset: UInt
+        let limit: UInt
+
+        let messages: [Message]
+    }
+
+    typealias Output = PaginatedMessages
     
     var path: String {
         var components = URLComponents()
@@ -21,7 +29,7 @@ struct ListMessagesInThreadRequest: PaginatedRequest {
     var headerFields: HTTPFields {
         [
             HTTPField.Name.authorization : .bearer(token),
-            HTTPField.Name.contentType : .applicationVndAllegroV1Json
+            HTTPField.Name.accept : .applicationVndAllegroV1Json
         ]
     }
     

@@ -13,8 +13,9 @@ import Onion
 
     private let networkingHandler: NetworkingHandlerType
     private let tokenProvider: Producer<String?>
-    private var messages: [Message] = []
     private var thread: ListUserThreads.Thread
+
+    private(set) var messages: ListMessagesInThreadRequest.PaginatedMessages = .init(offset: 0, limit: 0, messages: [])
 
     init(
         networkingHandler: NetworkingHandlerType,
@@ -26,7 +27,30 @@ import Onion
         self.thread = thread
 
         Task {
-            self.messages = []
+            self.messages = try await fetchMessages()
         }
+    }
+}
+
+private extension MessageDetailChatViewModel {
+
+    var token: String  {
+        get throws {
+            guard let token = tokenProvider() else {
+                throw Errors.unableToGetToken
+            }
+            return token
+        }
+    }
+
+    func fetchMessages() async throws -> ListMessagesInThreadRequest.PaginatedMessages {
+        let request = ListMessagesInThreadRequest(
+            token: try token,
+            threadId: thread.id
+        )
+
+        let (result, _) = try await networkingHandler.run(request)
+
+        return result
     }
 }

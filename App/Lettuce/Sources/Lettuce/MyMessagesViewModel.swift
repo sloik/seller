@@ -34,7 +34,7 @@ class MyMessagesViewModel {
         self.tokenProvider = tokenProvider
 
         Task {
-            self.threads = (try? await self.fetchMessages()) ?? .empty
+            self.threads = (try? await self.fetchThreads()) ?? .empty
         }
     }
 
@@ -52,7 +52,7 @@ extension MyMessagesViewModel {
         }
     }
 
-    func fetchMessages() async throws -> ListUserThreads {
+    func fetchThreads() async throws -> ListUserThreads {
         let request = GetListUserThreads(token: try token)
 
         let (result, _) = try await networkingHandler.run(request)
