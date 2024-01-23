@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/sloik/OptionalAPI.git",
       "state" : {
-        "revision" : "ec30267576e00f36fdcd53f1d050abbfa8f716ec",
-        "version" : "5.1.2"
+        "revision" : "068491d82d6453f447b7b8522fe8e744abbd683e",
+        "version" : "5.2.0"
       }
     },
     {
