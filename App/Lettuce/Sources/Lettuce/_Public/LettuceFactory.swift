@@ -42,10 +42,13 @@ extension LettuceFactory {
         )
     }
 
-    func detailChatViewModel() -> MessageDetailChatViewModel {
+    func detailChatViewModel(
+        thread: ListUserThreads.Thread
+    ) -> MessageDetailChatViewModel {
         .init(
             networkingHandler: networkingHandler,
-            tokenProvider: tokenProvider
+            tokenProvider: tokenProvider,
+            thread: thread
         )
     }
 

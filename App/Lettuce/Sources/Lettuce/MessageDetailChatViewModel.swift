@@ -14,13 +14,16 @@ import Onion
     private let networkingHandler: NetworkingHandlerType
     private let tokenProvider: Producer<String?>
     private var messages: [Message] = []
+    private var thread: ListUserThreads.Thread
 
     init(
         networkingHandler: NetworkingHandlerType,
-        tokenProvider: @escaping Producer<String?>
+        tokenProvider: @escaping Producer<String?>,
+        thread: ListUserThreads.Thread
     ) {
         self.networkingHandler = networkingHandler
         self.tokenProvider = tokenProvider
+        self.thread = thread
 
         Task {
             self.messages = []

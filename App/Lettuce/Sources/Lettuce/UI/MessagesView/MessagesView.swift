@@ -25,15 +25,25 @@ struct MessagesView: View {
                 ScrollView {
                     VStack(spacing: 17) {
                         NavigationLink(
-                            destination: MessageDetailNavigationView(viewModel: factory.detailChatViewModel())
+                            destination: MessageDetailNavigationView(viewModel: factory.detailChatViewModel(thread: .mock))
                         ) {
                             MessagePreview()
                                 .design(padding: .bigger(.top))
                         }
                         NavigationLink(
-                            destination: MessageDetailNavigationView(viewModel: factory.detailChatViewModel())
+                            destination: MessageDetailNavigationView(viewModel: factory.detailChatViewModel(thread: .mock))
                         ) {
                             MessagePreview(hasAttachment: true)
+                        }
+
+                        ForEach(viewModel.threads.threads) { (thread: ListUserThreads.Thread) in
+
+                            NavigationLink {
+                                MessageDetailNavigationView(viewModel: factory.detailChatViewModel(thread: thread))
+                            } label: {
+                                thread.interlocutor?.login ?? "Unknown"
+                            }
+
                         }
                     }
                 }
