@@ -15,7 +15,7 @@ import Onion
     private let tokenProvider: Producer<String?>
     private var thread: ListUserThreads.Thread
 
-    private(set) var messages: ListMessagesInThreadRequest.PaginatedMessages = .init(offset: 0, limit: 0, messages: [])
+    private(set) var messages: MessagesInThread = .init(messages: [], offset: 0, limit: 0)
 
     init(
         networkingHandler: NetworkingHandlerType,
@@ -43,7 +43,7 @@ private extension MessageDetailChatViewModel {
         }
     }
 
-    func fetchMessages() async throws -> ListMessagesInThreadRequest.PaginatedMessages {
+    func fetchMessages() async throws -> MessagesInThread {
         let request = ListMessagesInThreadRequest(
             token: try token,
             threadId: thread.id

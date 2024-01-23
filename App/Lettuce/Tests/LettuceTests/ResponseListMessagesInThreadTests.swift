@@ -90,10 +90,10 @@ final class ResponseListMessagesInThreadTests: XCTestCase {
         }
         """
         // Act
-        let result = try JSONDecoder().decode(MessageInThread.self, from: jsonString.data(using: .utf8)!)
+        let result = try JSONDecoder().decode(MessagesInThread.self, from: jsonString.data(using: .utf8)!)
         
         // Assert
-        let expectedResult = MessageInThread(
+        let expectedResult = MessagesInThread(
             messages: [Message(
                 id: "string",
                 status: Message.Status.verifying,

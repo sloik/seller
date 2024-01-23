@@ -7,15 +7,8 @@ import Onion
 
 struct ListMessagesInThreadRequest: PaginatedRequest {
 
-    struct PaginatedMessages: ContentType, Paginated {
-        let offset: UInt
-        let limit: UInt
+    typealias Output = MessagesInThread
 
-        let messages: [Message]
-    }
-
-    typealias Output = PaginatedMessages
-    
     var path: String {
         var components = URLComponents()
         let defaultPath = "/messaging/threads/\(threadId)/messages"
