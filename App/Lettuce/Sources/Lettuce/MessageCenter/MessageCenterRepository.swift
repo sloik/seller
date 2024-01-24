@@ -46,7 +46,7 @@ private extension MessageCenterRepository {
         }
     }
 
-    func fetchAllMessages(for threads: [MessageCenterThread]) async throws {
+    func fetchMessages(threads: [MessageCenterThread]) async throws {
         let result = try await withThrowingTaskGroup(
             of: (MessageCenterThread, MessagesInThread).self,
             returning: [MessageCenterThread: [Message]].self
@@ -80,7 +80,7 @@ extension MessageCenterRepository {
 
         let (result, _) = try await networkingHandler.run(request)
 
-        try await fetchAllMessages(for: result.threads)
+        try await fetchMessages(threads: result.threads)
     }
 }
 
