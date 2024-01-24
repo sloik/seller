@@ -54,9 +54,8 @@ extension LettuceFactory {
         thread: ListUserThreads.Thread
     ) -> MessageDetailChatViewModel {
         .init(
-            networkingHandler: networkingHandler,
-            tokenProvider: tokenProvider,
-            thread: thread
+            thread: thread, 
+            messageCenter: messageCenter
         )
     }
 

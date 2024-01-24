@@ -20,3 +20,25 @@ final class MessageCenterRepository {
     }
 
 }
+
+extension MessageCenterRepository {
+    var token: String  {
+        get throws {
+            guard let token = tokenProvider() else {
+                throw Errors.unableToGetToken
+            }
+            return token
+        }
+    }
+
+    func fetchMessages(_ thread: ListUserThreads.Thread) async throws -> MessagesInThread {
+        let request = ListMessagesInThreadRequest(
+            token: try token,
+            threadId: thread.id
+        )
+
+        let (result, _) = try await networkingHandler.run(request)
+
+        return result
+    }
+}
