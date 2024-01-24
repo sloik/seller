@@ -17,8 +17,11 @@ class ThreadsViewModel {
     var searchFilterTextField: String = ""
     var showingFilterSearchPopup = false
 
-    private(set) var threads: ListUserThreads = .empty
     private let messageCenter: MessageCenterRepository
+
+    var threads: [ListUserThreads.Thread] {
+        messageCenter.threads
+    }
 
     var filterTypes = [
         MessagesFilterType(title: "Nieprzeczytane", isChecked: false),
@@ -31,7 +34,7 @@ class ThreadsViewModel {
         self.messageCenter = messageCenter
 
         Task {
-            self.threads = (try? await self.messageCenter.fetchThreads()) ?? .empty
+            try? await self.messageCenter.fetchThreads()
         }
     }
 

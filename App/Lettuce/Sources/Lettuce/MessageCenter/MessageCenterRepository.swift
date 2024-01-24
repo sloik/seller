@@ -11,6 +11,8 @@ final class MessageCenterRepository {
     private let networkingHandler: NetworkingHandlerType
     private let tokenProvider: Producer<String?>
 
+    private(set) var threads: [ListUserThreads.Thread] = []
+
     init(
         networkingHandler: NetworkingHandlerType,
         tokenProvider: @escaping Producer<String?>
@@ -42,11 +44,11 @@ extension MessageCenterRepository {
         return result
     }
 
-    func fetchThreads() async throws -> ListUserThreads {
+    func fetchThreads() async throws  {
         let request = GetListUserThreads(token: try token)
 
         let (result, _) = try await networkingHandler.run(request)
 
-        return result
+        self.threads = result.threads
     }
 }

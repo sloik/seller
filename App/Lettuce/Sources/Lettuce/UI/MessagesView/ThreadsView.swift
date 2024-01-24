@@ -25,7 +25,7 @@ struct ThreadsView: View {
                     .frame(height: 77)
                 ScrollView {
                     VStack(spacing: 17) {
-                        ForEach(viewModel.threads.threads) { (thread: ListUserThreads.Thread) in
+                        ForEach(viewModel.threads) { (thread: ListUserThreads.Thread) in
 
                             NavigationLink {
                                 MessageDetailNavigationView(viewModel: factory.detailChatViewModel(thread: thread))
