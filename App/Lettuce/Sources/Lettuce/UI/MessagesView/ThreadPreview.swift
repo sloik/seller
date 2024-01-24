@@ -1,7 +1,7 @@
 // system
 import SwiftUI
 
-struct MessagePreview: View {
+struct ThreadPreview: View {
     init(hasAttachment: Bool = false, hasUnreadMessages: Bool = false) {
         self.hasAttachment = hasAttachment
         self.hasUnreadMessages = hasUnreadMessages

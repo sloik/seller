@@ -27,13 +27,13 @@ struct ThreadsView: View {
                         NavigationLink(
                             destination: MessageDetailNavigationView(viewModel: factory.detailChatViewModel(thread: .mock))
                         ) {
-                            MessagePreview()
+                            ThreadPreview()
                                 .design(padding: .bigger(.top))
                         }
                         NavigationLink(
                             destination: MessageDetailNavigationView(viewModel: factory.detailChatViewModel(thread: .mock))
                         ) {
-                            MessagePreview(hasAttachment: true)
+                            ThreadPreview(hasAttachment: true)
                         }
 
                         ForEach(viewModel.threads.threads) { (thread: ListUserThreads.Thread) in
