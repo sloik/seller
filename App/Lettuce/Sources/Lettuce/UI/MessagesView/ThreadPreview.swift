@@ -7,7 +7,7 @@ struct ThreadPreview {
 
     private let fontColor = (Color(red: 0.24, green: 0.24, blue: 0.26).opacity(0.6))
 
-    private let iconSize = 19.0
+
     private var hasAttachment: Bool = false
     private var hasUnreadMessages: Bool = false
 
@@ -24,7 +24,13 @@ extension ThreadPreview: View {
             VStack(spacing: 0) {
                 HStack(spacing: 0) {
 
-                    InterlocutorAvatar(interlocutor: thread.interlocutor)
+                    ZStack {
+                        InterlocutorAvatar(interlocutor: thread.interlocutor)
+
+                        if thread.read.isFalse {
+                            GreenOnlineCircle()
+                        }
+                    }
 
                     VStack(spacing: 0) {
                         HStack(spacing: 0) {
@@ -34,11 +40,19 @@ extension ThreadPreview: View {
                                     .frame(maxWidth: .infinity, alignment: .leading)
 
                                 HStack(alignment: .center, spacing: 0) {
-                                    Image("attachmentIcon")
-                                        .frame(width: iconSize, height: iconSize)
-                                    Text("{offer:title}")
-                                        .foregroundColor(fontColor)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
+
+                                    if messageCenter.hasAttachments(thread) {
+                                        AttachmentIconView()
+                                    }
+
+                                    if let message = messageCenter.lastMessage(thread) {
+                                        Text(message.subject ?? message.text)
+                                            .multilineTextAlignment(.leading)
+                                            .lineLimit(2)
+                                            .truncationMode(.tail)
+                                            .foregroundColor(fontColor)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                    }
                                 }
                                 .design(padding: .custom(edges: .top, length: 6))
                             }
@@ -48,11 +62,9 @@ extension ThreadPreview: View {
                                     .font(.custom("SF Pro Display", fixedSize: 14))
                                     .foregroundColor(fontColor)
 
-                                if messageCenter.hasAttachments(thread) {
-                                    ThreadAttachmentCountView(
-                                        count: messageCenter.attachmentsCount(thread)
-                                    )
-                                }
+                                BlackCountBadgeView(
+                                    count: messageCenter.messagesCount(thread)
+                                )
                             }
                         }
                         .padding(.trailing, 43)
@@ -60,21 +72,5 @@ extension ThreadPreview: View {
                 }
             }
         }
-    }
-}
-
-struct ThreadAttachmentCountView: View {
-
-    let count: Int
-
-    var body: some View {
-        ZStack {
-            Circle()
-                .frame(height: 23)
-            "\(count)"
-                .font(.custom("SF Pro Display", fixedSize: 14))
-                .foregroundColor(.white)
-        }
-        .design(padding: .custom(edges: .top, length: 4))
     }
 }

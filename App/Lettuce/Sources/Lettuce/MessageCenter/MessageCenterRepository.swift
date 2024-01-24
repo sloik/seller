@@ -99,6 +99,14 @@ extension MessageCenterRepository {
             }
             .or( .zero )
     }
+
+    func lastMessage(_ thread: ListUserThreads.Thread) -> Message? {
+        messages[thread]
+            .map { messages in
+                messages.last
+            }
+            .or( .none )
+    }
 }
 
 // MARK: - Attachments
