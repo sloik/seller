@@ -19,7 +19,7 @@ struct MessageDetailNavigationView: View {
                 Divider()
                     .overlay( .design(color: .gray71, with: colorScheme) )
 
-                ForEach(viewModel.messages.messages) { message in
+                ForEach(viewModel.messages) { message in
                     message.text
                 }
 

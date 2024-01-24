@@ -8,13 +8,15 @@ import Onion
 
 @Observable class MessageDetailChatViewModel {
 
-    var conversationMessage: String = ""
-    let conversationLineLimit = 5
-
     private var thread: ListUserThreads.Thread
     private let messageCenter: MessageCenterRepository
 
-    private(set) var messages: MessagesInThread = .init(messages: [], offset: 0, limit: 0)
+    var conversationMessage: String = ""
+    let conversationLineLimit = 5
+
+    var messages: [Message] {
+        messageCenter.messages[thread] ?? []
+    }
 
     init(
         thread: ListUserThreads.Thread,
@@ -22,9 +24,5 @@ import Onion
     ) {
         self.thread = thread
         self.messageCenter = messageCenter
-
-        Task {
-            self.messages = try await self.messageCenter.fetchMessages(thread)
-        }
     }
 }

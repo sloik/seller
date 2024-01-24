@@ -9,13 +9,13 @@ import OptionalAPI
 
 struct ThreadsView: View {
     @Environment(LettuceFactory.self) private var factory
-    @Environment(\.messageCenter) private var messageCenter
 
     @State private var viewModel: ThreadsViewModel
     @State private var shouldNavigate = true
 
     init(model: ThreadsViewModel) {
         self.viewModel = model
+        self.viewModel.getAll()
     }
 
     public var body: some View {
@@ -28,7 +28,7 @@ struct ThreadsView: View {
                         ForEach(viewModel.threads) { (thread: ListUserThreads.Thread) in
 
                             NavigationLink {
-                                MessageDetailNavigationView(viewModel: factory.detailChatViewModel(thread: thread))
+                                MessageDetailNavigationView(viewModel: factory.detailChatViewModel(thread: thread, messageCenter: viewModel.messageCenter))
                             } label: {
                                 ThreadPreview(thread: thread)
                             }

@@ -3,7 +3,7 @@ import SwiftUI
 
 struct ThreadPreview {
 
-    @Environment(\.messageCenter) private var messageCenter
+    @Environment(MessageCenterRepository.self) private var messageCenter
 
     private let fontColor = (Color(red: 0.24, green: 0.24, blue: 0.26).opacity(0.6))
 

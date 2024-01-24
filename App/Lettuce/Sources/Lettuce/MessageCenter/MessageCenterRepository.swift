@@ -23,7 +23,6 @@ final class MessageCenterRepository {
         self.networkingHandler = networkingHandler
         self.tokenProvider = tokenProvider
     }
-
 }
 
 // MARK: -
@@ -37,6 +36,30 @@ private extension MessageCenterRepository {
             return token
         }
     }
+
+    func fetchMessagesForThreads() async throws {
+        let result = try await withThrowingTaskGroup(
+            of: (ListUserThreads.Thread, MessagesInThread).self,
+            returning: [ListUserThreads.Thread: [Message]].self
+        ) { taskGroup in
+
+            for thread in threads {
+                taskGroup.addTask {
+                    let msg = try await self.fetchMessages(thread)
+                    return (thread, msg)
+                }
+
+            }
+
+            var accumulator: [ListUserThreads.Thread:  [Message]] = [:]
+            while let result = try await taskGroup.next() {
+                accumulator[result.0] = result.1.messages
+            }
+            return accumulator
+        }
+
+        messages.merge(result) { _, new in new }
+    }
 }
 
 // MARK: - Threads
@@ -49,6 +72,8 @@ extension MessageCenterRepository {
         let (result, _) = try await networkingHandler.run(request)
 
         self.threads = result.threads
+
+        try await fetchMessagesForThreads()
     }
 }
 
@@ -56,14 +81,13 @@ extension MessageCenterRepository {
 
 extension MessageCenterRepository {
 
-    func fetchMessages(_ thread: ListUserThreads.Thread) async throws -> MessagesInThread {
+    private func fetchMessages(_ thread: ListUserThreads.Thread) async throws -> MessagesInThread {
         let request = ListMessagesInThreadRequest(
             token: try token,
             threadId: thread.id
         )
 
         let (result, _) = try await networkingHandler.run(request)
-        messages[thread] = result.messages
 
         return result
     }

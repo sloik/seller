@@ -17,7 +17,7 @@ class ThreadsViewModel {
     var searchFilterTextField: String = ""
     var showingFilterSearchPopup = false
 
-    private let messageCenter: MessageCenterRepository
+    let messageCenter: MessageCenterRepository
 
     var threads: [ListUserThreads.Thread] {
         messageCenter.threads
@@ -32,7 +32,9 @@ class ThreadsViewModel {
         messageCenter: MessageCenterRepository
     ) {
         self.messageCenter = messageCenter
+    }
 
+    func getAll() {
         Task {
             try? await self.messageCenter.fetchThreads()
         }
