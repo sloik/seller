@@ -2,12 +2,12 @@
 import SwiftUI
 
 struct MessageNavigationView: View {
-    @Bindable var viewModel: MyMessagesViewModel
+    @Bindable var viewModel: ThreadsViewModel
     private let filterPopupHeight = stride(from: 0.4, through: 1.0, by: 0.4).map { PresentationDetent.fraction($0) }
     private let iconWidth: CGFloat = 24.0
     private let dividerColor = Color(red: 0xB5 / 255.0, green: 0xB5 / 255.0, blue: 0xB5 / 255.0)
     
-    init(viewModel: MyMessagesViewModel) {
+    init(viewModel: ThreadsViewModel) {
         self.viewModel = viewModel
     }
     

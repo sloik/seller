@@ -26,7 +26,7 @@ public final class LettuceFactory {
 public extension LettuceFactory {
     /// Main entry point for the module.
     func makeEntryView() -> some View {
-        MessagesView(model: myMessagesViewModel)
+        ThreadsView(model: myMessagesViewModel)
             .environment(self)
     }
 }
@@ -35,7 +35,7 @@ public extension LettuceFactory {
 
 extension LettuceFactory {
 
-    var myMessagesViewModel: MyMessagesViewModel {
+    var myMessagesViewModel: ThreadsViewModel {
         .init(
             networkingHandler: networkingHandler,
             tokenProvider: tokenProvider

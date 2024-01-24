@@ -12,7 +12,7 @@ struct MessagesFilterType: Identifiable, Hashable {
 }
 
 @Observable 
-class MyMessagesViewModel {
+class ThreadsViewModel {
 
     var searchFilterTextField: String = ""
     var showingFilterSearchPopup = false
@@ -41,7 +41,7 @@ class MyMessagesViewModel {
 }
 
 
-extension MyMessagesViewModel {
+extension ThreadsViewModel {
 
     var token: String  {
         get throws {

@@ -3,11 +3,11 @@ import SwiftUI
 
 struct FilterSearchView: View {
     
-    private var viewModel: MyMessagesViewModel
+    private var viewModel: ThreadsViewModel
     private let cornerRadiusSize = 10.0
     private let lightGrayBackground = Color(red: 0.95, green: 0.95, blue: 0.96)
 
-    init(viewModel: MyMessagesViewModel) {
+    init(viewModel: ThreadsViewModel) {
         self.viewModel = viewModel
     }
     
@@ -27,9 +27,9 @@ struct FilterSearchView: View {
     }
     
     private struct FilterCells: View {
-        private var viewModel: MyMessagesViewModel
+        private var viewModel: ThreadsViewModel
 
-        init(viewModel: MyMessagesViewModel) {
+        init(viewModel: ThreadsViewModel) {
             self.viewModel = viewModel
         }
         
@@ -52,11 +52,11 @@ struct FilterSearchView: View {
     private struct FilterHeader: View {
         @Environment(\.colorScheme) private var colorScheme
 
-        @Bindable private var viewModel: MyMessagesViewModel
+        @Bindable private var viewModel: ThreadsViewModel
         
         private let cornerRadiusSize = 10.0
         
-        init(viewModel: MyMessagesViewModel) {
+        init(viewModel: ThreadsViewModel) {
             self.viewModel = viewModel
         }
         
@@ -87,11 +87,11 @@ struct FilterSearchView: View {
     private struct ActionButtonViewStack: View {
         @Environment(\.colorScheme) private var colorScheme
 
-        private var viewModel: MyMessagesViewModel
+        private var viewModel: ThreadsViewModel
         
         private let geometry: GeometryProxy
 
-        init(geometry: GeometryProxy, viewModel: MyMessagesViewModel) {
+        init(geometry: GeometryProxy, viewModel: ThreadsViewModel) {
             self.geometry = geometry
             self.viewModel = viewModel
         }

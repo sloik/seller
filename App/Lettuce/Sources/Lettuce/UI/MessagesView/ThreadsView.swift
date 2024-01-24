@@ -7,13 +7,13 @@ import Utilities
 // 3rd
 import OptionalAPI
 
-struct MessagesView: View {
+struct ThreadsView: View {
     @Environment(LettuceFactory.self) private var factory
 
-    @State private var viewModel: MyMessagesViewModel
+    @State private var viewModel: ThreadsViewModel
     @State private var shouldNavigate = true
 
-    init(model: MyMessagesViewModel) {
+    init(model: ThreadsViewModel) {
         self.viewModel = model
     }
 
