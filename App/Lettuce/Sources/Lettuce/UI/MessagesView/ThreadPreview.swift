@@ -4,8 +4,7 @@ import SwiftUI
 struct ThreadPreview {
 
     private let fontColor = (Color(red: 0.24, green: 0.24, blue: 0.26).opacity(0.6))
-    private let circleWidth = 63.0
-    private let circleLeftPadding = 30.0
+
     private let iconSize = 19.0
     private var hasAttachment: Bool = false
     private var hasUnreadMessages: Bool = false
@@ -23,17 +22,7 @@ extension ThreadPreview: View {
             VStack(spacing: 0) {
                 HStack(spacing: 0) {
 
-                    AsyncImage(url: thread.interlocutor?.avatarUrl) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                    } placeholder: {
-                        Circle()
-                            .foregroundColor(Color.gray)
-                    }
-                    .frame(width: circleWidth, height: circleWidth)
-                    .design(padding: .custom(edges: .leading, length: circleLeftPadding))
-                    .design(padding: .base(.trailing))
+                    InterlocutorAvatar(interlocutor: thread.interlocutor)
 
                     VStack(spacing: 0) {
                         HStack(spacing: 0) {
