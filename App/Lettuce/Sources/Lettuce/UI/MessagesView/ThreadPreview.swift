@@ -49,6 +49,7 @@ extension ThreadPreview: View {
                                             .multilineTextAlignment(.leading)
                                             .lineLimit(2)
                                             .truncationMode(.tail)
+                                            .design(typography: .custom(weight: .semibold, size: 12))
                                             .foregroundColor(fontColor)
                                             .frame(maxWidth: .infinity, alignment: .leading)
                                     }
