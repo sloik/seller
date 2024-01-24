@@ -18,11 +18,9 @@ final class MessageCenterRepository {
 
     var threads: [MessageCenterThread] {
         messages.keys.sorted { lhs, rhs in
-            let (l, r) = Zippy.zip(lhs.lastMessageDateTime, rhs.lastMessageDateTime)
-            ?? Zippy.zip(lhs.interlocutor?.login, rhs.interlocutor?.login)
-            ?? (lhs.id, rhs.id)
-            
-            return l > r
+            Zippy.zip(lhs.lastMessageDateTime, rhs.lastMessageDateTime).map(>)
+            ?? Zippy.zip(lhs.interlocutor?.login, rhs.interlocutor?.login).map(>)
+            ?? (lhs.id > rhs.id)
         }
     }
 
