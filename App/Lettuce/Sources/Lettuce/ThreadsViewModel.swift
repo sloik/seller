@@ -17,9 +17,8 @@ class ThreadsViewModel {
     var searchFilterTextField: String = ""
     var showingFilterSearchPopup = false
 
-    private let networkingHandler: NetworkingHandlerType
-    private let tokenProvider: Producer<String?>
     private(set) var threads: ListUserThreads = .empty
+    private let messageCenter: MessageCenterRepository
 
     var filterTypes = [
         MessagesFilterType(title: "Nieprzeczytane", isChecked: false),
@@ -27,36 +26,13 @@ class ThreadsViewModel {
     ]
 
     init(
-        networkingHandler: NetworkingHandlerType,
-        tokenProvider: @escaping Producer<String?>
+        messageCenter: MessageCenterRepository
     ) {
-        self.networkingHandler = networkingHandler
-        self.tokenProvider = tokenProvider
+        self.messageCenter = messageCenter
 
         Task {
-            self.threads = (try? await self.fetchThreads()) ?? .empty
+            self.threads = (try? await self.messageCenter.fetchThreads()) ?? .empty
         }
     }
 
-}
-
-
-extension ThreadsViewModel {
-
-    var token: String  {
-        get throws {
-            guard let token = tokenProvider() else {
-                throw Errors.unableToGetToken
-            }
-            return token
-        }
-    }
-
-    func fetchThreads() async throws -> ListUserThreads {
-        let request = GetListUserThreads(token: try token)
-
-        let (result, _) = try await networkingHandler.run(request)
-
-        return result
-    }
 }

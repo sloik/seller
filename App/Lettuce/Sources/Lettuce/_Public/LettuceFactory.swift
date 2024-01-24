@@ -38,8 +38,7 @@ extension LettuceFactory {
 
     var myMessagesViewModel: ThreadsViewModel {
         .init(
-            networkingHandler: networkingHandler,
-            tokenProvider: tokenProvider
+            messageCenter: messageCenter
         )
     }
 
