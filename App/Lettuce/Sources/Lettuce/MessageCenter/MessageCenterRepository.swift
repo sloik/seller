@@ -67,6 +67,14 @@ extension MessageCenterRepository {
             .or( false )
     }
 
+    func messagesCount(_ thread: ListUserThreads.Thread) -> Int {
+        messages[thread]
+            .map { messages in
+                messages.count
+            }
+            .or( .zero )
+    }
+
     func attachmentsCount(_ thread: ListUserThreads.Thread) -> Int {
         messages[thread]
             .map { messages in
