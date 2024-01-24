@@ -4,6 +4,8 @@ import Observation
 
 import AliasWonderland
 import Onion
+import SweetBool
+import OptionalAPI
 
 @Observable
 final class MessageCenterRepository {
@@ -12,6 +14,7 @@ final class MessageCenterRepository {
     private let tokenProvider: Producer<String?>
 
     private(set) var threads: [ListUserThreads.Thread] = []
+    private(set) var messages: [ListUserThreads.Thread:  [Message]] = [:]
 
     init(
         networkingHandler: NetworkingHandlerType,
@@ -40,6 +43,7 @@ extension MessageCenterRepository {
         )
 
         let (result, _) = try await networkingHandler.run(request)
+        messages[thread] = result.messages
 
         return result
     }
@@ -50,5 +54,16 @@ extension MessageCenterRepository {
         let (result, _) = try await networkingHandler.run(request)
 
         self.threads = result.threads
+    }
+
+    func hasAttachments(_ thread: ListUserThreads.Thread) -> Bool {
+        messages[thread]
+            .andThen { messages in
+                messages
+                    .contains { message in
+                        message.hasAdditionalAttachments || message.attachments.isEmpty.isFalse
+                    }
+            }
+            .or( false )
     }
 }
