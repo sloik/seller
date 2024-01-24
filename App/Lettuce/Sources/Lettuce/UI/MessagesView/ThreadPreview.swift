@@ -45,13 +45,7 @@ extension ThreadPreview: View {
                                     }
 
                                     if let message = messageCenter.lastMessage(thread) {
-                                        Text(message.subject ?? message.text)
-                                            .multilineTextAlignment(.leading)
-                                            .lineLimit(2)
-                                            .truncationMode(.tail)
-                                            .design(typography: .custom(weight: .semibold, size: 12))
-                                            .foregroundColor(fontColor)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                        LastMessageView(message: message)
                                     }
                                 }
                                 .design(padding: .custom(edges: .top, length: 6))
