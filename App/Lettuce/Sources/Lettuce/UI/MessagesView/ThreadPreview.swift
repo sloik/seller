@@ -1,19 +1,23 @@
 // system
 import SwiftUI
 
-struct ThreadPreview: View {
-    init(hasAttachment: Bool = false, hasUnreadMessages: Bool = false) {
-        self.hasAttachment = hasAttachment
-        self.hasUnreadMessages = hasUnreadMessages
-    }
-    
+struct ThreadPreview {
+
     private let fontColor = (Color(red: 0.24, green: 0.24, blue: 0.26).opacity(0.6))
     private let circleWidth = 63.0
     private let circleLeftPadding = 30.0
     private let iconSize = 19.0
     private var hasAttachment: Bool = false
     private var hasUnreadMessages: Bool = false
-    
+
+    private let thread: ListUserThreads.Thread
+
+    init(thread: ListUserThreads.Thread) {
+        self.thread = thread
+    }
+}
+
+extension ThreadPreview: View {
     var body: some View {
         VStack(spacing: 0) {
             VStack(spacing: 0) {

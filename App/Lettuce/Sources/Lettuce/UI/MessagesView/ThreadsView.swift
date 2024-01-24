@@ -24,24 +24,12 @@ struct ThreadsView: View {
                     .frame(height: 77)
                 ScrollView {
                     VStack(spacing: 17) {
-                        NavigationLink(
-                            destination: MessageDetailNavigationView(viewModel: factory.detailChatViewModel(thread: .mock))
-                        ) {
-                            ThreadPreview()
-                                .design(padding: .bigger(.top))
-                        }
-                        NavigationLink(
-                            destination: MessageDetailNavigationView(viewModel: factory.detailChatViewModel(thread: .mock))
-                        ) {
-                            ThreadPreview(hasAttachment: true)
-                        }
-
                         ForEach(viewModel.threads.threads) { (thread: ListUserThreads.Thread) in
 
                             NavigationLink {
                                 MessageDetailNavigationView(viewModel: factory.detailChatViewModel(thread: thread))
                             } label: {
-                                thread.interlocutor?.login ?? "Unknown"
+                                ThreadPreview(thread: thread)
                             }
 
                         }
@@ -54,5 +42,5 @@ struct ThreadsView: View {
 }
 
 //#Preview {
-//    MessagesView()
+//    ThreadsView(model: .init(networkingHandler: , tokenProvider: <#T##Producer<String?>##Producer<String?>##() -> String?#>))
 //}
