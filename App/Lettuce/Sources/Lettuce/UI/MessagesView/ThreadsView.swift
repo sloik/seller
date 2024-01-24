@@ -9,6 +9,7 @@ import OptionalAPI
 
 struct ThreadsView: View {
     @Environment(LettuceFactory.self) private var factory
+    @Environment(\.messageCenter) private var messageCenter
 
     @State private var viewModel: ThreadsViewModel
     @State private var shouldNavigate = true

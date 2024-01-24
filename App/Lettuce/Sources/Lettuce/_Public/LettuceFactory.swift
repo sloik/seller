@@ -28,6 +28,7 @@ public extension LettuceFactory {
     func makeEntryView() -> some View {
         ThreadsView(model: myMessagesViewModel)
             .environment(self)
+            .environment(\.messageCenter, messageCenter)
     }
 }
 
@@ -36,6 +37,13 @@ public extension LettuceFactory {
 extension LettuceFactory {
 
     var myMessagesViewModel: ThreadsViewModel {
+        .init(
+            networkingHandler: networkingHandler,
+            tokenProvider: tokenProvider
+        )
+    }
+
+    var messageCenter: MessageCenterRepository {
         .init(
             networkingHandler: networkingHandler,
             tokenProvider: tokenProvider
@@ -52,4 +60,23 @@ extension LettuceFactory {
         )
     }
 
+}
+
+// MARK: - Environment
+
+// MARK: Message Center Repository
+
+private struct MessageCenterKey: EnvironmentKey {
+
+    static let defaultValue: MessageCenterRepository = .init(
+        networkingHandler: MockNetworkingHandler(),
+        tokenProvider: { nil }
+    )
+}
+
+extension EnvironmentValues {
+    var messageCenter: MessageCenterRepository {
+        get { self[MessageCenterKey.self] }
+        set { self[MessageCenterKey.self] = newValue }
+    }
 }
