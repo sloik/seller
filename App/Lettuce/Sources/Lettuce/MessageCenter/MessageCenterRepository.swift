@@ -26,7 +26,9 @@ final class MessageCenterRepository {
 
 }
 
-extension MessageCenterRepository {
+// MARK: -
+
+private extension MessageCenterRepository {
     var token: String  {
         get throws {
             guard let token = tokenProvider() else {
@@ -35,6 +37,24 @@ extension MessageCenterRepository {
             return token
         }
     }
+}
+
+// MARK: - Threads
+
+extension MessageCenterRepository {
+
+    func fetchThreads() async throws  {
+        let request = GetListUserThreads(token: try token)
+
+        let (result, _) = try await networkingHandler.run(request)
+
+        self.threads = result.threads
+    }
+}
+
+// MARK: - Messages
+
+extension MessageCenterRepository {
 
     func fetchMessages(_ thread: ListUserThreads.Thread) async throws -> MessagesInThread {
         let request = ListMessagesInThreadRequest(
@@ -48,13 +68,18 @@ extension MessageCenterRepository {
         return result
     }
 
-    func fetchThreads() async throws  {
-        let request = GetListUserThreads(token: try token)
-
-        let (result, _) = try await networkingHandler.run(request)
-
-        self.threads = result.threads
+    func messagesCount(_ thread: ListUserThreads.Thread) -> Int {
+        messages[thread]
+            .map { messages in
+                messages.count
+            }
+            .or( .zero )
     }
+}
+
+// MARK: - Attachments
+
+extension MessageCenterRepository {
 
     func hasAttachments(_ thread: ListUserThreads.Thread) -> Bool {
         messages[thread]
@@ -67,14 +92,6 @@ extension MessageCenterRepository {
             .or( false )
     }
 
-    func messagesCount(_ thread: ListUserThreads.Thread) -> Int {
-        messages[thread]
-            .map { messages in
-                messages.count
-            }
-            .or( .zero )
-    }
-
     func attachmentsCount(_ thread: ListUserThreads.Thread) -> Int {
         messages[thread]
             .map { messages in
@@ -85,4 +102,5 @@ extension MessageCenterRepository {
             }
             .or( .zero )
     }
+
 }
