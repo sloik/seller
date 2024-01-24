@@ -7,7 +7,7 @@ import Onion
 
 /// https://developer.allegro.pl/documentation#operation/listThreadsGET
 struct ListUserThreads: ContentType, Paginated {
-    struct Thread: Codable, Equatable, Identifiable {
+    struct Thread: Codable, Equatable, Identifiable, Hashable {
         let id: String
         let read: Bool
         let lastMessageDateTime: String?

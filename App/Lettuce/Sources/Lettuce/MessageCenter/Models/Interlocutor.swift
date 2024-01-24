@@ -5,7 +5,7 @@ import HTTPTypes
 // local
 import Onion
 
-struct Interlocutor: ContentType {
+struct Interlocutor: ContentType, Hashable {
     let login: String
     let avatarUrlString: String
 
