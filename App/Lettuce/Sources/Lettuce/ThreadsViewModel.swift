@@ -19,7 +19,7 @@ class ThreadsViewModel {
 
     let messageCenter: MessageCenterRepository
 
-    var threads: [ListUserThreads.Thread] {
+    var threads: [MessageCenterThread] {
         messageCenter.threads
     }
 

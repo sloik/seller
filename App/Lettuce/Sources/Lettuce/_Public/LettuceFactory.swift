@@ -50,7 +50,7 @@ extension LettuceFactory {
     }
 
     func detailChatViewModel(
-        thread: ListUserThreads.Thread,
+        thread: MessageCenterThread,
         messageCenter: MessageCenterRepository
     ) -> MessageDetailChatViewModel {
         .init(

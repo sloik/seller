@@ -8,7 +8,7 @@ import Onion
 
 @Observable class MessageDetailChatViewModel {
 
-    private var thread: ListUserThreads.Thread
+    private var thread: MessageCenterThread
     private let messageCenter: MessageCenterRepository
 
     var conversationMessage: String = ""
@@ -19,7 +19,7 @@ import Onion
     }
 
     init(
-        thread: ListUserThreads.Thread,
+        thread: MessageCenterThread,
         messageCenter: MessageCenterRepository
     ) {
         self.thread = thread

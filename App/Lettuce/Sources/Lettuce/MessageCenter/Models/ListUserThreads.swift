@@ -18,8 +18,11 @@ struct ListUserThreads: ContentType, Paginated {
     let limit: UInt
 }
 
-extension ListUserThreads.Thread {
-    static var mock: ListUserThreads.Thread {
+/// Represents thread in message center.
+typealias MessageCenterThread = ListUserThreads.Thread
+
+extension MessageCenterThread {
+    static var mock: MessageCenterThread {
         .init(
             id: "1",
             read: false, 

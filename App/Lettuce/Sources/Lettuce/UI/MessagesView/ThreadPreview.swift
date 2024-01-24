@@ -7,13 +7,12 @@ struct ThreadPreview {
 
     private let fontColor = (Color(red: 0.24, green: 0.24, blue: 0.26).opacity(0.6))
 
-
     private var hasAttachment: Bool = false
     private var hasUnreadMessages: Bool = false
 
-    private let thread: ListUserThreads.Thread
+    private let thread: MessageCenterThread
 
-    init(thread: ListUserThreads.Thread) {
+    init(thread: MessageCenterThread) {
         self.thread = thread
     }
 }

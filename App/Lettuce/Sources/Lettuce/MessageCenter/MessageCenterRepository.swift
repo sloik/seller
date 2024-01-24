@@ -6,6 +6,7 @@ import AliasWonderland
 import Onion
 import SweetBool
 import OptionalAPI
+import Zippy
 
 @Observable
 final class MessageCenterRepository {
@@ -13,8 +14,18 @@ final class MessageCenterRepository {
     private let networkingHandler: NetworkingHandlerType
     private let tokenProvider: Producer<String?>
 
-    private(set) var threads: [ListUserThreads.Thread] = []
-    private(set) var messages: [ListUserThreads.Thread:  [Message]] = [:]
+    private(set) var messages: [MessageCenterThread:  [Message]] = [:]
+
+    var threads: [MessageCenterThread] {
+        messages.keys.sorted { lhs, rhs in
+            let (l, r) = Zippy.zip(lhs.lastMessageDateTime, rhs.lastMessageDateTime)
+            ?? Zippy.zip(lhs.interlocutor?.login, rhs.interlocutor?.login)
+            ?? (lhs.id, rhs.id)
+            
+            return l > r
+        }
+    }
+
 
     init(
         networkingHandler: NetworkingHandlerType,
@@ -37,10 +48,10 @@ private extension MessageCenterRepository {
         }
     }
 
-    func fetchMessagesForThreads() async throws {
+    func fetchAllMessages(for threads: [MessageCenterThread]) async throws {
         let result = try await withThrowingTaskGroup(
-            of: (ListUserThreads.Thread, MessagesInThread).self,
-            returning: [ListUserThreads.Thread: [Message]].self
+            of: (MessageCenterThread, MessagesInThread).self,
+            returning: [MessageCenterThread: [Message]].self
         ) { taskGroup in
 
             for thread in threads {
@@ -51,7 +62,7 @@ private extension MessageCenterRepository {
 
             }
 
-            var accumulator: [ListUserThreads.Thread:  [Message]] = [:]
+            var accumulator: [MessageCenterThread:  [Message]] = [:]
             while let result = try await taskGroup.next() {
                 accumulator[result.0] = result.1.messages
             }
@@ -71,9 +82,7 @@ extension MessageCenterRepository {
 
         let (result, _) = try await networkingHandler.run(request)
 
-        self.threads = result.threads
-
-        try await fetchMessagesForThreads()
+        try await fetchAllMessages(for: result.threads)
     }
 }
 
@@ -81,7 +90,7 @@ extension MessageCenterRepository {
 
 extension MessageCenterRepository {
 
-    private func fetchMessages(_ thread: ListUserThreads.Thread) async throws -> MessagesInThread {
+    private func fetchMessages(_ thread: MessageCenterThread) async throws -> MessagesInThread {
         let request = ListMessagesInThreadRequest(
             token: try token,
             threadId: thread.id
@@ -92,7 +101,7 @@ extension MessageCenterRepository {
         return result
     }
 
-    func messagesCount(_ thread: ListUserThreads.Thread) -> Int {
+    func messagesCount(_ thread: MessageCenterThread) -> Int {
         messages[thread]
             .map { messages in
                 messages.count
@@ -100,7 +109,7 @@ extension MessageCenterRepository {
             .or( .zero )
     }
 
-    func lastMessage(_ thread: ListUserThreads.Thread) -> Message? {
+    func lastMessage(_ thread: MessageCenterThread) -> Message? {
         messages[thread]
             .map { messages in
                 messages.last
@@ -113,7 +122,7 @@ extension MessageCenterRepository {
 
 extension MessageCenterRepository {
 
-    func hasAttachments(_ thread: ListUserThreads.Thread) -> Bool {
+    func hasAttachments(_ thread: MessageCenterThread) -> Bool {
         messages[thread]
             .map { (messages: [Message]) in
                 messages
@@ -124,7 +133,7 @@ extension MessageCenterRepository {
             .or( false )
     }
 
-    func attachmentsCount(_ thread: ListUserThreads.Thread) -> Int {
+    func attachmentsCount(_ thread: MessageCenterThread) -> Int {
         messages[thread]
             .map { messages in
                 messages

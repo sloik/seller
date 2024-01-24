@@ -57,7 +57,7 @@ final class ResponseListUserThreadsTests: XCTestCase {
         // Assert
         let expectedResult = ListUserThreads(
             threads: [
-                ListUserThreads.Thread(
+                MessageCenterThread(
                     id: "string",
                     read: true,
                     lastMessageDateTime: "2019-08-24T14:15:22Z",
