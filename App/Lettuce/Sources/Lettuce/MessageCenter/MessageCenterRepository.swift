@@ -58,12 +58,23 @@ extension MessageCenterRepository {
 
     func hasAttachments(_ thread: ListUserThreads.Thread) -> Bool {
         messages[thread]
-            .andThen { messages in
+            .map { (messages: [Message]) in
                 messages
-                    .contains { message in
+                    .contains { (message: Message) in
                         message.hasAdditionalAttachments || message.attachments.isEmpty.isFalse
                     }
             }
             .or( false )
+    }
+
+    func attachmentsCount(_ thread: ListUserThreads.Thread) -> Int {
+        messages[thread]
+            .map { messages in
+                messages
+                    .reduce(0) { count, message in
+                        count + message.attachments.count
+                    }
+            }
+            .or( .zero )
     }
 }

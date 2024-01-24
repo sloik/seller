@@ -49,7 +49,9 @@ extension ThreadPreview: View {
                                     .foregroundColor(fontColor)
 
                                 if messageCenter.hasAttachments(thread) {
-                                    ThreadAttachmentCountView()
+                                    ThreadAttachmentCountView(
+                                        count: messageCenter.attachmentsCount(thread)
+                                    )
                                 }
                             }
                         }
@@ -62,11 +64,14 @@ extension ThreadPreview: View {
 }
 
 struct ThreadAttachmentCountView: View {
+
+    let count: Int
+
     var body: some View {
         ZStack {
             Circle()
                 .frame(height: 23)
-            Text("2")
+            "\(count)"
                 .font(.custom("SF Pro Display", fixedSize: 14))
                 .foregroundColor(.white)
         }
