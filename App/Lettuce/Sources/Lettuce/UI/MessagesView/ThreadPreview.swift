@@ -22,18 +22,26 @@ extension ThreadPreview: View {
         VStack(spacing: 0) {
             VStack(spacing: 0) {
                 HStack(spacing: 0) {
-                    Circle()
-                        .foregroundColor(Color.gray)
-                        .frame(width: circleWidth, height: circleWidth)
-                        .overlay(GreenOnlineCircle())
-                        .design(padding: .custom(edges: .leading, length: circleLeftPadding))
-                        .design(padding: .base(.trailing))
+
+                    AsyncImage(url: thread.interlocutor?.avatarUrl) { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    } placeholder: {
+                        Circle()
+                            .foregroundColor(Color.gray)
+                    }
+                    .frame(width: circleWidth, height: circleWidth)
+                    .design(padding: .custom(edges: .leading, length: circleLeftPadding))
+                    .design(padding: .base(.trailing))
+
                     VStack(spacing: 0) {
                         HStack(spacing: 0) {
                             VStack(spacing: 0) {
-                                Text("User name")
+                                Text( thread.interlocutor?.login ?? "Unknown" )
                                     .font(.custom("SF Pro Display", fixedSize: 17))
                                     .frame(maxWidth: .infinity, alignment: .leading)
+
                                 HStack(alignment: .center, spacing: 0) {
                                     Image("attachmentIcon")
                                         .frame(width: iconSize, height: iconSize)
@@ -45,7 +53,7 @@ extension ThreadPreview: View {
                             }
                             Spacer()
                             VStack(spacing: 0) {
-                                Text("9:23")
+                                Text(thread.lastMessageDateTime ?? "--:--")
                                     .font(.custom("SF Pro Display", fixedSize: 14))
                                     .foregroundColor(fontColor)
                                 if hasAttachment {
