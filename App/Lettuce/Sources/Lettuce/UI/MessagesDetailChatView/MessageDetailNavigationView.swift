@@ -8,14 +8,14 @@ struct MessageDetailPreview: View {
     init(model: MessageDetailChatModel) {
         self.model = model
     }
-    
-    var body: some View {
 
-        ScrollView {
-            ForEach(model.messages) { message in
-                message.text
-            }
+    var body: some View {
+        ForEach(model.messages) { message in
+            message.text
+                .design(typography: .label(weight: .regular))
+                .multilineTextAlignment(.leading)
         }
+        .contentShape(Rectangle())
     }
 }
 
@@ -37,7 +37,9 @@ struct MessageDetailNavigationView: View {
                 Divider()
                     .overlay( .design(color: .gray71, with: colorScheme) )
 
-                MessageDetailPreview(model: model)
+                ScrollView {
+                    MessageDetailPreview(model: model)
+                }
 
                 Divider()
 
