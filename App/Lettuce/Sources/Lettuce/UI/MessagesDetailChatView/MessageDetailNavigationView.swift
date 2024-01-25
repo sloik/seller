@@ -1,6 +1,24 @@
 // system
 import SwiftUI
 
+struct MessageDetailPreview: View {
+
+    @Bindable var model: MessageDetailChatModel
+
+    init(model: MessageDetailChatModel) {
+        self.model = model
+    }
+    
+    var body: some View {
+
+        ScrollView {
+            ForEach(model.messages) { message in
+                message.text
+            }
+        }
+    }
+}
+
 struct MessageDetailNavigationView: View {
 
     @Environment(\.colorScheme) private var colorScheme
@@ -19,9 +37,7 @@ struct MessageDetailNavigationView: View {
                 Divider()
                     .overlay( .design(color: .gray71, with: colorScheme) )
 
-                ForEach(model.messages) { message in
-                    message.text
-                }
+                MessageDetailPreview(model: model)
 
                 Divider()
 

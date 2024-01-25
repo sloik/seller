@@ -32,7 +32,12 @@ struct ThreadsView: View {
                             } label: {
                                 ThreadPreview(thread: thread)
                             }
-
+                            .contextMenu {
+                                thread.interlocutor?.login ?? ""
+                            } preview: {
+                                MessageDetailPreview(model: factory.detailChatModel(thread: thread))
+                                    .design(padding: .hugger(.all))
+                            }
                         }
                     }
                 }
