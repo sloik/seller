@@ -4,6 +4,7 @@ import Foundation
 
 import AliasWonderland
 import Onion
+import Zippy
 
 struct MessagesFilterType: Identifiable, Hashable {
     let id = UUID()
@@ -11,13 +12,13 @@ struct MessagesFilterType: Identifiable, Hashable {
     let isChecked: Bool
 }
 
-@Observable 
+@Observable
 class ThreadsViewModel {
 
     var searchFilterTextField: String = ""
     var showingFilterSearchPopup = false
 
-    let messageCenter: MessageCenterRepository
+    private let messageCenter: MessageCenterRepository
 
     var threads: [MessageCenterThread] {
         messageCenter.threads
@@ -39,5 +40,5 @@ class ThreadsViewModel {
             try? await self.messageCenter.fetchThreads()
         }
     }
-
+    
 }

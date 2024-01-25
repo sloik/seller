@@ -25,7 +25,7 @@ extension MessageCenterThread {
     static var mock: MessageCenterThread {
         .init(
             id: "1",
-            read: false, 
+            read: false,
             lastMessageDateTime: .none,
             interlocutor: .none
         )

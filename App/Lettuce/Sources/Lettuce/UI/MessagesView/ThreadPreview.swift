@@ -1,6 +1,58 @@
 // system
 import SwiftUI
 
+import Zippy
+
+final class ThreadPreviewViewModel {
+    private let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        formatter.doesRelativeDateFormatting = false
+        return formatter
+    }()
+
+
+    private let relativeDateTimeFormatter: RelativeDateTimeFormatter = {
+        let formatter = RelativeDateTimeFormatter()
+        formatter.dateTimeStyle = .named
+        formatter.unitsStyle = .full
+        return formatter
+    }()
+
+    private let isoDateFormatter: ISO8601DateFormatter = {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        return formatter
+    }()
+
+    func lastMessageTime(_ thread: MessageCenterThread) -> (relative: String, time: String)? {
+        Zippy.zip(
+            lastMessageRelativeString(thread),
+            lastMessageString(thread)
+        )
+    }
+}
+
+private extension ThreadPreviewViewModel {
+
+    func lastMessageDate(_ thread: MessageCenterThread) -> Date? {
+        thread
+            .lastMessageDateTime
+            .andThen( isoDateFormatter.date(from:) )
+    }
+
+    func lastMessageString(_ thread: MessageCenterThread) -> String? {
+        lastMessageDate( thread )
+            .andThen( dateFormatter.string(from:) )
+    }
+
+    func lastMessageRelativeString(_ thread: MessageCenterThread) -> String? {
+        lastMessageDate( thread )
+            .andThen { date in relativeDateTimeFormatter.localizedString(for: date, relativeTo: .now) }
+    }
+}
+
 struct ThreadPreview {
 
     @Environment(MessageCenterRepository.self) private var messageCenter
@@ -11,6 +63,8 @@ struct ThreadPreview {
     private var hasUnreadMessages: Bool = false
 
     private let thread: MessageCenterThread
+
+    private let viewModel = ThreadPreviewViewModel()
 
     init(thread: MessageCenterThread) {
         self.thread = thread
@@ -51,14 +105,20 @@ extension ThreadPreview: View {
                                 .design(padding: .custom(edges: .top, length: 6))
                             }
                             Spacer()
-                            VStack(spacing: 0) {
-                                Text(thread.lastMessageDateTime ?? "--:--")
-                                    .font(.custom("SF Pro Display", fixedSize: 14))
-                                    .foregroundColor(fontColor)
+                            VStack(alignment: .trailing, spacing: 0) {
 
-                                BlackCountBadgeView(
-                                    count: messageCenter.messagesCount(thread)
-                                )
+                                if let times = viewModel.lastMessageTime(thread) {
+
+                                    times.relative
+                                        .font(.custom("SF Pro Display", fixedSize: 14))
+                                        .foregroundColor(fontColor)
+
+                                    times.time
+                                        .font(.custom("SF Pro Display", fixedSize: 14))
+                                        .foregroundColor(fontColor)
+                                }
+
+
                             }
                         }
                         .padding(.trailing, 43)
