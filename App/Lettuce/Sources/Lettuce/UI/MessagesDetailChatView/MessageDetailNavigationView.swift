@@ -10,12 +10,18 @@ struct MessageDetailPreview: View {
     }
 
     var body: some View {
+
         ForEach(model.messages) { message in
-            message.text
-                .design(typography: .label(weight: .regular))
-                .multilineTextAlignment(.leading)
+            VStack {
+                message.text
+                    .design(typography: .label(weight: .regular))
+            }
+            .frame(
+                minWidth: 0,
+                maxWidth: .infinity,
+                alignment: message.author.isInterlocutor ? .leading : .trailing
+            )
         }
-        .contentShape(Rectangle())
     }
 }
 

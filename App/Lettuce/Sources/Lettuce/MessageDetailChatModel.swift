@@ -15,7 +15,7 @@ import Onion
     let conversationLineLimit = 5
 
     var messages: [Message] {
-        messageCenter.messages[thread] ?? []
+        messageCenter.messages[thread]?.reversed() ?? []
     }
 
     init(
