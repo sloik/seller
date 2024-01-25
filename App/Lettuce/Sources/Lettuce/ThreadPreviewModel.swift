@@ -3,7 +3,7 @@ import Foundation
 
 import Zippy
 
-final class ThreadPreviewViewModel {
+final class ThreadPreviewModel {
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -53,7 +53,7 @@ final class ThreadPreviewViewModel {
     }
 }
 
-private extension ThreadPreviewViewModel {
+private extension ThreadPreviewModel {
 
     func lastMessageDate(_ thread: MessageCenterThread) -> Date? {
         thread

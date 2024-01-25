@@ -10,25 +10,25 @@ import OptionalAPI
 struct ThreadsView: View {
     @Environment(LettuceFactory.self) private var factory
 
-    @State private var viewModel: ThreadsViewModel
+    @State private var model: ThreadsModel
     @State private var shouldNavigate = true
 
-    init(model: ThreadsViewModel) {
-        self.viewModel = model
-        self.viewModel.getAll()
+    init(model: ThreadsModel) {
+        self.model = model
+        self.model.getAll()
     }
 
     public var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                MessageNavigationView(viewModel: viewModel)
+                MessageNavigationView(model: model)
                     .frame(height: 77)
                 ScrollView {
                     VStack(spacing: 17) {
-                        ForEach(viewModel.threads) { (thread: MessageCenterThread) in
+                        ForEach(model.threads) { (thread: MessageCenterThread) in
 
                             NavigationLink {
-                                MessageDetailNavigationView(viewModel: factory.detailChatViewModel(thread: thread))
+                                MessageDetailNavigationView(model: factory.detailChatModel(thread: thread))
                             } label: {
                                 ThreadPreview(thread: thread)
                             }

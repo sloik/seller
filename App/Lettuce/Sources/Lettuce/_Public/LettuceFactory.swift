@@ -44,7 +44,7 @@ public final class LettuceFactory {
 public extension LettuceFactory {
     /// Main entry point for the module.
     func makeEntryView() -> some View {
-        ThreadsView(model: myMessagesViewModel)
+        ThreadsView(model: myMessagesModel)
             .environment(LettuceFactory.shared)
             .environment(messageCenter)
     }
@@ -54,15 +54,15 @@ public extension LettuceFactory {
 
 extension LettuceFactory {
 
-    var myMessagesViewModel: ThreadsViewModel {
+    var myMessagesModel: ThreadsModel {
         .init(
             messageCenter: messageCenter
         )
     }
 
-    func detailChatViewModel(
+    func detailChatModel(
         thread: MessageCenterThread
-    ) -> MessageDetailChatViewModel {
+    ) -> MessageDetailChatModel {
         .init(
             thread: thread, 
             messageCenter: messageCenter

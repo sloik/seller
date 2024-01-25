@@ -6,10 +6,10 @@ struct MessageDetailNavigationView: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.presentationMode) private var presentationMode
 
-    @Bindable var viewModel: MessageDetailChatViewModel
+    @Bindable var model: MessageDetailChatModel
 
-    init(viewModel: MessageDetailChatViewModel) {
-        self.viewModel = viewModel
+    init(model: MessageDetailChatModel) {
+        self.model = model
     }
 
     var body: some View {
@@ -19,7 +19,7 @@ struct MessageDetailNavigationView: View {
                 Divider()
                     .overlay( .design(color: .gray71, with: colorScheme) )
 
-                ForEach(viewModel.messages) { message in
+                ForEach(model.messages) { message in
                     message.text
                 }
 
@@ -35,7 +35,7 @@ struct MessageDetailNavigationView: View {
                     MessageBubble(geometry: geometry, isInterlocutor: true)
                 }
                 Spacer()
-                TypeMessageView(viewModel: viewModel).ignoresSafeArea(.all)
+                TypeMessageView(model: model).ignoresSafeArea(.all)
                 Spacer()
             }
             .navigationBarBackButtonHidden(true)
@@ -130,18 +130,18 @@ struct MessageDetailNavigationView: View {
 
     private struct TypeMessageView: View {
 
-        @Bindable private var viewModel: MessageDetailChatViewModel
+        @Bindable private var model: MessageDetailChatModel
 
-        init(viewModel: MessageDetailChatViewModel) {
-            self.viewModel = viewModel
+        init(model: MessageDetailChatModel) {
+            self.model = model
         }
 
         var body: some View {
             VStack {
                 Divider()
                 HStack(spacing: 0) {
-                    TextField("Type a message", text: $viewModel.conversationMessage, axis: .vertical)
-                        .lineLimit(viewModel.conversationLineLimit)
+                    TextField("Type a message", text: $model.conversationMessage, axis: .vertical)
+                        .lineLimit(model.conversationLineLimit)
                         .design(padding: .large(.leading))
                     Spacer()
                     Button(action: {

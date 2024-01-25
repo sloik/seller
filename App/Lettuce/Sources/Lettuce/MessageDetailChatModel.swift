@@ -6,7 +6,7 @@ import Observation
 import AliasWonderland
 import Onion
 
-@Observable class MessageDetailChatViewModel {
+@Observable class MessageDetailChatModel {
 
     private var thread: MessageCenterThread
     private let messageCenter: MessageCenterRepository

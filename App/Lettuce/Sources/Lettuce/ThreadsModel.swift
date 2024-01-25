@@ -13,7 +13,7 @@ struct MessagesFilterType: Identifiable, Hashable {
 }
 
 @Observable
-class ThreadsViewModel {
+class ThreadsModel {
 
     var searchFilterTextField: String = ""
     var showingFilterSearchPopup = false

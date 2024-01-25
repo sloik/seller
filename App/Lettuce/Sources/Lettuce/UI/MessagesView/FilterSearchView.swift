@@ -3,45 +3,45 @@ import SwiftUI
 
 struct FilterSearchView: View {
     
-    private var viewModel: ThreadsViewModel
+    private var model: ThreadsModel
     private let cornerRadiusSize = 10.0
     private let lightGrayBackground = Color(red: 0.95, green: 0.95, blue: 0.96)
 
-    init(viewModel: ThreadsViewModel) {
-        self.viewModel = viewModel
+    init(model: ThreadsModel) {
+        self.model = model
     }
     
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
-                FilterHeader(viewModel: viewModel)
+                FilterHeader(model: model)
                 VStack(spacing: 0) {
-                    FilterCells(viewModel: viewModel)
+                    FilterCells(model: model)
                 }
                 .padding(.all, 16)
                 Spacer()
-                ActionButtonViewStack(geometry: geometry, viewModel: viewModel)
+                ActionButtonViewStack(geometry: geometry, model: model)
             }
             .background(lightGrayBackground)
         }
     }
     
     private struct FilterCells: View {
-        private var viewModel: ThreadsViewModel
+        private var model: ThreadsModel
 
-        init(viewModel: ThreadsViewModel) {
-            self.viewModel = viewModel
+        init(model: ThreadsModel) {
+            self.model = model
         }
         
         var body: some View {
-            ForEach(viewModel.filterTypes, id: \.self) { filter in
+            ForEach(model.filterTypes, id: \.self) { filter in
                 VStack(spacing: 0) {
                     Text(filter.title)
                         .padding(.leading, 16)
                         .frame(height: 44)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .background(.white)
-                    if let lastId = viewModel.filterTypes.last?.id, lastId != filter.id {
+                    if let lastId = model.filterTypes.last?.id, lastId != filter.id {
                         Divider()
                     }
                 }
@@ -52,12 +52,12 @@ struct FilterSearchView: View {
     private struct FilterHeader: View {
         @Environment(\.colorScheme) private var colorScheme
 
-        @Bindable private var viewModel: ThreadsViewModel
+        @Bindable private var model: ThreadsModel
         
         private let cornerRadiusSize = 10.0
         
-        init(viewModel: ThreadsViewModel) {
-            self.viewModel = viewModel
+        init(model: ThreadsModel) {
+            self.model = model
         }
         
         var body: some View {
@@ -69,7 +69,7 @@ struct FilterSearchView: View {
                 HStack {
                     Image("searchGlyphIcon")
                         .design(padding: .smaller(.leading))
-                    TextField("Nazwa klienta (login Allegro)", text: $viewModel.searchFilterTextField)
+                    TextField("Nazwa klienta (login Allegro)", text: $model.searchFilterTextField)
                 }
                 .frame(height: 36)
                 .background(
@@ -87,19 +87,19 @@ struct FilterSearchView: View {
     private struct ActionButtonViewStack: View {
         @Environment(\.colorScheme) private var colorScheme
 
-        private var viewModel: ThreadsViewModel
+        private var model: ThreadsModel
         
         private let geometry: GeometryProxy
 
-        init(geometry: GeometryProxy, viewModel: ThreadsViewModel) {
+        init(geometry: GeometryProxy, model: ThreadsModel) {
             self.geometry = geometry
-            self.viewModel = viewModel
+            self.model = model
         }
         
         var body: some View {
             HStack(alignment: .center, spacing: 0) {
                 FilterActionButton(geometry: geometry,
-                                   action: { viewModel.showingFilterSearchPopup.toggle() },
+                                   action: { model.showingFilterSearchPopup.toggle() },
                                    backgroundColor: .design(color: .mediumGray, with: colorScheme),
                                    foregroundColor: .black,
                                    title: "Anuluj")
