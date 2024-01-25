@@ -28,7 +28,7 @@ struct ThreadsView: View {
                         ForEach(viewModel.threads) { (thread: MessageCenterThread) in
 
                             NavigationLink {
-                                MessageDetailNavigationView(viewModel: factory.detailChatViewModel(thread: thread, messageCenter: viewModel.messageCenter))
+                                MessageDetailNavigationView(viewModel: factory.detailChatViewModel(thread: thread))
                             } label: {
                                 ThreadPreview(thread: thread)
                             }
