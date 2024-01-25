@@ -22,13 +22,7 @@ extension ThreadPreview: View {
             VStack(spacing: 0) {
                 HStack(spacing: 0) {
 
-                    ZStack {
-                        InterlocutorAvatar(interlocutor: model.thread.interlocutor)
-
-                        if model.thread.read.isFalse {
-                            GreenOnlineCircle()
-                        }
-                    }
+                    InterlocutorAvatar(interlocutor: model.thread.interlocutor)
 
                     VStack(spacing: 0) {
                         HStack(spacing: 0) {
@@ -50,17 +44,27 @@ extension ThreadPreview: View {
                                 .design(padding: .custom(edges: .top, length: 6))
                             }
                             Spacer()
-                            VStack(alignment: .trailing, spacing: 0) {
+                            VStack(alignment: .trailing, spacing: 4) {
 
                                 if let times = model.lastMessageTime {
 
                                     times.relative
-                                        .font(.custom("SF Pro Display", fixedSize: 14))
-                                        .foregroundColor(fontColor)
+                                        .design(
+                                            typography: .custom(
+                                                weight: model.thread.read ? .regular : .medium  ,
+                                                size: 14
+                                            )
+                                        )
+                                        .foregroundColor(model.thread.read ? fontColor : .black)
 
                                     times.time
-                                        .font(.custom("SF Pro Display", fixedSize: 14))
-                                        .foregroundColor(fontColor)
+                                        .design(
+                                            typography: .custom(
+                                                weight: model.thread.read ? .regular : .medium  ,
+                                                size: 14
+                                            )
+                                        )
+                                        .foregroundColor(model.thread.read ? fontColor : .black)
                                 }
 
 
