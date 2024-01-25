@@ -39,9 +39,9 @@ struct MessageDetailNavigationView: View {
                 Spacer()
             }
             .navigationBarBackButtonHidden(true)
-            #if canImport(UIKit)
+#if canImport(UIKit)
             .toolbar(.hidden, for: .tabBar)
-            #endif
+#endif
         }
     }
 
@@ -111,7 +111,7 @@ struct MessageDetailNavigationView: View {
             VStack(alignment: horizontalAlignment, spacing: 0) {
                 Text("Hi! your last shot was realy good!")
                     .design(
-                        padding: .smal(.vertical), 
+                        padding: .smal(.vertical),
                         padding: .base(.horizontal)
                     )
                     .background(isInterlocutor
