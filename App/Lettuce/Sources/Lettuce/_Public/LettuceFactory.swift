@@ -14,7 +14,18 @@ public final class LettuceFactory {
 
     let messageCenter: MessageCenterRepository
 
-    public init(
+    static var shared: LettuceFactory!
+
+    public static func takeOff(
+        networkingHandler: NetworkingHandlerType,
+        tokenProvider: @escaping Producer<String?>
+    ) -> LettuceFactory {
+        LettuceFactory.shared = .init(networkingHandler: networkingHandler, tokenProvider: tokenProvider)
+
+        return LettuceFactory.shared
+    }
+
+    private init(
         networkingHandler: NetworkingHandlerType,
         tokenProvider: @escaping Producer<String?>
     ) {
@@ -34,7 +45,7 @@ public extension LettuceFactory {
     /// Main entry point for the module.
     func makeEntryView() -> some View {
         ThreadsView(model: myMessagesViewModel)
-            .environment(self)
+            .environment(LettuceFactory.shared)
             .environment(messageCenter)
     }
 }

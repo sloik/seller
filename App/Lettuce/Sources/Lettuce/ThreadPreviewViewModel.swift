@@ -27,9 +27,22 @@ final class ThreadPreviewViewModel {
     }()
 
     let thread: MessageCenterThread
+    private let messageCenter: MessageCenterRepository
 
-    init(thread: MessageCenterThread) {
+    init(
+        thread: MessageCenterThread,
+        messageCenter: MessageCenterRepository = LettuceFactory.shared.messageCenter
+    ) {
         self.thread = thread
+        self.messageCenter = messageCenter
+    }
+
+    var lastMessage: Message? {
+        messageCenter.lastMessage(thread)
+    }
+
+    var hasAttachments: Bool {
+        messageCenter.hasAttachments(thread)
     }
 
     var lastMessageTime: (relative: String, time: String)? {

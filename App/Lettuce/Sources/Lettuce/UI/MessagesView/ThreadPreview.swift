@@ -4,9 +4,6 @@ import SwiftUI
 import Zippy
 
 struct ThreadPreview {
-
-    @Environment(MessageCenterRepository.self) private var messageCenter
-
     private let fontColor = (Color(red: 0.24, green: 0.24, blue: 0.26).opacity(0.6))
 
     private var hasAttachment: Bool = false
@@ -42,11 +39,11 @@ extension ThreadPreview: View {
 
                                 HStack(alignment: .center, spacing: 0) {
 
-                                    if messageCenter.hasAttachments(viewModel.thread) {
+                                    if viewModel.hasAttachments {
                                         AttachmentIconView()
                                     }
 
-                                    if let message = messageCenter.lastMessage(viewModel.thread) {
+                                    if let message = viewModel.lastMessage {
                                         LastMessageView(message: message)
                                     }
                                 }
