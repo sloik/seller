@@ -12,12 +12,10 @@ struct ThreadPreview {
     private var hasAttachment: Bool = false
     private var hasUnreadMessages: Bool = false
 
-    private let thread: MessageCenterThread
-
-    private let viewModel = ThreadPreviewViewModel()
+    private let viewModel: ThreadPreviewViewModel
 
     init(thread: MessageCenterThread) {
-        self.thread = thread
+        self.viewModel = ThreadPreviewViewModel(thread: thread)
     }
 }
 
@@ -28,9 +26,9 @@ extension ThreadPreview: View {
                 HStack(spacing: 0) {
 
                     ZStack {
-                        InterlocutorAvatar(interlocutor: thread.interlocutor)
+                        InterlocutorAvatar(interlocutor: viewModel.thread.interlocutor)
 
-                        if thread.read.isFalse {
+                        if viewModel.thread.read.isFalse {
                             GreenOnlineCircle()
                         }
                     }
@@ -38,17 +36,17 @@ extension ThreadPreview: View {
                     VStack(spacing: 0) {
                         HStack(spacing: 0) {
                             VStack(spacing: 0) {
-                                Text( thread.interlocutor?.login ?? "Unknown" )
+                                Text( viewModel.thread.interlocutor?.login ?? "Unknown" )
                                     .font(.custom("SF Pro Display", fixedSize: 17))
                                     .frame(maxWidth: .infinity, alignment: .leading)
 
                                 HStack(alignment: .center, spacing: 0) {
 
-                                    if messageCenter.hasAttachments(thread) {
+                                    if messageCenter.hasAttachments(viewModel.thread) {
                                         AttachmentIconView()
                                     }
 
-                                    if let message = messageCenter.lastMessage(thread) {
+                                    if let message = messageCenter.lastMessage(viewModel.thread) {
                                         LastMessageView(message: message)
                                     }
                                 }
@@ -57,7 +55,7 @@ extension ThreadPreview: View {
                             Spacer()
                             VStack(alignment: .trailing, spacing: 0) {
 
-                                if let times = viewModel.lastMessageTime(thread) {
+                                if let times = viewModel.lastMessageTime {
 
                                     times.relative
                                         .font(.custom("SF Pro Display", fixedSize: 14))

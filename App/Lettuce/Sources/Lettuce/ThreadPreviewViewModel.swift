@@ -26,7 +26,13 @@ final class ThreadPreviewViewModel {
         return formatter
     }()
 
-    func lastMessageTime(_ thread: MessageCenterThread) -> (relative: String, time: String)? {
+    let thread: MessageCenterThread
+
+    init(thread: MessageCenterThread) {
+        self.thread = thread
+    }
+
+    var lastMessageTime: (relative: String, time: String)? {
         Zippy.zip(
             lastMessageRelativeString(thread),
             lastMessageString(thread)
