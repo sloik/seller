@@ -110,7 +110,7 @@ extension MessageCenterRepository {
     func lastMessage(_ thread: MessageCenterThread) -> Message? {
         messages[thread]
             .map { messages in
-                messages.last
+                messages.first
             }
             .or( .none )
     }

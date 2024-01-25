@@ -25,12 +25,18 @@ struct ThreadsView: View {
                     .frame(height: 77)
                 ScrollView {
                     VStack(spacing: 17) {
-                        ForEach(model.threads) { (thread: MessageCenterThread) in
 
+                        ForEach(
+                            Array(model.threads.enumerated()),
+                            id: \.element
+                        ) { (index: Int, thread: MessageCenterThread) in
                             NavigationLink {
                                 MessageDetailNavigationView(model: factory.detailChatModel(thread: thread))
                             } label: {
                                 ThreadPreview(thread: thread)
+                                    .background {
+                                        index.isMultiple(of: 2) ? Color.black.opacity(0.01) : Color.white
+                                    }
                             }
                             .contextMenu {
                                 thread.interlocutor?.login ?? ""
