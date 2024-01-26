@@ -1,30 +1,10 @@
 
 import Foundation
 
+import Utilities
 import Zippy
 
 final class ThreadPreviewModel {
-    private let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .none
-        formatter.doesRelativeDateFormatting = false
-        return formatter
-    }()
-
-
-    private let relativeDateTimeFormatter: RelativeDateTimeFormatter = {
-        let formatter = RelativeDateTimeFormatter()
-        formatter.dateTimeStyle = .named
-        formatter.unitsStyle = .full
-        return formatter
-    }()
-
-    private let isoDateFormatter: ISO8601DateFormatter = {
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        return formatter
-    }()
 
     let thread: MessageCenterThread
     private let messageCenter: MessageCenterRepository
@@ -58,16 +38,16 @@ private extension ThreadPreviewModel {
     func lastMessageDate(_ thread: MessageCenterThread) -> Date? {
         thread
             .lastMessageDateTime
-            .andThen( isoDateFormatter.date(from:) )
+            .andThen( \.isoDate )
     }
 
     func lastMessageString(_ thread: MessageCenterThread) -> String? {
         lastMessageDate( thread )
-            .andThen( dateFormatter.string(from:) )
+            .andThen { date in date.design(formatter: .date) }
     }
 
     func lastMessageRelativeString(_ thread: MessageCenterThread) -> String? {
         lastMessageDate( thread )
-            .andThen { date in relativeDateTimeFormatter.localizedString(for: date, relativeTo: .now) }
+            .andThen { date in date.design(formatter: .relative) }
     }
 }
