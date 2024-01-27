@@ -28,7 +28,7 @@ struct MessageNavigationView: View {
                        label: {
                     Image("searchIcon").resizable().foregroundColor(.black).frame(width: iconWidth, height: iconWidth)
                         .padding(.trailing, 13)
-                        .design(padding: .smal(.trailing))
+                        .design(padding: .small(.trailing))
                 })
             }
             .frame(height: 77)

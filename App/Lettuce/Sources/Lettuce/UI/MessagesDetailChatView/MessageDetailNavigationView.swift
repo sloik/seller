@@ -44,19 +44,14 @@ struct MessageDetailNavigationView: View {
                     .overlay( .design(color: .gray71, with: colorScheme) )
 
                 ScrollView {
-                    MessageDetailPreview(model: model)
-                }
-
-                Divider()
-
-                ScrollView {
                     Text("Today")
                         .design(padding: .big([.top, .bottom]))
-                    MessageBubble(geometry: geometry, isInterlocutor: true)
-                    MessageSpacer()
-                    MessageBubble(geometry: geometry, isInterlocutor: false)
-                    MessageSpacer()
-                    MessageBubble(geometry: geometry, isInterlocutor: true)
+                    ForEach(model.messages) { message in
+                        MessageBubble(geometry: geometry, 
+                                      isInterlocutor: message.author.isInterlocutor,
+                                      messageText: message.text)
+                        MessageSpacer()
+                    }
                 }
                 Spacer()
                 TypeMessageView(model: model).ignoresSafeArea(.all)
@@ -118,31 +113,33 @@ struct MessageDetailNavigationView: View {
     private struct MessageBubble: View {
 
         @Environment(\.colorScheme) private var colorScheme
+        private let messageText: String
         private let isInterlocutor: Bool
         private let geometry: GeometryProxy
         private let alignment: Alignment
         private let horizontalAlignment: HorizontalAlignment
         private let cornerRadius: CGFloat = 18
 
-        init(geometry: GeometryProxy, isInterlocutor: Bool) {
+        init(geometry: GeometryProxy, isInterlocutor: Bool, messageText: String) {
             self.geometry = geometry
             self.isInterlocutor = isInterlocutor
             self.alignment = isInterlocutor ? .leading : .trailing
             self.horizontalAlignment = isInterlocutor ? .leading : .trailing
+            self.messageText = messageText
         }
 
         var body: some View {
             VStack(alignment: horizontalAlignment, spacing: 0) {
-                Text("Hi! your last shot was realy good!")
+                Text(messageText)
                     .design(
-                        padding: .smal(.vertical),
+                        padding: .small(.vertical),
                         padding: .base(.horizontal)
                     )
                     .background(isInterlocutor
                                 ? .design(color: .gray92, with: colorScheme)
                                 : .design(color: .gray69, with: colorScheme),
                                 in: RoundedRectangle(cornerSize: CGSize(width: cornerRadius, height: cornerRadius)))
-                    .design(padding: .smal(.bottom))
+                    .design(padding: .small(.bottom))
                     .design(padding: .large(.horizontal))
                 Text("9:23")
                     .foregroundStyle( .design(color: .gray5958, with: colorScheme) )
