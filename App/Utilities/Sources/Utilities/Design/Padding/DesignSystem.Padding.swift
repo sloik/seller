@@ -45,6 +45,7 @@ extension DesignSystem.Padding {
         case .huge:                     return 36
         case .hugger:                   return 40
 
+        @available(*, deprecated, message: "👨‍🎨 Design System: Please use any other value!")
         case .custom(_, let length):    return length
         }
     }
@@ -62,6 +63,7 @@ extension DesignSystem.Padding {
         case .huge(let edges):          return edges
         case .hugger(let edges):        return edges
 
+        @available(*, deprecated, message: "👨‍🎨 Design System: Please use any other value!")
         case .custom(let edges, _):     return edges
         }
     }
