@@ -10,7 +10,7 @@ extension DesignSystem {
         /// 8
         case smaller(_ edges: Edge.Set)
         /// 12
-        case smal   (_ edges: Edge.Set)
+        case small   (_ edges: Edge.Set)
         /// 16
         case base   (_ edges: Edge.Set)
         /// 20
@@ -36,7 +36,7 @@ extension DesignSystem.Padding {
         switch self {
         case .tiny:                     return 6
         case .smaller:                  return 8
-        case .smal:                     return 12
+        case .small:                    return 12
         case .base:                     return 16
         case .big:                      return 20
         case .bigger:                   return 24
@@ -54,7 +54,7 @@ extension DesignSystem.Padding {
         switch self {
         case .tiny(let edges):          return edges
         case .smaller(let edges):       return edges
-        case .smal(let edges):          return edges
+        case .small(let edges):          return edges
         case .base(let edges):          return edges
         case .big(let edges):           return edges
         case .bigger(let edges):        return edges

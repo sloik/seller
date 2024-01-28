@@ -23,6 +23,7 @@ extension ThreadPreview: View {
                 HStack(spacing: 0) {
 
                     InterlocutorAvatar(interlocutor: model.thread.interlocutor)
+                        .design(padding: .smaller(.vertical))
 
                     VStack(spacing: 0) {
                         HStack(spacing: 0) {
@@ -33,12 +34,8 @@ extension ThreadPreview: View {
 
                                 HStack(alignment: .center, spacing: 0) {
 
-                                    if model.hasAttachments {
-                                        AttachmentIconView()
-                                    }
-
                                     if let message = model.lastMessage {
-                                        LastMessageView(message: message)
+                                        LastMessageView(message: message, read: model.thread.read)
                                     }
                                 }
                                 .design(padding: .custom(edges: .top, length: 6))
@@ -70,10 +67,12 @@ extension ThreadPreview: View {
 
                             }
                         }
-                        .padding(.trailing, 43)
+                        .design(padding: .smaller(.trailing))
                     }
                 }
             }
+        Divider()
+                .frame(height: 1)
         }
     }
 }

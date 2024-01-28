@@ -65,7 +65,7 @@ struct FilterSearchView: View {
                 Text("Filtruj")
                     .design(typography: .label(weight: .semibold))
                     .design(padding: .hugger(.top))
-                    .design(padding: .smal(.bottom))
+                    .design(padding: .small(.bottom))
                 HStack {
                     Image("searchGlyphIcon")
                         .design(padding: .smaller(.leading))

@@ -2,19 +2,23 @@
 import SwiftUI
 
 struct LastMessageView: View {
-
+    @Environment(\.colorScheme) private var colorScheme
     let message: Message
-
-    private let fontColor = (Color(red: 0.24, green: 0.24, blue: 0.26).opacity(0.6))
+    let read: Bool
 
     var body: some View {
         Text(message.subject ?? message.text)
             .multilineTextAlignment(.leading)
             .lineLimit(2)
             .truncationMode(.tail)
-            .design(typography: .custom(weight: .semibold, size: 12))
-            .foregroundColor(fontColor)
+            .design(
+                typography: .custom(
+                    weight: read ? .regular : .bold,
+                    size: 12
+                )
+            )
+            .foregroundColor(read ? .design(color: .gray2426, with: colorScheme).opacity(0.6)
+                                  : .design(color: .gray2426, with: colorScheme))
             .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
-
