@@ -67,7 +67,7 @@ extension ThreadPreview: View {
 
                             }
                         }
-                        .padding(.trailing, 8)
+                        .design(padding: .smaller(.trailing))
                     }
                 }
             }

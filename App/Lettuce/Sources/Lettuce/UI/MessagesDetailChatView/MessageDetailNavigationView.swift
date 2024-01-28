@@ -130,7 +130,7 @@ struct MessageDetailNavigationView: View {
 
         var body: some View {
             VStack(alignment: horizontalAlignment, spacing: 0) {
-                Text(messageText)
+                messageText
                     .design(
                         padding: .small(.vertical),
                         padding: .base(.horizontal)

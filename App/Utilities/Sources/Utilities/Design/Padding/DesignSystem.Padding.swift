@@ -36,7 +36,7 @@ extension DesignSystem.Padding {
         switch self {
         case .tiny:                     return 6
         case .smaller:                  return 8
-        case .small:                     return 12
+        case .small:                    return 12
         case .base:                     return 16
         case .big:                      return 20
         case .bigger:                   return 24
