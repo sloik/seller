@@ -40,5 +40,13 @@ class ThreadsModel {
             try? await self.messageCenter.fetchThreads()
         }
     }
-    
+
+    func markAsRead(_ thread: MessageCenterThread) {
+        print(#function)
+    }
+
+    func markAsUnread(_ thread: MessageCenterThread) {
+        print(#function)
+    }
+
 }

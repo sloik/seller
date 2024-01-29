@@ -36,10 +36,19 @@ struct ThreadsView: View {
                                 ThreadPreview(thread: thread)
                             }
                             .contextMenu {
-                                thread.interlocutor?.login ?? ""
-                            } preview: {
-                                MessageDetailPreview(model: factory.detailChatModel(thread: thread))
-                                    .design(padding: .hugger(.all))
+                                if thread.read.isFalse {
+                                    Button {
+                                        model.markAsRead(thread)
+                                    } label: {
+                                        Label("Mark as read", systemImage: "checkmark.message.fill")
+                                    }
+                                } else {
+                                    Button {
+                                        model.markAsUnread(thread)
+                                    } label: {
+                                        Label("Mark as unread", systemImage: "checkmark.message")
+                                    }
+                                }
                             }
                         }
                     }
