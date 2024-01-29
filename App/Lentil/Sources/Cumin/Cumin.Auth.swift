@@ -152,6 +152,13 @@ extension CuminUseCases.Auth {
                             try Cumin.secureStore.save(data: tokenData, for: .token)
                             didLogin()
                         }
+                    
+                    NotificationCenter
+                        .default
+                        .post(
+                            name: .init("CuminUseCases.Auth.hasNewToken"),
+                            object: nil
+                        )
                 }
         }
     }
