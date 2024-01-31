@@ -1,7 +1,8 @@
 
+import Combine
 import Foundation
-import SwiftUI
 import Observation
+import SwiftUI
 
 import AliasWonderland
 import Onion
@@ -43,8 +44,12 @@ public final class LettuceFactory {
 
 public extension LettuceFactory {
     /// Main entry point for the module.
-    func makeEntryView() -> some View {
-        ThreadsView(model: myMessagesModel)
+    func makeEntryView(refresh: AnyPublisher<Void,Never>) -> some View {
+
+        let model = threadsModel
+        model.refresh = refresh
+
+        return ThreadsView(model: model)
             .environment(LettuceFactory.shared)
             .environment(messageCenter)
     }
@@ -54,7 +59,7 @@ public extension LettuceFactory {
 
 extension LettuceFactory {
 
-    var myMessagesModel: ThreadsModel {
+    var threadsModel: ThreadsModel {
         .init(
             messageCenter: messageCenter
         )

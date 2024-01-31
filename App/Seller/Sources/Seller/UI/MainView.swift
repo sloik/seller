@@ -1,8 +1,10 @@
 //system
+import Combine
 import SwiftUI
 
 // local
 import Acorn
+import Lentil
 import Lettuce
 import Onion
 import Utilities
@@ -12,10 +14,12 @@ struct MainView: View {
     let acornFactory: AcornFactory
     let lettuceFactory: LettuceFactory
 
+    let didGotToken: AnyPublisher<Void,Never> = NotificationCenter.default.publisher(for: .hasNewToken).map { _ in  }.eraseToAnyPublisher()
+
     var body: some View {
         TabView {
             Group {
-                lettuceFactory.makeEntryView()
+                lettuceFactory.makeEntryView(refresh: didGotToken)
                     .tabItem {
                         TabBarIcon(imageName: "messageTabIcon", titleName: "Wiadomości")
                     }

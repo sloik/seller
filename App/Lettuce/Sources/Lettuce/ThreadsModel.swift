@@ -1,6 +1,8 @@
 // system
-import Observation
+
+import Combine
 import Foundation
+import Observation
 
 import AliasWonderland
 import Onion
@@ -17,6 +19,16 @@ class ThreadsModel {
 
     var searchFilterTextField: String = ""
     var showingFilterSearchPopup = false
+
+    private var refreshCancelable: AnyCancellable?
+    var refresh: AnyPublisher<Void,Never>? {
+        didSet {
+            refreshCancelable = refresh?
+                .sink { [weak self] in
+                self?.getAll()
+            }
+        }
+    }
 
     private let messageCenter: MessageCenterRepository
 
