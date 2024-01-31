@@ -20,11 +20,7 @@ class ThreadsModel {
     var searchFilterTextField: String = ""
     var showingFilterSearchPopup = false
 
-    private var refreshCancelable: AnyCancellable? {
-        willSet {
-            refreshCancelable?.cancel()
-        }
-    }
+    private var refreshCancelable: AnyCancellable?
 
     var refresh: AnyPublisher<Void,Never>? {
         didSet {
