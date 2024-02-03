@@ -15,7 +15,6 @@ struct ThreadsView: View {
 
     init(model: ThreadsModel) {
         self.model = model
-        self.model.getAll()
     }
 
     public var body: some View {
@@ -55,6 +54,9 @@ struct ThreadsView: View {
                 }
                 Spacer()
             }
+        }
+        .onAppear {
+            model.getAll()
         }
     }
 }
