@@ -83,7 +83,7 @@ extension MessageCenterRepository {
         try await fetchMessages(threads: result.threads)
     }
 
-    func markAsRead(_ thread: MessageCenterThread) async throws -> ReadThreadResponse {
+    func markAsRead(_ thread: MessageCenterThread) async throws {
         let request = ChangeReadFlagOnThreadRequest(
             read: true,
             threadId: thread.id,
@@ -92,10 +92,10 @@ extension MessageCenterRepository {
 
         let (result, _) = try await networkingHandler.run(request)
 
-        return result
+        try await update(result)
     }
 
-    func markAsUnread(_ thread: MessageCenterThread) async throws -> ReadThreadResponse {
+    func markAsUnread(_ thread: MessageCenterThread) async throws {
         let request = ChangeReadFlagOnThreadRequest(
             read: false,
             threadId: thread.id,
@@ -104,7 +104,21 @@ extension MessageCenterRepository {
 
         let (result, _) = try await networkingHandler.run(request)
 
-        return result
+        try await update(result)
+    }
+
+    /// Updates thread used as a key with the new value when it's different 
+    /// from the existing one. Fetches all threads in any other case.
+    private func update(_ thread: MessageCenterThread) async throws {
+
+        if
+            let existingThread = threads.first(where: { $0.id == thread.id }),
+            existingThread != thread,
+            let threadMessages = messages.removeValue(forKey: existingThread) {
+            messages[thread] = threadMessages
+        } else {
+            try await fetchThreads()
+        }
     }
 
 }
