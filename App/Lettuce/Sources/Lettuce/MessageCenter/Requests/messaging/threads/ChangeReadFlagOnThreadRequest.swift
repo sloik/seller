@@ -5,12 +5,10 @@ import HTTPTypes
 // local
 import Onion
 
-typealias ReadThreadResponse = ChangeReadFlagOnThreadRequest.Response
-
 // https://developer.allegro.pl/documentation#operation/changeReadFlagOnThreadPUT
 struct ChangeReadFlagOnThreadRequest: UploadRequest {
     typealias Input = Body
-    typealias Output = ReadThreadResponse
+    typealias Output = MessageCenterThread
 
     var path: String {
         "/messaging/threads/\(threadId)/read"
@@ -19,7 +17,8 @@ struct ChangeReadFlagOnThreadRequest: UploadRequest {
     var headerFields: HTTPFields {
         [
             HTTPField.Name.authorization : .bearer(token),
-            HTTPField.Name.contentType : .applicationVndAllegroV1Json
+            HTTPField.Name.contentType : .applicationVndAllegroV1Json,
+            .accept: .applicationVndAllegroV1Json
         ]
     }
 
@@ -37,15 +36,6 @@ struct ChangeReadFlagOnThreadRequest: UploadRequest {
         self.body = .init(read: read)
         self.threadId = threadId
         self.token = token
-    }
-}
-
-extension ChangeReadFlagOnThreadRequest {
-    struct Response: ContentType, Identifiable {
-        let id: String
-        let read: Bool
-        let lastMessageDateTime: String
-        let interlocutor: Interlocutor
     }
 }
 
