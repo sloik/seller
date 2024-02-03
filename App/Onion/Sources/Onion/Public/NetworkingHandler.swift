@@ -85,7 +85,14 @@ private extension NetworkingHandler {
 
         do {
             logger.debug("\(type(of: self)) \(#function)> Trying to run request \(type(of: request))")
-            return try await apiClient.run(request)
+
+            if let uploadRequest = request as? any UploadRequest {
+                let (content, response) = try await apiClient.upload(uploadRequest)
+
+                return (content as! R.Output, response)
+            } else {
+                return try await apiClient.run(request)
+            }
         } 
         // Catch error related expired JWT
         catch OnionError.notSuccessStatus(let response, _) where response.status.code == 401 {
