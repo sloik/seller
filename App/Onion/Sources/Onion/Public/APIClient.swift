@@ -3,13 +3,12 @@
 import Foundation
 import OSLog
 
-import Utilities
-
 import HTTPTypesFoundation
 import HTTPTypes
 
 import AliasWonderland
 import OptionalAPI
+import Utilities
 
 private let logger = Logger(subsystem: "Onion", category: "API Client")
 
@@ -57,7 +56,7 @@ public final class APIClient: APIClientType {
             """
             \(type(of: self)) \(#function) \(requestID)> 
                 Response: \(httpResponse.debugDescription)
-                    Data: \(String(data: data, encoding: .utf8) ?? "-")
+                    Data: \(data.utf8String ?? "-")
             """
         )
 
@@ -82,7 +81,7 @@ private extension APIClient {
         guard
             case .successful = httpResponse.status.kind
         else {
-            logger.error("\(type(of: self)) \(#function)> Request \(type(of: request)) failed with response: \(httpResponse.debugDescription)")
+            logger.error("\(type(of: self)) \(#function)> Request \(type(of: request)) failed with response: \(httpResponse.debugDescription), data: \(data.utf8String ?? "-")")
 
             throw OnionError.notSuccessStatus(response: httpResponse, data: data)
         }
