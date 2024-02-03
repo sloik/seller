@@ -82,6 +82,31 @@ extension MessageCenterRepository {
 
         try await fetchMessages(threads: result.threads)
     }
+
+    func markAsRead(_ thread: MessageCenterThread) async throws -> ReadThreadResponse {
+        let request = ChangeReadFlagOnThreadRequest(
+            read: true,
+            threadId: thread.id,
+            token: try token
+        )
+
+        let (result, _) = try await networkingHandler.run(request)
+
+        return result
+    }
+
+    func markAsUnread(_ thread: MessageCenterThread) async throws -> ReadThreadResponse {
+        let request = ChangeReadFlagOnThreadRequest(
+            read: false,
+            threadId: thread.id,
+            token: try token
+        )
+
+        let (result, _) = try await networkingHandler.run(request)
+
+        return result
+    }
+
 }
 
 // MARK: - Messages
