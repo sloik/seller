@@ -15,7 +15,7 @@ struct GetListUserThreads: PaginatedRequest {
     var headerFields: HTTPFields {
         [
             HTTPField.Name.authorization : "Bearer \(token)",
-            HTTPField.Name.accept : "application/vnd.allegro.public.v1+json"
+            HTTPField.Name.accept : .applicationVndAllegroV1Json
         ]
     }
     
