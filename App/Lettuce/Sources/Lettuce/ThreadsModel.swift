@@ -2,11 +2,14 @@
 
 import Combine
 import Foundation
+import OSLog
 import Observation
 
 import AliasWonderland
 import Onion
 import Zippy
+
+private let logger = Logger(subsystem: "Lettuce", category: "ThreadsModel")
 
 struct MessagesFilterType: Identifiable, Hashable {
     let id = UUID()
@@ -50,16 +53,32 @@ class ThreadsModel {
 
     func getAll() {
         Task {
-            try? await self.messageCenter.fetchThreads()
+            do {
+                try await self.messageCenter.fetchThreads()
+            } catch {
+                logger.error("🛤️ \(#function) \(error)")
+            }
         }
     }
 
     func markAsRead(_ thread: MessageCenterThread) {
-        print(#function)
+        Task {
+            do {
+                try await self.messageCenter.markAsRead(thread)
+            } catch {
+                logger.error("🛤️ \(#function) \(error)")
+            }
+        }
     }
 
     func markAsUnread(_ thread: MessageCenterThread) {
-        print(#function)
+        Task {
+            do {
+                try await self.messageCenter.markAsUnread(thread)
+            } catch {
+                logger.error("🛤️ \(#function) \(error)")
+            }
+        }
     }
 
 }
