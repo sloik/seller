@@ -5,11 +5,13 @@ import HTTPTypes
 // local
 import Onion
 
+typealias ReadThreadResponse = ChangeReadFlagOnThreadRequest.Response
+
 // https://developer.allegro.pl/documentation#operation/changeReadFlagOnThreadPUT
 struct ChangeReadFlagOnThreadRequest: UploadRequest {
     typealias Input = Body
-    typealias Output = Response
-    
+    typealias Output = ReadThreadResponse
+
     var path: String {
         "/messaging/threads/\(threadId)/read"
     }
@@ -26,6 +28,16 @@ struct ChangeReadFlagOnThreadRequest: UploadRequest {
     let body: Body
     let threadId: String
     let token: String
+
+    internal init(
+        read: Bool,
+        threadId: String,
+        token: String
+    ) {
+        self.body = .init(read: read)
+        self.threadId = threadId
+        self.token = token
+    }
 }
 
 extension ChangeReadFlagOnThreadRequest {
