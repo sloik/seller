@@ -33,6 +33,12 @@ class MockApiClient: APIClientType {
     }
 
     public func upload<R: UploadRequest>(_ request: R) async throws -> (R.Output, HTTPTypes.HTTPResponse) {
-        fatalError("Provide your own implementation of \(#function)")
+        guard let testFlowRequest = request as? Flow else {
+            throw E.notTestFlowRequest
+        }
+
+        processedRequests.append(testFlowRequest)
+
+        return try testFlowRequest.response as! (R.Output, HTTPResponse)
     }
 }

@@ -1,0 +1,85 @@
+{
+  "configurations" : [
+    {
+      "id" : "DE1E63F0-30C4-4705-B38E-1EB68C064EB4",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:AlleSeller.xcodeproj",
+      "identifier" : "64078B272A87B72A00877322",
+      "name" : "AlleSeller"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:AlleSeller.xcodeproj",
+        "identifier" : "64078B372A87B72D00877322",
+        "name" : "AlleSellerTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/Seller",
+        "identifier" : "SellerTests",
+        "name" : "SellerTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/Acorn",
+        "identifier" : "AcornTests",
+        "name" : "AcornTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/Lentil",
+        "identifier" : "LentilTests",
+        "name" : "LentilTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/Lettuce",
+        "identifier" : "LettuceTests",
+        "name" : "LettuceTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/Onion",
+        "identifier" : "OnionTests",
+        "name" : "OnionTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/SecretsStore",
+        "identifier" : "SecretsStoreTests",
+        "name" : "SecretsStoreTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/Tomatos",
+        "identifier" : "TomatosTests",
+        "name" : "TomatosTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:..\/Utilities",
+        "identifier" : "UtilitiesTests",
+        "name" : "UtilitiesTests"
+      }
+    }
+  ],
+  "version" : 1
+}

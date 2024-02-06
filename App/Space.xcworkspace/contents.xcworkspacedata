@@ -8,9 +8,12 @@
       location = "container:AlleSeller/AlleSeller.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:AlleSellerTests.xctestplan">
+      location = "group:Onion.xctestplan">
    </FileRef>
    <FileRef
-      location = "group:Onion.xctestplan">
+      location = "group:Lettuce.xctestplan">
+   </FileRef>
+   <FileRef
+      location = "group:AlleSeller.xctestplan">
    </FileRef>
 </Workspace>

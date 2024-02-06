@@ -22,18 +22,15 @@ final class ChangeReadFlagOnThreadRequestTests: XCTestCase {
         }
         """
 
-        let expectedResult = ChangeReadFlagOnThreadRequest.Response(
+        let expectedResult = MessageCenterThread(
             id: "string",
             read: true,
             lastMessageDateTime: "2019-08-24T14:15:22Z",
-            interlocutor: Interlocutor(
-                login: "string",
-                avatarUrlString: "string"
-            )
+            interlocutor: Interlocutor(login: "string", avatarUrlString: "string")
         )
 
         // Act
-        let result = try! JSONDecoder().decode(ChangeReadFlagOnThreadRequest.Response.self, from: jsonString.data(using: .utf8)!)
+        let result = try! JSONDecoder().decode(MessageCenterThread.self, from: jsonString.data(using: .utf8)!)
 
         // Assert
         XCTAssertEqual(result, expectedResult)
