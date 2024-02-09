@@ -11,31 +11,26 @@ import Onion
 public final class LettuceFactory {
 
     private let networkingHandler: NetworkingHandlerType
-    private let tokenProvider: Producer<String?>
 
     let messageCenter: MessageCenterRepository
 
     static var shared: LettuceFactory!
 
     public static func takeOff(
-        networkingHandler: NetworkingHandlerType,
-        tokenProvider: @escaping Producer<String?>
+        networkingHandler: NetworkingHandlerType
     ) -> LettuceFactory {
-        LettuceFactory.shared = .init(networkingHandler: networkingHandler, tokenProvider: tokenProvider)
+        LettuceFactory.shared = .init(networkingHandler: networkingHandler)
 
         return LettuceFactory.shared
     }
 
     private init(
-        networkingHandler: NetworkingHandlerType,
-        tokenProvider: @escaping Producer<String?>
+        networkingHandler: NetworkingHandlerType
     ) {
         self.networkingHandler = networkingHandler
-        self.tokenProvider = tokenProvider
 
         self.messageCenter = .init(
-            networkingHandler: networkingHandler,
-            tokenProvider: tokenProvider
+            networkingHandler: networkingHandler
         )
     }
 }

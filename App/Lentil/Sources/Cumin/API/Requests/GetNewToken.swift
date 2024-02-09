@@ -13,13 +13,24 @@ struct GetNewToken: Request {
         "/auth/oauth/token?grant_type=refresh_token&refresh_token=\(refreshToken)&redirect_uri=\(redirectURI)"
     }
 
-    var headerFields: HTTPFields {
-        [
-            HTTPField.Name.authorization : .basic( encodedCredentials )
-        ]
-    }
+    var authorizationWithJWTNeeded: Bool { false }
+
+    var headerFields: HTTPFields
 
     let refreshToken: String
     let redirectURI: String
     let encodedCredentials: String
+
+    internal init(
+        refreshToken: String,
+        redirectURI: String,
+        encodedCredentials: String
+    ) {
+        self.headerFields = [
+            HTTPField.Name.authorization : .basic( encodedCredentials )
+        ]
+        self.refreshToken = refreshToken
+        self.redirectURI = redirectURI
+        self.encodedCredentials = encodedCredentials
+    }
 }

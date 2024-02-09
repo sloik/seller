@@ -38,9 +38,14 @@ extension NetworkingHandler: NetworkingHandlerType {
     public func run<R: Request>(_ request: R) async throws -> (R.Output, HTTPResponse) {
         try await tryToLoad {
             if request.authorizationWithJWTNeeded {
-                try await tryToRunAndRefreshTokenWhenNeeded(request)
+                var copy = request
+                // Override or add auth header with the lates token.
+                if loginHandler.hasToken {
+                    copy.headerFields[.authorization] = .bearer(loginHandler.token!)
+                }
+                return try await tryToRunAndRefreshTokenWhenNeeded(copy)
             } else {
-                try await apiClient.run(request)
+                return try await apiClient.run(request)
             }
         }
     }
@@ -73,14 +78,19 @@ private extension NetworkingHandler {
 
             do {
                 try await loginHandler.refreshToken()
+                assert(loginHandler.token.isNoneOrEmpty, "After refresh token, token should not be empty.")
+
+                // Updates token in the request
+                var copy = request
+                copy.headerFields[.authorization] = .bearer(loginHandler.token!)
+
+                return try await apiClient.run(copy)
             } catch {
                 logger.error("\(type(of: self)) \(#function)> Unable to refresh token with error: \(error.localizedDescription)")
                 logger.info("\(type(of: self)) \(#function)> Re login user to get the new token and refresh token")
 
                 throw NetworkingHandlerError.unableToRefreshToken(underlyingError: error)
             }
-
-            return try await apiClient.run(request)
         }
 
         do {

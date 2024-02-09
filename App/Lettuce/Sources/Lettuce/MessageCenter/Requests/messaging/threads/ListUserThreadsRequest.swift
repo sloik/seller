@@ -12,12 +12,9 @@ struct GetListUserThreads: PaginatedRequest {
         return preparePathWithComponents()
     }
     
-    var headerFields: HTTPFields {
-        [
-            HTTPField.Name.authorization : "Bearer \(token)",
-            HTTPField.Name.accept : .applicationVndAllegroV1Json
-        ]
-    }
+    var headerFields: HTTPFields = [
+        HTTPField.Name.accept : .applicationVndAllegroV1Json
+    ]
     
     func preparePathWithComponents() -> String {
         var components = URLComponents()
@@ -38,17 +35,13 @@ struct GetListUserThreads: PaginatedRequest {
         return components.url?.absoluteString ?? defaultPath
     }
 
-    let token: String
-    
     var offset: UInt
     var limit: UInt
     
     internal init(
-        token: String,
         limit: UInt = 20,
         offset: UInt = 0
     ) {
-        self.token = token
         self.limit = limit
         self.offset = offset
     }

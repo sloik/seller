@@ -14,12 +14,7 @@ struct MeRequest: Request {
         "/me"
     }
 
-    var headerFields: HTTPFields {
-        [
-            HTTPField.Name.authorization : .bearer(token),
-            HTTPField.Name.accept: .applicationVndAllegroV1Json,
-        ]
-    }
-
-    let token: String
+    var headerFields: HTTPFields = [
+        HTTPField.Name.accept: .applicationVndAllegroV1Json,
+    ]
 }

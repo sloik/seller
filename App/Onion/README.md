@@ -18,6 +18,10 @@ This is the type of the output that the request returns. It should conform to `C
 
 This is the path of the request. It should be relative to the base url of the request.
 
+## `authorizationWithJWTNeeded`
+
+Most requests need a JWT token to get resources. This property indicates if the request needs a JWT token. If it's `true` then the request will have the `Authorization` header with the JWT token. This is especially important when token needs to be refreshed. Thanks to this property networking manager can rerun requests with new token.
+
 ## `headerFields` property
 
 This is the header fields of the request. It should contain all the header fields that should be sent with the request.
@@ -54,6 +58,9 @@ struct GetToken: Request {
     var path: String {
         "/auth/oauth/token?grant_type=authorization_code&code=\(code)&redirect_uri=\(redirectURI)"
     }
+
+    // Usually most request need bearer token to get resources
+    var authorizationWithJWTNeeded: Bool { false }
 
     var headerFields: HTTPFields {
         [

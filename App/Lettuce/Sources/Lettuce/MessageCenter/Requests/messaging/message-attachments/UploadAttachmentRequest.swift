@@ -7,6 +7,7 @@ import Onion
 
 // https://developer.allegro.pl/documentation#operation/uploadAttachmentPUT
 struct UploadAttachmentRequest: UploadRequest {
+
     typealias Input = Data
     typealias Output = Identifier<Attachment>
 
@@ -18,16 +19,8 @@ struct UploadAttachmentRequest: UploadRequest {
         .put
     }
 
-    var headerFields: HTTPFields {
-        var fields: HTTPFields = [:]
+    var headerFields: HTTPFields
 
-        fields[.contentType] = attachmentType.rawValue
-        fields[token.httpField.name] = token.httpField.value
-
-        return fields
-    }
-
-    let token: BearerToken
     let attachmentId: Identifier<Attachment>
 
     enum AttachmentType: String, ContentType {
@@ -42,4 +35,18 @@ struct UploadAttachmentRequest: UploadRequest {
     let attachmentData: Data
 
     var body: Data { attachmentData }
+
+    internal init(
+        attachmentId: Identifier<Attachment>,
+        attachmentType: UploadAttachmentRequest.AttachmentType,
+        attachmentData: Data
+    ) {
+        self.headerFields = [
+            HTTPField.Name.contentType : attachmentType.rawValue,
+            HTTPField.Name.accept : .applicationVndAllegroV1Json
+        ]
+        self.attachmentId = attachmentId
+        self.attachmentType = attachmentType
+        self.attachmentData = attachmentData
+    }
 }

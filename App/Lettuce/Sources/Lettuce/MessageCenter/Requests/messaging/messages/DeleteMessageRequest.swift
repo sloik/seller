@@ -16,13 +16,9 @@ struct DeleteMessage: Request {
         .delete
     }
     
-    var headerFields: HTTPFields {
-        [
-            HTTPField.Name.authorization : .bearer(token),
-            HTTPField.Name.contentType : .applicationVndAllegroV1Json
-        ]
-    }
+    var headerFields: HTTPFields = [
+        HTTPField.Name.contentType : .applicationVndAllegroV1Json
+    ]
     
-    let token: String
     let messageId: String
 }

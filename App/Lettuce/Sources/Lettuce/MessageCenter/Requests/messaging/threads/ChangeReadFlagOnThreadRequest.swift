@@ -14,28 +14,22 @@ struct ChangeReadFlagOnThreadRequest: UploadRequest {
         "/messaging/threads/\(threadId)/read"
     }
 
-    var headerFields: HTTPFields {
-        [
-            HTTPField.Name.authorization : .bearer(token),
-            HTTPField.Name.contentType : .applicationVndAllegroV1Json,
-            .accept: .applicationVndAllegroV1Json
+    var headerFields: HTTPFields = [
+            HTTPField.Name.contentType  : .applicationVndAllegroV1Json,
+            HTTPField.Name.accept       : .applicationVndAllegroV1Json
         ]
-    }
 
     var method: HTTPRequest.Method { .put }
 
     let body: Body
     let threadId: String
-    let token: String
 
     internal init(
         read: Bool,
-        threadId: String,
-        token: String
+        threadId: String
     ) {
         self.body = .init(read: read)
         self.threadId = threadId
-        self.token = token
     }
 }
 

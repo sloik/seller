@@ -18,15 +18,11 @@ struct WriteNewMessageRequest: UploadRequest {
         .post
     }
     
-    var headerFields: HTTPFields {
-        [
-            HTTPField.Name.authorization : .bearer(token),
+    var headerFields: HTTPFields = [
             HTTPField.Name.contentType : .applicationVndAllegroV1Json
         ]
-    }
     
     let body: Body
-    let token: String
 }
 
 extension WriteNewMessageRequest {

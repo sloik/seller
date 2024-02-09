@@ -12,18 +12,14 @@ struct PostMessageInThread: UploadRequest {
         "/messaging/threads/\(threadId)/messages"
     }
     
-    var headerFields: HTTPFields {
-        [
-            HTTPField.Name.authorization : .bearer(token),
-            HTTPField.Name.contentType : .applicationVndAllegroV1Json
-        ]
-    }
+    var headerFields: HTTPFields = [
+        HTTPField.Name.contentType : .applicationVndAllegroV1Json
+    ]
 
     var method: HTTPRequest.Method {
         .post
     }
 
-    let token: String
     let threadId: String
 
     struct Body: ContentType {

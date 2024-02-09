@@ -12,7 +12,6 @@ import Zippy
 final class MessageCenterRepository {
 
     private let networkingHandler: NetworkingHandlerType
-    private let tokenProvider: Producer<String?>
 
     private(set) var messages: [MessageCenterThread:  [Message]] = [:]
 
@@ -26,25 +25,15 @@ final class MessageCenterRepository {
 
 
     init(
-        networkingHandler: NetworkingHandlerType,
-        tokenProvider: @escaping Producer<String?>
+        networkingHandler: NetworkingHandlerType
     ) {
         self.networkingHandler = networkingHandler
-        self.tokenProvider = tokenProvider
     }
 }
 
 // MARK: -
 
 private extension MessageCenterRepository {
-    var token: String  {
-        get throws {
-            guard let token = tokenProvider() else {
-                throw Errors.unableToGetToken
-            }
-            return token
-        }
-    }
 
     func fetchMessages(threads: [MessageCenterThread]) async throws {
         let result = try await withThrowingTaskGroup(
@@ -76,7 +65,7 @@ private extension MessageCenterRepository {
 extension MessageCenterRepository {
 
     func fetchThreads() async throws  {
-        let request = GetListUserThreads(token: try token)
+        let request = GetListUserThreads()
 
         let (result, _) = try await networkingHandler.run(request)
 
@@ -86,8 +75,7 @@ extension MessageCenterRepository {
     func markAsRead(_ thread: MessageCenterThread) async throws {
         let request = ChangeReadFlagOnThreadRequest(
             read: true,
-            threadId: thread.id,
-            token: try token
+            threadId: thread.id
         )
 
         let (result, _) = try await networkingHandler.run(request)
@@ -98,8 +86,7 @@ extension MessageCenterRepository {
     func markAsUnread(_ thread: MessageCenterThread) async throws {
         let request = ChangeReadFlagOnThreadRequest(
             read: false,
-            threadId: thread.id,
-            token: try token
+            threadId: thread.id
         )
 
         let (result, _) = try await networkingHandler.run(request)
@@ -129,7 +116,6 @@ extension MessageCenterRepository {
 
     private func fetchMessages(_ thread: MessageCenterThread) async throws -> MessagesInThread {
         let request = ListMessagesInThreadRequest(
-            token: try token,
             threadId: thread.id
         )
 

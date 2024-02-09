@@ -113,17 +113,7 @@ private extension MyAccountViewModel {
 
     func getUser() async throws -> User {
 
-        enum GetUserError: Error {
-            case missingToken
-        }
-
-        guard
-            let token = loginHandler.token
-        else {
-            throw GetUserError.missingToken
-        }
-
-        let meRequest = MeRequest(token: token)
+        let meRequest = MeRequest()
 
         let (user, _) = try await networkingHandler.run( meRequest )
 

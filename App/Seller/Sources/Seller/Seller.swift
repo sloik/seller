@@ -33,8 +33,7 @@ public final class Seller {
         )
 
         lettuceFactory = LettuceFactory.takeOff(
-            networkingHandler: networkingHandler, 
-            tokenProvider: { Lentil.token }
+            networkingHandler: networkingHandler
         )
     }
 

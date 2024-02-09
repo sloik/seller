@@ -19,14 +19,10 @@ struct ListMessagesInThreadRequest: PaginatedRequest {
         return components.url?.absoluteString ?? defaultPath
     }
     
-    var headerFields: HTTPFields {
-        [
-            HTTPField.Name.authorization : .bearer(token),
-            HTTPField.Name.accept : .applicationVndAllegroV1Json
-        ]
-    }
-    
-    let token: String
+    var headerFields: HTTPFields = [
+        HTTPField.Name.accept : .applicationVndAllegroV1Json
+    ]
+
     let threadId: String
     
     let limit: UInt
@@ -35,14 +31,12 @@ struct ListMessagesInThreadRequest: PaginatedRequest {
     let after: String?
 
     internal init(
-        token: String,
         threadId: String,
         limit: UInt = 20,
         offset: UInt = 0,
         before: String? = nil,
         after: String? = nil
     ) {
-        self.token = token
         self.threadId = threadId
         self.limit = limit
         self.offset = offset
