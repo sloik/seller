@@ -21,10 +21,6 @@ public protocol Request<Output> {
 }
 
 public extension Request {
-    var headerFields: HTTPFields {
-        [:]
-    }
-
     var method: HTTPRequest.Method {
         .get
     }

@@ -101,7 +101,14 @@ extension Flow: UploadRequest {
 
     var path: String { request.path }
 
-    var headerFields: HTTPFields { request.headerFields }
+    var headerFields: HTTPFields {
+        get {
+            request.headerFields
+        }
+        set {
+            request.headerFields = newValue
+        }
+    }
 
     var method: HTTPRequest.Method { request.method }
 

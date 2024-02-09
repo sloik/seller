@@ -3,6 +3,7 @@ import XCTest
 
 @testable import Onion
 
+import HTTPTypes
 import InlineSnapshotTesting
 
 final class PaginatedTests: XCTestCase {
@@ -31,6 +32,7 @@ fileprivate struct Req: PaginatedRequest {
     typealias Output = String
 
     var path: String = "/path"
+    var headerFields: HTTPFields = [:]
 
     var offset: UInt
     var limit: UInt

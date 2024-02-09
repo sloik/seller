@@ -1,5 +1,7 @@
 import XCTest
 
+import HTTPTypes
+
 @testable import Onion
 
 final class RequestTests: XCTestCase {
@@ -25,4 +27,5 @@ final class RequestTests: XCTestCase {
 fileprivate struct Req: Request {
     typealias Output = String
     var path: String = "/path"
+    var headerFields: HTTPFields = [:]
 }

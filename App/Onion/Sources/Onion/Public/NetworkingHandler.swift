@@ -78,7 +78,7 @@ private extension NetworkingHandler {
 
             do {
                 try await loginHandler.refreshToken()
-                assert(loginHandler.token.isNoneOrEmpty, "After refresh token, token should not be empty.")
+                assert(loginHandler.token.isNotNone, "After refresh token should not be empty.")
 
                 // Updates token in the request
                 var copy = request

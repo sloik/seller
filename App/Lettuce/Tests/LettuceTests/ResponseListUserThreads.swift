@@ -7,7 +7,7 @@ final class ResponseListUserThreadsTests: XCTestCase {
     func test_requestWithNilDefaultParameters() throws {
         // Arrange
         let expectedRelativeUrlPath = "/messaging/threads?limit=20&offset=0"
-        let request = GetListUserThreads(token: "token")
+        let request = GetListUserThreads()
         
         // Act
         let urlRelativePath = request.preparePathWithComponents()
@@ -19,7 +19,7 @@ final class ResponseListUserThreadsTests: XCTestCase {
     func test_requestWithAllParameters() throws {
         // Arrange
         let expectedRelativeUrlPath = "/messaging/threads?limit=30&offset=4"
-        let request = GetListUserThreads(token: "token", limit: 30, offset: 4)
+        let request = GetListUserThreads(limit: 30, offset: 4)
         
         // Act
         let urlRelativePath = request.preparePathWithComponents()
