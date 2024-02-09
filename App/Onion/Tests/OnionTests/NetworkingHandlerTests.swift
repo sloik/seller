@@ -121,7 +121,6 @@ final class NetworkingHandlerTests: XCTestCase {
         }
 
         // Check that token was refreshed
-//        loginHandler.tokenProducer = { "expired token" }
         loginHandler.refreshTokenClosure = { _ in
             didRefreshToken.fulfill()
             self.loginHandler.tokenProducer = { "updated token" }
