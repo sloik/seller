@@ -23,6 +23,33 @@ let package = Package(
             url: "https://github.com/pointfreeco/swift-composable-architecture",
             from: "1.7.3"
         ),
+
+            .package(path: "../Utilities"),
+
+            .package(
+                url: "https://github.com/apple/swift-http-types.git",
+                from: "1.0.2"
+            ),
+
+            .package(
+                url: "https://github.com/pointfreeco/swift-snapshot-testing",
+                from: "1.15.3"
+            ),
+
+            .package(
+                url: "https://github.com/sloik/AliasWonderland.git",
+                from: "4.0.1"
+            ),
+
+            .package(
+                url: "https://github.com/sloik/OptionalAPI.git",
+                from: "5.2.0"
+            ),
+
+            .package(
+                url: "https://github.com/sloik/ExTests.git",
+                from: "0.1.2"
+            ),
     ],
 
 
@@ -31,17 +58,38 @@ let package = Package(
             name: "Tomatos",
 
             dependencies: [
-                
+
+                "AliasWonderland",
+                "OptionalAPI",
+                "Utilities",
+
                 .product(
                     name: "ComposableArchitecture",
                     package: "swift-composable-architecture"
+                ),
+
+                .product(
+                    name: "HTTPTypes",
+                    package: "swift-http-types"
+                ),
+                .product(
+                    name: "HTTPTypesFoundation",
+                    package: "swift-http-types"
                 ),
             ]
         ),
         
         .testTarget(
             name: "TomatosTests",
-            dependencies: ["Tomatos"]
+            dependencies: [
+                "Tomatos",
+
+                "ExTests",
+                .product(
+                    name: "InlineSnapshotTesting",
+                    package: "swift-snapshot-testing"
+                ),
+            ]
         ),
     ]
 )
