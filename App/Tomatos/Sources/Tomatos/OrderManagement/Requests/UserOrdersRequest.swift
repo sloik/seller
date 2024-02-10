@@ -6,12 +6,21 @@ import HTTPTypes
 import Onion
 
 /// https://developer.allegro.pl/documentation#operation/getListOfOrdersUsingGET
-struct UserOrdersRequests: Request {
-    typealias Output = String
+struct UserOrdersRequest: Request {
+    typealias Output = UserOrdersRequest.Response
 
     var path: String {
         "/order/checkout-forms"
     }
 
     var headerFields: HTTPFields = [:]
+}
+
+extension UserOrdersRequest {
+
+    struct Response: ContentType {
+        let checkoutForms: [CheckoutForm]
+        let count: Int
+        let totalCount: Int
+    }
 }
