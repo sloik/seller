@@ -9,8 +9,6 @@ final class CheckoutFormTests: XCTestCase {
 
         // Arrange
         let jsonString = """
-        {
-          "checkoutForms": [
             {
               "id": "29738e61-7f6a-11e8-ac45-09db60ede9d6",
               "messageToSeller": "Please send me an item in red color",
@@ -220,9 +218,6 @@ final class CheckoutFormTests: XCTestCase {
               "updatedAt": "2011-12-03T10:15:30.133Z",
               "revision": "819b5836"
             }
-          ],
-          "count": 1,
-          "totalCount": 1
         }
         """
 
@@ -254,8 +249,8 @@ final class CheckoutFormTests: XCTestCase {
                 type: "CASH_ON_DELIVERY",
                 provider: "P24",
                 finishedAt: "2018-10-12T10:12:32.321Z",
-                paidAmount: Price.pln124_45,
-                reconciliation: Price.pln124_45
+                paidAmount: Price.pln123_45,
+                reconciliation: Price.pln123_45
             ),
             status: "READY_FOR_PROCESSING",
             fulfillment: CheckoutForm.Fulfillment(
@@ -396,5 +391,101 @@ final class CheckoutFormTests: XCTestCase {
 
         // Assert
         XCTAssertEqual(result, expectedResult)
+    }
+
+    func test_parsingJson_for_CheckoutFormPayment() {
+        // arrange
+        let jsonString = """
+          {
+            "id": "0f8f1d13-7e9e-11e8-9b00-c5b0dfb78ea6",
+            "type": "CASH_ON_DELIVERY",
+            "provider": "P24",
+            "finishedAt": "2018-10-12T10:12:32.321Z",
+            "paidAmount": {
+              "amount": "123.45",
+              "currency": "PLN"
+            },
+            "reconciliation": {
+              "amount": "123.45",
+              "currency": "PLN"
+            }
+          }
+        """
+
+        let expected = CheckoutForm.Payment(
+            id: "0f8f1d13-7e9e-11e8-9b00-c5b0dfb78ea6",
+            type: "CASH_ON_DELIVERY",
+            provider: "P24",
+            finishedAt: "2018-10-12T10:12:32.321Z",
+            paidAmount: Price.pln123_45,
+            reconciliation: Price.pln123_45
+        )
+
+        // act
+        let result = try! JSONDecoder().decode(CheckoutForm.Payment.self, from: jsonString.data(using: .utf8)!)
+
+        // assert
+        XCTAssertEqual(result.id, expected.id)
+        XCTAssertEqual(result.type, expected.type)
+        XCTAssertEqual(result.provider, expected.provider)
+        XCTAssertEqual(result.finishedAt, expected.finishedAt)
+        XCTAssertEqual(result.paidAmount, expected.paidAmount)
+        XCTAssertEqual(result.reconciliation, expected.reconciliation)
+
+        XCTAssertEqual(result, expected)
+    }
+
+    func test_parsingJson_for_CheckoutFormBuyer() {
+        // arrange
+
+        let jsonString = """
+           {
+            "id": "23123123",
+            "email": "user-email@allegro.pl",
+            "login": "User_Login",
+            "firstName": "Jan",
+            "lastName": "Kowalski",
+            "companyName": "Evil Corp",
+            "guest": false,
+            "personalIdentity": "67062589524",
+            "phoneNumber": "555-444-555",
+            "preferences": {
+              "language": "pl-PL"
+            },
+            "address": {
+              "street": "Solna",
+              "city": "Poznań",
+              "postCode": "60-166",
+              "countryCode": "PL"
+            }
+          }
+        """
+
+        let expected = CheckoutForm.Buyer(
+            id: "23123123",
+            email: "user-email@allegro.pl",
+            login: "User_Login",
+            firstName: "Jan",
+            lastName: "Kowalski",
+            companyName: "Evil Corp",
+            guest: false,
+            personalIdentity: "67062589524",
+            phoneNumber: "555-444-555",
+            preferences: CheckoutForm.Buyer.Preferences(
+                language: "pl-PL"
+            ),
+            address: CheckoutForm.Buyer.Address(
+                street: "Solna",
+                city: "Poznań",
+                postCode: "60-166",
+                countryCode: "PL"
+            )
+        )
+
+        // act
+        let result = try! JSONDecoder().decode(CheckoutForm.Buyer.self, from: jsonString.data(using: .utf8)!)
+
+        // assert
+        XCTAssertEqual(result, expected)
     }
 }
