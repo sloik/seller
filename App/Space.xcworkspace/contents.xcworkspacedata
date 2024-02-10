@@ -16,4 +16,7 @@
    <FileRef
       location = "group:AlleSeller.xctestplan">
    </FileRef>
+   <FileRef
+      location = "group:Tomatos-Package.xctestplan">
+   </FileRef>
 </Workspace>

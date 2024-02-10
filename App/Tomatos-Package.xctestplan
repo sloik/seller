@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "EE8127E9-B73D-4FAD-9AE2-6C1699336F81",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "TomatosTests",
+        "name" : "TomatosTests"
+      }
+    }
+  ],
+  "version" : 1
+}
