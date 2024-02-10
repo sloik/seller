@@ -14,13 +14,34 @@ let package = Package(
         .library(
             name: "Tomatos",
             type: .dynamic,
-            targets: ["Tomatos"]),
+            targets: ["Tomatos"]
+        ),
     ],
+
+    dependencies: [
+        .package(
+            url: "https://github.com/pointfreeco/swift-composable-architecture",
+            from: "1.7.3"
+        ),
+    ],
+
+
     targets: [
         .target(
-            name: "Tomatos"),
+            name: "Tomatos",
+
+            dependencies: [
+                
+                .product(
+                    name: "ComposableArchitecture",
+                    package: "swift-composable-architecture"
+                ),
+            ]
+        ),
+        
         .testTarget(
             name: "TomatosTests",
-            dependencies: ["Tomatos"]),
+            dependencies: ["Tomatos"]
+        ),
     ]
 )
