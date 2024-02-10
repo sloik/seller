@@ -86,7 +86,12 @@ let package = Package(
             dependencies: [
                 "Tomatos",
 
+                "AliasWonderland",
+                "Onion",
+                "OptionalAPI",
+                "Utilities",
                 "ExTests",
+                
                 .product(
                     name: "InlineSnapshotTesting",
                     package: "swift-snapshot-testing"
