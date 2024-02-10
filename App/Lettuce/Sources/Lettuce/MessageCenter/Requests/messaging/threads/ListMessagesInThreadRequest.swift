@@ -10,13 +10,8 @@ struct ListMessagesInThreadRequest: PaginatedRequest {
     typealias Output = MessagesInThread
 
     var path: String {
-        var components = URLComponents()
-        let defaultPath = "/messaging/threads/\(threadId)/messages"
-
-        components.path = defaultPath
-        components.queryItems = filterDateQueryItems
-
-        return components.url?.absoluteString ?? defaultPath
+        "/messaging/threads/\(threadId)/messages"
+            .appendToPath(items: filterDateQueryItems)
     }
     
     var headerFields: HTTPFields = [

@@ -10,8 +10,8 @@ final class ResponseListUserThreadsTests: XCTestCase {
         let request = GetListUserThreads()
         
         // Act
-        let urlRelativePath = request.preparePathWithComponents()
-        
+        let urlRelativePath = request.path
+
         // Assert
         XCTAssert(urlRelativePath == expectedRelativeUrlPath)
     }
@@ -22,7 +22,7 @@ final class ResponseListUserThreadsTests: XCTestCase {
         let request = GetListUserThreads(limit: 30, offset: 4)
         
         // Act
-        let urlRelativePath = request.preparePathWithComponents()
+        let urlRelativePath = request.path
         
         // Assert
         XCTAssert(urlRelativePath == expectedRelativeUrlPath)

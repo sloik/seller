@@ -30,3 +30,19 @@ extension String: View {
 }
 
 #endif
+
+// MARK: - Query Items
+
+public extension String {
+
+    /// Assumes that the current string is a URL path
+    /// and appends the given query items to it.
+    func appendToPath(items: [URLQueryItem]) -> String {
+        var components = URLComponents()
+
+        components.path = self
+        components.queryItems = items
+
+        return components.url?.absoluteString ?? self
+    }
+}
