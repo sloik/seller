@@ -4,6 +4,7 @@ import HTTPTypes
 
 // local
 import Onion
+import Utilities
 
 struct ListMessagesInThreadRequest: PaginatedRequest {
 
