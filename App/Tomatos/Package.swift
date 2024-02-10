@@ -24,6 +24,7 @@ let package = Package(
             from: "1.7.3"
         ),
 
+            .package(path: "../Onion"),
             .package(path: "../Utilities"),
 
             .package(
