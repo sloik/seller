@@ -54,51 +54,51 @@ final class CheckoutFormTests: XCTestCase {
                 }
               },
               "delivery": {
-                "address": {
-                  "firstName": "Jan",
-                  "lastName": "Kowalski",
-                  "street": "Grunwaldzka 182",
-                  "city": "Poznań",
-                  "zipCode": "60-166",
-                  "countryCode": "PL",
-                  "companyName": "Evil Corp",
-                  "phoneNumber": "555-444-555",
-                  "modifiedAt": "2018-01-01T10:23:43.123Z"
-                },
-                "method": {
-                  "id": "1fa56f79-4b6a-4821-a6f2-ca9c16d5c925",
-                  "name": "Allegro Paczkomaty InPost"
-                },
-                "pickupPoint": {
-                  "id": "POZ08A",
-                  "name": "Paczkomat POZ08A",
-                  "description": "Stacja paliw BP",
-                  "address": {
-                    "street": "Grunwaldzka 108",
-                    "zipCode": "60-166",
-                    "city": "Poznań",
-                    "countryCode": "PL"
-                  }
-                },
-                "cost": {
-                  "amount": "124.45",
-                  "currency": "PLN"
-                },
-                "time": {
-                  "from": "2018-01-01T10:23:43.123Z",
-                  "to": "2018-01-05T10:23:43.123Z",
-                  "guaranteed": {
-                    "from": "2018-01-07T16:00:00Z",
-                    "to": "2018-01-08T18:00:00Z"
-                  },
-                  "dispatch": {
-                    "from": "2018-01-01T16:00:00Z",
-                    "to": "2018-01-03T18:00:00Z"
-                  }
-                },
-                "smart": true,
-                "calculatedNumberOfPackages": 1
-              },
+           "address": {
+             "firstName": "Jan",
+             "lastName": "Kowalski",
+             "street": "Grunwaldzka 182",
+             "city": "Poznań",
+             "zipCode": "60-166",
+             "countryCode": "PL",
+             "companyName": "Evil Corp",
+             "phoneNumber": "555-444-555",
+             "modifiedAt": "2018-01-01T10:23:43.123Z"
+           },
+           "method": {
+             "id": "1fa56f79-4b6a-4821-a6f2-ca9c16d5c925",
+             "name": "Allegro Paczkomaty InPost"
+           },
+           "pickupPoint": {
+             "id": "POZ08A",
+             "name": "Paczkomat POZ08A",
+             "description": "Stacja paliw BP",
+             "address": {
+               "street": "Grunwaldzka 108",
+               "zipCode": "60-166",
+               "city": "Poznań",
+               "countryCode": "PL"
+             }
+           },
+           "cost": {
+             "amount": "124.45",
+             "currency": "PLN"
+           },
+           "time": {
+             "from": "2018-01-01T10:23:43.123Z",
+             "to": "2018-01-05T10:23:43.123Z",
+             "guaranteed": {
+               "from": "2018-01-07T16:00:00Z",
+               "to": "2018-01-08T18:00:00Z"
+             },
+             "dispatch": {
+               "from": "2018-01-01T16:00:00Z",
+               "to": "2018-01-03T18:00:00Z"
+             }
+           },
+           "smart": true,
+           "calculatedNumberOfPackages": 1
+         },
               "invoice": {
                 "required": true,
                 "address": {
@@ -218,7 +218,6 @@ final class CheckoutFormTests: XCTestCase {
               "updatedAt": "2011-12-03T10:15:30.133Z",
               "revision": "819b5836"
             }
-        }
         """
 
         let expectedResult = CheckoutForm(
@@ -289,12 +288,12 @@ final class CheckoutFormTests: XCTestCase {
                     from: "2018-01-01T10:23:43.123Z",
                     to: "2018-01-05T10:23:43.123Z",
                     guaranteed: TimeRange(
-                        from: "2018-01-01T10:23:43.123Z",
-                        to: "2018-01-05T10:23:43.123Z"
+                        from: "2018-01-07T16:00:00Z",
+                        to: "2018-01-08T18:00:00Z"
                     ),
                     dispatch: TimeRange(
-                        from: "2018-01-01T10:23:43.123Z",
-                        to: "2018-01-05T10:23:43.123Z"
+                        from: "2018-01-01T16:00:00Z",
+                        to: "2018-01-03T18:00:00Z"
                     )
                 ),
                 smart: true,
@@ -391,101 +390,52 @@ final class CheckoutFormTests: XCTestCase {
 
         // Assert
         XCTAssertEqual(result, expectedResult)
+
+        XCTAssertEqual(result.buyer, expectedResult.buyer)
+
+        XCTAssertEqual(result.delivery, expectedResult.delivery)
+        XCTAssertEqual(result.delivery.address, expectedResult.delivery.address)
+        XCTAssertEqual(result.delivery.method, expectedResult.delivery.method)
+        XCTAssertEqual(result.delivery.pickupPoint, expectedResult.delivery.pickupPoint)
+        XCTAssertEqual(result.delivery.cost, expectedResult.delivery.cost)
+        XCTAssertEqual(result.delivery.time, expectedResult.delivery.time)
+        XCTAssertEqual(result.delivery.smart, expectedResult.delivery.smart)
+        XCTAssertEqual(result.delivery.calculatedNumberOfPackages, expectedResult.delivery.calculatedNumberOfPackages)
+
+        XCTAssertEqual(result.invoice, expectedResult.invoice)
+        XCTAssertEqual(result.lineItems, expectedResult.lineItems)
+        XCTAssertEqual(result.surcharges, expectedResult.surcharges)
+        XCTAssertEqual(result.discounts, expectedResult.discounts)
+        XCTAssertEqual(result.note, expectedResult.note)
+        XCTAssertEqual(result.marketplace, expectedResult.marketplace)
+        XCTAssertEqual(result.summary, expectedResult.summary)
+        XCTAssertEqual(result.updatedAt, expectedResult.updatedAt)
+        XCTAssertEqual(result.revision, expectedResult.revision)
     }
 
-    func test_parsingJson_for_CheckoutFormPayment() {
-        // arrange
-        let jsonString = """
-          {
-            "id": "0f8f1d13-7e9e-11e8-9b00-c5b0dfb78ea6",
-            "type": "CASH_ON_DELIVERY",
-            "provider": "P24",
-            "finishedAt": "2018-10-12T10:12:32.321Z",
-            "paidAmount": {
-              "amount": "123.45",
-              "currency": "PLN"
-            },
-            "reconciliation": {
-              "amount": "123.45",
-              "currency": "PLN"
-            }
-          }
-        """
 
-        let expected = CheckoutForm.Payment(
-            id: "0f8f1d13-7e9e-11e8-9b00-c5b0dfb78ea6",
-            type: "CASH_ON_DELIVERY",
-            provider: "P24",
-            finishedAt: "2018-10-12T10:12:32.321Z",
-            paidAmount: Price.pln123_45,
-            reconciliation: Price.pln123_45
-        )
-
-        // act
-        let result = try! JSONDecoder().decode(CheckoutForm.Payment.self, from: jsonString.data(using: .utf8)!)
-
-        // assert
-        XCTAssertEqual(result.id, expected.id)
-        XCTAssertEqual(result.type, expected.type)
-        XCTAssertEqual(result.provider, expected.provider)
-        XCTAssertEqual(result.finishedAt, expected.finishedAt)
-        XCTAssertEqual(result.paidAmount, expected.paidAmount)
-        XCTAssertEqual(result.reconciliation, expected.reconciliation)
-
-        XCTAssertEqual(result, expected)
     }
 
-    func test_parsingJson_for_CheckoutFormBuyer() {
-        // arrange
+    func test_parsingJson_for_CheckoutFormFulfillment() {
 
+        // arrange
         let jsonString = """
            {
-            "id": "23123123",
-            "email": "user-email@allegro.pl",
-            "login": "User_Login",
-            "firstName": "Jan",
-            "lastName": "Kowalski",
-            "companyName": "Evil Corp",
-            "guest": false,
-            "personalIdentity": "67062589524",
-            "phoneNumber": "555-444-555",
-            "preferences": {
-              "language": "pl-PL"
-            },
-            "address": {
-              "street": "Solna",
-              "city": "Poznań",
-              "postCode": "60-166",
-              "countryCode": "PL"
+            "status": "SENT",
+            "shipmentSummary": {
+              "lineItemsSent": "SOME"
             }
           }
         """
 
-        let expected = CheckoutForm.Buyer(
-            id: "23123123",
-            email: "user-email@allegro.pl",
-            login: "User_Login",
-            firstName: "Jan",
-            lastName: "Kowalski",
-            companyName: "Evil Corp",
-            guest: false,
-            personalIdentity: "67062589524",
-            phoneNumber: "555-444-555",
-            preferences: CheckoutForm.Buyer.Preferences(
-                language: "pl-PL"
-            ),
-            address: CheckoutForm.Buyer.Address(
-                street: "Solna",
-                city: "Poznań",
-                postCode: "60-166",
-                countryCode: "PL"
-            )
+        let expected = CheckoutForm.Fulfillment(
+            status: .sent,
+            shipmentSummary: CheckoutForm.Fulfillment.ShipmentSummary(lineItemsSent: "SOME")
         )
 
         // act
-        let result = try! JSONDecoder().decode(CheckoutForm.Buyer.self, from: jsonString.data(using: .utf8)!)
+        let result = try! JSONDecoder().decode(CheckoutForm.Fulfillment.self, from: jsonString.data(using: .utf8)!)
 
         // assert
         XCTAssertEqual(result, expected)
     }
-}
