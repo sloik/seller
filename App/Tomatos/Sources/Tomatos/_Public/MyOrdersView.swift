@@ -1,10 +1,12 @@
 // system
 import SwiftUI
 
-struct MyOrdersView: View {
-    var body: some View {
+public struct MyOrdersView: View {
+    public var body: some View {
         Text("My orders")
     }
+
+    public init() {}
 }
 
 #Preview {
