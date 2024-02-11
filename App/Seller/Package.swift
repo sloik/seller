@@ -29,6 +29,7 @@ let package = Package(
         .package(path: "../SecretsStore"),
         .package(path: "../Lettuce"),
         .package(path: "../Acorn"),
+        .package(path: "../Tomatos"),
 
         .package(
             url: "https://github.com/sloik/OptionalAPI.git",
@@ -44,6 +45,7 @@ let package = Package(
                 "SecretsStore", // Secrets
                 "Lettuce",      // Messages
                 "Acorn",        // Account / User Profile
+                "Tomatos",      // Orders
 
                 "OptionalAPI",
             ]
