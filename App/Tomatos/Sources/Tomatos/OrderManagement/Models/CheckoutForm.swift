@@ -27,12 +27,6 @@ struct CheckoutForm: ContentType {
         }
         let preferences: Preferences
 
-        struct Address: ContentType {
-            let street: String
-            let city: String
-            let postCode: String
-            let countryCode: String
-        }
         let address: Address
     }
     let buyer: Buyer
@@ -86,13 +80,6 @@ struct CheckoutForm: ContentType {
             let id: String
             let name: String
             let description: String
-
-            struct Address: ContentType {
-                let street: String
-                let zipCode: String
-                let city: String
-                let countryCode: String
-            }
             let address: Address
         }
         let pickupPoint: PickupPoint
@@ -123,16 +110,7 @@ struct CheckoutForm: ContentType {
             let zipCode: String
             let countryCode: String
 
-            struct Company: ContentType {
-                let name: String
-                let taxId: String?
-            }
             let company: Company?
-
-            struct NaturalPerson: ContentType {
-                let firstName: String
-                let lastName: String
-            }
             let naturalPerson: NaturalPerson?
         }
         let address: Address
