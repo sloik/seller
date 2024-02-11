@@ -236,7 +236,7 @@ final class CheckoutFormTests: XCTestCase {
                 preferences: CheckoutForm.Buyer.Preferences(
                     language: "pl-PL"
                 ),
-                address: CheckoutForm.Buyer.Address(
+                address: Address(
                     street: "Solna",
                     city: "Poznań",
                     postCode: "60-166",
@@ -276,7 +276,7 @@ final class CheckoutFormTests: XCTestCase {
                     id: "POZ08A",
                     name: "Paczkomat POZ08A",
                     description: "Stacja paliw BP",
-                    address: CheckoutForm.Delivery.PickupPoint.Address(
+                    address: Address2(
                         street: "Grunwaldzka 108",
                         zipCode: "60-166",
                         city: "Poznań",
@@ -306,11 +306,11 @@ final class CheckoutFormTests: XCTestCase {
                     city: "Poznań",
                     zipCode: "60-166",
                     countryCode: "PL",
-                    company: CheckoutForm.Invoice.Address.Company(
+                    company: Company(
                         name: "Udix Sp. z o.o.",
                         taxId: "1234"
                     ),
-                    naturalPerson: CheckoutForm.Invoice.Address.NaturalPerson(
+                    naturalPerson: NaturalPerson(
                         firstName: "Jan",
                         lastName: "Kowalski"
                     )

@@ -80,7 +80,7 @@ struct CheckoutForm: ContentType {
             let id: String
             let name: String
             let description: String
-            let address: Address
+            let address: Address2
         }
         let pickupPoint: PickupPoint
 
