@@ -5,14 +5,14 @@ import SwiftUI
 import Seller
 import Onion
 
-let CurrentSeller: Seller = .init()
-
 @main
 struct AlleSellerApp: App {
 
     #if DEBUG
     @State private var showsDebugView = false
     #endif
+
+    let seller: Seller
 
     init() {
         let configuration = Seller.Configuration(
@@ -21,13 +21,14 @@ struct AlleSellerApp: App {
             secrets: ProductionSecretsStore()
         )
 
-        CurrentSeller.configure(using: configuration)
+        seller = Seller()
+        seller.configure(using: configuration)
     }
 
 
     var body: some Scene {
         WindowGroup {
-            CurrentSeller
+            seller
                 .body
                 #if os(macOS)
                 .design(minFrame: .window)
@@ -37,14 +38,14 @@ struct AlleSellerApp: App {
                     showsDebugView.toggle()
                 }
                 .sheet(isPresented: $showsDebugView) {
-                    DebugView()
+                    DebugView(seller: seller)
                 }
             #endif
         }
 
         #if os(macOS) && DEBUG
         Settings {
-            DebugView()
+            DebugView(seller: seller)
         }
         #endif
     }

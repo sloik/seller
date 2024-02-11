@@ -8,11 +8,18 @@ import Seller
 struct DebugView: View {
     @Environment(\.dismiss) var dismiss
 
-    @State private var debugFeatures: DebugFeaturesModel = .init()
+    @State private var debugFeatures: DebugFeaturesModel
 
     @State private var globalItems: [Item] = []
 
     @State private var path = NavigationPath()
+
+    private let seller: Seller
+
+    init(seller: Seller) {
+        self.seller = seller
+        self.debugFeatures = .init(seller: seller)
+    }
 
     var body: some View {
 
@@ -37,7 +44,7 @@ struct DebugView: View {
 
                     Button("Force Refresh Token") {
                         Task {
-                            try? await CurrentSeller.refreshToken()
+                            try? await seller.refreshToken()
                         }
                     }
 

@@ -1,10 +1,13 @@
 
 import Foundation
 
-enum DebugNetworkingInfoProvider {
-    static var baseURL: URL {  CurrentSeller.authApiClient.baseURL }
+import Seller
 
-    static var environment: AppEnvironment {
+enum DebugNetworkingInfoProvider {
+    static func environment(for seller: Seller) -> AppEnvironment {
+        
+        let baseURL = seller.authApiClient.baseURL
+
         switch baseURL {
         case AppEnvironment.production.authClientBaseURL:
             return .production

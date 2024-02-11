@@ -2,6 +2,8 @@
 import Foundation
 import Observation
 
+import Seller
+
 @Observable
 final class DebugFeaturesModel {
 
@@ -12,9 +14,12 @@ final class DebugFeaturesModel {
         }
     }
 
-    init() {
+    let seller: Seller
+
+    init(seller: Seller) {
+        self.seller = seller
         // Uses networking to check which environment is set
-        self.appEnvironment = DebugNetworkingInfoProvider.environment
+        self.appEnvironment = DebugNetworkingInfoProvider.environment(for: seller)
     }
 
     private func updateAppEnvironment() {
@@ -22,7 +27,7 @@ final class DebugFeaturesModel {
         let newApiClient = ApiClientFactory.makeRestApiClient(for: appEnvironment)
         let newSecrets = SecretsStoreFactory.makeStore(for: appEnvironment)
 
-        CurrentSeller.configure(
+        seller.configure(
             using: .init(
                 authApiClient: newAuthClient,
                 restApiClient: newApiClient,
