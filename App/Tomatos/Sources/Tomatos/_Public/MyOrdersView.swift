@@ -12,6 +12,7 @@ public struct MyOrdersView {
             initialState: OrdersFeature.State()
         ) {
             OrdersFeature()
+                ._printChanges()
         })
     }
 
