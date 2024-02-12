@@ -5,14 +5,18 @@ import ComposableArchitecture
 
 public struct MyOrdersView {
 
-    private let store: StoreOf<Tomato>
+    private let store: StoreOf<OrdersFeature>
 
     public init() {
-        store = Store(
-            initialState: Tomato.State()
+        self.init(store: Store(
+            initialState: OrdersFeature.State()
         ) {
-            Tomato()
-        }
+            OrdersFeature()
+        })
+    }
+
+    init(store: StoreOf<OrdersFeature>) {
+        self.store = store
     }
 }
 
@@ -20,11 +24,15 @@ extension MyOrdersView: View {
     public var body: some View {
         Text("My orders")
             .onAppear {
-                store.send(.refresh)
+                store.send(.refreshOrdersList)
             }
     }
 }
 
 #Preview {
-    MyOrdersView()
+    MyOrdersView(
+        store: Store(
+            initialState: OrdersFeature.State()
+        ) {}
+    )
 }

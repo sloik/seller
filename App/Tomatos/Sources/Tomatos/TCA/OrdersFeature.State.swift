@@ -2,7 +2,7 @@
 import Foundation
 import ComposableArchitecture
 
-extension Tomato {
+extension OrdersFeature {
     
     @ObservableState
     struct State: Equatable {
