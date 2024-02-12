@@ -9,6 +9,8 @@ extension OrdersFeature {
         /// User wants to fetch and display lates orders information.
         case refreshOrdersList
 
+        /// Result of refreshing orders list.
+        case refreshedResponse(forms: [CheckoutForm])
     }
 
 }

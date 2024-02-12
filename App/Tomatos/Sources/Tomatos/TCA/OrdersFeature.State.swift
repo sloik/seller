@@ -6,7 +6,7 @@ extension OrdersFeature {
     
     @ObservableState
     struct State: Equatable {
-        var counter = 0
+        var forms: [CheckoutForm] = []
     }
 
 }

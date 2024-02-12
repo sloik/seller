@@ -16,8 +16,14 @@ struct OrdersFeature {
 
             switch action {
             case .refreshOrdersList:
-                
-                print("Reducing refresh... No state mutation should return effect of fetching orders.")
+
+                return .run { send in
+                    // TODO: make API call here
+                    await send( .refreshedResponse(forms: []) )
+                }
+
+            case .refreshedResponse(let forms):
+                state.forms = forms
 
                 return Effect.none
             }
