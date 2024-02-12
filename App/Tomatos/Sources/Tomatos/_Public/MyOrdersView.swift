@@ -3,13 +3,9 @@ import SwiftUI
 
 import ComposableArchitecture
 
-public struct MyOrdersView: View {
+public struct MyOrdersView {
 
     private let store: StoreOf<Tomato>
-
-    public var body: some View {
-        Text("My orders")
-    }
 
     public init() {
         store = Store(
@@ -17,6 +13,15 @@ public struct MyOrdersView: View {
         ) {
             Tomato()
         }
+    }
+}
+
+extension MyOrdersView: View {
+    public var body: some View {
+        Text("My orders")
+            .onAppear {
+                store.send(.refresh)
+            }
     }
 }
 
