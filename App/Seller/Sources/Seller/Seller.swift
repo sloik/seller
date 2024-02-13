@@ -5,12 +5,15 @@ import Lettuce
 import Onion
 import OptionalAPI
 import SecretsStore
+import Tomatos
+
 import SwiftUI
 
 public final class Seller {
 
     private var acornFactory: AcornFactory!
     private var lettuceFactory: LettuceFactory!
+    private var tomatosFactory: TomatosFactory!
 
     private var networkingHandler: NetworkingHandlerType!
 
@@ -35,12 +38,17 @@ public final class Seller {
         lettuceFactory = LettuceFactory.takeOff(
             networkingHandler: networkingHandler
         )
+
+        tomatosFactory = TomatosFactory(
+            networkingHandler: networkingHandler
+        )
     }
 
     public var body: some View {
         MainView(
-            acornFactory: self.acornFactory,
-            lettuceFactory: self.lettuceFactory
+            lettuceFactory: self.lettuceFactory,
+            tomatosFactory: self.tomatosFactory,
+            acornFactory: self.acornFactory
         )
     }
 }

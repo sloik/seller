@@ -1,8 +1,10 @@
 
 import Foundation
+import OSLog
+
+import Onion
 
 import ComposableArchitecture
-import OSLog
 
 // Breaks in Xcode Beta 15.3
 //private let logger = Logger(subsystem: "Tomatos", category: "Reducer")
@@ -18,6 +20,10 @@ struct OrdersFeature {
             case .refreshOrdersList:
 
                 return .run { send in
+
+                    let orders = UserOrdersRequest()
+                    
+
                     // TODO: make API call here
                     await send( .refreshOrdersListResponse(forms: []) )
                 }

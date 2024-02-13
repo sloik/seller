@@ -3,11 +3,11 @@ import SwiftUI
 
 import ComposableArchitecture
 
-public struct MyOrdersView {
+struct MyOrdersView {
 
     private let store: StoreOf<OrdersFeature>
 
-    public init() {
+    init() {
         self.init(store: Store(
             initialState: OrdersFeature.State()
         ) {

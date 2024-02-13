@@ -12,8 +12,9 @@ import Utilities
 
 struct MainView: View {
 
-    let acornFactory: AcornFactory
     let lettuceFactory: LettuceFactory
+    let tomatosFactory: TomatosFactory
+    let acornFactory: AcornFactory
 
     let didGotToken: AnyPublisher<Void,Never> = NotificationCenter.default.publisher(for: .hasNewToken).map { _ in  }.eraseToAnyPublisher()
 
@@ -24,7 +25,7 @@ struct MainView: View {
                     .tabItem {
                         TabBarIcon(imageName: "messageTabIcon", titleName: "Wiadomości")
                     }
-                MyOrdersView()
+                tomatosFactory.makeEntryView()
                     .tabItem {
                         TabBarIcon(imageName: "orderTabIcon", titleName: "Zamówienia")
                     }
@@ -41,8 +42,13 @@ struct MainView: View {
 #Preview {
 
     MainView(
-        acornFactory: .init(networkingHandler: MockNetworkingHandler()),
         lettuceFactory: LettuceFactory.takeOff(
+            networkingHandler: MockNetworkingHandler()
+        ),
+        tomatosFactory: TomatosFactory(
+            networkingHandler: MockNetworkingHandler()
+        ),
+        acornFactory: .init(
             networkingHandler: MockNetworkingHandler()
         )
     )
