@@ -12,6 +12,8 @@ import ComposableArchitecture
 @Reducer
 struct OrdersFeature {
 
+    @Dependency(\.networkingHandler) var networkingHandler
+
     var body: some Reducer<State, Action> {
         Reduce { state, action in
 //            logger.log("Reducing \(action)...")
@@ -20,12 +22,11 @@ struct OrdersFeature {
             case .refreshOrdersList:
 
                 return .run { send in
+                    let ordersRequest = UserOrdersRequest()
 
-                    let orders = UserOrdersRequest()
-                    
+                    let (output, _) = try await networkingHandler.run( ordersRequest )
 
-                    // TODO: make API call here
-                    await send( .refreshOrdersListResponse(forms: []) )
+                    await send( .refreshOrdersListResponse(forms: output.checkoutForms) )
                 }
 
             case .refreshOrdersListResponse(let forms):

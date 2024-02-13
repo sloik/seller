@@ -7,15 +7,6 @@ struct MyOrdersView {
 
     private let store: StoreOf<OrdersFeature>
 
-    init() {
-        self.init(store: Store(
-            initialState: OrdersFeature.State()
-        ) {
-            OrdersFeature()
-                ._printChanges()
-        })
-    }
-
     init(store: StoreOf<OrdersFeature>) {
         self.store = store
     }
