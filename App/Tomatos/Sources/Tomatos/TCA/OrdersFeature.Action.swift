@@ -10,7 +10,7 @@ extension OrdersFeature {
         case refreshOrdersList
 
         /// Result of refreshing orders list.
-        case refreshedResponse(forms: [CheckoutForm])
+        case refreshOrdersListResponse(forms: [CheckoutForm])
     }
 
 }

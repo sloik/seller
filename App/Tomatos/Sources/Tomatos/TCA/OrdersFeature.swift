@@ -19,10 +19,10 @@ struct OrdersFeature {
 
                 return .run { send in
                     // TODO: make API call here
-                    await send( .refreshedResponse(forms: []) )
+                    await send( .refreshOrdersListResponse(forms: []) )
                 }
 
-            case .refreshedResponse(let forms):
+            case .refreshOrdersListResponse(let forms):
                 state.forms = forms
 
                 return Effect.none
