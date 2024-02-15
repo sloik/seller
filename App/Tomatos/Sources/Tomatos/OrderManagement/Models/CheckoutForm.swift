@@ -178,7 +178,7 @@ struct CheckoutForm: ContentType {
             }
             /// If the offer was a product set, you can see a list
             /// of component products (product id with quantity).
-            let productSet: ProductSet
+            let productSet: ProductSet?
         }
         let offer: Offer
 
