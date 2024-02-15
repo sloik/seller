@@ -6,7 +6,9 @@ import Foundation
 import Onion
 
 struct Price: ContentType {
+    /// The amount provided in a string format to avoid rounding errors.
     let amount: String
+    /// The currency provided as a 3-letter code in accordance with ISO 4217 standard.
     let currency: String
 }
 

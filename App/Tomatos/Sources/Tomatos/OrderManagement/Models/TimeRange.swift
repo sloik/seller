@@ -5,6 +5,6 @@ import Foundation
 import Onion
 
 struct TimeRange: ContentType {
-    let from: String
-    let to: String
+    let from: String?
+    let to: String?
 }
