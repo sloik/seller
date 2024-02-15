@@ -13,7 +13,9 @@ struct UserOrdersRequest: Request {
         "/order/checkout-forms"
     }
 
-    var headerFields: HTTPFields = [:]
+    var headerFields: HTTPFields = [
+        HTTPField.Name.accept : .applicationVndAllegroV1Json
+    ]
 }
 
 extension UserOrdersRequest {
