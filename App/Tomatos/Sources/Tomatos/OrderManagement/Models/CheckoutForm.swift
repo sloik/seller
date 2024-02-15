@@ -55,7 +55,7 @@ struct CheckoutForm: ContentType {
         /// Purchase cancelled by buyer.
         case cancelled = "CANCELLED"
     }
-    let status: String
+    let status: Status
 
     struct Fulfillment: ContentType {
 

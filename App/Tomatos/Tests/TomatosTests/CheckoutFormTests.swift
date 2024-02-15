@@ -245,16 +245,16 @@ final class CheckoutFormTests: XCTestCase {
             ),
             payment: CheckoutForm.Payment(
                 id: "0f8f1d13-7e9e-11e8-9b00-c5b0dfb78ea6",
-                type: "CASH_ON_DELIVERY",
-                provider: "P24",
+                type: .cashOnDelivery,
+                provider: .p24,
                 finishedAt: "2018-10-12T10:12:32.321Z",
                 paidAmount: Price.pln123_45,
                 reconciliation: Price.pln123_45
             ),
-            status: "READY_FOR_PROCESSING",
+            status: .readyForProcessing,
             fulfillment: CheckoutForm.Fulfillment(
                 status: .sent,
-                shipmentSummary: CheckoutForm.Fulfillment.ShipmentSummary(lineItemsSent: "SOME")
+                shipmentSummary: CheckoutForm.Fulfillment.ShipmentSummary(lineItemsSent: .some)
             ),
             delivery: CheckoutForm.Delivery(
                 address: CheckoutForm.Delivery.Address(
@@ -356,7 +356,7 @@ final class CheckoutFormTests: XCTestCase {
                     vouchers: [
                         CheckoutForm.LineItem.Voucher(
                             code: "Code12345",
-                            type: "NOTEBOOKS_FOR_TEACHERS",
+                            type: .notebooksForTeachers,
                             status: .active,
                             externalTransactionId: "sampleExternalTransactionId",
                             value: Price.pln123_45
@@ -369,7 +369,7 @@ final class CheckoutFormTests: XCTestCase {
                 CheckoutForm.Surcharge(
                     id: "0f8f1d13-7e9e-11e8-9b00-c5b0dfb78ea6",
                     type: "CASH_ON_DELIVERY",
-                    provider: "P24",
+                    provider: .p24,
                     finishedAt: "2018-10-12T10:12:32.321Z",
                     paidAmount: Price.pln123_45,
                     reconciliation: Price.pln123_45
@@ -393,14 +393,14 @@ final class CheckoutFormTests: XCTestCase {
 
         XCTAssertEqual(result.buyer, expectedResult.buyer)
 
-        XCTAssertEqual(result.delivery, expectedResult.delivery)
-        XCTAssertEqual(result.delivery.address, expectedResult.delivery.address)
-        XCTAssertEqual(result.delivery.method, expectedResult.delivery.method)
-        XCTAssertEqual(result.delivery.pickupPoint, expectedResult.delivery.pickupPoint)
-        XCTAssertEqual(result.delivery.cost, expectedResult.delivery.cost)
-        XCTAssertEqual(result.delivery.time, expectedResult.delivery.time)
-        XCTAssertEqual(result.delivery.smart, expectedResult.delivery.smart)
-        XCTAssertEqual(result.delivery.calculatedNumberOfPackages, expectedResult.delivery.calculatedNumberOfPackages)
+        XCTAssertEqual(result.delivery!, expectedResult.delivery!)
+        XCTAssertEqual(result.delivery!.address, expectedResult.delivery!.address)
+        XCTAssertEqual(result.delivery!.method, expectedResult.delivery!.method)
+        XCTAssertEqual(result.delivery!.pickupPoint, expectedResult.delivery!.pickupPoint)
+        XCTAssertEqual(result.delivery!.cost, expectedResult.delivery!.cost)
+        XCTAssertEqual(result.delivery!.time, expectedResult.delivery!.time)
+        XCTAssertEqual(result.delivery!.smart, expectedResult.delivery!.smart)
+        XCTAssertEqual(result.delivery!.calculatedNumberOfPackages, expectedResult.delivery!.calculatedNumberOfPackages)
 
         XCTAssertEqual(result.invoice, expectedResult.invoice)
         XCTAssertEqual(result.lineItems, expectedResult.lineItems)
@@ -430,7 +430,7 @@ final class CheckoutFormTests: XCTestCase {
 
         let expected = CheckoutForm.Fulfillment(
             status: .sent,
-            shipmentSummary: CheckoutForm.Fulfillment.ShipmentSummary(lineItemsSent: "SOME")
+            shipmentSummary: CheckoutForm.Fulfillment.ShipmentSummary(lineItemsSent: .some)
         )
 
         // act
