@@ -14,10 +14,24 @@ struct MyOrdersView {
 
 extension MyOrdersView: View {
     public var body: some View {
-        Text("My orders")
-            .onAppear {
-                store.send(.refreshOrdersList)
+        
+        VStack() {
+            Text("My orders")
+
+            ScrollView {
+                
+                ForEach(store.forms) { form in
+                    VStack {
+                        "\(form.buyer.login)"
+                    }
+                }
+                
             }
+
+        }
+        .onAppear {
+            store.send(.refreshOrdersList)
+        }
     }
 }
 
