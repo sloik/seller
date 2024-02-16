@@ -6,12 +6,12 @@ import Foundation
 import Onion
 
 // https://developer.allegro.pl/documentation#operation/getListOfOrdersUsingGET
-struct CheckoutForm: ContentType {
+struct CheckoutForm: ContentType, Identifiable {
 
     let id: String
     let messageToSeller: String?
 
-    struct Buyer: ContentType {
+    struct Buyer: ContentType, Identifiable {
         let id: String
         let email: String
         let login: String
@@ -32,7 +32,7 @@ struct CheckoutForm: ContentType {
     }
     let buyer: Buyer
 
-    struct Payment: ContentType {
+    struct Payment: ContentType, Identifiable {
         let id: String
         let type: PaymentType
         let provider: PaymentProvider?
@@ -100,13 +100,13 @@ struct CheckoutForm: ContentType {
         }
         let address: Address?
 
-        struct Method: ContentType {
+        struct Method: ContentType, Identifiable {
             let id: String?
             let name: String?
         }
         let method: Method?
 
-        struct PickupPoint: ContentType {
+        struct PickupPoint: ContentType, Identifiable {
             let id: String?
             let name: String?
             let description: String?
@@ -156,10 +156,10 @@ struct CheckoutForm: ContentType {
     }
     let invoice: Invoice?
 
-    struct LineItem: ContentType {
+    struct LineItem: ContentType, Identifiable {
         let id: String
 
-        struct Offer: ContentType {
+        struct Offer: ContentType, Identifiable {
             let id: String
             let name: String
 
@@ -238,7 +238,7 @@ struct CheckoutForm: ContentType {
     }
     let lineItems: [LineItem]
 
-    struct Surcharge: ContentType {
+    struct Surcharge: ContentType, Identifiable {
         let id: String
         let type: String
         let provider: PaymentProvider?
