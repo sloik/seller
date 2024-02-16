@@ -19,13 +19,13 @@ extension MyOrdersView: View {
             Text("My orders")
 
             ScrollView {
-                
+
                 ForEach(store.forms) { form in
                     VStack {
-                        "\(form.buyer.login)"
+                        FormView(form: form)
                     }
                 }
-                
+
             }
 
         }
@@ -41,4 +41,42 @@ extension MyOrdersView: View {
             initialState: OrdersFeature.State()
         ) {}
     )
+}
+
+struct FormView: View {
+
+    let form: CheckoutForm
+
+    var body: some View {
+        "\(form.buyer.login)"
+
+        HStack {
+            
+            BostonImageView()
+
+            VStack {
+                form.buyer.firstName ?? "-"
+                form.buyer.lastName ?? "-"
+
+            }
+
+        }
+    }
+}
+
+struct BostonImageView: View {
+    var body: some View {
+        AsyncImage(
+            url: URL(string:  "https://previews.123rf.com/images/denisdore/denisdore1109/denisdore110900007/10629857-male-baby-boston-terrier-on-white-vertical.jpg")!,
+            content: { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(maxWidth: 100, maxHeight: 100)
+            },
+            placeholder: {
+                ProgressView()
+            }
+        )
+    }
 }
