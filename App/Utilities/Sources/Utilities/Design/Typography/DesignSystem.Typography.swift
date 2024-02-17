@@ -6,6 +6,9 @@ extension DesignSystem {
     /// Typography.
     public enum Typography {
 
+        /// Smaller than label.
+        case body(weight: Font.Weight = .regular)
+
         /// Normal text and buttons.
         case label(weight: Font.Weight = .regular)
 
@@ -18,12 +21,15 @@ extension DesignSystem.Typography {
 
     var designFont: Font {
         switch self {
-        case .label(let weight):
 
-            return font(weight: weight, size: 17)
+        case .body(let weight):
+            font(weight: weight, size: 13)
+
+        case .label(let weight):
+            font(weight: weight, size: 17)
 
         case .custom(let weight, let size):
-            return font(weight: weight, size: size)
+            font(weight: weight, size: size)
         }
     }
 
