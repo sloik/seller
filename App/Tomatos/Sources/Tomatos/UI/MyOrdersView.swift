@@ -20,9 +20,16 @@ extension MyOrdersView: View {
 
             ScrollView {
 
-                ForEach(store.forms) { form in
+                ForEach(store.forms) { (form: CheckoutForm) in
                     VStack {
-                        FormView(form: form, offers: store.offers)
+                        let offer = store.state.sellerOffer(for: form)
+
+                        FormView(
+                            login: form.buyer.login,
+                            firstName: form.buyer.firstName ?? "-",
+                            lastName: form.buyer.lastName ?? "-",
+                            imageURL: offer?.primaryImage.asURL ?? bostonURL
+                        )
                     }
                 }
 
@@ -46,42 +53,22 @@ extension MyOrdersView: View {
 
 struct FormView: View {
 
-    let form: CheckoutForm
-    let offers: [SellersOffer]
 
-    var offer: SellersOffer? {
-        form
-            .lineItems
-            .map(\.offer)
-            .compactMap { (offer: CheckoutForm.LineItem.Offer) in
-                offers
-                    .first { sellerOffer in
-                        sellerOffer.id == offer.id
-                    }
-            }
-            .first
-    }
-
-    var imageURL: URL {
-            offer?
-                .primaryImage
-                .asURL
-                ?? bostonURL
-    }
+    let login       : String
+    let firstName   : String
+    let lastName    : String
+    let imageURL    : URL
 
     var body: some View {
-        "\(form.buyer.login)"
+        login
 
         HStack {
-            
             BostonImageView(imgURL: imageURL)
 
             VStack {
-                form.buyer.firstName ?? "-"
-                form.buyer.lastName ?? "-"
-
+                firstName
+                lastName
             }
-
         }
     }
 }
