@@ -2,6 +2,7 @@
 import SwiftUI
 
 import ComposableArchitecture
+import OptionalAPI
 
 struct MyOrdersView {
 
@@ -92,17 +93,23 @@ struct FormView: View {
                 offer?.name ?? "NO OFFER NAME"
                 HStack {
                     "Klient:"
+                        .design(typography: .body(weight: .regular))
                     client
+                        .design(typography: .body(weight: .regular))
                 }
 
                 HStack {
                     "Otrzymane:"
-                    form.updatedAt ?? "-"
+                        .design(typography: .body(weight: .regular))
+                    form.updatedAt.or("-")
+                        .design(typography: .body(weight: .regular))
                 }
 
                 HStack {
                     "Zrealizowane:"
+                        .design(typography: .body(weight: .regular))
                     status
+                        .design(typography: .body(weight: .regular))
                 }
             }
         }
