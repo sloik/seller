@@ -22,9 +22,10 @@ extension MyOrdersView: View {
 
                 ForEach(store.forms) { (form: CheckoutForm) in
                     VStack {
-                        let offer = store.state.sellerOffer(for: form)
+                        let offer: SellersOffer? = store.state.sellerOffer(for: form)
 
                         FormView(
+                            offerTitle: offer?.name ?? "unknown title",
                             login: form.buyer.login,
                             firstName: form.buyer.firstName ?? "-",
                             lastName: form.buyer.lastName ?? "-",
@@ -54,7 +55,7 @@ extension MyOrdersView: View {
 
 struct FormView: View {
 
-
+    let offerTitle  : String
     let login       : String
     let firstName   : String
     let lastName    : String
@@ -72,7 +73,7 @@ struct FormView: View {
                 .frame(maxWidth: 100, maxHeight: 100)
 
             VStack {
-                "Offer title"
+                offerTitle
                 HStack {
                     "Klient:"
                     client
