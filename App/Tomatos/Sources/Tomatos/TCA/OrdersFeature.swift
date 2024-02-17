@@ -31,7 +31,21 @@ struct OrdersFeature {
 
             case .refreshOrdersListResponse(let forms):
                 state.forms = forms
+                return Effect.none
 
+
+
+            case .refreshSellerOffers:
+                return .run { send in
+                    let request = SellersOffersRequest()
+
+                    let (output, _) = try await networkingHandler.run( request )
+
+                    await send( .refreshSellerOffersResponse(offers: output.offers) )
+                }
+
+            case .refreshSellerOffersResponse(let offers):
+                state.offers = offers
                 return Effect.none
             }
         }

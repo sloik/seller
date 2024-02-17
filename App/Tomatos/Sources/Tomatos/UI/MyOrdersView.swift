@@ -22,7 +22,7 @@ extension MyOrdersView: View {
 
                 ForEach(store.forms) { form in
                     VStack {
-                        FormView(form: form)
+                        FormView(form: form, offers: store.offers)
                     }
                 }
 
@@ -30,6 +30,7 @@ extension MyOrdersView: View {
 
         }
         .onAppear {
+            store.send(.refreshSellerOffers)
             store.send(.refreshOrdersList)
         }
     }
@@ -46,13 +47,34 @@ extension MyOrdersView: View {
 struct FormView: View {
 
     let form: CheckoutForm
+    let offers: [SellersOffer]
+
+    var offer: SellersOffer? {
+        form
+            .lineItems
+            .map(\.offer)
+            .compactMap { (offer: CheckoutForm.LineItem.Offer) in
+                offers
+                    .first { sellerOffer in
+                        sellerOffer.id == offer.id
+                    }
+            }
+            .first
+    }
+
+    var imageURL: URL {
+            offer?
+                .primaryImage
+                .asURL
+                ?? bostonURL
+    }
 
     var body: some View {
         "\(form.buyer.login)"
 
         HStack {
             
-            BostonImageView()
+            BostonImageView(imgURL: imageURL)
 
             VStack {
                 form.buyer.firstName ?? "-"
@@ -64,10 +86,14 @@ struct FormView: View {
     }
 }
 
+private let bostonURL: URL = URL(string:  "https://previews.123rf.com/images/denisdore/denisdore1109/denisdore110900007/10629857-male-baby-boston-terrier-on-white-vertical.jpg")!
+
 struct BostonImageView: View {
+    let imgURL: URL
+
     var body: some View {
         AsyncImage(
-            url: URL(string:  "https://previews.123rf.com/images/denisdore/denisdore1109/denisdore110900007/10629857-male-baby-boston-terrier-on-white-vertical.jpg")!,
+            url: imgURL,
             content: { image in
                 image
                     .resizable()
