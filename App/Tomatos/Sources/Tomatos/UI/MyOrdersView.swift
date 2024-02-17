@@ -63,6 +63,24 @@ struct FormView: View {
         ].joined(separator: " ")
     }
 
+    var status: String {
+
+        switch form.status {
+        case .bought:
+            "Nieopłacony"
+
+        case .filledIn:
+            "Wypełniony"
+
+        case .readyForProcessing:
+            "Opłacone"
+
+        case .cancelled:
+            "Płatność anulowana"
+        }
+
+    }
+
     var body: some View {
 
         HStack {
@@ -79,12 +97,12 @@ struct FormView: View {
 
                 HStack {
                     "Otrzymane:"
-                    "07.12.2023, 17:30"
+                    form.updatedAt ?? "-"
                 }
 
                 HStack {
                     "Zrealizowane:"
-                    "nieopłacone"
+                    status
                 }
             }
         }
