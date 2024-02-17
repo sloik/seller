@@ -30,6 +30,7 @@ extension MyOrdersView: View {
                             lastName: form.buyer.lastName ?? "-",
                             imageURL: offer?.primaryImage.asURL ?? bostonURL
                         )
+                        .padding()
                     }
                 }
 
@@ -59,15 +60,33 @@ struct FormView: View {
     let lastName    : String
     let imageURL    : URL
 
+    var client: String {
+        [login, firstName, lastName].joined(separator: " ")
+    }
+
     var body: some View {
-        login
 
         HStack {
-            BostonImageView(imgURL: imageURL)
+
+            OfferImage(imgURL: imageURL)
+                .frame(maxWidth: 100, maxHeight: 100)
 
             VStack {
-                firstName
-                lastName
+                "Offer title"
+                HStack {
+                    "Klient:"
+                    client
+                }
+
+                HStack {
+                    "Otrzymane:"
+                    "07.12.2023, 17:30"
+                }
+
+                HStack {
+                    "Zrealizowane:"
+                    "nieopłacone"
+                }
             }
         }
     }
@@ -75,7 +94,7 @@ struct FormView: View {
 
 private let bostonURL: URL = URL(string:  "https://previews.123rf.com/images/denisdore/denisdore1109/denisdore110900007/10629857-male-baby-boston-terrier-on-white-vertical.jpg")!
 
-struct BostonImageView: View {
+struct OfferImage: View {
     let imgURL: URL
 
     var body: some View {
