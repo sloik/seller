@@ -15,25 +15,20 @@ struct MyOrdersView {
 
 extension MyOrdersView: View {
     public var body: some View {
-        
-        VStack() {
-            Text("My orders")
 
-            ScrollView {
+        ScrollView {
 
-                ForEach(store.forms) { (form: CheckoutForm) in
-                    VStack {
-                        let offer: SellersOffer? = store.state.sellerOffer(for: form)
+            ForEach(store.forms) { (form: CheckoutForm) in
+                VStack {
+                    let offer: SellersOffer? = store.state.sellerOffer(for: form)
 
-                        FormView(
-                            form: form,
-                            offer: offer
-                        )
-                        .padding()
-                    }
+                    FormView(
+                        form: form,
+                        offer: offer
+                    )
                 }
-
             }
+            .padding()
 
         }
         .onAppear {
@@ -89,29 +84,45 @@ struct FormView: View {
             OfferImage(imgURL: offer?.primaryImage.asURL ?? bostonURL)
                 .frame(maxWidth: 100, maxHeight: 100)
 
-            VStack {
-                offer?.name ?? "NO OFFER NAME"
-                HStack {
-                    "Klient:"
-                        .design(typography: .body(weight: .regular))
-                    client
-                        .design(typography: .body(weight: .regular))
-                }
+            VStack(alignment: .leading) {
+                offer
+                    .map(\.name)
+                    .or( "NO OFFER NAME" )
 
-                HStack {
-                    "Otrzymane:"
-                        .design(typography: .body(weight: .regular))
-                    form.updatedAt.or("-")
-                        .design(typography: .body(weight: .regular))
-                }
+                VStack(alignment: .textAlignmentGuide) {
+                    HStack {
+                        "Klient:"
+                            .design(typography: .body(weight: .regular))
+                        client
+                            .design(typography: .body(weight: .regular))
+                            .alignmentGuide(.textAlignmentGuide) { context in
+                                context[.leading]
+                            }
+                    }
 
-                HStack {
-                    "Zrealizowane:"
-                        .design(typography: .body(weight: .regular))
-                    status
-                        .design(typography: .body(weight: .regular))
+                    HStack {
+                        "Otrzymane:"
+                            .design(typography: .body(weight: .regular))
+                        form.updatedAt.or("-")
+                            .design(typography: .body(weight: .regular))
+                            .alignmentGuide(.textAlignmentGuide) { context in
+                                context[.leading]
+                            }
+                    }
+
+                    HStack {
+                        "Zrealizowane:"
+                            .design(typography: .body(weight: .regular))
+                        status
+                            .design(typography: .body(weight: .regular))
+                            .alignmentGuide(.textAlignmentGuide) { context in
+                                context[.leading]
+                            }
+                    }
                 }
             }
+
+
         }
     }
 }
@@ -135,4 +146,17 @@ struct OfferImage: View {
             }
         )
     }
+}
+
+private extension HorizontalAlignment {
+
+    private struct TextAlignment: AlignmentID {
+        static func defaultValue(in context: ViewDimensions) -> CGFloat {
+            context[HorizontalAlignment.leading]
+        }
+    }
+
+    static let textAlignmentGuide = HorizontalAlignment(
+        TextAlignment.self
+    )
 }
