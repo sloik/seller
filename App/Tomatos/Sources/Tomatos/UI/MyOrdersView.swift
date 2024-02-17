@@ -25,11 +25,8 @@ extension MyOrdersView: View {
                         let offer: SellersOffer? = store.state.sellerOffer(for: form)
 
                         FormView(
-                            offerTitle: offer?.name ?? "unknown title",
-                            login: form.buyer.login,
-                            firstName: form.buyer.firstName ?? "-",
-                            lastName: form.buyer.lastName ?? "-",
-                            imageURL: offer?.primaryImage.asURL ?? bostonURL
+                            form: form,
+                            offer: offer
                         )
                         .padding()
                     }
@@ -55,25 +52,26 @@ extension MyOrdersView: View {
 
 struct FormView: View {
 
-    let offerTitle  : String
-    let login       : String
-    let firstName   : String
-    let lastName    : String
-    let imageURL    : URL
+    let form: CheckoutForm
+    let offer: SellersOffer?
 
     var client: String {
-        [login, firstName, lastName].joined(separator: " ")
+        [
+            form.buyer.id,
+            form.buyer.firstName ?? "-",
+            form.buyer.lastName ?? "-",
+        ].joined(separator: " ")
     }
 
     var body: some View {
 
         HStack {
 
-            OfferImage(imgURL: imageURL)
+            OfferImage(imgURL: offer?.primaryImage.asURL ?? bostonURL)
                 .frame(maxWidth: 100, maxHeight: 100)
 
             VStack {
-                offerTitle
+                offer?.name ?? "NO OFFER NAME"
                 HStack {
                     "Klient:"
                     client
