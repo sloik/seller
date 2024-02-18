@@ -52,11 +52,22 @@ struct FormView: View {
     let offer: SellersOffer?
 
     var client: String {
-        [
-            form.buyer.id,
-            form.buyer.firstName ?? "-",
-            form.buyer.lastName ?? "-",
-        ].joined(separator: " ")
+
+        let buyer = form.buyer
+
+        switch (buyer.firstName, buyer.lastName) {
+        case (let first?, let last?):
+            return "\(first) \(last)"
+
+        case (let first?, .none):
+            return first
+
+        case (.none, let last?):
+            return last
+
+        case (.none, .none):
+            return buyer.id
+        }
     }
 
     var status: String {
@@ -98,6 +109,10 @@ struct FormView: View {
                             .alignmentGuide(.textAlignmentGuide) { context in
                                 context[.leading]
                             }
+
+                        // Fixed an issue when client name would not wrap.
+                        // I did try other solutions but none of them did the job.
+                        Spacer()
                     }
 
                     HStack {
