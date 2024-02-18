@@ -19,18 +19,16 @@ extension MyOrdersView: View {
         ScrollView {
 
             ForEach(store.forms) { (form: CheckoutForm) in
-                VStack {
-                    let offer: SellersOffer? = store.state.sellerOffer(for: form)
+                let offer: SellersOffer? = store.state.sellerOffer(for: form)
 
-                    FormView(
-                        form: form,
-                        offer: offer
-                    )
-                }
+                FormView(
+                    form: form,
+                    offer: offer
+                )
+
             }
-            .padding()
-
         }
+
         .onAppear {
             store.send(.refreshSellerOffers)
             store.send(.refreshOrdersList)
@@ -101,43 +99,43 @@ struct FormView: View {
                     .or( "NO OFFER NAME" )
 
                 VStack(alignment: .textAlignmentGuide) {
-                    HStack {
-                        "Klient:"
-                            .design(typography: .body(weight: .regular))
-                        client
-                            .design(typography: .body(weight: .regular))
-                            .alignmentGuide(.textAlignmentGuide) { context in
-                                context[.leading]
-                            }
+                    TextAlignedView(
+                        key: "Klient",
+                        value: client
+                    )
 
-                        // Fixed an issue when client name would not wrap.
-                        // I did try other solutions but none of them did the job.
-                        Spacer()
-                    }
+                    TextAlignedView(
+                        key: "Otrzymane",
+                        value: form.updatedAt.or("-")
+                    )
 
-                    HStack {
-                        "Otrzymane:"
-                            .design(typography: .body(weight: .regular))
-                        form.updatedAt.or("-")
-                            .design(typography: .body(weight: .regular))
-                            .alignmentGuide(.textAlignmentGuide) { context in
-                                context[.leading]
-                            }
-                    }
-
-                    HStack {
-                        "Zrealizowane:"
-                            .design(typography: .body(weight: .regular))
-                        status
-                            .design(typography: .body(weight: .regular))
-                            .alignmentGuide(.textAlignmentGuide) { context in
-                                context[.leading]
-                            }
-                    }
+                    TextAlignedView(
+                        key: "Zrealizowane",
+                        value: status
+                    )
                 }
             }
+        }
+    }
+}
 
+struct TextAlignedView: View {
+    let key     : String
+    let value   : String
 
+    var body: some View {
+        HStack {
+            key
+                .design(typography: .body(weight: .regular))
+            value
+                .design(typography: .body(weight: .regular))
+                .alignmentGuide(.textAlignmentGuide) { context in
+                    context[.leading]
+                }
+
+            // Fixed an issue when long values would not wrap.
+            // I did try other solutions but none of them did the job.
+            Spacer()
         }
     }
 }
