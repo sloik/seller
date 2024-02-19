@@ -50,7 +50,7 @@ struct FormView: View {
         HStack {
 
             OfferImage(imgURL: offer?.primaryImage.asURL ?? bostonURL)
-                .frame(maxWidth: 100, maxHeight: 100)
+                .frame(width: 100, height: 100)
 
             VStack(alignment: .leading) {
                 offer
