@@ -38,3 +38,9 @@ let package = Package(
             dependencies: ["KeychainWrapper"]),
     ]
 )
+
+for target in package.targets {
+  var settings = target.swiftSettings ?? []
+  settings.append(.enableExperimentalFeature("StrictConcurrency"))
+  target.swiftSettings = settings
+}

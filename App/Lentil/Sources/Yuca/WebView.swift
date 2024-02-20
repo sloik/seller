@@ -46,10 +46,12 @@ struct WebView {
 
 extension WebView: ViewRepresentable {
     
+    @MainActor 
     func makeNSView(context: Context) -> WKWebView {
         makeUIView(context: context)
     }
     
+    @MainActor
     func updateNSView(_ nsView: WKWebView, context: Context) {
         updateUIView(nsView, context: context)
     }

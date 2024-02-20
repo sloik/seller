@@ -62,3 +62,9 @@ let package = Package(
             dependencies: ["Acorn"]),
     ]
 )
+
+for target in package.targets {
+  var settings = target.swiftSettings ?? []
+  settings.append(.enableExperimentalFeature("StrictConcurrency"))
+  target.swiftSettings = settings
+}
