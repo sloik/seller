@@ -21,7 +21,7 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/pointfreeco/swift-composable-architecture",
-            from: "1.8.1"
+            from: "1.9.0"
         ),
 
         .package(path: "../Onion"),
