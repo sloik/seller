@@ -21,7 +21,7 @@ internal struct MessageBubble: View {
     var body: some View {
         VStack(alignment: horizontalAlignment, spacing: 0) {
             VStack {
-                attachementButton()
+                attachmentButton
                 message.text
             }
             .design(typography: .label(weight: .light))
@@ -46,13 +46,13 @@ internal struct MessageBubble: View {
         .frame(width: geomerty.size.width, alignment: alignment)
     }
 
-    func attachementButton() -> some View {
-        return Button(action: {
+    var attachmentButton: some View {
+        Button(action: {
             print("dupa")
         }, label: {
             if let attatchemnt =  message.attachments.first {
                 HStack {
-                    attatchemnt.mimeType ?? "-"
+                    attatchemnt.mimeType.or(.unknown).asImage
                     attatchemnt.fileName
                 }
                 .foregroundColor(.cyan)
