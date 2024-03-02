@@ -74,7 +74,14 @@ struct DataImageView: View {
     }
 
     var body: some View {
-        var image = UIImage(data: data.wrappedValue!)
-        Image(uiImage: image ?? UIImage(systemName:"figure.archery")!)
+        var placeholderImage = UIImage(systemName:"figure.archery")
+        if let imageData = data.wrappedValue, let image = UIImage(data: imageData) {
+            Image(uiImage: image)
+        } else {
+            VStack {
+                Text("Something went wrong :( ")
+                Image(uiImage: UIImage(systemName:"figure.archery") ?? UIImage())
+            }
+        }
     }
 }
