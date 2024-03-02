@@ -47,8 +47,17 @@ struct MessageDetailNavigationView: View {
                     Text("Today")
                         .design(padding: .big([.top, .bottom]))
                     ForEach(model.messages) { message in
-                        MessageBubble(geometry: geometry,
-                                      message: message
+                        MessageBubble(
+                            geometry: geometry,
+                                      message: message,
+                                      buttonAction: {
+                                          guard let att = message.attachments.first else { return }
+
+                                          Task { @MainActor in
+                                              let data = try await model.download(att)
+                                              print("🛤️", data)
+                                          }
+                                      }
                         )
                         MessageSpacer()
                     }

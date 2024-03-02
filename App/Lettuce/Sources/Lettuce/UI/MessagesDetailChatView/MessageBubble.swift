@@ -1,5 +1,7 @@
 import SwiftUI
 
+import AliasWonderland
+
 internal struct MessageBubble: View {
 
     @Environment(\.colorScheme) private var colorScheme
@@ -13,9 +15,16 @@ internal struct MessageBubble: View {
     }
     private let cornerRadius: CGFloat = 18
 
-    init(geometry: GeometryProxy, message: Message) {
+    private let buttonAction: SideEffectClosure
+
+    init(
+        geometry: GeometryProxy,
+        message: Message,
+        buttonAction: @escaping SideEffectClosure
+    ) {
         self.message = message
         self.geomerty = geometry
+        self.buttonAction = buttonAction
     }
 
     var body: some View {
@@ -47,16 +56,17 @@ internal struct MessageBubble: View {
     }
 
     var attachmentButton: some View {
-        Button(action: {
-            print("dupa")
-        }, label: {
-            if let attatchemnt =  message.attachments.first {
-                HStack {
-                    attatchemnt.mimeType.or(.unknown).asImage
-                    attatchemnt.fileName
+        Button(
+            action:buttonAction,
+            label: {
+                if let attatchemnt = message.attachments.first {
+                    HStack {
+                        attatchemnt.mimeType.or(.unknown).asImage
+                        attatchemnt.fileName
+                    }
+                    .foregroundColor(.cyan)
                 }
-                .foregroundColor(.cyan)
             }
-        })
+        )
     }
 }

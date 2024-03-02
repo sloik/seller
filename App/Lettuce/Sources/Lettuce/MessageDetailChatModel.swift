@@ -6,7 +6,8 @@ import Observation
 import AliasWonderland
 import Onion
 
-@Observable class MessageDetailChatModel {
+@Observable
+final class MessageDetailChatModel: Sendable {
 
     private var thread: MessageCenterThread
     private let messageCenter: MessageCenterRepository
@@ -24,5 +25,12 @@ import Onion
     ) {
         self.thread = thread
         self.messageCenter = messageCenter
+    }
+}
+
+extension MessageDetailChatModel {
+
+    func download(_ att: Attachment) async throws -> Data {
+        try await messageCenter.download(att)
     }
 }
