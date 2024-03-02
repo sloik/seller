@@ -32,6 +32,9 @@ struct MessageDetailNavigationView: View {
 
     @Bindable var model: MessageDetailChatModel
 
+    @State private var isAttachmentPresented: Bool = false
+    @State private var imageData: Data?
+
     init(model: MessageDetailChatModel) {
         self.model = model
     }
@@ -51,17 +54,25 @@ struct MessageDetailNavigationView: View {
                             geometry: geometry,
                                       message: message,
                                       buttonAction: {
+
+                            
                                           guard let att = message.attachments.first else { return }
 
                                           Task { @MainActor in
                                               let data = try await model.download(att)
+
+                                              self.imageData = data
                                               print("🛤️", data)
+
                                           }
+                                          isAttachmentPresented.toggle()
                                       }
                         )
                         MessageSpacer()
                     }
-                }
+                }.sheet(isPresented: $isAttachmentPresented, content: {
+                    DataImageView(data: imageData ?? Data("razdwa".utf8))
+                })
                 Spacer()
                 TypeMessageView(model: model).ignoresSafeArea(.all)
                 Spacer()
@@ -146,5 +157,20 @@ struct MessageDetailNavigationView: View {
                 .background(Color.white)
             }
         }
+    }
+}
+
+struct DataImageView: View {
+
+    @Environment(\.dismiss) var dismiss
+    private let data: Data
+
+    init(data: Data) {
+        self.data = data
+    }
+
+    var body: some View {
+        var image = UIImage(data: data)
+        Image(uiImage: image ?? UIImage.init())
     }
 }
