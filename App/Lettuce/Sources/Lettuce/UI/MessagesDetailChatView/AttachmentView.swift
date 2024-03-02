@@ -4,6 +4,7 @@ import PDFKit
 internal struct AttatchmentView: View {
 
     @Environment(\.dismiss) var dismiss
+
     private let data: Data
     private let attchament: Attachment
 
@@ -36,6 +37,9 @@ internal struct AttatchmentView: View {
 
     struct AttachmentImageView: View {
 
+        @State private var currentZoom = 0.0
+        @State private var totalZoom = 1.0
+
         let data: Data
 
         init(data: Data) {
@@ -45,9 +49,45 @@ internal struct AttatchmentView: View {
         var body: some View {
             if let image = UIImage(data: data) {
                 return Image(uiImage: image)
+                    .scaleEffect(currentZoom + totalZoom)
+                    .gesture(
+                             MagnifyGesture()
+                                 .onChanged { value in
+                                     currentZoom = value.magnification - 1
+                                 }
+                                 .onEnded { value in
+                                     totalZoom += currentZoom
+                                     currentZoom = 0
+                                 }
+                         )
+                    .accessibilityZoomAction { action in
+                                   if action.direction == .zoomIn {
+                                       totalZoom += 0.1
+                                   } else {
+                                       totalZoom -= 0.1
+                                   }
+                               }
             }
 
             return Image(uiImage: UIImage(systemName: "aqi.high") ?? UIImage())
+                .scaleEffect(currentZoom + totalZoom)
+                .gesture(
+                         MagnifyGesture()
+                             .onChanged { value in
+                                 currentZoom = value.magnification - 1
+                             }
+                             .onEnded { value in
+                                 totalZoom += currentZoom
+                                 currentZoom = 0
+                             }
+                     )
+                .accessibilityZoomAction { action in
+                               if action.direction == .zoomIn {
+                                   totalZoom += 0.1
+                               } else {
+                                   totalZoom -= 0.1
+                               }
+                           }
         }
 
     }
