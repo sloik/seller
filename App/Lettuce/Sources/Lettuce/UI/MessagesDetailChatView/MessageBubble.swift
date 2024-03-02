@@ -70,3 +70,4 @@ internal struct MessageBubble: View {
         )
     }
 }
+
