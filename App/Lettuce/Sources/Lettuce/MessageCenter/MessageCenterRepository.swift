@@ -189,4 +189,8 @@ extension MessageCenterRepository {
         return result
     }
 
+    func send(_ message: String) async throws {
+        
+    }
+
 }

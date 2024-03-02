@@ -33,4 +33,12 @@ extension MessageDetailChatModel {
     func download(_ att: Attachment) async throws -> Data {
         try await messageCenter.download(att)
     }
+
+    func sendMessage() async {
+        guard conversationMessage.isEmpty.isFalse else { return }
+
+        try? await messageCenter.send(conversationMessage)
+
+        conversationMessage = ""
+    }
 }

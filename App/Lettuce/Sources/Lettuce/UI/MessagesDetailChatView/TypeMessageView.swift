@@ -25,7 +25,9 @@ internal struct TypeMessageView: View {
                     Spacer()
 
                     Button(action: {
-                        print("Send message")
+                        Task {
+                            await model.sendMessage()
+                        }
                     }, label: {
                         Image(systemName: "paperplane.fill")
                             .design(padding: .large(.horizontal))
