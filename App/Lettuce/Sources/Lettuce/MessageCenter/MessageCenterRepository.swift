@@ -31,6 +31,14 @@ final class MessageCenterRepository {
     }
 }
 
+// MARK: Errors
+
+extension MessageCenterRepository {
+    enum E: Error {
+        case unableToCreateURL(from: String)
+    }
+}
+
 // MARK: -
 
 private extension MessageCenterRepository {
@@ -168,7 +176,17 @@ extension MessageCenterRepository {
     }
 
     func download(_ att: Attachment) async throws -> Data {
-        fatalError("Not implemented")
+
+        guard let url = att.url else {
+            throw E.unableToCreateURL(from: att.urlString ?? "missing url")        }
+
+        let request = DownloadAttachmentDataRequest(
+            url: url
+        )
+
+        let (result, _) = try await networkingHandler.run(request)
+
+        return result
     }
 
 }
