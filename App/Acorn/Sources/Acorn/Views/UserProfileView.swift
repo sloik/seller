@@ -14,6 +14,8 @@ struct UserProfileView: View {
 
                 Section {
 
+                    #if DEBUG
+
                     ForEach(0...5, id: \.self) { option in
                         HStack {
                             Image(systemName: "bell.circle.fill")
@@ -26,6 +28,8 @@ struct UserProfileView: View {
                             "Option \(option)"
                         }
                     }
+
+                    #endif
                 }
 
                 Section {
