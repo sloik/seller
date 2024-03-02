@@ -24,7 +24,10 @@ extension MyOrdersView: View {
 
                     ForEach(store.forms) { (form: CheckoutForm) in
                         NavigationLink {
-                            "Next View"
+                            DetailFormView(
+                                form: form,
+                                offer: store.state.sellerOffer(for: form)
+                            )
                         } label: {
                             let offer: SellersOffer? = store.state.sellerOffer(for: form)
 

@@ -46,38 +46,56 @@ struct FormView: View {
     }
 
     var body: some View {
-        HStack(spacing: 0) {
+        HStack(alignment: .center, spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
-              "Blok A5 w kropki 60k. klejony z góry, Narcissus Blok A5 w kropki 60k. klejony z góry, Narcissus klejony z góry, Narcissus Blok A5 w kropki 60k. klejony z góry, Narcissus"
-                    .background(Color.green)
+                offer
+                    .map(\.name)
+                    .or( "NO OFFER NAME" )
                     .multilineTextAlignment(.leading)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .lineLimit(3)
+                    .design(padding: .smaller(.bottom))
 
                 HStack(spacing: 8) {
 
                     VStack(alignment: .leading, spacing: 0) {
                         "Klient"
+                            .design(typography: .body(weight: .regular))
+                            .lineLimit(1)
+
                             .frame(alignment: .leading)
 
                         "Otrzymane"
+                            .design(typography: .body(weight: .regular))
+                            .lineLimit(1)
+
                             .frame(alignment: .leading)
 
                         "Zamówienie"
+                            .design(typography: .body(weight: .regular))
+                            .lineLimit(1)
+
                             .frame(alignment: .leading)
 
                     }
+
                     .frame(alignment: .leading)
 
 
                     VStack(alignment: .leading, spacing: 0) {
                         client
+                            .design(typography: .body(weight: .regular))
+                            .lineLimit(1)
                             .frame(alignment: .leading)
 
-                        form.updatedAt.or("-")
+                        form.updatedAt.or("-").isoDate?.design(formatter: .date)
+                            .design(typography: .body(weight: .regular))
+                            .lineLimit(1)
                             .frame(alignment: .leading)
 
                         status
+                            .design(typography: .body(weight: .regular))
+                            .lineLimit(1)
                             .frame(alignment: .leading)
 
                     }
@@ -86,11 +104,13 @@ struct FormView: View {
 
                 }
             }
-            .background(Color.yellow)
+            .design(padding: .smaller(.leading))
+
+        //    .background(Color.yellow)
              // .padding(.all, 8)
 
 
-            Spacer()
+       //     Spacer()
 
           //  Spacer()
 
@@ -100,7 +120,7 @@ struct FormView: View {
 
         }
 
-            .background(Color.cyan)
+           // .background(Color.cyan)
 //.cornerRadius(15)
 
             //.padding(.all, 24)
