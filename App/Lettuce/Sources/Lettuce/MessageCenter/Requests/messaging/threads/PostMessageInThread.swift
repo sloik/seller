@@ -13,7 +13,8 @@ struct PostMessageInThread: UploadRequest {
     }
     
     var headerFields: HTTPFields = [
-        HTTPField.Name.contentType : .applicationVndAllegroV1Json
+        HTTPField.Name.accept : .applicationVndAllegroV1Json,
+        HTTPField.Name.contentType: .applicationVndAllegroV1Json,
     ]
 
     var method: HTTPRequest.Method {
@@ -25,9 +26,6 @@ struct PostMessageInThread: UploadRequest {
     struct Body: ContentType {
         let text: String
         let attachments: [Identifier<Attachment>]?
-
-        enum Recipient {}
-        let recipient: Identifier<Recipient>
     }
     let body: Body
 }

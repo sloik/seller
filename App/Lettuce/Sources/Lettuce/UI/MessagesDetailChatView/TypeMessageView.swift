@@ -26,7 +26,7 @@ internal struct TypeMessageView: View {
 
                     Button(action: {
                         Task {
-                            await model.sendMessage()
+                            await model.sendMessageInThread()
                         }
                     }, label: {
                         Image(systemName: "paperplane.fill")

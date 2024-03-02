@@ -189,8 +189,20 @@ extension MessageCenterRepository {
         return result
     }
 
-    func send(_ message: String) async throws {
-        
+    @discardableResult
+    func send(_ message: String, threadId: String) async throws -> Message {
+
+        let body = PostMessageInThread.Body(
+            text: message,
+            attachments: .none
+        )
+
+        let request = PostMessageInThread(threadId: threadId, body: body)
+
+        let (result, _) = try await networkingHandler.run(request)
+
+        return result
+
     }
 
 }

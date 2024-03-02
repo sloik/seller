@@ -34,10 +34,10 @@ extension MessageDetailChatModel {
         try await messageCenter.download(att)
     }
 
-    func sendMessage() async {
+    func sendMessageInThread() async {
         guard conversationMessage.isEmpty.isFalse else { return }
 
-        try? await messageCenter.send(conversationMessage)
+        try? await messageCenter.send(conversationMessage, threadId: thread.id)
 
         conversationMessage = ""
     }
