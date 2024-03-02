@@ -47,9 +47,9 @@ struct MessageDetailNavigationView: View {
                     Text("Today")
                         .design(padding: .big([.top, .bottom]))
                     ForEach(model.messages) { message in
-                        MessageBubble(geometry: geometry, 
-                                      isInterlocutor: message.author.isInterlocutor,
-                                      messageText: message.text)
+                        MessageBubble(geometry: geometry,
+                                      message: message
+                        )
                         MessageSpacer()
                     }
                 }
@@ -107,45 +107,6 @@ struct MessageDetailNavigationView: View {
         var body: some View {
             Spacer()
                 .frame(height: 10)
-        }
-    }
-
-    private struct MessageBubble: View {
-
-        @Environment(\.colorScheme) private var colorScheme
-        private let messageText: String
-        private let isInterlocutor: Bool
-        private let geometry: GeometryProxy
-        private let alignment: Alignment
-        private let horizontalAlignment: HorizontalAlignment
-        private let cornerRadius: CGFloat = 18
-
-        init(geometry: GeometryProxy, isInterlocutor: Bool, messageText: String) {
-            self.geometry = geometry
-            self.isInterlocutor = isInterlocutor
-            self.alignment = isInterlocutor ? .leading : .trailing
-            self.horizontalAlignment = isInterlocutor ? .leading : .trailing
-            self.messageText = messageText
-        }
-
-        var body: some View {
-            VStack(alignment: horizontalAlignment, spacing: 0) {
-                messageText
-                    .design(
-                        padding: .small(.vertical),
-                        padding: .base(.horizontal)
-                    )
-                    .background(isInterlocutor
-                                ? .design(color: .gray92, with: colorScheme)
-                                : .design(color: .gray69, with: colorScheme),
-                                in: RoundedRectangle(cornerSize: CGSize(width: cornerRadius, height: cornerRadius)))
-                    .design(padding: .small(.bottom))
-                    .design(padding: .large(.horizontal))
-                Text("9:23")
-                    .foregroundStyle( .design(color: .gray5958, with: colorScheme) )
-                    .design(padding: .large(.horizontal))
-            }
-            .frame(width: geometry.size.width, alignment: alignment)
         }
     }
 
