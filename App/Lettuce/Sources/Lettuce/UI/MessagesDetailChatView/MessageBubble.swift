@@ -24,7 +24,7 @@ internal struct MessageBubble: View {
 
                 if let attatchemnt =  message.attachments.first {
                     HStack {
-                        attatchemnt.mimeType ?? "-"
+                        attatchemnt.mimeType.or(.unknown).asImage
                         attatchemnt.fileName
                     }
                     .foregroundColor(.cyan)
