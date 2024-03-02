@@ -18,6 +18,9 @@
 		64151DEE2AFFC70700FB68B5 /* InlineSnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 64151DED2AFFC70700FB68B5 /* InlineSnapshotTesting */; };
 		64151DF02AFFC70700FB68B5 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 64151DEF2AFFC70700FB68B5 /* SnapshotTesting */; };
 		64151DF32AFFCB2A00FB68B5 /* Onion in Frameworks */ = {isa = PBXBuildFile; productRef = 64151DF22AFFCB2A00FB68B5 /* Onion */; };
+		64375AF12B934A8F008C1E19 /* SweetBool in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 646063102AFED8ED006A4424 /* SweetBool */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		64375AF22B934A95008C1E19 /* SweetPredicate in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 646063122AFED8ED006A4424 /* SweetPredicate */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		64375AF32B934A97008C1E19 /* SecretsStore in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 6474C0292B07C6C8009903C6 /* SecretsStore */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		646063112AFED8ED006A4424 /* SweetBool in Frameworks */ = {isa = PBXBuildFile; productRef = 646063102AFED8ED006A4424 /* SweetBool */; };
 		646063132AFED8ED006A4424 /* SweetPredicate in Frameworks */ = {isa = PBXBuildFile; productRef = 646063122AFED8ED006A4424 /* SweetPredicate */; };
 		6474C0252B07C46D009903C6 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6474C0242B07C42F009903C6 /* Secrets.swift */; };
@@ -68,7 +71,10 @@
 			dstSubfolderSpec = 10;
 			files = (
 				6477BBC52AFAC00D0024D672 /* Onion in Embed Frameworks */,
+				64375AF12B934A8F008C1E19 /* SweetBool in Embed Frameworks */,
+				64375AF22B934A95008C1E19 /* SweetPredicate in Embed Frameworks */,
 				6474DBE32B1B758400970C29 /* Utilities in Embed Frameworks */,
+				64375AF32B934A97008C1E19 /* SecretsStore in Embed Frameworks */,
 				647505AA2AA62C0600946955 /* Seller in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
