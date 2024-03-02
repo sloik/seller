@@ -6,7 +6,16 @@ import OptionalAPI
 
 struct Attachment: ContentType {
     let fileName: String
-    let mimeType: String?
+
+    enum MimeType: String, ContentType {
+        case imagePng = "image/png"
+        case imageJpeg = "image/jpeg"
+        case pdf = "application/pdf"
+
+        case unknown
+    }
+    let mimeType: MimeType?
+
     let urlString: String?
 
     enum Status: String, ContentType {
@@ -28,5 +37,19 @@ struct Attachment: ContentType {
 extension Attachment {
     var url: URL? {
         urlString.flatMap( URL.init(string:) )
+    }
+}
+
+extension Attachment.MimeType: Codable {
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let rawValue = try container.decode(String.self)
+
+        self = Attachment.MimeType(rawValue: rawValue) ?? .unknown
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(rawValue)
     }
 }
