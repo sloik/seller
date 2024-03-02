@@ -1,6 +1,13 @@
 
 import Foundation
+
 import HTTPTypes
+
+// MARK: - Error
+
+public enum RequestError: Error {
+    case unableToCreateRequest(path: String)
+}
 
 public protocol Request<Output> {
 

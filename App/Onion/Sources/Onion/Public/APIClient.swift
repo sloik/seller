@@ -46,9 +46,9 @@ public final class APIClient: APIClientType {
 
         let requestID = UUID()
 
-        logger.debug("\(type(of: self)) \(#function) \(requestID)> Sending request \(type(of: request)) \(self.baseURL.absoluteString)\(request.path)")
+        let httpRequest = try httpRequest(from: request)
 
-        let httpRequest = httpRequest(from: request)
+        logger.debug("\(type(of: self)) \(#function) \(requestID)> Sending request \(type(of: request)) \(httpRequest.url?.absoluteString ?? "-")")
 
         let (data, httpResponse) = try await session.data(for: httpRequest)
 
@@ -66,7 +66,7 @@ public final class APIClient: APIClientType {
     public func upload<R: UploadRequest>(_ request: R) async throws -> (R.Output, HTTPResponse) {
         logger.debug("\(type(of: self)) \(#function)> Sending request \(type(of: request))")
 
-        let httpRequest = httpRequest(from: request)
+        let httpRequest = try httpRequest(from: request)
 
         let (data, httpResponse) = try await session.upload(for: httpRequest, from: request.body.data)
 
@@ -84,6 +84,10 @@ private extension APIClient {
             logger.error("\(type(of: self)) \(#function)> Request \(type(of: request)) failed with response: \(httpResponse.debugDescription), data: \(data.utf8String ?? "-")")
 
             throw OnionError.notSuccessStatus(response: httpResponse, data: data)
+        }
+
+        if R.Output.self == Data.self {
+            return (data as! R.Output, httpResponse)
         }
 
         let output = try request.decode(data)
