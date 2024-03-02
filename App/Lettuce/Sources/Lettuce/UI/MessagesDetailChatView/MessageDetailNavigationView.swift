@@ -59,19 +59,23 @@ struct MessageDetailNavigationView: View {
                                           guard let att = message.attachments.first else { return }
 
                                           Task { @MainActor in
-                                              let data = try await model.download(att)
+//                                              let data = try await model.download(att)
 
-                                              self.imageData = data
-                                              print("🛤️", data)
+                                              let imageDummy = UIImage(systemName: "figure.walk")!.jpegData(compressionQuality: 0.2)
+
+                                              self.imageData = imageDummy
+
+//                                              print("🛤️", data)
+                                              isAttachmentPresented.toggle()
 
                                           }
-                                          isAttachmentPresented.toggle()
+
                                       }
                         )
                         MessageSpacer()
                     }
                 }.sheet(isPresented: $isAttachmentPresented, content: {
-                    DataImageView(data: imageData ?? Data("razdwa".utf8))
+                    DataImageView(data: $imageData)
                 })
                 Spacer()
                 TypeMessageView(model: model).ignoresSafeArea(.all)
@@ -163,14 +167,14 @@ struct MessageDetailNavigationView: View {
 struct DataImageView: View {
 
     @Environment(\.dismiss) var dismiss
-    private let data: Data
+    private let data: Binding<Data?>
 
-    init(data: Data) {
+    init(data:  Binding<Data?>) {
         self.data = data
     }
 
     var body: some View {
-        var image = UIImage(data: data)
-        Image(uiImage: image ?? UIImage.init())
+        var image = UIImage(data: data.wrappedValue!)
+        Image(uiImage: image ?? UIImage(systemName:"figure.archery")!)
     }
 }
