@@ -177,11 +177,11 @@ extension MessageCenterRepository {
 
     func download(_ att: Attachment) async throws -> Data {
 
-        guard let attachmentId = att.url?.lastPathComponent else {
+        guard let attachmentId = att.attachmentId else {
             throw E.unableToCreateURL(from: att.urlString ?? "missing url")        }
 
         let request = DownloadAttachmentDataRequest(
-            attachmentId: attachmentId
+            attachmentId: attachmentId.id
         )
 
         let (result, _) = try await networkingHandler.run(request)

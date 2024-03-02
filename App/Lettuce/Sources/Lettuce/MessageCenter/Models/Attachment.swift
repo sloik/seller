@@ -38,6 +38,13 @@ extension Attachment {
     var url: URL? {
         urlString.flatMap( URL.init(string:) )
     }
+
+
+    var attachmentId: Identifier<Attachment>? {
+        url
+            .map( \.lastPathComponent )
+            .map( Identifier<Attachment>.init(id:) )
+    }
 }
 
 extension Attachment.MimeType: Codable {
