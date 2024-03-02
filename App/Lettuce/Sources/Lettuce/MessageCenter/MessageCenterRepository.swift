@@ -167,4 +167,8 @@ extension MessageCenterRepository {
             .or( .zero )
     }
 
+    func download(_ att: Attachment) async throws -> Data {
+        fatalError("Not implemented")
+    }
+
 }
