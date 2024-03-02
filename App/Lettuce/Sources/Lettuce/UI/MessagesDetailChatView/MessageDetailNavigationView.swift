@@ -1,5 +1,6 @@
 // system
 import SwiftUI
+import PDFKit
 
 
 struct MessageDetailNavigationView: View {
@@ -10,7 +11,7 @@ struct MessageDetailNavigationView: View {
     @Bindable var model: MessageDetailChatModel
 
     @State private var isAttachmentPresented: Bool = false
-    @State private var imageData: Data?
+    @State private var imageData: (data: Data, attachment: Attachment)?
 
     init(model: MessageDetailChatModel) {
         self.model = model
@@ -32,25 +33,22 @@ struct MessageDetailNavigationView: View {
                                       message: message,
                                       buttonAction: {
                                           guard let att = message.attachments.first else { return }
-
                                           Task { @MainActor in
-//                                              let data = try await model.download(att)
-
-                                              let imageDummy = UIImage(systemName: "figure.walk")!.jpegData(compressionQuality: 0.2)
-
-                                              self.imageData = imageDummy
-
-//                                              print("🛤️", data)
+                                              let data = try await model.download(att)
+                                              self.imageData = (data: data, attachment: att)
                                               isAttachmentPresented.toggle()
-
                                           }
-
                                       }
                         )
                         MessageSpacer()
                     }
                 }.sheet(isPresented: $isAttachmentPresented, content: {
-                    DataImageView(data: $imageData)
+                    if let data = $imageData.wrappedValue {
+                        AttatchmentView(
+                            data:data.data,
+                            attachment: data.attachment
+                        )
+                    }
                 })
                 Spacer()
                 TypeMessageView(model: model).ignoresSafeArea(.all)
@@ -60,28 +58,6 @@ struct MessageDetailNavigationView: View {
 #if canImport(UIKit)
             .toolbar(.hidden, for: .tabBar)
 #endif
-        }
-    }
-}
-
-struct DataImageView: View {
-
-    @Environment(\.dismiss) var dismiss
-    private let data: Binding<Data?>
-
-    init(data:  Binding<Data?>) {
-        self.data = data
-    }
-
-    var body: some View {
-        var placeholderImage = UIImage(systemName:"figure.archery")
-        if let imageData = data.wrappedValue, let image = UIImage(data: imageData) {
-            Image(uiImage: image)
-        } else {
-            VStack {
-                Text("Something went wrong :( ")
-                Image(uiImage: UIImage(systemName:"figure.archery") ?? UIImage())
-            }
         }
     }
 }
