@@ -23,10 +23,11 @@ internal struct TypeMessageView: View {
                         .lineLimit(model.conversationLineLimit)
                         .design(padding: .large(.leading))
                     Spacer()
+
                     Button(action: {
-                        print("Attachment clicked")
+                        print("Send message")
                     }, label: {
-                        Image(systemName: "paperclip")
+                        Image(systemName: "paperplane.fill")
                             .design(padding: .large(.horizontal))
                     })
                 }

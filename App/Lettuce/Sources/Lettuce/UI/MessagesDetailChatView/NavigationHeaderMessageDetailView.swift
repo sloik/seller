@@ -33,6 +33,13 @@ internal struct NavigationHeaderMessageDetailView: View {
                         .foregroundStyle( .design(color: .gray55, with: colorScheme) )
                 }
                 Spacer()
+
+                Button(action: {
+                    print("Attachment clicked")
+                }, label: {
+                    Image(systemName: "paperclip")
+                        .design(padding: .large(.horizontal))
+                })
             }
             .frame(height: 83)
             .background(Color.white)
