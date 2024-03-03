@@ -8,7 +8,7 @@ import OptionalAPI
 import Zippy
 
 /// https://developer.allegro.pl/documentation#operation/getMessageGET
-struct Message: ContentType, Identifiable {
+struct Message: ContentType, Identifiable, Sendable {
     let id: String
 
     enum Status: String, ContentType {
