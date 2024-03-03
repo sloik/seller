@@ -5,6 +5,7 @@ import Observation
 // Local
 import AliasWonderland
 import Onion
+import Utilities
 
 @Observable
 final class MessageDetailChatModel: Sendable {
@@ -15,8 +16,8 @@ final class MessageDetailChatModel: Sendable {
     var conversationMessage: String = ""
     let conversationLineLimit = 5
 
-    var messages: [Message] {
-        messageCenter.messages[thread]?.reversed() ?? []
+    var messages: SortedArray<Message> {
+        messageCenter.messages[thread] ?? SortedArray<Message>(unsorted: [])
     }
 
     init(

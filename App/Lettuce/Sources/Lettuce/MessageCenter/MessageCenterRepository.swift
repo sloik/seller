@@ -7,6 +7,7 @@ import Collections
 import Onion
 import OptionalAPI
 import SweetBool
+import Utilities
 import Zippy
 
 @Observable
@@ -14,7 +15,7 @@ final class MessageCenterRepository {
 
     private let networkingHandler: NetworkingHandlerType
 
-    private(set) var messages: [MessageCenterThread:  [Message]] = [:]
+    private(set) var messages: [MessageCenterThread: SortedArray<Message>] = [:]
 
     var threads: [MessageCenterThread] {
         messages.keys.sorted { lhs, rhs in
@@ -45,9 +46,10 @@ extension MessageCenterRepository {
 private extension MessageCenterRepository {
 
     func fetchMessages(threads: [MessageCenterThread]) async throws {
-        let result = try await withThrowingTaskGroup(
+
+        let result: [MessageCenterThread : SortedArray<Message>] = try await withThrowingTaskGroup(
             of: (MessageCenterThread, MessagesInThread).self,
-            returning: [MessageCenterThread: [Message]].self
+            returning: [MessageCenterThread: SortedArray<Message>].self
         ) { taskGroup in
 
             for thread in threads {
@@ -55,12 +57,17 @@ private extension MessageCenterRepository {
                     let msg = try await self.fetchMessages(thread)
                     return (thread, msg)
                 }
-
             }
 
-            var accumulator: [MessageCenterThread:  [Message]] = [:]
+            var accumulator: [MessageCenterThread:  SortedArray<Message>] = [:]
             while let result = try await taskGroup.next() {
-                accumulator[result.0] = result.1.messages
+                var currentMessages = accumulator[result.0] ?? SortedArray<Message>(unsorted: [])
+
+                for msg in result.1.messages {
+                    currentMessages.insert(msg)
+                }
+
+                accumulator[result.0] = currentMessages
             }
             return accumulator
         }
@@ -156,7 +163,7 @@ extension MessageCenterRepository {
 
     func hasAttachments(_ thread: MessageCenterThread) -> Bool {
         messages[thread]
-            .map { (messages: [Message]) in
+            .map { (messages: SortedArray<Message>) in
                 messages
                     .contains { (message: Message) in
                         message.hasAdditionalAttachments || message.attachments.isEmpty.isFalse
