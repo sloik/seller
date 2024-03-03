@@ -198,7 +198,6 @@ extension MessageCenterRepository {
         return result
     }
 
-    @discardableResult
     func send(_ message: String, thread: MessageCenterThread) async throws {
 
         let body = PostMessageInThread.Body(
