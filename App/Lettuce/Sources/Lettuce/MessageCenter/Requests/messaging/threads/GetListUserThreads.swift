@@ -22,7 +22,7 @@ struct GetListUserThreads: PaginatedRequest {
     var limit: Int
     
     internal init(
-        limit: Int = 20,
+        limit: Int = Self.defaultLimit,
         offset: Int = 0
     ) {
         self.limit = limit

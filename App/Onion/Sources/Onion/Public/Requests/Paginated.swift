@@ -6,7 +6,7 @@ public protocol Paginated {
     var limit: Int { get }
 }
 
-extension Paginated {
+public extension Paginated {
     static var defaultLimit: Int { 20 }
 }
 

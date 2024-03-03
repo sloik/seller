@@ -28,7 +28,7 @@ struct ListMessagesInThreadRequest: PaginatedRequest {
 
     internal init(
         threadId: String,
-        limit: Int = 20,
+        limit: Int = Self.defaultLimit,
         offset: Int = 0,
         before: String? = nil,
         after: String? = nil
