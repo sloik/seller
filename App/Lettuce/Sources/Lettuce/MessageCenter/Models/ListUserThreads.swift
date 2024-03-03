@@ -14,8 +14,8 @@ struct ListUserThreads: ContentType, Paginated {
         let interlocutor: Interlocutor?
     }
     let threads: [Thread]
-    let offset: UInt
-    let limit: UInt
+    let offset: Int
+    let limit: Int
 }
 
 /// Represents thread in message center.

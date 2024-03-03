@@ -18,12 +18,12 @@ struct GetListUserThreads: PaginatedRequest {
         HTTPField.Name.accept : .applicationVndAllegroV1Json
     ]
 
-    var offset: UInt
-    var limit: UInt
+    var offset: Int
+    var limit: Int
     
     internal init(
-        limit: UInt = 20,
-        offset: UInt = 0
+        limit: Int = 20,
+        offset: Int = 0
     ) {
         self.limit = limit
         self.offset = offset

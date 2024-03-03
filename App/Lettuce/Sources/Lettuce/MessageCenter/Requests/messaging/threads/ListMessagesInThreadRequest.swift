@@ -21,15 +21,15 @@ struct ListMessagesInThreadRequest: PaginatedRequest {
 
     let threadId: String
     
-    let limit: UInt
-    let offset: UInt
+    let limit: Int
+    let offset: Int
     let before: String?
     let after: String?
 
     internal init(
         threadId: String,
-        limit: UInt = 20,
-        offset: UInt = 0,
+        limit: Int = 20,
+        offset: Int = 0,
         before: String? = nil,
         after: String? = nil
     ) {

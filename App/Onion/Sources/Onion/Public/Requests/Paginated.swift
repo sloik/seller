@@ -2,8 +2,8 @@
 import Foundation
 
 public protocol Paginated {
-    var offset: UInt { get }
-    var limit: UInt { get }
+    var offset: Int { get }
+    var limit: Int { get }
 }
 
 public extension Paginated {
