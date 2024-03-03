@@ -56,3 +56,11 @@ package extension CuminUseCases {
         api.currentClient
     }
 }
+
+public extension Notification.Name {
+
+    // Notification posted when a new token is fetched.
+    static var hasNewToken: Self {
+        .init(rawValue: "CuminUseCases.Auth.hasNewToken")
+    }
+}

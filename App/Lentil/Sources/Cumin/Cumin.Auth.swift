@@ -156,7 +156,7 @@ extension CuminUseCases.Auth {
                     NotificationCenter
                         .default
                         .post(
-                            name: .init("CuminUseCases.Auth.hasNewToken"),
+                            name: .hasNewToken,
                             object: nil
                         )
                 }
