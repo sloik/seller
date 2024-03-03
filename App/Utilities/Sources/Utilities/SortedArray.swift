@@ -5,6 +5,9 @@ import Foundation
 // https://github.com/objcio/S01E55-sorted-arrays-with-binary-search/blob/master/SortedArray.playground/Contents.swift
 // until Swift Collection will not add sorted types.
 public struct SortedArray<Element: Comparable> {
+
+    public static var empty: Self { .init(unsorted: []) }
+
     var elements: [Element]
 
     public init<S: Sequence>(unsorted: S) where S.Iterator.Element == Element {
