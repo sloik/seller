@@ -52,7 +52,9 @@ struct MessageDetailNavigationView: View {
                     .scrollPosition(id: $model.scrolledMessage, anchor: .bottom)
                     .onChange(of: model.messages) {
                         if let msg = model.messages.last {
-                            proxy.scrollTo(msg, anchor: .bottom)
+                            withAnimation {
+                                proxy.scrollTo(msg, anchor: .bottom)
+                            }
                         }
                     }
                     .onAppear {
