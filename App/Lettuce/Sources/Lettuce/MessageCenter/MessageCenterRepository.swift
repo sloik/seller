@@ -61,7 +61,7 @@ private extension MessageCenterRepository {
 
             var accumulator: [MessageCenterThread:  SortedArray<Message>] = [:]
             while let result = try await taskGroup.next() {
-                var currentMessages = accumulator[result.0] ?? SortedArray<Message>(unsorted: [])
+                var currentMessages = accumulator[result.0] ?? .empty
 
                 for msg in result.1.messages {
                     currentMessages.insert(msg)

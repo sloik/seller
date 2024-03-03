@@ -17,7 +17,7 @@ final class MessageDetailChatModel: Sendable {
     let conversationLineLimit = 5
 
     var messages: SortedArray<Message> {
-        messageCenter.messages[thread] ?? SortedArray<Message>(unsorted: [])
+        messageCenter.messages[thread] ?? .empty
     }
 
     init(
