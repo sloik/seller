@@ -20,7 +20,7 @@ struct MessageDetailNavigationView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
-                NavigationHeaderMessageDetailView()
+                NavigationHeaderMessageDetailView(interlocutor: model.interlocutor, offerTitle: "{offer: title}")
                 Divider()
                     .overlay( .design(color: .gray71, with: colorScheme) )
 

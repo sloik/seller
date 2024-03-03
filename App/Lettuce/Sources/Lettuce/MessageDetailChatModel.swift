@@ -20,7 +20,9 @@ final class MessageDetailChatModel: Sendable {
         messageCenter.messages[thread] ?? .empty
     }
 
-    var scrolledMessage: Message? = .none
+    var interlocutor: Interlocutor? {
+        thread.interlocutor
+    }
 
     init(
         thread: MessageCenterThread,

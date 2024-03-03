@@ -24,6 +24,7 @@ struct Message: ContentType, Identifiable, Sendable {
         case askQuestion = "ASK_QUESTION"
         case mail = "MAIL"
         case messageCenter = "MESSAGE_CENTER"
+        case platformMessage = "PLATFORM_MESSAGE"
     }
     let type: MessageType
     let createdAt: String
@@ -34,11 +35,12 @@ struct Message: ContentType, Identifiable, Sendable {
     let author: Author
     let text: String
     let subject: String?
-
+    let offer: Offer?
     struct RelatedObject: ContentType {
-        let offer: Identifier<ThreadId>?
+        let offer: Offer?
         let order: Identifier<ThreadId>?
     }
+    
     let relatesTo: RelatedObject
     let hasAdditionalAttachments: Bool
 

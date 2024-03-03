@@ -4,7 +4,7 @@ import XCTest
 @testable import Onion
 
 final class WriteNewMessageRequestTests: XCTestCase {
-    
+
     func test_parsingInputJsonExample() throws {
         
         // Arrange
@@ -57,10 +57,29 @@ final class WriteNewMessageRequestTests: XCTestCase {
           },
           "text": "string",
           "subject": "string",
+               "offer": {
+                              "id": "15030554210",
+                              "thumbnailUrl": "https://a.allegroimg.com/original/1193cf/1d2157e44c0291c32f4366510d7f",
+                              "name": "[test] Zuczek - international",
+                              "url": "https://allegro.pl/oferta/15030554210",
+                              "marketplaceBasePrices": {
+                                  "marketplace": "allegro-pl",
+                                  "amount": 3.5,
+                                  "currency": "PLN"
+                              }
+                          },
           "relatesTo": {
             "offer": {
-              "id": "string"
-            },
+                              "id": "15030554210",
+                              "thumbnailUrl": "https://a.allegroimg.com/original/1193cf/1d2157e44c0291c32f4366510d7f",
+                              "name": "[test] Zuczek - international",
+                              "url": "https://allegro.pl/oferta/15030554210",
+                              "marketplaceBasePrices": {
+                                  "marketplace": "allegro-pl",
+                                  "amount": 3.5,
+                                  "currency": "PLN"
+                              }
+                          },
             "order": {
               "id": "string"
             }
@@ -68,8 +87,8 @@ final class WriteNewMessageRequestTests: XCTestCase {
           "hasAdditionalAttachments": false,
           "attachments": [
             {
-              "fileName": "string",
-              "mimeType": "string",
+              "fileName": "
+              "mimeType": "image/jpeg",,
               "url": "string",
               "status": "NEW"
             }
@@ -92,14 +111,24 @@ final class WriteNewMessageRequestTests: XCTestCase {
             author: Author(login: "string", isInterlocutor: true),
             text: "string",
             subject: "string",
+            offer: Offer(
+                id:"15030554210",
+                         thumbnailUrl: "https://a.allegroimg.com/original/1193cf/1d2157e44c0291c32f4366510d7f",
+                         name: "[test] Zuczek - international",
+                         url: "https://allegro.pl/oferta/15030554210"),
             relatesTo: WriteNewMessageRequest.Output.RelatedObject(
-                offer: Identifier(id: "string"),
+                offer: Offer(
+                    id: "15030554210",
+                    thumbnailUrl: "https://a.allegroimg.com/original/1193cf/1d2157e44c0291c32f4366510d7f",
+                    name: "[test] Zuczek - international",
+                    url: "https://allegro.pl/oferta/15030554210"
+                ),
                 order: Identifier(id: "string")
             ),
             hasAdditionalAttachments: false,
             attachments: [Attachment(
                 fileName: "string",
-                mimeType: "string",
+                mimeType: Attachment.MimeType.imageJpeg,
                 urlString: "string",
                 status: .new)],
             additionalInformation: WriteNewMessageRequest.Output.AdditionalInformation(
