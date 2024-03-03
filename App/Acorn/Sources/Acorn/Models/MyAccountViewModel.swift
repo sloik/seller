@@ -86,6 +86,9 @@ private extension MyAccountViewModel {
 extension MyAccountViewModel {
     func didLogin(_ error: Error?) {
         loginWebViewIsPresented = false
+        Task { [weak self] in
+            await self?.fetchUserData()
+        }
     }
 
     func logout() {
