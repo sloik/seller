@@ -56,6 +56,11 @@ let package = Package(
             from: "1.0.2"
         ),
 
+        .package(
+          url: "https://github.com/apple/swift-collections.git",
+          .upToNextMajor(from: "1.1.0")
+        ),
+
     ],
 
     targets: [
@@ -77,6 +82,11 @@ let package = Package(
                     name: "HTTPTypes",
                     package: "swift-http-types"
                 ),
+
+                .product(
+                    name: "Collections", 
+                    package: "swift-collections"
+                )
             ]
         ),
         .testTarget(
