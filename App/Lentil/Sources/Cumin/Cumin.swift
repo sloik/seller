@@ -8,7 +8,7 @@ import Onion
 // 3rd party
 import AliasWonderland
 
-package var Cumin: CuminUseCases!
+nonisolated(unsafe)  package var Cumin: CuminUseCases!
 
 package final class CuminUseCases {
 

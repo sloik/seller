@@ -8,7 +8,7 @@ import OSLog
 import AliasWonderland
 import OptionalAPI
 
-private let logger = Logger(subsystem: "CuminUseCases", category: "Auth")
+nonisolated(unsafe) private let logger = Logger(subsystem: "CuminUseCases", category: "Auth")
 
 package extension CuminUseCases {
 

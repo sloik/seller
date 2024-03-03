@@ -12,9 +12,9 @@ import Onion
 // 3rd party
 import AliasWonderland
 
-public private(set) var Lentil: LentilUseCases!
+nonisolated(unsafe) public private(set) var Lentil: LentilUseCases!
 
-private let logger = Logger(subsystem: "LentilUseCases", category: "Lentil")
+nonisolated(unsafe) private let logger = Logger(subsystem: "LentilUseCases", category: "Lentil")
 
 public struct LentilUseCases {
 
