@@ -7,7 +7,7 @@ import Foundation
 public struct SortedArray<Element: Comparable> {
     var elements: [Element]
 
-    init<S: Sequence>(unsorted: S) where S.Iterator.Element == Element {
+    public init<S: Sequence>(unsorted: S) where S.Iterator.Element == Element {
         elements = unsorted.sorted()
     }
 
@@ -56,5 +56,11 @@ extension SortedArray: Collection {
 
     public func index(after i: Int) -> Int {
         elements.index(after: i)
+    }
+}
+
+extension SortedArray: RandomAccessCollection {
+    public func index(before i: Int) -> Int {
+        elements.index(before: i)
     }
 }
