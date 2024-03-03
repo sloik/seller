@@ -141,6 +141,16 @@ extension MessageCenterRepository {
         return result
     }
 
+    private func insert(_ msgs: [Message], in thread: MessageCenterThread) {
+        for msg in msgs {
+            if messages.keys.contains(thread) {
+                messages[thread]?.insert(msg)
+            } else {
+                messages[thread] = .init(unsorted: [msg])
+            }
+        }
+    }
+
     func messagesCount(_ thread: MessageCenterThread) -> Int {
         messages[thread]
             .map { messages in
@@ -151,10 +161,30 @@ extension MessageCenterRepository {
 
     func lastMessage(_ thread: MessageCenterThread) -> Message? {
         messages[thread]
-            .map { messages in
+            .flatMap { messages in
                 messages.last
             }
-            .or( .none )
+    }
+
+    func firstMessage(_ thread: MessageCenterThread) -> Message? {
+        messages[thread]
+            .flatMap { messages in
+                messages.first
+            }
+    }
+
+    func loadOlderMessages(_ thread: MessageCenterThread) async throws {
+
+        guard let message = firstMessage(thread) else { return }
+
+        let request = ListMessagesInThreadRequest(
+            threadId: thread.id,
+            before: message.createdAt
+        )
+
+        let (result, _): (MessagesInThread, HTTPResponse) = try await networkingHandler.run(request)
+
+        insert(result.messages, in: thread)
     }
 }
 
@@ -209,15 +239,6 @@ extension MessageCenterRepository {
 
         let (result, _): (Message, HTTPResponse) = try await networkingHandler.run(request)
 
-        if messages.keys.contains(thread) {
-            messages[thread]?.insert(result)
-        } else {
-            messages[thread] = .init(unsorted: [result])
-        }
+        insert([result], in: thread)
     }
-
-    func loadOlderMessages(_ thread: MessageCenterThread) async throws {
-
-    }
-
 }
