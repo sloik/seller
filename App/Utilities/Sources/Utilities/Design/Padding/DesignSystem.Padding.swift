@@ -5,26 +5,28 @@ extension DesignSystem {
 
     public enum Padding {
 
+        /// 4
+        case reallyTiny   (_ edges: Edge.Set)
         /// 6
-        case tiny   (_ edges: Edge.Set)
+        case tiny         (_ edges: Edge.Set)
         /// 8
-        case smaller(_ edges: Edge.Set)
+        case smaller      (_ edges: Edge.Set)
         /// 12
-        case small   (_ edges: Edge.Set)
+        case small        (_ edges: Edge.Set)
         /// 16
-        case base   (_ edges: Edge.Set)
+        case base         (_ edges: Edge.Set)
         /// 20
-        case big    (_ edges: Edge.Set)
+        case big          (_ edges: Edge.Set)
         /// 24
-        case bigger (_ edges: Edge.Set)
+        case bigger       (_ edges: Edge.Set)
         /// 28
-        case large  (_ edges: Edge.Set)
+        case large        (_ edges: Edge.Set)
         ///32
-        case larger (_ edges: Edge.Set)
+        case larger       (_ edges: Edge.Set)
         /// 36
-        case huge   (_ edges: Edge.Set)
+        case huge         (_ edges: Edge.Set)
         /// 40
-        case hugger (_ edges: Edge.Set)
+        case hugger       (_ edges: Edge.Set)
 
         @available(*, deprecated, message: "👨‍🎨 Design System: Please use any other value!")
         case custom(edges: Edge.Set, length: CGFloat)
@@ -34,6 +36,7 @@ extension DesignSystem {
 extension DesignSystem.Padding {
     public var length: CGFloat {
         switch self {
+        case .reallyTiny:               return 4
         case .tiny:                     return 6
         case .smaller:                  return 8
         case .small:                    return 12
@@ -50,9 +53,10 @@ extension DesignSystem.Padding {
 
     public var edges: Edge.Set {
         switch self {
+        case .reallyTiny(let edges):    return edges
         case .tiny(let edges):          return edges
         case .smaller(let edges):       return edges
-        case .small(let edges):          return edges
+        case .small(let edges):         return edges
         case .base(let edges):          return edges
         case .big(let edges):           return edges
         case .bigger(let edges):        return edges

@@ -18,7 +18,6 @@ struct MyAccountView: View {
             ZStack {
                 LoginView(model: model)
                     .opacity( model.opacity(for: .login) )
-                    .border(.blue)
 
                 UserProfileView(model: model)
                     .frame( maxWidth: .infinity)
