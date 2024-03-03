@@ -67,3 +67,9 @@ extension SortedArray: RandomAccessCollection {
         elements.index(before: i)
     }
 }
+
+extension SortedArray: Equatable where Element: Equatable {
+    public static func == (lhs: SortedArray<Element>, rhs: SortedArray<Element>) -> Bool {
+        lhs.elements == rhs.elements
+    }
+}
