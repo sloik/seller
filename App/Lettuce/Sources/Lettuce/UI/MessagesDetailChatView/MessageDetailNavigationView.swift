@@ -24,25 +24,44 @@ struct MessageDetailNavigationView: View {
                 Divider()
                     .overlay( .design(color: .gray71, with: colorScheme) )
 
-                ScrollView {
-                    Text("Today")
-                        .design(padding: .big([.top, .bottom]))
-                    ForEach(model.messages) { message in
-                        MessageBubble(
-                            geometry: geometry,
-                                      message: message,
-                                      buttonAction: {
-                                          guard let att = message.attachments.first else { return }
-                                          Task { @MainActor in
-                                              let data = try await model.download(att)
-                                              self.imageData = (data: data, attachment: att)
-                                              isAttachmentPresented.toggle()
-                                          }
-                                      }
-                        )
-                        MessageSpacer()
+                ScrollViewReader { proxy in
+                    ScrollView {
+                        Text("Today")
+                            .design(padding: .big([.top, .bottom]))
+
+                        VStack {
+                            ForEach(model.messages) { message in
+                                MessageBubble(
+                                    geometry: geometry,
+                                    message: message,
+                                    buttonAction: {
+                                        guard let att = message.attachments.first else { return }
+                                        Task { @MainActor in
+                                            let data = try await model.download(att)
+                                            self.imageData = (data: data, attachment: att)
+                                            isAttachmentPresented.toggle()
+                                        }
+                                    }
+                                )
+                                .id(message)
+                                MessageSpacer()
+                            }
+                        }
+                        .scrollTargetLayout()
                     }
-                }.sheet(isPresented: $isAttachmentPresented, content: {
+                    .scrollPosition(id: $model.scrolledMessage, anchor: .bottom)
+                    .onChange(of: model.messages) {
+                        if let msg = model.messages.last {
+                            proxy.scrollTo(msg, anchor: .bottom)
+                        }
+                    }
+                    .onAppear {
+                        if let msg = model.messages.last {
+                            proxy.scrollTo(msg, anchor: .bottom)
+                        }
+                    }
+                }
+                .sheet(isPresented: $isAttachmentPresented, content: {
                     if let data = $imageData.wrappedValue {
                         AttatchmentView(
                             data:data.data,
