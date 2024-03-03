@@ -4,6 +4,7 @@ import Observation
 
 import AliasWonderland
 import Collections
+import HTTPTypes
 import Onion
 import OptionalAPI
 import SweetBool
@@ -198,19 +199,21 @@ extension MessageCenterRepository {
     }
 
     @discardableResult
-    func send(_ message: String, threadId: String) async throws -> Message {
+    func send(_ message: String, thread: MessageCenterThread) async throws {
 
         let body = PostMessageInThread.Body(
             text: message,
             attachments: .none
         )
 
-        let request = PostMessageInThread(threadId: threadId, body: body)
+        let request = PostMessageInThread(threadId: thread.id, body: body)
 
-        let (result, _) = try await networkingHandler.run(request)
+        let (result, _): (Message, HTTPResponse) = try await networkingHandler.run(request)
 
-        return result
+        var threadMessages: SortedArray<Message> = messages.removeValue(forKey: thread) ?? .empty
+        threadMessages.insert(result)
 
+        messages.updateValue(threadMessages, forKey: thread)
     }
 
 }

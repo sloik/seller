@@ -38,7 +38,7 @@ extension MessageDetailChatModel {
     func sendMessageInThread() async {
         guard conversationMessage.isEmpty.isFalse else { return }
 
-        try? await messageCenter.send(conversationMessage, threadId: thread.id)
+        try? await messageCenter.send(conversationMessage, thread: thread)
 
         conversationMessage = ""
     }
