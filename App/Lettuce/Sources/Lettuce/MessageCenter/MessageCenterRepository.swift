@@ -209,10 +209,11 @@ extension MessageCenterRepository {
 
         let (result, _): (Message, HTTPResponse) = try await networkingHandler.run(request)
 
-        var threadMessages: SortedArray<Message> = messages.removeValue(forKey: thread) ?? .empty
-        threadMessages.insert(result)
-
-        messages.updateValue(threadMessages, forKey: thread)
+        if messages.keys.contains(thread) {
+            messages[thread]?.insert(result)
+        } else {
+            messages[thread] = .init(unsorted: [result])
+        }
     }
 
 }
