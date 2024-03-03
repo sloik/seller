@@ -6,6 +6,10 @@ public protocol Paginated {
     var limit: Int { get }
 }
 
+extension Paginated {
+    static var defaultLimit: Int { 20 }
+}
+
 public extension Paginated {
     var paginationQueryItems: [URLQueryItem] {
         [
