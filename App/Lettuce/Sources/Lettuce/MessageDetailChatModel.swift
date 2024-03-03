@@ -44,4 +44,8 @@ extension MessageDetailChatModel {
 
         conversationMessage = ""
     }
+
+    func loadOlderMessagesForThread() async {
+        try? await messageCenter.loadOlderMessages(thread)
+    }
 }

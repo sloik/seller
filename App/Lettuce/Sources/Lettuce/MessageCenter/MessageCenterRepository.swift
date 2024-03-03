@@ -216,4 +216,8 @@ extension MessageCenterRepository {
         }
     }
 
+    func loadOlderMessages(_ thread: MessageCenterThread) async throws {
+
+    }
+
 }

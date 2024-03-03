@@ -62,6 +62,9 @@ struct MessageDetailNavigationView: View {
                             proxy.scrollTo(msg, anchor: .bottom)
                         }
                     }
+                    .refreshable {
+                        await model.loadOlderMessagesForThread()
+                    }
                 }
                 .sheet(isPresented: $isAttachmentPresented, content: {
                     if let data = $imageData.wrappedValue {
