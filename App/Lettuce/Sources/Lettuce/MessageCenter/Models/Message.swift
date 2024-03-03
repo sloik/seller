@@ -4,6 +4,9 @@ import Foundation
 // local
 import Onion
 
+import OptionalAPI
+import Zippy
+
 /// https://developer.allegro.pl/documentation#operation/getMessageGET
 struct Message: ContentType, Identifiable {
     let id: String
@@ -45,4 +48,14 @@ struct Message: ContentType, Identifiable {
         let vin: String?
     }
     let additionalInformation: AdditionalInformation?
+}
+
+extension Message: Comparable {
+
+    // Try to compare dates first and then later string as fallback
+    static func < (lhs: Message, rhs: Message) -> Bool {
+        zip( lhs.createdAt.isoDate, rhs.createdAt.isoDate )
+            .map( < )
+            .or( lhs.createdAt < rhs.createdAt )
+    }
 }
