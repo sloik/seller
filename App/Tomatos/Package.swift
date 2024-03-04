@@ -24,7 +24,6 @@ let package = Package(
             from: "1.9.1"
         ),
 
-        .package(path: "../Onion"),
         .package(path: "../Utilities"),
 
         .package(
@@ -51,6 +50,12 @@ let package = Package(
             url: "https://github.com/sloik/ExTests.git",
             from: "0.1.2"
         ),
+
+        .package(
+            url: "https://github.com/sloik/Onion.git",
+            branch: "main"
+        ),
+
     ],
 
 

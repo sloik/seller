@@ -22,7 +22,6 @@ let package = Package(
     dependencies: [
         .package(path: "../Lentil"),
         .package(path: "../Utilities"),
-        .package(path: "../Onion"),
 
         .package(
             url: "https://github.com/sloik/SweetBool.git",
@@ -37,6 +36,11 @@ let package = Package(
         .package(
             url: "https://github.com/apple/swift-http-types.git",
             from: "1.0.2"
+        ),
+
+        .package(
+            url: "https://github.com/sloik/Onion.git",
+            branch: "main"
         ),
     ],
 

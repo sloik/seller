@@ -24,7 +24,10 @@ let package = Package(
 
         .package(path: "../KeychainWrapper"),
 
-        .package(path: "../Onion"),
+        .package(
+            url: "https://github.com/sloik/Onion.git",
+            branch: "main"
+        ),
 
         .package(
             url: "https://github.com/sloik/AliasWonderland.git",

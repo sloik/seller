@@ -37,7 +37,7 @@ final class ResponseMessageTests: XCTestCase {
           "attachments": [
             {
               "fileName": "string",
-              "mimeType": "string",
+              "mimeType": "image/jpeg",
               "url": "string",
               "status": "NEW"
             }
@@ -70,7 +70,7 @@ final class ResponseMessageTests: XCTestCase {
             hasAdditionalAttachments: false,
             attachments: [Attachment(
                 fileName: "string",
-                mimeType: "string",
+                mimeType: .imageJpeg,
                 urlString: "string",
                 status: Attachment.Status.new)],
             additionalInformation: Message.AdditionalInformation(

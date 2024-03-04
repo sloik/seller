@@ -25,7 +25,6 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../Utilities"),
-        .package(path: "../Onion"),
         .package(path: "../SecretsStore"),
         .package(path: "../Lettuce"),
         .package(path: "../Acorn"),
@@ -34,6 +33,11 @@ let package = Package(
         .package(
             url: "https://github.com/sloik/OptionalAPI.git",
             from: "5.2.0"
+        ),
+
+        .package(
+            url: "https://github.com/sloik/Onion.git",
+            branch: "main"
         ),
     ],
     targets: [

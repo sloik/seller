@@ -26,13 +26,6 @@
     },
     {
       "target" : {
-        "containerPath" : "container:..\/Seller",
-        "identifier" : "SellerTests",
-        "name" : "SellerTests"
-      }
-    },
-    {
-      "target" : {
         "containerPath" : "container:..\/Acorn",
         "identifier" : "AcornTests",
         "name" : "AcornTests"
@@ -54,16 +47,16 @@
     },
     {
       "target" : {
-        "containerPath" : "container:..\/Onion",
-        "identifier" : "OnionTests",
-        "name" : "OnionTests"
+        "containerPath" : "container:..\/SecretsStore",
+        "identifier" : "SecretsStoreTests",
+        "name" : "SecretsStoreTests"
       }
     },
     {
       "target" : {
-        "containerPath" : "container:..\/SecretsStore",
-        "identifier" : "SecretsStoreTests",
-        "name" : "SecretsStoreTests"
+        "containerPath" : "container:..\/Seller",
+        "identifier" : "SellerTests",
+        "name" : "SellerTests"
       }
     },
     {

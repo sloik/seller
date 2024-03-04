@@ -69,7 +69,7 @@ final class WriteNewMessageRequestTests: XCTestCase {
           "attachments": [
             {
               "fileName": "string",
-              "mimeType": "string",
+              "mimeType": "image/jpeg",
               "url": "string",
               "status": "NEW"
             }
@@ -99,7 +99,7 @@ final class WriteNewMessageRequestTests: XCTestCase {
             hasAdditionalAttachments: false,
             attachments: [Attachment(
                 fileName: "string",
-                mimeType: "string",
+                mimeType: .imageJpeg,
                 urlString: "string",
                 status: .new)],
             additionalInformation: WriteNewMessageRequest.Output.AdditionalInformation(

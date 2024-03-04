@@ -1,6 +1,7 @@
 
 import SwiftUI
 import UniformTypeIdentifiers
+import Utilities
 
 struct DetailFormView: View {
 

@@ -46,6 +46,15 @@
       }
     },
     {
+      "identity" : "onion",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sloik/Onion.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "fcee2deef0f399d6f9ec0098c4603924b3eab36d"
+      }
+    },
+    {
       "identity" : "optionalapi",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/sloik/OptionalAPI.git",
@@ -93,7 +102,7 @@
     {
       "identity" : "swift-collections",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-collections",
+      "location" : "https://github.com/apple/swift-collections.git",
       "state" : {
         "revision" : "94cf62b3ba8d4bed62680a282d4c25f9c63c2efb",
         "version" : "1.1.0"

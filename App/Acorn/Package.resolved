@@ -28,6 +28,15 @@
       }
     },
     {
+      "identity" : "onion",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sloik/Onion.git",
+      "state" : {
+        "revision" : "95d1e559833df57208b5a91c422990974df9fc2c",
+        "version" : "0.0.1"
+      }
+    },
+    {
       "identity" : "optionalapi",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/sloik/OptionalAPI.git",
