@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/sloik/Onion.git",
       "state" : {
-        "revision" : "95d1e559833df57208b5a91c422990974df9fc2c",
-        "version" : "0.0.1"
+        "branch" : "main",
+        "revision" : "fcee2deef0f399d6f9ec0098c4603924b3eab36d"
       }
     },
     {
@@ -68,8 +68,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-http-types.git",
       "state" : {
-        "revision" : "1827dc94bdab2eb5f2fc804e9b0cb43574282566",
-        "version" : "1.0.2"
+        "revision" : "12358d55a3824bd5fed310b999ea8cf83a9a1a65",
+        "version" : "1.0.3"
       }
     },
     {
