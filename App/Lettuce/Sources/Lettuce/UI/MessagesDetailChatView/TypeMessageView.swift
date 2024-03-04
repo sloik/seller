@@ -19,6 +19,14 @@ internal struct TypeMessageView: View {
             VStack {
                 Divider()
                 HStack(spacing: 0) {
+
+                    Button(action: {
+                        print("Attachment clicked")
+                    }, label: {
+                        Image(systemName: "paperclip")
+                            .design(padding: .large(.horizontal))
+                    })
+
                     TextField("Type a message", text: $model.conversationMessage, axis: .vertical)
                         .lineLimit(model.conversationLineLimit)
                         .design(padding: .large(.leading))
