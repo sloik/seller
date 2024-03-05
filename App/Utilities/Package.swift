@@ -22,7 +22,7 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/pointfreeco/swift-snapshot-testing",
-            from: "1.15.3"
+            from: "1.15.4"
         ),
 
         .package(
