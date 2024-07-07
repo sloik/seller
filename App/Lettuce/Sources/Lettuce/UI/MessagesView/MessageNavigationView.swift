@@ -14,7 +14,7 @@ struct MessageNavigationView: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack(spacing: 0) {
-                Text("Wiadomości")
+                Text(String.localized("messages"))
                     .font(.custom("SF Pro Display", size: 28))
                     .fontWeight(.medium)
                     .design(padding: .custom(edges: .leading, length: 28))

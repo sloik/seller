@@ -28,7 +28,7 @@ extension ThreadPreview: View {
                     VStack(spacing: 0) {
                         HStack(spacing: 0) {
                             VStack(spacing: 0) {
-                                Text( model.thread.interlocutor?.login ?? "Unknown" )
+                                Text( model.thread.interlocutor?.login ?? String.localized("unknown"))
                                     .font(.custom("SF Pro Display", fixedSize: 17))
                                     .frame(maxWidth: .infinity, alignment: .leading)
 

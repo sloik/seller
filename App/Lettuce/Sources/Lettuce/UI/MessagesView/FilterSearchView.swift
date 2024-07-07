@@ -62,14 +62,14 @@ struct FilterSearchView: View {
         
         var body: some View {
             VStack(spacing: 0) {
-                Text("Filtruj")
+                Text(String.localized("filter"))
                     .design(typography: .label(weight: .semibold))
                     .design(padding: .hugger(.top))
                     .design(padding: .small(.bottom))
                 HStack {
                     Image("searchGlyphIcon")
                         .design(padding: .smaller(.leading))
-                    TextField("Nazwa klienta (login Allegro)", text: $model.searchFilterTextField)
+                    TextField(String.localized("client_name_login"), text: $model.searchFilterTextField)
                 }
                 .frame(height: 36)
                 .background(
@@ -102,14 +102,14 @@ struct FilterSearchView: View {
                                    action: { model.showingFilterSearchPopup.toggle() },
                                    backgroundColor: .design(color: .mediumGray, with: colorScheme),
                                    foregroundColor: .black,
-                                   title: "Anuluj")
+                                   title: String.localized("cancel"))
                 Spacer()
                     .frame(width: geometry.size.width * 0.1)
                 FilterActionButton(geometry: geometry,
                                    action: { },
                                    backgroundColor: .black,
                                    foregroundColor: .white,
-                                   title: "Filtruj")
+                                   title: String.localized("filter"))
             }
             .padding(.bottom, 42)
         }
