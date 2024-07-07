@@ -41,8 +41,8 @@ class ThreadsModel {
     }
 
     var filterTypes = [
-        MessagesFilterType(title: "Nieprzeczytane", isChecked: false),
-        MessagesFilterType(title: "Bez odpowiedzi", isChecked: false)
+        MessagesFilterType(title: String.localized("unread"), isChecked: false),
+        MessagesFilterType(title: String.localized("unanswered"), isChecked: false)
     ]
 
     init(

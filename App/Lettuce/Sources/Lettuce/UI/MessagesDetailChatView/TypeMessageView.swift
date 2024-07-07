@@ -25,7 +25,7 @@ internal struct TypeMessageView: View {
                 AddAttachmentView()
                     .frame(width: 30)
 
-                TextField("Type a message", text: $model.conversationMessage, axis: .vertical)
+                TextField(String.localized("type_message"), text: $model.conversationMessage, axis: .vertical)
                     .lineLimit(model.conversationLineLimit)
                     .design(padding: .bigger(.leading))
                     .fixedSize(horizontal: false, vertical: true)
@@ -45,13 +45,13 @@ internal struct TypeMessageView: View {
 struct AddAttachmentView: View {
     var body: some View {
         Menu {
-            Button("Camera") {
+            Button(String.localized("camera")) {
                 print("Camera clicked")
             }
-            Button("Photo Library") {
+            Button(String.localized("photo_library")) {
                 print("Photo Library clicked")
             }
-            Button("Document") {
+            Button(String.localized("document")) {
                 print("Document clicked")
             }
         } label: {

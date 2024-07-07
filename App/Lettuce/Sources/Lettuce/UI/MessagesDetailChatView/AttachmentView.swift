@@ -29,7 +29,7 @@ internal struct AttatchmentView: View {
     struct UuuupsView: View {
         var body: some View {
             VStack {
-                Text("Upppps we can not opent that type of attachement")
+                Text(String.localized("we_cannot_open_attachment"))
             }
         }
     }

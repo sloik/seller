@@ -39,13 +39,13 @@ struct ThreadsView: View {
                                     Button {
                                         model.markAsRead(thread)
                                     } label: {
-                                        Label("Mark as read", systemImage: "checkmark.message.fill")
+                                        Label(String.localized("mark_as_read"), systemImage: "checkmark.message.fill")
                                     }
                                 } else {
                                     Button {
                                         model.markAsUnread(thread)
                                     } label: {
-                                        Label("Mark as unread", systemImage: "checkmark.message")
+                                        Label(String.localized("mark_as_unread"), systemImage: "checkmark.message")
                                     }
                                 }
                             }

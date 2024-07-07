@@ -390,11 +390,12 @@
 			};
 			buildConfigurationList = 64078B232A87B72A00877322 /* Build configuration list for PBXProject "AlleSeller" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = pl;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
+				cs,
+				pl,
 			);
 			mainGroup = 64078B1F2A87B72A00877322;
 			packageReferences = (
