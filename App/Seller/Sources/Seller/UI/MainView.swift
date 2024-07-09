@@ -23,15 +23,15 @@ struct MainView: View {
             Group {
                 lettuceFactory.makeEntryView(refresh: didGotToken)
                     .tabItem {
-                        TabBarIcon(imageName: "messageTabIcon", titleName: "Wiadomości")
+                        TabBarIcon(imageName: "messageTabIcon", titleName: String.localized("messages"))
                     }
                 tomatosFactory.makeEntryView()
                     .tabItem {
-                        TabBarIcon(imageName: "orderTabIcon", titleName: "Zamówienia")
+                        TabBarIcon(imageName: "orderTabIcon", titleName: String.localized("orders"))
                     }
                 acornFactory.makeEntryView()
                     .tabItem {
-                        TabBarIcon(imageName: "accountTabIcon", titleName: "Konto")
+                        TabBarIcon(imageName: "accountTabIcon", titleName: String.localized("account"))
                     }
             }
         }
