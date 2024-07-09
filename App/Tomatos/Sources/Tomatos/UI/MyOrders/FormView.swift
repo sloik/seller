@@ -31,16 +31,17 @@ struct FormView: View {
 
         switch form.status {
         case .bought:
-            "Nieopłacony"
+            String.localized("unpaid")
 
         case .filledIn:
-            "Wypełniony"
+            String.localized("filled")
 
         case .readyForProcessing:
-            "Opłacone"
+            String.localized("paid")
 
         case .cancelled:
-            "Płatność anulowana"
+            String.localized("cancelled_payment")
+
         }
 
     }
@@ -50,7 +51,7 @@ struct FormView: View {
             VStack(alignment: .leading, spacing: 0) {
                 offer
                     .map(\.name)
-                    .or( "NO OFFER NAME" )
+                    .or( String.localized("no_offer_name") )
                     .multilineTextAlignment(.leading)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .lineLimit(3)
@@ -59,19 +60,19 @@ struct FormView: View {
                 HStack(spacing: 8) {
 
                     VStack(alignment: .leading, spacing: 0) {
-                        "Klient"
+                        String.localized("client")
                             .design(typography: .body(weight: .regular))
                             .lineLimit(1)
 
                             .frame(alignment: .leading)
 
-                        "Otrzymane"
+                        String.localized("received")
                             .design(typography: .body(weight: .regular))
                             .lineLimit(1)
 
                             .frame(alignment: .leading)
 
-                        "Zamówienie"
+                        String.localized("order")
                             .design(typography: .body(weight: .regular))
                             .lineLimit(1)
 

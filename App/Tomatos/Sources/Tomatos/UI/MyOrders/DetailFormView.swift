@@ -33,16 +33,16 @@ struct DetailFormView: View {
 
         switch form.status {
         case .bought:
-            "Nieopłacony"
+            String.localized("unpaid")
 
         case .filledIn:
-            "Wypełniony"
+            String.localized("filled")
 
         case .readyForProcessing:
-            "Opłacone"
+            String.localized("paid")
 
         case .cancelled:
-            "Płatność anulowana"
+            String.localized("cancelled_payment")
         }
 
     }
@@ -92,32 +92,32 @@ struct DetailFormView: View {
             VStack(spacing: 0) {
                 FormView(form: form, offer: offer)
 
-                OrderDetailTitle(title: "Dane kupującgo")
+                OrderDetailTitle(title: String.localized("buyer_data"))
 
                 VStack(spacing: 0) {
-                    OrderDetailRow(title: "Imię i nazwisko", text: client)
+                    OrderDetailRow(title: String.localized("name_surname"), text: client)
                     Divider()
-                    OrderDetailRow(title: "Ulica", text: street)
+                    OrderDetailRow(title: String.localized("street"), text: street)
                     Divider()
-                    OrderDetailRow(title: "Kod pocztowy", text: postalCode)
+                    OrderDetailRow(title: String.localized("zip_code"), text: postalCode)
                     Divider()
-                    OrderDetailRow(title: "Miasto", text: city)
+                    OrderDetailRow(title: String.localized("city"), text: city)
                     Divider()
-                    OrderDetailRow(title: "Nr telefonu", text: phoneNumber)
+                    OrderDetailRow(title: String.localized("phone_number"), text: phoneNumber)
                     Divider()
-                    OrderDetailRow(title: "E-mail", text: email)
+                    OrderDetailRow(title: String.localized("email"), text: email)
                     Divider()
                 }.padding(.all, 16)
 
-                OrderDetailTitle(title:  "Dane dostawy")
+                OrderDetailTitle(title:  String.localized("delivery_details"))
 
-                OrderDetailRow(title: "Czas wysyłki", text: timeOfShipment)
+                OrderDetailRow(title: String.localized("time_of_shipment"), text: timeOfShipment)
                 Divider()
-                OrderDetailRow(title: "Czas dostawy", text: timeOfDelivery)
+                OrderDetailRow(title: String.localized("time_of_delivery"), text: timeOfDelivery)
                 Divider()
-                OrderDetailRow(title: "Pickup point", text: pickupPoint)
+                OrderDetailRow(title: String.localized("pickup_point"), text: pickupPoint)
                 Divider()
-                OrderDetailRow(title: "Czas wysyłki 2", text: timeOfShipment2)
+                OrderDetailRow(title:  String.localized("shipping_time2"), text: timeOfShipment2)
                 Divider()
             }
             .background(.design(color: .gray91, with: colorScheme))
@@ -153,7 +153,7 @@ struct OrderDetailRow: View {
                         UIPasteboard.general.setValue(text,
                                                       forPasteboardType: UTType.plainText.identifier)
                     } label: {
-                        Label("Skopiuj do schowka", systemImage: "doc.on.doc")
+                        Label(String.localized("copy_to_clipboard"), systemImage: "doc.on.doc")
                     }
                 }
                 .background(Color.white)
