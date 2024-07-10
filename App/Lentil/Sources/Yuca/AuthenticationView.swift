@@ -59,15 +59,15 @@ package struct AuthenticationView: View {
         }
         .alert(isPresented: $showError) {
             Alert(
-                title: Text("Error"),
+                title: Text(String.localized("error")),
                 message: Text(String(describing: showedError!)),
                 dismissButton: .default(
-                    Text("Ok"),
+                    Text(String.localized("ok")),
                     action: { didLogin( self.showedError ) }
                 )
             )
         }
-        .navigationTitle("Login...")
+        .navigationTitle(String.localized("login"))
     }
 }
 
