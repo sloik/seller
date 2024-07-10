@@ -9,19 +9,19 @@ struct LoginView: View {
 
     public var body: some View {
         VStack(spacing: 0) {
-            "Seller"
+            String.localized("seller")
             Spacer()
-            "Wymagane konto"
+            String.localized("required_account_1")
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .design(typography: .bigTitle(weight: .heavy))
-            "Sprzedawcy Allegro"
+            String.localized("required_account_2")
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .design(typography: .bigTitle(weight: .heavy))
             Spacer()
             Button(action: {
                 model.didTapLogin()
             }, label: {
-                "Zaloguj się"
+                String.localized("log_in")
                     .frame(maxWidth: .infinity)
                     .padding()
                     .foregroundColor(.white)
@@ -43,12 +43,12 @@ struct LoginView: View {
             }
             Spacer()
 
-            Text("Przystępując do logowania,")
+            Text(String.localized("login_terms_1"))
                 .frame(maxWidth: .infinity, alignment: .leading)
-            Text("akceptujesz \(Text("[warunki użytkowania](https://www.google.com/)").underline()) \(Text("z aplikacji Seller."))")
+            Text("\(String.localized("login_terms_2"))\(Text("[\(String.localized("login_terms_3"))](https://www.google.com/)").underline()) \(Text(String.localized("login_terms_4")))")
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.bottom, 34)
-            Text("[Warunki użytkowania](https://www.google.com/)").underline()
+            Text("[\(String.localized("terms_and_conditions"))](https://www.google.com/)").underline()
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.bottom, 34)
         }
