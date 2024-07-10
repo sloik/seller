@@ -8,7 +8,7 @@ struct UserProfileView: View {
 
         VStack {
 
-            UserAvatarView(login: model.user?.login ?? "Unknown")
+            UserAvatarView(login: model.user?.login ?? String.localized("unknown"))
 
             List {
 
@@ -25,7 +25,7 @@ struct UserProfileView: View {
                                 .foregroundColor(Color(.systemGray4))
                             #endif
 
-                            "Option \(option)"
+                            "\(String.localized("option")) \(option)"
                         }
                     }
 
@@ -33,7 +33,7 @@ struct UserProfileView: View {
                 }
 
                 Section {
-                    Button("Logout", action: model.didTapLogout)
+                    Button(String.localized("logout"), action: model.didTapLogout)
                 }
                 .foregroundColor(.red)
             }
