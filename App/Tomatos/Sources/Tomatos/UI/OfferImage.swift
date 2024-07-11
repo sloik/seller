@@ -10,10 +10,12 @@ struct OfferImage: View {
             content: { image in
                 image
                     .resizable()
+                    .frame(width: 64, height: 64)
                     .aspectRatio(contentMode: .fit)
             },
             placeholder: {
                 ProgressView()
+                    .frame(width: 64, height: 64)
             }
         )
     }

@@ -7,6 +7,7 @@ import OptionalAPI
 struct MyOrdersView {
 
     private let store: StoreOf<OrdersFeature>
+    @Environment(\.colorScheme) private var colorScheme
 
     init(store: StoreOf<OrdersFeature>) {
         self.store = store
@@ -15,28 +16,30 @@ struct MyOrdersView {
 
 extension MyOrdersView: View {
     public var body: some View {
-
         NavigationStack {
+            ZStack {
+                Color(.design(color: .gray92, with: colorScheme))
+                    .ignoresSafeArea(.all)
 
-            ScrollView {
+                ScrollView {
+                    VStack(spacing: 0) {
+                        ForEach(store.forms) { (form: CheckoutForm) in
+                            NavigationLink {
+                                DetailFormView(
+                                    form: form,
+                                    offer: store.state.sellerOffer(for: form)
+                                )
+                            } label: {
+                                let offer: SellersOffer? = store.state.sellerOffer(for: form)
 
-                VStack(spacing: 0) {
-
-                    ForEach(store.forms) { (form: CheckoutForm) in
-                        NavigationLink {
-                            DetailFormView(
-                                form: form,
-                                offer: store.state.sellerOffer(for: form)
-                            )
-                        } label: {
-                            let offer: SellersOffer? = store.state.sellerOffer(for: form)
-
-                            FormView(
-                                form: form,
-                                offer: offer
-                            )
+                                FormView(
+                                    form: form,
+                                    offer: offer
+                                )
+                                .padding(.bottom, 8)
+                                .padding(.horizontal, 16)
+                            }
                         }
-
                     }
                 }
             }
