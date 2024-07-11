@@ -6,6 +6,12 @@ extension DesignSystem {
     /// Typography.
     public enum Typography {
 
+        /// Smaller than regilar abel.
+        case smallerLabel(weight: Font.Weight = .regular)
+
+        /// Smaller than regilar abel.
+        case mediumLabel(weight: Font.Weight = .regular)
+
         /// Smaller than label.
         case body(weight: Font.Weight = .regular)
 
@@ -24,6 +30,11 @@ extension DesignSystem.Typography {
 
     var designFont: Font {
         switch self {
+        case .smallerLabel(let weight):
+            font(weight: weight, size: 11)
+
+        case .mediumLabel(weight: let weight):
+            font(weight: weight, size: 12)
 
         case .body(let weight):
             font(weight: weight, size: 13)

@@ -9,6 +9,8 @@ extension DesignSystem {
 
         case mediumGray
 
+        case gray111213
+
         case gray2426
 
         case gray55
@@ -22,6 +24,8 @@ extension DesignSystem {
         case gray91
 
         case gray92
+
+        case gray95
     }
 }
 
@@ -31,6 +35,12 @@ extension DesignSystem.Color {
     func with(_ scheme: ColorScheme) -> SwiftUI.Color {
 
         switch self {
+        case .gray111213:
+            return scheme.transform(
+                dark: SwiftUI.Color(red: 0.11, green: 0.12, blue: 0.13),
+                light: SwiftUI.Color(red: 0.11, green: 0.12, blue: 0.13)
+            )
+
         case .gray2426:
             return scheme.transform(
                 dark: SwiftUI.Color(red: 0.24, green: 0.24, blue: 0.26),
@@ -83,6 +93,12 @@ extension DesignSystem.Color {
             return scheme.transform(
                 dark: SwiftUI.Color(red: 0.91, green: 0.91, blue: 0.91),
                 light: SwiftUI.Color(red: 0.91, green: 0.91, blue: 0.91)
+            )
+
+        case .gray95:
+            return scheme.transform(
+                dark: SwiftUI.Color(red: 0.95, green: 0.95, blue: 0.95),
+                light: SwiftUI.Color(red: 0.95, green: 0.95, blue: 0.95)
             )
         }
     }
