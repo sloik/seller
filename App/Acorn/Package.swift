@@ -35,7 +35,7 @@ let package = Package(
 
         .package(
             url: "https://github.com/apple/swift-http-types.git",
-            from: "1.3.0"
+            from: "1.3.1"
         ),
 
         .package(
