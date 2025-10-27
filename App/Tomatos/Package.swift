@@ -21,7 +21,7 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/pointfreeco/swift-composable-architecture",
-            from: "1.20.2"
+            from: "1.23.1"
         ),
 
         .package(path: "../Utilities"),
