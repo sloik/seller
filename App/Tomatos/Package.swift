@@ -43,7 +43,7 @@ let package = Package(
 
         .package(
             url: "https://github.com/sloik/OptionalAPI.git",
-            from: "5.2.0"
+            from: "6.0.0"
         ),
 
         .package(
