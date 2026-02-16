@@ -61,7 +61,7 @@ let package = Package(
 
         .package(
           url: "https://github.com/apple/swift-collections.git",
-          .upToNextMajor(from: "1.2.0")
+          .upToNextMajor(from: "1.3.0")
         ),
 
     ],
