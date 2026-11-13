@@ -25,7 +25,7 @@ let package = Package(
 
         .package(
             url: "https://github.com/sloik/SweetBool.git",
-            from: "1.1.3"
+            from: "1.1.4"
         ),
 
         .package(
