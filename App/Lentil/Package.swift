@@ -46,7 +46,7 @@ let package = Package(
 
         .package(
             url: "https://github.com/sloik/SweetURL.git",
-            from: "0.0.8"
+            from: "0.0.9"
         ),
 
         .package(
